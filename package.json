@@ -1,0 +1,14 @@
+{
+  "name": "budget_tracker",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx http-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
