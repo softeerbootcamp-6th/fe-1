@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HELLO WORLD</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        margin: 0;
+        font-family: "Montserrat", Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        padding: 40px 32px;
+        max-width: 350px;
+        text-align: center;
+        transition: box-shadow 0.3s;
+      }
+      .card:hover {
+        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+      }
+      .card h1 {
+        color: #5566dd;
+        margin-bottom: 18px;
+        font-size: 2.2rem;
+        letter-spacing: -1px;
+      }
+      .card p {
+        color: #444;
+        font-size: 1.1rem;
+        margin-bottom: 28px;
+      }
+      .card button {
+        background: linear-gradient(90deg, #5566dd 0%, #6ec6ff 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 28px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(86, 102, 221, 0.08);
+        transition: background 0.2s;
+      }
+      .card button:hover {
+        background: linear-gradient(90deg, #6ec6ff 0%, #5566dd 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>HELLO WORLD!</h1>
+      <p>HTML과 CSS만으로 쉽게 꾸밀 수 있어요.</p>
+      <button>더 알아보기</button>
+    </div>
+  </body>
+</html>
