@@ -1,0 +1,19 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx serve -p 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yyeonzu/fe-1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yyeonzu/fe-1/issues"
+  },
+  "homepage": "https://github.com/yyeonzu/fe-1#readme"
+}
