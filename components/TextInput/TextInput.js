@@ -1,14 +1,12 @@
-const TextInput = (options = {}) => {
-  const {
-    type = "default", // 'default' | 'textAreaOnly'
-    state = "enabled", // 'enabled' | 'active' | 'disabled' | 'error'
-    placeholder = "",
-    value = "",
-    onChange = null,
-    onFocus = null,
-    onBlur = null,
-  } = options;
-
+const TextInput = ({
+  type = "default", // 'default' | 'textAreaOnly'
+  state = "enabled", // 'enabled' | 'active' | 'disabled' | 'error'
+  placeholder = "",
+  value = "",
+  onChange = null,
+  onFocus = null,
+  onBlur = null,
+} = {}) => {
   // 입력 요소 생성
   const inputElement = document.createElement("input");
   inputElement.type = "text";

@@ -1,6 +1,4 @@
-const CheckBox = (options = {}) => {
-  const { label, checked = false, onChange = null } = options;
-
+const CheckBox = ({ label, checked = false, onChange = null } = {}) => {
   const checkboxContainer = document.createElement("div");
   checkboxContainer.className = "checkbox-container";
 

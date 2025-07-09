@@ -1,11 +1,9 @@
-const Button = (options = {}) => {
-  const {
-    icon = null,
-    label = null,
-    size = "medium", // 'small', 'medium', 'large'
-    onClick = null,
-  } = options;
-
+const Button = ({
+  icon = null,
+  label = null,
+  size = "medium", // 'small', 'medium', 'large'
+  onClick = null,
+} = {}) => {
   const button = document.createElement("button");
   button.className = `button button--${size}`;
 
