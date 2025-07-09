@@ -1,3 +1,15 @@
+/**
+ * CheckBox 컴포넌트
+ *
+ * // 기본 사용법
+ * const checkbox = CheckBox({
+ *   label: '동의',
+ *   checked: true,
+ *   onChange: () => alert('체크됨!')
+ * });
+ *
+ * document.body.appendChild(checkbox);
+ */
 const CheckBox = ({ label, checked = false, onChange = null } = {}) => {
   const checkboxContainer = document.createElement("div");
   checkboxContainer.className = "checkbox-container";
@@ -52,13 +64,3 @@ const CheckBox = ({ label, checked = false, onChange = null } = {}) => {
 };
 
 export default CheckBox;
-
-const checkbox = CheckBox({
-  label: "동의합니다",
-  checked: false,
-  onChange: (checked) => {
-    console.log("Checkbox changed:", checked);
-  },
-});
-
-document.querySelector(".checkbox-component").appendChild(checkbox);

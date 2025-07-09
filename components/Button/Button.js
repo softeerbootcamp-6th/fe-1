@@ -1,3 +1,16 @@
+/**
+ * Button 컴포넌트
+ *
+ * // 기본 사용법
+ * const btn = Button({
+ *   icon: './assets/icons/check.svg',
+ *   label: '확인',
+ *   size: 'large',
+ *   onClick: () => alert('클릭됨!')
+ * });
+ *
+ * document.body.appendChild(btn);
+ */
 const Button = ({
   icon = null,
   label = null,
@@ -50,14 +63,3 @@ const Button = ({
 };
 
 export default Button;
-
-const button = Button({
-  icon: "./assets/icons/check.svg",
-  label: "Button",
-  size: "large",
-  onClick: () => {
-    console.log("Button clicked");
-  },
-});
-
-document.querySelector(".button-component").appendChild(button);
