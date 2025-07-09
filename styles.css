@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+}
+
+/* 헤더 스타일 */
+header {
+  margin: 40px auto;
+  width: 846px;
+  height: 112px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #73a4d0;
+  height: 216px;
+  width: 100%;
+  z-index: -1;
+  border-bottom: 1px solid #000;
+}
+
+/* 정렬 방식 */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-bar {
+  margin: 40px auto;
+  width: 846px;
+  height: 112px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #fff;
+  border: 1px solid #000;
+}
+
+.container {
+  width: 846px;
+  margin: 40px auto;
+}
