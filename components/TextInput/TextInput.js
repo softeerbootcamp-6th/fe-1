@@ -1,4 +1,4 @@
-function createTextInput(options = {}) {
+const TextInput = (options = {}) => {
   const {
     type = "default", // 'default' | 'textAreaOnly'
     state = "enabled", // 'enabled' | 'active' | 'disabled' | 'error'
@@ -35,10 +35,12 @@ function createTextInput(options = {}) {
   }
 
   return inputElement;
-}
+};
+
+export default TextInput;
 
 // 기본 input
-const defaultInput = createTextInput({
+const defaultInput = TextInput({
   label: "이름",
   placeholder: "이름을 입력하세요",
   state: "enabled",
@@ -46,7 +48,7 @@ const defaultInput = createTextInput({
 });
 
 // textarea
-const textarea = createTextInput({
+const textarea = TextInput({
   type: "textAreaOnly",
   label: "설명",
   placeholder: "설명을 입력하세요",

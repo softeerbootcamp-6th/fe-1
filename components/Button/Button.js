@@ -1,4 +1,4 @@
-function createButton(options = {}) {
+const Button = (options = {}) => {
   const {
     icon = null,
     label = null,
@@ -49,9 +49,11 @@ function createButton(options = {}) {
   }
 
   return button;
-}
+};
 
-const button = createButton({
+export default Button;
+
+const button = Button({
   icon: "./assets/icons/check.svg",
   label: "Button",
   size: "large",

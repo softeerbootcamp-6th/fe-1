@@ -1,4 +1,4 @@
-function createCheckBox(options = {}) {
+const CheckBox = (options = {}) => {
   const { label, checked = false, onChange = null } = options;
 
   const checkboxContainer = document.createElement("div");
@@ -51,9 +51,11 @@ function createCheckBox(options = {}) {
   checkboxIcon.addEventListener("click", (e) => handelToggleCheckbox(e));
 
   return checkboxContainer;
-}
+};
 
-const checkbox = createCheckBox({
+export default CheckBox;
+
+const checkbox = CheckBox({
   label: "동의합니다",
   checked: false,
   onChange: (checked) => {
