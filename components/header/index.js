@@ -4,7 +4,7 @@ export default function addHeaderHTML() {
     $header.innerHTML += `
     <div id="header-wrapper">
         <h1 id="main-title">Wise Wallet</h1>
-        <div id="center-wrrapper">
+        <div id="center-wrapper">
             <button>
                 <img
                     aria-label="왼쪽 버튼"

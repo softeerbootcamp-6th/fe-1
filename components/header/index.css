@@ -3,7 +3,7 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #73a4d0;
+    background-color: var(--colorchip-80);
     height: 216px;
 }
 
@@ -27,11 +27,26 @@ header h1 {
     margin-right: 4px;
 }
 
-#center-wrrapper {
+#center-wrapper {
     display: flex;
     height: 112px;
     width: 232px;
     justify-content: space-between;
+}
+
+#center-wrapper button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+#center-wrapper button:hover {
+    background-color: var(--neutral-surface-default);
+    border-radius: 100%;
+    cursor: pointer;
 }
 
 #location {
@@ -46,9 +61,13 @@ header h1 {
 }
 
 #location :nth-child(2) {
+    font-size: 48px;
+    font-weight: 400;
 }
 
-#location :nth-child(1) {
+#location :nth-child(3) {
+    font-size: 14px;
+    font-weight: 300;
 }
 
 #location span {
@@ -68,7 +87,7 @@ header h1 {
 
 #header-tab li:hover {
     cursor: pointer;
-    background-color: #ffffff;
+    background-color: var(--neutral-surface-default);
 }
 
 #header-tab ul {
