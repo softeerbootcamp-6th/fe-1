@@ -1,0 +1,73 @@
+:root {
+  /* Font Family */
+  --font-family-serif: "ChosunNm", serif;
+  --font-family-sans: "Pretendard", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+
+  /* Font Weight */
+  --font-weight-light: 300;
+  --font-weight-semibold: 600;
+
+  /* Serif Font 크기 & 라인 높이 */
+  --font-serif-xxl-size: 3rem; /* 48px */
+  --font-serif-xxl-line: 3.5rem; /* 56px */
+
+  --font-serif-xl-size: 1.5rem; /* 24px */
+  --font-serif-xl-line: 2rem; /* 32px */
+
+  --font-serif-sm-size: 0.875rem; /* 14px */
+  --font-serif-sm-line: 1rem; /* 16px */
+
+  /* Semibold Font 크기 & 라인 높이 */
+
+  --font-semibold-md-size: 1rem; /* 16px */
+  --font-semibold-md-line: 1.5rem; /* 24px */
+
+  --font-semibold-sm-size: 0.875rem; /* 14px */
+  --font-semibold-sm-line: 1rem; /* 16px */
+
+  --font-semibold-xs-size: 0.75rem; /* 12px */
+  --font-semibold-xs-line: 1rem; /* 16px */
+
+  /* Light Font 크기 & 라인 높이 */
+  --font-light-md-size: 1rem; /* 16px */
+  --font-light-md-line: 2rem; /* 32px */
+
+  --font-light-sm-size: 0.875rem; /* 14px */
+  --font-light-sm-line: 1.5rem; /* 24px */
+
+  --font-light-xs-size: 0.75rem; /* 12px */
+  --font-light-xs-line: 1.5rem; /* 24px */
+
+  /* Font 크기 */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+
+  /* 라인 높이 */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+}
+
+/* Font Face */
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../assets/fonts/PretendardVariable.woff2")
+    format("woff2-variations");
+  font-weight: 300 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ChosunNm";
+  src: url("../../assets/fonts/ChosunNm.woff2") format("woff2");
+  font-weight: 400;
+
+  font-display: swap;
+}

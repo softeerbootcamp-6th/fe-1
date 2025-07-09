@@ -1,0 +1,85 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-family-serif, serif);
+  padding: 24px 24px 48px 24px;
+  width: 900px;
+}
+
+.header__logo img {
+  height: 32px;
+  cursor: pointer;
+}
+
+.header__month-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-family-serif, serif);
+  font-weight: var(--font-weight-medium, 500);
+  font-weight: var(--font-weight-regular, 400);
+}
+
+.header__month-selector button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--neutral-text-default, #000);
+}
+
+.header__tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.tab-btn.active,
+.tab-btn:hover {
+  background-color: white;
+  border-radius: 25px;
+  opacity: 1;
+}
+.tab-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.month-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.month-display .year {
+  font-size: 1rem;
+  color: var(--neutral-text-default, #222);
+  margin-bottom: 2px;
+  font-weight: var(--font-weight-regular, 400);
+  opacity: 0.8;
+}
+
+.month-display .month-num {
+  font-size: 3rem;
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1;
+  color: var(--neutral-text-default, #000);
+}
+
+.month-display .month-eng {
+  font-size: 1.1rem;
+  color: var(--neutral-text-default, #222);
+  margin-top: 2px;
+  font-weight: var(--font-weight-regular, 400);
+  opacity: 0.8;
+  letter-spacing: 0.02em;
+}
