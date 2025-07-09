@@ -1,0 +1,24 @@
+{
+    "name": "fe-1",
+    "version": "1.0.0",
+    "description": "",
+    "homepage": "https://github.com/bobob0311/fe-1#readme",
+    "bugs": {
+        "url": "https://github.com/bobob0311/fe-1/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bobob0311/fe-1.git"
+    },
+    "license": "ISC",
+    "author": "",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "http-server . -o -c-1"
+    },
+    "dependencies": {
+        "http-server": "^14.1.1"
+    }
+}
