@@ -1,0 +1,20 @@
+{
+  "name": "fe-1",
+  "version": "1.0.0",
+  "description": "가계부 서비스",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/choi-jiae/fe-1.git"
+  },
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/choi-jiae/fe-1/issues"
+  },
+  "homepage": "https://github.com/choi-jiae/fe-1#readme"
+}
