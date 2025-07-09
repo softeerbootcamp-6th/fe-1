@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bamb14/softeer.git"
+    "url": "git+https://github.com/bamb14/softeer_mission1.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bamb14/softeer/issues"
+    "url": "https://github.com/bamb14/softeer_mission1/issues"
   },
-  "homepage": "https://github.com/bamb14/softeer#readme"
+  "homepage": "https://github.com/bamb14/softeer_mission1#readme"
 }
