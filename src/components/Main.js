@@ -1,6 +1,6 @@
-export const createMain = () => {
+export const renderMain = (type = "doc") => {
   const main = document.createElement("main");
   main.id = "main";
-  main.innerHTML = "<p>Welcome to the Household Account Book!</p>";
+  main.innerHTML = type;
   return main;
 };

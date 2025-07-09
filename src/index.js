@@ -1,4 +1,4 @@
-import { createLayout } from "./src/components/Layout.js";
+import { createLayout } from "./components/Layout.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   try {

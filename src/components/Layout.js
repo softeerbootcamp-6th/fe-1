@@ -1,5 +1,5 @@
-import { createHeader } from "./Header.js";
-import { createMain } from "./Main.js";
+import { renderHeader } from "./Header.js";
+import { renderMain } from "./Main.js";
 
 export const createLayout = () => {
   const app = document.getElementById("app");
@@ -8,10 +8,10 @@ export const createLayout = () => {
   }
 
   //header area
-  const header = createHeader();
+  const header = renderHeader();
   app.appendChild(header);
 
   //main area
-  const main = createMain();
+  const main = renderMain();
   app.appendChild(main);
 };
