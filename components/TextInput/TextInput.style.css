@@ -1,0 +1,38 @@
+/* TextInput Component Styles */
+
+.text-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: 1px solid transparent;
+}
+
+/* Type Variants */
+.text-input--default {
+  /* Default input styles */
+  padding: 1.2rem 1.6rem;
+  border-radius: 0.8rem;
+  background-color: var(--neutral-surface-point);
+}
+
+.text-input:focus {
+  /* Active/focused state styles */
+  background-color: var(--neutral-surface-default);
+  border: 1px solid var(--neutral-border-default);
+}
+
+.text-input:disabled {
+  /* Disabled state styles */
+  background-color: var(--neutral-surface-weak);
+}
+
+.text-input--error {
+  /* Error state styles */
+  background-color: var(--neutral-surface-default);
+  border: 1px solid var(--danger-border-default);
+}
