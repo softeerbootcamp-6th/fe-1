@@ -1,0 +1,48 @@
+.category-tag {
+  width: 9.2rem;
+  height: 5.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neutral-text-default);
+}
+
+.category-tag--생활 {
+  background-color: var(--colorchip-90);
+}
+
+.category-tag--쇼핑\/뷰티 {
+  background-color: var(--colorchip-30);
+}
+
+.category-tag--의료\/건강 {
+  background-color: var(--colorchip-50);
+}
+
+.category-tag--식비 {
+  background-color: var(--colorchip-60);
+}
+
+.category-tag--교통 {
+  background-color: var(--colorchip-70);
+}
+
+.category-tag--문화\/여가 {
+  background-color: var(--pastel-perfume);
+}
+
+.category-tag--미분류 {
+  background-color: var(--pastel-lavenderPink);
+}
+
+.category-tag--월급 {
+  background-color: var(--colorchip-20);
+}
+
+.category-tag--기타\/수입 {
+  background-color: var(--colorchip-10);
+}
+
+.category-tag--용돈 {
+  background-color: var(--colorchip-40);
+}
