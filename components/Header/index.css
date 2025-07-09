@@ -1,0 +1,93 @@
+header {
+    background-color: #73a4d0;
+    padding: 40px 0 64px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-container {
+    width: 846px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    font-family: 'Chosunilbo_myungjo', sans-serif;
+    text-decoration: none;
+}
+
+.date {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.year {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Pretendard Variable', sans-serif;
+}
+
+.month-number {
+    color: #000000;
+    font-size: 48px;
+    font-family: 'Chosunilbo_myungjo', sans-serif;
+    font-weight: 400;
+}
+
+.month-name {
+    color: #000000;
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'Pretendard Variable', sans-serif;
+}
+
+.month-control-button:hover {
+    border-radius: 8px;
+    background-color: #00000018;
+}
+
+li {
+    list-style: none;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.header-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+.header-nav-link:hover {
+    background-color: #00000018;
+}
+
+.header-nav-link.active {
+    background-color: #ffffff;
+}
