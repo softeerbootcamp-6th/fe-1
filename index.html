@@ -2,10 +2,61 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>hi</title>
+        <title>Wise Wallet</title>
+        <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
-        <h1>hello world</h1>
-        <script type="module" src="./index.js"></script>
+        <header class="header">
+            <!-- 왼쪽 로고 -->
+            <a href="index.html" class="logo">Wise Wallet</a>
+
+            <!-- ✅ 중앙 블럭 -->
+            <div class="center-block">
+                <div class="month-selector">
+                <div class="year" id="year">2023</div>
+                <div class="month-control">
+                    <button id="prev-month" class="nav-btn">&lt;</button>
+                    <div class="month" id="month">8</div>
+                    <button id="next-month" class="nav-btn">&gt;</button>
+                </div>
+                <div class="month-label" id="month-label">August</div>
+                </div>
+            </div>
+
+            <!-- 오른쪽 보기 버튼 -->
+            <div class="view-options">
+                <button class="icon-btn active">📄</button>
+                <button class="icon-btn">📅</button>
+                <button class="icon-btn">📊</button>
+            </div>
+        </header>
+
+        <section class="input-form">
+            <input type="date" id="date" />
+            <input type="number" id="amount" placeholder="금액" />
+            <input type="text" id="desc" placeholder="내용" maxlength="32" />
+            
+            <select id="method">
+                <option selected disabled>결제수단</option>
+                <option>현대카드</option>
+                <option>비씨카드</option>
+                <option>카카오페이</option>
+                <option>현금</option>
+            </select>
+            
+            <select id="category">
+                <option selected disabled>분류</option>
+                <option>생활</option>
+                <option>교통</option>
+                <option>문화/여가</option>
+                <option>미분류</option>
+                <option>식비</option>
+                <option>월급</option>
+            </select>
+            
+            <button id="add-btn">✔️</button>
+            </section>
+        <section class="entry-list" id="entry-list"></section>
+        <script src="js/middleCalendar.js"></script>
     </body>
 </html>
