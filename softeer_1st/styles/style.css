@@ -1,0 +1,143 @@
+:root {
+    /* Grayscale */
+    --grayscale-50: #ffffff;
+    --grayscale-100: #fbfcfd;
+    --grayscale-200: #f1f4f8;
+    --grayscale-300: #777d84;
+    --grayscale-400: #000000;
+
+    /* Pastel Colors */
+    --pastel-almondFrost: #a28878;
+    --pastel-porsche: #e39d5d;
+    --pastel-chenin: #d7ca6b;
+    --pastel-caper: #aacd7e;
+    --pastel-cruise: #bcdfd3;
+    --pastel-onahau: #c5e0eb;
+    --pastel-glacier: #7db7bf;
+    --pastel-seagull: #79b2ca;
+    --pastel-jordyBlue: #73a4d0;
+    --pastel-perano: #a7b9e9;
+    --pastel-perfume: #bda6e1;
+    --pastel-lavenderPink: #f0b0d3;
+    --pastel-amaranth: #e93b5a;
+    --pastel-chestnut: #c04646;
+
+    /* Neutral */
+    --neutral-surface-weak: var(--grayscale-100);
+    --neutral-surface-default: var(--grayscale-50);
+    --neutral-surface-point: var(--grayscale-200);
+    --neutral-text-weak: var(--grayscale-300);
+    --neutral-text-default: var(--grayscale-400);
+    --neutral-text-rev-default: var(--grayscale-50);
+    --neutral-border-default: var(--grayscale-400);
+
+    /* Brand */
+    --brand-surface-default: var(--grayscale-50);
+    --brand-text-income: var(--pastel-seagull);
+    --brand-text-expense: var(--pastel-chestnut);
+
+    /* Danger */
+    --danger-surface-default: var(--pastel-amaranth);
+    --danger-text-default: var(--pastel-amaranth);
+    --danger-text-rev-default: var(--grayscale-50);
+    --danger-border-default: var(--pastel-amaranth);
+
+    /* Colorchip */
+    --colorchip-10: var(--pastel-almondFrost);
+    --colorchip-20: var(--pastel-porsche);
+    --colorchip-30: var(--pastel-chenin);
+    --colorchip-40: var(--pastel-caper);
+    --colorchip-50: var(--pastel-cruise);
+    --colorchip-60: var(--pastel-onahau);
+    --colorchip-70: var(--pastel-glacier);
+    --colorchip-80: var(--pastel-jordyBlue);
+    --colorchip-90: var(--pastel-perano);
+    --colorchip-100: var(--pastel-perfume);
+    --colorchip-110: var(--pastel-lavenderPink);
+    --colorchip-120: var(--pastel-chestnut);
+}
+
+.flex {
+    display: flex;
+}
+.grow {
+    flex-grow: 1;
+}
+.justify-center {
+    justify-content: center;
+}
+.align-center {
+    align-items: center;
+}
+.flex-column {
+    flex-direction: column;
+}
+.flex-row {
+    flex-direction: row;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.gap-4 {
+    gap: 4px;
+}
+.gap-8 {
+    gap: 8px;
+}
+.gap-16 {
+    gap: 16px;
+}
+.gap-24 {
+    gap: 24px;
+}
+
+.header {
+    width: 100%;
+    height: 216px;
+    background-color: var(--colorchip-80);
+}
+.header > .nav-inner {
+    width: 846px;
+    height:112px;
+    padding: 40px 0px 64px;
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.nav-btn.active{
+    background-color: #FFFFFF
+}
+.nav-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.header-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 232px;
+    height: 100%;
+}
+.header-date{
+    width: 120px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px
+}
