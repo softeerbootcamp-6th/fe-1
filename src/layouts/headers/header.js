@@ -31,7 +31,6 @@ function initHeader() {
     yearEl.textContent = year;
     monthNumEl.textContent = month + 1;
     monthEngEl.textContent = monthNames[month];
-    // 여기에 내역 리스트 갱신 함수 호출 가능
   }
 
   prevBtn.addEventListener("click", () => {
@@ -41,7 +40,7 @@ function initHeader() {
       year--;
     }
     updateMonth();
-    // 내역 리스트 갱신 함수 호출
+    //TODO: 내역 리스트 갱신 함수 호출
   });
 
   nextBtn.addEventListener("click", () => {
@@ -51,7 +50,7 @@ function initHeader() {
       year++;
     }
     updateMonth();
-    // 내역 리스트 갱신 함수 호출
+    //TODO: 내역 리스트 갱신 함수 호출
   });
 
   // 탭 클릭 시 active 변경 및 화면 전환
@@ -65,4 +64,5 @@ function initHeader() {
   updateMonth();
 }
 
+// 전역 함수에 해당 함수 등록(index.js에서 호출)
 window.initHeader = initHeader;
