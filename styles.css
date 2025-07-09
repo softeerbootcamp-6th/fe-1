@@ -1,0 +1,45 @@
+/* reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+
+/* flex */
+.flex-cloumn-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-row-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-column-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-row-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  color: black;
+  border: solid 1px;
+}
+
+.header-calendar-bar{
+    gap: 2rem;
+}
