@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "ChosunilboNM";
+  src: url("./ChosunilboNM.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("./Pretendard-Regular.ttf") format("truetype");
+}
+
+/* ===== Typography System ===== */
+
+/* Serif Fonts */
+.font-serif-48 {
+  font-family: ChosunilboNM;
+  font-size: 48px;
+  line-height: 56px;
+}
+
+.font-serif-24 {
+  font-family: ChosunilboNM;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.font-serif-14 {
+  font-family: ChosunilboNM;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+/* Semibold Fonts (assumed sans-serif bold) */
+.font-semibold-16 {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.font-semibold-14 {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.font-semibold-12 {
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Light Fonts (assumed sans-serif light) */
+.font-light-16 {
+  font-family: Pretendard;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 32px;
+}
+
+.font-light-14 {
+  font-family: Pretendard;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.font-light-12 {
+  font-family: Pretendard;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 24px;
+}
