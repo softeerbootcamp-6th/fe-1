@@ -55,6 +55,7 @@ export function createInputBar() {
 
   return inputBarTemplate;
 }
+
 export function renderInputBar(container) {
   container.innerHTML = createInputBar();
 }
