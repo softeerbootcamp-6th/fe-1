@@ -15,47 +15,7 @@
   <body>
     <div class="background"></div>
     <div id="header-container"></div>
-    <div>
-      <div>일자 <input type="date" /></div>
-      <div>
-        금액 <button>+</button>
-        <input type="number" />
-      </div>
-      <div>
-        내용
-        <input
-          type="text"
-          maxlength="32"
-        />
-      </div>
-      <div>
-        결제수단
-        <select
-          name="paymentMethod"
-          id="paymentMethod"
-        >
-          <option value="cash">현금</option>
-          <option value="card">카드</option>
-          <option value="add">추가하기</option>
-        </select>
-      </div>
-      <div>
-        분류
-        <select
-          name="category"
-          id="category"
-        >
-          <option value="life">생활</option>
-          <option value="food">식비</option>
-          <option value="transportation">교통</option>
-          <option value="shopping">쇼핑/뷰티</option>
-          <option value="health">의료/건강</option>
-          <option value="entertainment">문화/여가</option>
-          <option value="etc">미분류</option>
-        </select>
-      </div>
-      <div><button>추가</button></div>
-    </div>
+    <div id="input-bar-container"></div>
     <div>
       <div>전체 내역 13건</div>
       <div>
@@ -146,7 +106,7 @@
 
     <script
       type="module"
-      src="./header.js"
+      src="./index.js"
     ></script>
   </body>
 </html>

@@ -27,8 +27,3 @@ export function createHeader() {
 export function renderHeader(container) {
   container.innerHTML = createHeader();
 }
-
-const headerContainer = document.getElementById("header-container");
-if (headerContainer) {
-  renderHeader(headerContainer);
-}
