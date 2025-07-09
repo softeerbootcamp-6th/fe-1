@@ -1,0 +1,46 @@
+.header {
+    background-color: #ababab;
+    border-bottom: 1px solid #000000;
+    padding: 30px 20%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.icon-button {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    width: 24px;
+    height: 24px;
+    margin: 8px;
+}
+
+.arrow-icon {
+    /* background-color: transparent; */
+    cursor: pointer;
+    border: none;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 112px;
+    margin: 0 24px;
+}
+
+.month-text {
+    font-size: 48px;
+}
