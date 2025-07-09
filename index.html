@@ -3,66 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HELLO WORLD</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        min-height: 100vh;
-        margin: 0;
-        font-family: "Montserrat", Arial, sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .card {
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-        padding: 40px 32px;
-        max-width: 350px;
-        text-align: center;
-        transition: box-shadow 0.3s;
-      }
-      .card:hover {
-        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
-      }
-      .card h1 {
-        color: #5566dd;
-        margin-bottom: 18px;
-        font-size: 2.2rem;
-        letter-spacing: -1px;
-      }
-      .card p {
-        color: #444;
-        font-size: 1.1rem;
-        margin-bottom: 28px;
-      }
-      .card button {
-        background: linear-gradient(90deg, #5566dd 0%, #6ec6ff 100%);
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        padding: 12px 28px;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(86, 102, 221, 0.08);
-        transition: background 0.2s;
-      }
-      .card button:hover {
-        background: linear-gradient(90deg, #6ec6ff 0%, #5566dd 100%);
-      }
-    </style>
+    <title>Wise Wallet</title>
+    <link rel="stylesheet" href="src/styles/colors.css" />
+    <link rel="stylesheet" href="src/styles/fonts.css" />
+    <link rel="stylesheet" href="src/layouts/headers/header.css" />
+    <link rel="stylesheet" href="src/App.css" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="src/layouts/headers/header.js" defer></script>
   </head>
   <body>
-    <div class="card">
-      <h1>HELLO WORLD!</h1>
-      <p>HTML과 CSS만으로 쉽게 꾸밀 수 있어요.</p>
-      <button>더 알아보기</button>
+    <div class="header-wrapper" id="header-container">
+      <script>
+        fetch("./src/layouts/headers/header.html")
+          .then((res) => res.text())
+          .then((html) => {
+            document.getElementById("header-container").innerHTML = html;
+            if (typeof initHeader === "function") initHeader();
+          });
+      </script>
+    </div>
+    <div class="body-wrapper">
+      <div class="input-row-wrapper">
+        <div class="input-row">
+          <div class="input-cell date">
+            <input type="date" class="date-input" value="2023-08-17" />
+          </div>
+          <div class="input-cell amount">
+            <input
+              type="number"
+              class="amount-input"
+              placeholder="예: -20000, 15000"
+            />
+            <span>원</span>
+          </div>
+          <div class="input-cell content">
+            <input type="text" placeholder="입력하세요" maxlength="32" />
+            <span class="char-count">0/32</span>
+          </div>
+          <div class="input-cell method">
+            <select>
+              <option>선택하세요</option>
+              <option>현금</option>
+              <option>신용카드</option>
+            </select>
+          </div>
+          <div class="input-cell category">
+            <select>
+              <option>선택하세요</option>
+              <option>생활</option>
+              <option>식비</option>
+              <option>교통</option>
+              <option>쇼핑/뷰티</option>
+              <option>의료/건강</option>
+              <option>문화/여가</option>
+              <option>미분류</option>
+
+              <!-- ... -->
+            </select>
+          </div>
+          <div class="input-cell submit">
+            <button class="circle-btn">
+              <svg width="32" height="32" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="16" fill="#b0b0b0" />
+                <polyline
+                  points="10,17 15,22 22,12"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 가계부 요약 (js로 렌더링) 아래는 구조 파악을 위한 예시-->
+      <div class="summary-row">
+        <span>전체 내역 <b>0건</b></span>
+        <div class="summary-row-right">
+          <img src="assets/icons/black-check.svg" alt="체크 아이콘" />
+          <span style="margin-right: 16px">수입 <b>0</b></span>
+          <img src="assets/icons/black-check.svg" alt="체크 아이콘" />
+          <span>지출 <b>0</b></span>
+        </div>
+      </div>
+      <!-- 가계부 내역 리스트 (js로 렌더링) 아래는 구조 파악을 위한 예시-->
+      <div class="history-list">
+        <div class="history-item">
+          <div class="history-category category-식비">식비</div>
+          <div class="history-content">잔치국수와 김밥</div>
+          <div class="history-method">현대카드</div>
+          <div class="history-amount minus">20,000원</div>
+        </div>
+      </div>
+      <script type="module" src="index.js"></script>
     </div>
   </body>
 </html>
