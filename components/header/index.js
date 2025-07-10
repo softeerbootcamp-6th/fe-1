@@ -1,3 +1,5 @@
+import dateData from '../../store/date.js';
+
 export default function addHeaderHTML() {
     const $header = document.getElementById('header-placeholder');
 
@@ -46,4 +48,17 @@ export default function addHeaderHTML() {
         </div>
     </div>
     `;
+
+    dateData.initDateData();
+
+    const $centerWrapper = document.getElementById('center-wrapper');
+    const children = $centerWrapper.children;
+
+    children[0].addEventListener('click', () => {
+        dateData.decreaseMonth();
+        console.log('dd');
+    });
+    children[2].addEventListener('click', () => {
+        dateData.increaseMonth();
+    });
 }
