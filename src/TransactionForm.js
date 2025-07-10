@@ -1,7 +1,7 @@
-export function createContentInput() {
-    const content = document.createElement('main');
-    content.innerHTML = `
-            <form class="flex-column-between">
+export function renderTransactionForm() {
+  const content = document.getElementById("transaction-form");
+  content.className = "flex-column-between";
+  content.innerHTML = `
                 <table>
                     <thead>
                     <tr>
@@ -41,7 +41,6 @@ export function createContentInput() {
                     </tr>
                     </tbody>
                 </table>
-            </form>
         `;
-    return content;
+  return content;
 }

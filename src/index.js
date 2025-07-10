@@ -1,15 +1,11 @@
-import { createContentInput } from "./ContentInput.js";
-import { createHeader } from "./Header.js";
+import { renderTransactionForm } from "./TransactionForm.js";
+import { renderHeader } from "./Header.js";
+import { renderTransactionItems } from "./TransactionList.js";
 
-export function createAppLayout() {
-
-    const container = document.getElementById('app');
-
-    const header = createHeader();
-    const content = createContentInput();
-   
-    container.append(header, content);
-    return container;
+export function createMainLayout() {
+  renderHeader();
+  renderTransactionForm();
+  renderTransactionItems();
 }
 
-createAppLayout();
+createMainLayout();

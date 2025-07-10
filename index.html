@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Document</title>
-</head>
-<body>
-    <div id="app">
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="content-layout flex-column-between">
+      <header id="header"></header>
+      <main id="main">
+        <form id="transaction-form"></form>
+        <div id="transaction-list"></div>
+      </main>
     </div>
     <script type="module" src="./src/index.js"></script>
-</body>
+  </body>
 </html>

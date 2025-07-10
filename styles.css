@@ -1,11 +1,29 @@
 /* reset */
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
+.background {
+  background-color: #73a4d0;
+  width: 100%;
+  height: 112px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
 
+.content-layout {
+  width: 846px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
 /* flex */
 .flex-cloumn-center {
   display: flex;
@@ -36,10 +54,22 @@ body, html {
 }
 
 header {
-  color: black;
-  border: solid 1px;
+  color: #000000;
+  width: 100%;
 }
 
-.header-calendar-bar{
-    gap: 2rem;
+#main {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.item:hover .delete-btn {
+  display: flex;
+}
+
+.delete-btn {
+  display: none;
 }
