@@ -1,8 +1,14 @@
 .total-amount {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin: 20px 0;
     font-size: 1.5rem;
     color: #333;
+    margin : 20px 400px;
+}
+
+.total-amount-value {
+    display: flex;
+    justify-content: space-between;
+    
 }

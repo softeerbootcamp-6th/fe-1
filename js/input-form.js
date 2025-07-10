@@ -62,7 +62,7 @@ export function initInputForm() {
         </div>
         <div class="entry-items"></div>
       `;
-      entryList.appendChild(dateSection);
+      entryList.insertBefore(dateSection, entryList.firstChild);
     }
 
     const entryItems = dateSection.querySelector(".entry-items");
