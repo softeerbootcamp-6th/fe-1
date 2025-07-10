@@ -10,9 +10,9 @@ export function Header() {
       <div id="dates" class="header-main">
       <button id="prev-btn" class="chev"><img src="../assets/icons/chevron-left.svg" alt="previous"></button>
       <div class="header-date">
-        <div class="lignt-14" id="date-year">2024</div>
+        <div class="light-14" id="date-year">2024</div>
         <div class="serif-48" id="date-month-num">1</div>
-        <div class="lignt-14" id="date-month-en">January</div>
+        <div class="light-14" id="date-month-en">January</div>
       </div>
         <button id="next-btn" class="chev"><img src="../assets/icons/chevron-right.svg" alt="next"></button>
       </div>
