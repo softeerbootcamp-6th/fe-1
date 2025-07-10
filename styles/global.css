@@ -61,3 +61,17 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  color: var(--nuetral-text-default);
+  background-color: var(--nuetral-surface-weak);
+}
+
+.main {
+  max-width: 89.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  transform: translateY(-4rem);
+}

@@ -3,6 +3,7 @@
  *
  * // 기본 사용법
  * const checkbox = CheckBox({
+ *   id: 'checkbox-input',
  *   label: '동의',
  *   checked: true,
  *   onChange: () => alert('체크됨!')
@@ -10,14 +11,14 @@
  *
  * document.body.appendChild(checkbox);
  */
-const CheckBox = ({ label, checked = false, onChange = null } = {}) => {
+const CheckBox = ({ id, label, checked = false, onChange = null } = {}) => {
   const checkboxContainer = document.createElement("div");
   checkboxContainer.className = "checkbox-container";
 
   // 숨겨진 실제 checkbox input 생성
   const checkboxInput = document.createElement("input");
   checkboxInput.type = "checkbox";
-  checkboxInput.id = "checkbox-input";
+  checkboxInput.id = id;
   checkboxInput.checked = checked;
   checkboxInput.style.display = "none"; // 숨김 처리
 
@@ -25,8 +26,8 @@ const CheckBox = ({ label, checked = false, onChange = null } = {}) => {
   const checkboxIcon = document.createElement("img");
   checkboxIcon.className = "checkbox-icon";
   checkboxIcon.src = checked
-    ? "./assets/icons/checkbox-circle.svg"
-    : "./assets/icons/uncheckbox-circle.svg";
+    ? "/assets/icons/checkbox.svg"
+    : "/assets/icons/uncheckbox.svg";
   checkboxIcon.alt = checked ? "checked" : "unchecked";
 
   // 라벨 생성
@@ -44,8 +45,8 @@ const CheckBox = ({ label, checked = false, onChange = null } = {}) => {
   const handelToggleCheckbox = (e) => {
     const isChecked = e.target.checked;
     checkboxIcon.src = isChecked
-      ? "./assets/icons/checkbox-circle.svg"
-      : "./assets/icons/uncheckbox-circle.svg";
+      ? "/assets/icons/checkbox.svg"
+      : "/assets/icons/uncheckbox.svg";
     checkboxIcon.alt = isChecked ? "checked" : "unchecked";
     checkboxInput.checked = isChecked;
 

@@ -1,0 +1,210 @@
+.add-input-form {
+  width: 89.4rem;
+  height: 7.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border: 0.05rem solid var(--nuetral-border-default);
+  background-color: var(--nuetral-surface-default);
+  padding: 1.6rem 2.4rem;
+}
+
+.add-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.add-input__divider {
+  width: 0.05rem;
+  height: 4.4rem;
+  background-color: var(--nuetral-border-default);
+}
+
+.add-input label {
+  height: 2.4rem;
+}
+
+.add-input input {
+  width: 100%;
+  height: 1.6rem;
+  font-size: 1.4rem;
+  border: none;
+  outline: none;
+}
+
+.add-input__date {
+  width: 8.8rem;
+}
+
+.add-input__amount {
+  width: 13.4rem;
+}
+
+.add-input__amount-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.add-input__amount-wrapper input {
+  text-align: right;
+}
+
+.add-input__amount-wrapper span {
+  line-height: 1.6rem;
+}
+
+.add-input__icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.add-input__title {
+  width: 16rem;
+}
+
+.add-input__title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-input__title-count {
+  color: var(--nuetral-text-weak);
+}
+
+.add-input__payment {
+  width: 10.4rem;
+}
+
+.add-input__category {
+  width: 10.4rem;
+}
+
+.add-input-form__button {
+  background-color: transparent;
+  border: none;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+}
+
+.add-input-form__button img {
+  width: 4rem;
+  height: 4rem;
+}
+
+.history {
+  width: 84.6rem;
+  margin-top: 3.4rem;
+}
+
+.history__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history__header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.history__header-filter {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.history__header-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.history__header-filter-item img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.history__list {
+  margin-top: 4rem;
+}
+
+.daily-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.daily-list__date {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.daily-list__amount {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.daily-list__content {
+  margin-top: 1.6rem;
+  border-top: 0.05rem solid var(--nuetral-border-default);
+  border-bottom: 0.05rem solid var(--nuetral-border-default);
+}
+
+.daily-list__content-row {
+  display: flex;
+  align-items: center;
+}
+
+.content-row__info {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem;
+  gap: 1.6rem;
+  flex: 1;
+}
+
+.content-row__title {
+  width: 40rem;
+}
+
+.content-row__payment {
+  width: 10.4rem;
+}
+
+.content-row__amount {
+  flex: 1;
+  text-align: right;
+}
+
+.amount-negative {
+  color: var(--brand-text-expense);
+}
+
+.amount-positive {
+  color: var(--brand-text-income);
+}
+
+.content-row__delete-button {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--danger-surface-default);
+}
+
+.daily-list__content-row:hover .content-row__info {
+  background-color: var(--nuetral-surface-point);
+}
+
+.daily-list__content-row:hover .content-row__delete-button {
+  display: flex;
+}
