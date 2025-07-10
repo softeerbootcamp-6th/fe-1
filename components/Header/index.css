@@ -15,10 +15,7 @@ header {
 }
 
 .logo-text {
-    font-size: 24px;
-    font-weight: bold;
     color: #000000;
-    font-family: 'Chosunilbo_myungjo', sans-serif;
     text-decoration: none;
 }
 
@@ -38,21 +35,14 @@ header {
 
 .year {
     color: #000000;
-    font-size: 14px;
-    font-weight: 300;
 }
 
 .month-number {
     color: #000000;
-    font-size: 48px;
-    font-family: 'Chosunilbo_myungjo', sans-serif;
-    font-weight: 400;
 }
 
 .month-name {
     color: #000000;
-    font-size: 14px;
-    font-weight: 300;
 }
 
 .month-control-button:hover {
