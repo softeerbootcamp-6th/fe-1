@@ -1,5 +1,3 @@
-import { navigate } from "../router.js";
-
 export const renderHeader = () => {
   const header = document.createElement("header");
   header.id = "header";
@@ -33,7 +31,11 @@ export const renderHeader = () => {
   const navItems = ["doc", "calendar", "chart"];
   navItems.forEach((item, idx) => {
     const li = document.createElement("li");
-    li.innerHTML = `<img src="./src/assets/${item}.png" alt="${item} icon" />`;
+    li.innerHTML = `
+    <a class="nav" href="${item}">
+      <img src="./src/assets/${item}.png" alt="${item} icon" />
+    </a>
+    `;
     if (idx === 0) li.classList.add("active");
     li.dataset.item = item;
     nav.appendChild(li);
@@ -46,7 +48,6 @@ export const renderHeader = () => {
     const current = nav.querySelector(".active");
     if (current) current.classList.remove("active");
     target.classList.add("active");
-    navigate(target.dataset.item);
   });
 
   header.appendChild(nav);
