@@ -1,8 +1,8 @@
-import createDate from './Items/date.js';
-import createAmount from './Items/amount.js';
-import createContent from './Items/content.js';
-import createPaymentMethod from './Items/paymentMethod.js';
-import createCategory from './Items/category.js';
+import createDate from './InputItems/date.js';
+import createAmount from './InputItems/amount.js';
+import createContent from './InputItems/content.js';
+import createPaymentMethod from './InputItems/paymentMethod.js';
+import createCategory from './InputItems/category.js';
 
 function createInputBar() {
     const container = document.createElement('div');
