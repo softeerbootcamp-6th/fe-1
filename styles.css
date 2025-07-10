@@ -38,8 +38,7 @@ header {
 }
 
 .input-bar {
-  margin: 40px auto;
-  width: 846px;
+  width: 100%;
   height: 112px;
   display: flex;
   justify-content: space-between;
@@ -51,5 +50,5 @@ header {
 
 .container {
   width: 846px;
-  margin: 40px auto;
+  margin: 0 auto;
 }
