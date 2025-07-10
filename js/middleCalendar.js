@@ -6,7 +6,17 @@ let currentMonth = 8; // 1~12
 const yearEl = document.getElementById("year");
 const monthEl = document.getElementById("month");
 const monthLabelEl = document.getElementById("month-label");
+const toggleSign = document.getElementById("toggle-sign");
 
+toggleSign.addEventListener("click", () => {
+  if (toggleSign.textContent === "+") {
+    toggleSign.textContent = "-";
+    toggleSign.classList.add("minus");
+  } else {
+    toggleSign.textContent = "+";
+    toggleSign.classList.remove("minus");
+  }
+});
 const prevBtn = document.getElementById("prev-month");
 const nextBtn = document.getElementById("next-month");
 
@@ -39,7 +49,7 @@ addBtn.addEventListener("click", () => {
     const method = document.getElementById("method").value;
     const category = document.getElementById("category").value;
 
-    if (!date || !amount || !desc || method === "결제수단" || category === "분류") {
+    if (!date || !amount || !desc) {
       alert("모든 항목을 정확히 입력해주세요!");
       return;
     }
@@ -115,5 +125,103 @@ nextBtn.addEventListener("click", () => {
   updateCalendar();
 });
 
+
+const amountInput = document.getElementById("amount");
+
+  amountInput.addEventListener("input", () => {
+    // 숫자 외 제거
+    const rawValue = amountInput.value.replace(/[^\d]/g, "");
+    if (!rawValue) {
+      amountInput.value = "";
+      return;
+    }
+
+    // 쉼표 추가한 값
+    const formatted = Number(rawValue).toLocaleString();
+    amountInput.value = formatted;
+  });
+
+
+
+const descInput = document.getElementById("desc");
+  const charCount = document.getElementById("char-count");
+
+  descInput.addEventListener("input", () => {
+    const length = descInput.value.length;
+    charCount.textContent = `${length} / 32`;
+  });
+
 // 페이지 로드 시 초기화
 updateCalendar();
+
+  const display = document.getElementById("dropdown-display");
+  const panel = document.getElementById("dropdown-panel");
+  const dropAddBtn = document.getElementById("dropdown-add");
+
+  display.addEventListener("click", ()=>{
+    panel.classList.toggle("hidden");
+  });
+
+const methodSelect = document.getElementById("method");
+  const modal = document.getElementById("modal");
+  const confirmAdd = document.getElementById("confirm-add");
+  const cancelAdd = document.getElementById("cancel-add");
+  const newMethodInput = document.getElementById("new-method");
+
+  dropAddBtn.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+    newMethodInput.value = "";
+    panel.classList.add("hidden");
+  });
+
+  cancelAdd.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+
+    // 추가 확인
+  confirmAdd.addEventListener("click", () => {
+    const newMethod = newMethodInput.value.trim();
+    if (!newMethod) {
+      alert("결제수단을 입력해주세요.");
+      return;
+    }
+
+    const option = document.createElement("div");
+    option.className = "dropdown-option";
+    option.dataset.value = newMethod;
+    option.innerHTML = `
+      <span>${newMethod}</span>
+      <button class="delete-btn">❌</button>
+    `;
+    panel.insertBefore(option, dropAddBtn);
+
+    display.textContent = newMethod;
+    selectedMethod = newMethod;
+    modal.classList.add("hidden");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!document.getElementById("method-wrapper").contains(e.target)) {
+      panel.classList.add("hidden");
+    }
+  });
+
+  // 드롭다운 패널 내부 클릭
+  panel.addEventListener("click", (e) => {
+    const optionDiv = e.target.closest(".dropdown-option");
+    if (e.target.classList.contains("delete-btn")) {
+      // 삭제 버튼 클릭
+      const methodName = optionDiv.dataset.value;
+      optionDiv.remove();
+      if (selectedMethod === methodName) {
+        display.textContent = "선택하세요";
+        selectedMethod = null;
+      }
+    } else if (optionDiv) {
+      // 항목 선택
+      const methodName = optionDiv.dataset.value;
+      display.textContent = methodName;
+      selectedMethod = methodName;
+      panel.classList.add("hidden");
+    }
+  });

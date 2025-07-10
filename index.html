@@ -32,20 +32,59 @@
         </header>
 
         <section class="input-form">
-            <input type="date" id="date" />
-            <input type="number" id="amount" placeholder="금액" />
-            <input type="text" id="desc" placeholder="내용" maxlength="32" />
-            
-            <select id="method">
-                <option selected disabled>결제수단</option>
-                <option>현대카드</option>
-                <option>비씨카드</option>
-                <option>카카오페이</option>
-                <option>현금</option>
-            </select>
-            
+            <div class="inter-input-block">
+                <div>일자</div>
+                <input type="date" id="date" />
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="inter-input-block">
+                <div>금액</div>
+                <div class ="amount-block">
+                    <div class="toggle-sign" id="toggle-sign">+</div>
+                    <input type="text" id="amount" placeholder="0" />
+                    <div>원</div>
+                </div>
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="inter-input-block">
+                <div class="desc-header">
+                    <div>내용</div>
+                    <div class="char-count" id="char-count">0 / 32</div>
+                </div>
+            <input type="text" id="desc" class="content" placeholder="입력하세요" maxlength="32" />
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="inter-input-block" id="method-wrapper">
+                <div class="method">결제수단</div>
+                <div class="dropdown-display" id="dropdown-display">선택하세요</div>
+                <div class="dropdown-panel hidden" id="dropdown-panel">
+                    <div class="dropdown-add" id="dropdown-add">추가하기</div>
+                </div>
+                </div>
+
+
+            <!-- 모달 -->
+            <div id="modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>결제수단 추가</h3>
+                <input type="text" id="new-method" placeholder="예: 우리카드" />
+                <button id="confirm-add">추가하기</button>
+                <button id="cancel-add">취소</button>
+            </div>
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="inter-input-block">
+                <div>분류</div>
             <select id="category">
-                <option selected disabled>분류</option>
+                <option selected disabled>선택하세요</option>
                 <option>생활</option>
                 <option>교통</option>
                 <option>문화/여가</option>
@@ -53,7 +92,8 @@
                 <option>식비</option>
                 <option>월급</option>
             </select>
-            
+            </div>
+
             <button id="add-btn">✔️</button>
             </section>
         <section class="entry-list" id="entry-list"></section>
