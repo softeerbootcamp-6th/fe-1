@@ -1,6 +1,3 @@
-import { renderInputBar } from "./inputBar.js";
-import { renderPage } from "./pages.js";
-
 export function createHeader() {
   const headerTemplate = `
     <header>
@@ -16,9 +13,9 @@ export function createHeader() {
       </div>
       <nav>
         <ul class="flex-row">
-          <li><a href="/" data-page="home">Home</a></li>
-          <li><a href="/calendar" data-page="calendar">Calendar</a></li>
-          <li><a href="/graph" data-page="graph">Graph</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/calendar">Calendar</a></li>
+          <li><a href="/graph">Graph</a></li>
         </ul>
       </nav>
     </header>

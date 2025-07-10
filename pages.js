@@ -1,9 +1,12 @@
+import { renderMonthlyInfo } from "./monthlyInfo.js";
+import { renderInputBar } from "./inputBar.js";
+
 export function createMainPage() {
   return `
     <div class="main-page">
       <div id="input-bar-container"></div>
       <div id="monthly-info-container"></div>
-      <div class="flex-row">
+      <div class="flex-row">    
         <div>8월 14일 월요일</div>
         <div>지출 56,240원</div>
       </div>
@@ -75,7 +78,6 @@ export function createMainPage() {
   `;
 }
 
-// 캘린더 페이지 컴포넌트
 export function createCalendarPage() {
   return `
     <div class="calendar-page">
@@ -84,7 +86,6 @@ export function createCalendarPage() {
   `;
 }
 
-// 그래프 페이지 컴포넌트
 export function createGraphPage() {
   return `
     <div class="graph-page">
@@ -93,23 +94,36 @@ export function createGraphPage() {
   `;
 }
 
-// 페이지 렌더링 함수
-export function renderPage(pageName, container) {
-  let pageContent = "";
-
-  switch (pageName) {
-    case "home":
-      pageContent = createMainPage();
-      break;
-    case "calendar":
-      pageContent = createCalendarPage();
-      break;
-    case "graph":
-      pageContent = createGraphPage();
-      break;
-    default:
-      pageContent = createMainPage(); // 기본값
+export function renderMainPage() {
+  const mainContainer = document.getElementById("main-container");
+  if (mainContainer) {
+    mainContainer.innerHTML = createMainPage();
+  }
+  // inputBar 렌더링
+  const inputBarContainer = document.getElementById("input-bar-container");
+  if (inputBarContainer) {
+    renderInputBar(inputBarContainer);
   }
 
-  container.innerHTML = pageContent;
+  // monthlyInfo 렌더링
+  const monthlyInfoContainer = document.getElementById(
+    "monthly-info-container"
+  );
+  if (monthlyInfoContainer) {
+    renderMonthlyInfo(monthlyInfoContainer);
+  }
+}
+
+export function renderCalendarPage() {
+  const mainContainer = document.getElementById("main-container");
+  if (mainContainer) {
+    mainContainer.innerHTML = createCalendarPage();
+  }
+}
+
+export function renderGraphPage() {
+  const mainContainer = document.getElementById("main-container");
+  if (mainContainer) {
+    mainContainer.innerHTML = createGraphPage();
+  }
 }
