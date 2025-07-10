@@ -1,15 +1,11 @@
 function initHeader() {
+  // DOM 쿼리 설정
   const yearEl = document.querySelector("#currentMonth .year");
   const monthNumEl = document.querySelector("#currentMonth .month-num");
   const monthEngEl = document.querySelector("#currentMonth .month-eng");
   const prevBtn = document.getElementById("prevMonthBtn");
   const nextBtn = document.getElementById("nextMonthBtn");
   const tabBtns = document.querySelectorAll(".tab-btn");
-
-  // 오늘 날짜 설정
-  let today = new Date();
-  let year = today.getFullYear();
-  let month = today.getMonth();
 
   // 월 이름 설정
   const monthNames = [
@@ -27,30 +23,72 @@ function initHeader() {
     "December",
   ];
 
+  // tab-manager.js
+  let currentTab = "list";
+
+  function switchTab(tabName) {
+    currentTab = tabName;
+    const bodyContainer = document.getElementById("body-container");
+
+    switch (tabName) {
+      case "list":
+        bodyContainer.innerHTML = renderMainContent();
+        setupMainEventListeners();
+        break;
+      case "calendar":
+        bodyContainer.innerHTML = renderCalendarContent();
+        setupCalendarEventListeners();
+        break;
+      case "stats":
+        bodyContainer.innerHTML = renderChartContent();
+        setupChartEventListeners();
+        break;
+    }
+  }
+
+  function setupTabListeners() {
+    const tabBtns = document.querySelectorAll(".tab-btn");
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        switchTab(btn.dataset.tab);
+      });
+    });
+  }
+
   function updateMonth() {
-    yearEl.textContent = year;
-    monthNumEl.textContent = month + 1;
-    monthEngEl.textContent = monthNames[month];
+    yearEl.textContent = window.currentYear;
+    monthNumEl.textContent = window.currentMonth + 1;
+    monthEngEl.textContent = monthNames[window.currentMonth];
   }
 
   prevBtn.addEventListener("click", () => {
-    month--;
-    if (month < 0) {
-      month = 11;
-      year--;
+    window.currentMonth--;
+    if (window.currentMonth < 0) {
+      window.currentMonth = 11;
+      window.currentYear--;
     }
     updateMonth();
-    //TODO: 내역 리스트 갱신 함수 호출
+
+    // 전역 함수 호출
+    if (window.onMonthChanged) {
+      window.onMonthChanged(window.currentYear, window.currentMonth);
+    }
   });
 
   nextBtn.addEventListener("click", () => {
-    month++;
-    if (month > 11) {
-      month = 0;
-      year++;
+    window.currentMonth++;
+    if (window.currentMonth > 11) {
+      window.currentMonth = 0;
+      window.currentYear++;
     }
     updateMonth();
-    //TODO: 내역 리스트 갱신 함수 호출
+
+    // 전역 함수 호출
+    if (window.onMonthChanged) {
+      window.onMonthChanged(window.currentYear, window.currentMonth);
+    }
   });
 
   // 탭 클릭 시 active 변경 및 화면 전환
@@ -64,5 +102,7 @@ function initHeader() {
   updateMonth();
 }
 
-// 전역 함수에 해당 함수 등록(index.js에서 호출)
+// 전역 함수에 해당 함수 등록(index.html에서 호출)
 window.initHeader = initHeader;
+window.switchTab = switchTab;
+window.setupTabListeners = setupTabListeners;
