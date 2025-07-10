@@ -3,9 +3,9 @@ function Header() {
         element: `
             <header>
                 <div class="header">
-                    <div class="row">
+                    <div class="flex-row">
                         <span class="logo">Wise Wallet</span>
-                        <div class="row">
+                        <div class="flex-row">
                             <button class="arrow-icon">
                                 <img src="assets/icons/chevron-left.svg" alt="이전 달">
                             </button>
@@ -18,7 +18,7 @@ function Header() {
                                 <img src="assets/icons/chevron-right.svg" alt="다음 달">
                             </button>
                         </div>
-                        <div>
+                        <div class="flex-row">
                             <button class="icon-button">
                                 <img src="assets/icons/history.svg" alt="History Icon">
                             </button>
