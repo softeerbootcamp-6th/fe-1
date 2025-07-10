@@ -41,32 +41,35 @@ function renderPageFor(year, month) {
   console.log(`렌더링 중: ${year}년 ${month}월`);
   // 여기에 실제로 페이지 내용 바꾸는 로직 작성
 }
-
+let selectedMethod = null;
+let selectedCategory = null;
 addBtn.addEventListener("click", () => {
     const date = document.getElementById("date").value;
     const amount = Number(document.getElementById("amount").value);
     const desc = document.getElementById("desc").value;
-    const method = document.getElementById("method").value;
-    const category = document.getElementById("category").value;
+    const category = selectedCategory; // 이미 커스텀 드롭다운이면 이렇게
+    const method = selectedMethod;     // 커스텀 드롭다운 적용
 
     if (!date || !amount || !desc) {
       alert("모든 항목을 정확히 입력해주세요!");
       return;
     }
+    console.log("입력된 값:", { date, amount, desc, method, category });
 
-    // 객체로 저장
-    const entry = { date, amount, desc, method, category };
-    entries.push(entry);
+  const entry = { date, amount, desc, method, category };
+  entries.push(entry);
 
-    // 화면에 추가
-    addEntryToDOM(entry);
+  addEntryToDOM(entry);
 
-    // 폼 초기화
-    document.getElementById("date").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("desc").value = "";
-    document.getElementById("method").selectedIndex = 0;
-    document.getElementById("category").selectedIndex = 0;
+  // 폼 초기화
+  document.getElementById("date").value = "";
+  document.getElementById("amount").value = "";
+  document.getElementById("desc").value = "";
+  document.getElementById("amount").placeholder = "0";
+  selectedMethod = null;
+  selectedCategory = null;
+  document.getElementById("dropdown-display").textContent = "선택하세요";
+  document.getElementById("category-display").textContent = "선택하세요";
   });
 
 
@@ -224,4 +227,59 @@ const methodSelect = document.getElementById("method");
       selectedMethod = methodName;
       panel.classList.add("hidden");
     }
+  });
+  
+
+
+  // 분류 기능***********!!!!!!!!!!!
+  const categoryWrapper = document.getElementById("category-wrapper");
+  const categoryDisplay = document.getElementById("category-display");
+  const categoryPanel = document.getElementById("category-panel");
+
+  const incomeCategories = ["월급", "용돈", "기타수입"];
+  const expenseCategories = ["생활", "식비", "교통", "쇼핑/뷰티", "의료/건강", "문화/여가", "미분류"];
+  let isIncome = true;
+  function renderCategoryOptions() {
+    categoryPanel.innerHTML = "";
+    const list = isIncome ? incomeCategories : expenseCategories;
+
+    list.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "dropdown-option";
+      div.textContent = item;
+      div.dataset.value = item;
+      categoryPanel.appendChild(div);
+    });
+  }
+  // 드롭다운 열기
+  categoryDisplay.addEventListener("click", () => {
+    categoryPanel.classList.toggle("hidden");
+  });
+renderCategoryOptions();
+
+
+// 카테고리 선택
+  categoryPanel.addEventListener("click", (e) => {
+    const target = e.target;
+    if (target.classList.contains("dropdown-option")) {
+      selectedCategory = target.dataset.value;
+      categoryDisplay.textContent = selectedCategory;
+      categoryPanel.classList.add("hidden");
+    }
+  });
+
+  // 외부 클릭 시 닫기
+  document.addEventListener("click", (e) => {
+    if (!categoryWrapper.contains(e.target)) {
+      categoryPanel.classList.add("hidden");
+    }
+  });
+
+// + / - 토글 시 분류 재렌더
+  toggleSign.addEventListener("click", () => {
+    isIncome = !isIncome;
+    toggleSign.textContent = isIncome ? "+" : "-";
+    categoryDisplay.textContent = "선택하세요";
+    selectedCategory = null;
+    renderCategoryOptions();
   });

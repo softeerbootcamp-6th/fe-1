@@ -81,20 +81,17 @@
 
             <div class="vertical-line"></div>
 
-            <div class="inter-input-block">
+            <div class="inter-input-block" id="category-wrapper">
                 <div>분류</div>
-            <select id="category">
-                <option selected disabled>선택하세요</option>
-                <option>생활</option>
-                <option>교통</option>
-                <option>문화/여가</option>
-                <option>미분류</option>
-                <option>식비</option>
-                <option>월급</option>
-            </select>
+                <div class="dropdown-display" id="category-display">선택하세요</div>
+                <div class="dropdown-panel hidden" id="category-panel">
+                    <!-- 수입/지출 항목은 JS로 렌더링 -->
+                </div>
             </div>
 
-            <button id="add-btn">✔️</button>
+            <button id="add-btn">
+                <img src="assets/botton.png" alt="확인" width="20" height="20" />
+            </button>
             </section>
         <section class="entry-list" id="entry-list"></section>
         <script src="js/middleCalendar.js"></script>
