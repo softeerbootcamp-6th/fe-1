@@ -1,16 +1,46 @@
+/* ① 전체 페이지 가운데 정렬 & 기본 리셋 */
+html,
+body {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.top-header {
+    width: 100%;
+    height: 216px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-color: #73A4D0;
+}
+
 .topbar {
+    width: 846px;
+    height: 112px;
+    margin-top: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10px 20px 10px;
+}
+
+.topbar>.app-name,
+.topbar>.view-toggle {
+    width: 132px;
 }
 
 .month-nav {
+    width: 232px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .month-display {
+    width: 112px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,12 +51,248 @@
     margin: 0;
 }
 
+.month-display>.year,
+.month-display>.month-name {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.month-display>.month {
+    font-size: 48px;
+    line-height: 56px;
+}
+
 .view-toggle {
     display: flex;
+    justify-content: flex-end;
+}
+
+main {
+    width: 894px;
+    position: absolute;
+    top: 180px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.detail-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 76px;
+    border: 0.5px solid black;
+}
+
+input,
+select {
+    border: none;
+}
+
+.detail-form>.col {
+    padding: 0 20px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 0.5px solid black;
+}
+
+.detail-form>.amount>div>span {
+    width: 16px;
+}
+
+.detail-form>.amount>div>input {
+    width: 88px;
+    text-align: end;
+}
+
+.detail-form>.amount>div>#form-sign {
+    cursor: pointer;
+}
+
+.detail-form>.memo>label {
+    display: inline;
+}
+
+.detail-form>.memo>div {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-form {
+.detail-form>.memo>div>span {
+    color: #888;
+}
+
+.detail-form>.category {
+    border-right: none;
+}
+
+.detail-form>.submit-btn {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(128, 128, 128, 0.32);
+    color: white;
+    border: none;
+    margin-right: 20px;
+    margin-left: auto;
+    cursor: not-allowed;
+}
+
+/* 모든 필드가 유효 -> JS가 .active 클래스 부여 */
+.submit-btn.active {
+    background: #000;
+    /* 검정색 */
+    color: #fff;
+    cursor: pointer;
+}
+
+.month-summary {
+    width: 846px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    margin-top: 40px;
+}
+
+/* 오버레이 */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* 모달 박스 */
+.modal-box {
+    width: 384px;
+    background: white;
+    border: 0.5px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 제목 */
+.modal-title {
+    width: 320px;
+    height: 32px;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+/* 입력창 */
+.modal-input {
+    width: 320px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 7px;
+    background: rgb(128, 128, 128, 0.32);
+    font-size: 12px;
+}
+
+/* 버튼 영역 */
+.modal-actions {
+    width: 384px;
+    height: 56px;
+    margin-top: 30px;
+    display: flex;
+    border-top: 0.5px solid black;
+}
+
+.modal-actions>.modal-btn {
+    flex: 1;
+    font-size: 16px;
+    background-color: white;
+    border: none;
+}
+
+.modal-actions>.cancel {
+    border-right: 0.5px solid black;
+    color: #6c757d;
+}
+
+.modal-actions>.confirm {
+    color: #000;
+}
+
+.month-summary {
+    width: 846px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    margin-top: 40px;
+}
+
+.month-summary>.month-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.month-summary>article {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+article>header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+article>ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin-top: 20px;
+    border-top: 0.5px solid black;
+    border-bottom: 0.5px solid black;
+}
+
+article>ul>li{
+    display:flex;
+    justify-content:space-between; /* 가로(주축) 끝단으로 배치 */
+    align-items:center;            /* 세로(교차축) 가운데 정렬 */
+    width:100%;
+    height:56px;
+}
+
+article>ul>li>span {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+article>ul>li>.badge {
+    min-width: 92px;
+}
+
+article>ul>li>.detail {
+    min-width: 400px;
+}
+
+article>ul>li>.payment {
+    min-width: 104px;
+}
+
+article>ul>li>.amount {
+    min-width: 186px;
+    text-align: end;
 }
