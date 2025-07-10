@@ -3,39 +3,25 @@ import createAmount from './InputItems/amount.js';
 import createContent from './InputItems/content.js';
 import createPaymentMethod from './InputItems/paymentMethod.js';
 import createCategory from './InputItems/category.js';
+import createSubmitButton from './submitButton.js';
 
 function createInputBar() {
     const container = document.createElement('div');
     container.className = 'input-bar-container';
 
     const dateItem = createDate();
-    container.appendChild(dateItem);
-
     const amountItem = createAmount();
-    container.appendChild(amountItem);
-
     const contentItem = createContent();
-    container.appendChild(contentItem);
-
     const paymentMethodItem = createPaymentMethod();
-    container.appendChild(paymentMethodItem);
-
     const categoryItem = createCategory();
+    const submitButton = createSubmitButton();
+
+    container.appendChild(dateItem);
+    container.appendChild(amountItem);
+    container.appendChild(contentItem);
+    container.appendChild(paymentMethodItem);
     container.appendChild(categoryItem);
-
-    const submitBtn = document.createElement('button');
-    submitBtn.className = 'submit-button';
-    submitBtn.innerHTML = `
-        <img
-            src="/assets/icons/check.svg"
-            alt="check icon"
-            width="24"
-            height="24"
-            class="submit-icon"
-        />
-    `;
-
-    container.appendChild(submitBtn);
+    container.appendChild(submitButton);
 
     return container;
 }
