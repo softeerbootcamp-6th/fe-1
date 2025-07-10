@@ -11,6 +11,14 @@
 
 const items = [
   {
+    date: "2025-08-05",
+    category: "교통",
+    description: "후불 교통비 결제",
+    method: "현대카드",
+    type: "deposit",
+    amount: "10000000",
+  },
+  {
 date: "2025-07-04",
     category: "문화/여가",
     description: "스트리밍 서비스 정기 결제",
