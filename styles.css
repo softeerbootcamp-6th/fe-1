@@ -65,8 +65,11 @@ header {
 table {
   width: 100%;
 }
+
+.item:hover .delete-btn {
+  display: flex;
 }
 
-.header-calendar-bar{
-    gap: 2rem;
+.delete-btn {
+  display: none;
 }
