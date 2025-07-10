@@ -1,6 +1,7 @@
 // items 날짜별로 가공, 날짜별로 렌더링
 
 /*
+    date: YYYY-MM-DD
     category: 10개 중 1개; string,
     description: string,
     method: 결제 수단; 사용자 임의 입력; string,
@@ -10,6 +11,7 @@
 
 const items = [
   {
+date: "2025-07-04",
     category: "문화/여가",
     description: "스트리밍 서비스 정기 결제",
     method: "현대카드",
@@ -17,6 +19,15 @@ const items = [
     amount: "10900",
   },
   {
+    date: "2025-08-04",
+    category: "문화/여가",
+    description: "스트리밍 서비스 정기 결제",
+    method: "현대카드",
+    type: "withdraw",
+    amount: "10900",
+  },
+  {
+    date: "2025-08-04",
     category: "교통",
     description: "후불 교통비 결제",
     method: "현대카드",
@@ -24,6 +35,7 @@ const items = [
     amount: "45340",
   },
   {
+    date: "2025-08-05",
     category: "문화/여가",
     description: "스트리밍 서비스 정기 결제",
     method: "현대카드",
@@ -32,6 +44,7 @@ const items = [
     amount: "10900",
   },
   {
+    date: "2025-08-05",
     category: "교통",
     description: "후불 교통비 결제",
     method: "현대카드",
