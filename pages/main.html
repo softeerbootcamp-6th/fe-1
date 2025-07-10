@@ -1,1 +1,60 @@
-<h1>mainPage</h1>
+<div class="main-container">
+  <div class="input-container">
+    <!-- 날짜 입력 -->
+    <div class="cell-container date-cell">
+      <label for="date-input" class="font-light-12">일자</label>
+      <input type="date" class="date-input" />
+    </div>
+
+    <div class="seperator"></div>
+
+    <!-- 금액 입력 -->
+    <div class="cell-container value-cell">
+      <label for="value-input" class="font-light-12">금액</label>
+      <div class="value-input">
+        <button class="toggle-button">-</button>
+        <input type="number" placeholder="0" class="value-number" />
+        <span class="won-label">원</span>
+      </div>
+    </div>
+
+    <div class="seperator"></div>
+
+    <!-- 내용 입력 -->
+    <div class="cell-container description-cell">
+      <label for="description-input" class="font-light-12">내용</label>
+      <input type="text" class="description-input" placeholder="입력하세요" />
+    </div>
+
+    <div class="seperator"></div>
+    <!-- 결제수단 선택 -->
+    <div class="cell-container payment-cell">
+      <label for="payment-input" class="font-light-12">결제수단</label>
+      <div class="dropdown-container payment-dropdown">
+        <p class="font-semibold-12 selected-payment">선택하세요</p>
+        <img src="../assets/icons/chevron-down.svg" alt="화살표" class="payment-arrow-icon" />
+      </div>
+
+      <ul class="payment-dropdown-options" style="display: none"></ul>
+    </div>
+
+    <div class="seperator"></div>
+    <!-- 분류 선택 -->
+    <div class="cell-container category-cell">
+      <label for="category-input" class="font-light-12">분류</label>
+      <div class="dropdown-container category-dropdown">
+        <p class="font-semibold-12 selected-category">선택하세요</p>
+        <img src="../assets/icons/chevron-down.svg" alt="화살표" class="category-arrow-icon" />
+      </div>
+
+      <ul class="category-dropdown-options" style="display: none"></ul>
+    </div>
+
+    <button class="submit-button">
+      <img src="../assets/icons/checkbox.svg" alt="제출" />
+    </button>
+  </div>
+
+  <!-- 가계부 내역 렌더링 -->
+  <div class="record-container">여기에 기록 표시</div>
+</div>
