@@ -61,3 +61,7 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  color: var(--nuetral-text-default);
+}
