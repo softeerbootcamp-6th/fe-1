@@ -1,11 +1,11 @@
 @font-face {
   font-family: "ChosunilboNM";
-  src: url("./ChosunilboNM.ttf") format("truetype");
+  src: url("/styles/fonts/ChosunNm.woff") format("truetype");
 }
 
 @font-face {
   font-family: "Pretendard";
-  src: url("./Pretendard-Regular.ttf") format("truetype");
+  src: url("/styles/fonts/PretendardVariable.woff2") format("truetype");
 }
 
 /* ===== Typography System ===== */
@@ -13,18 +13,21 @@
 /* Serif Fonts */
 .font-serif-48 {
   font-family: ChosunilboNM;
+  font-weight: 400;
   font-size: 48px;
   line-height: 56px;
 }
 
 .font-serif-24 {
   font-family: ChosunilboNM;
+  font-weight: 400;
   font-size: 24px;
   line-height: 32px;
 }
 
 .font-serif-14 {
   font-family: ChosunilboNM;
+  font-weight: 400;
   font-size: 14px;
   line-height: 16px;
 }
