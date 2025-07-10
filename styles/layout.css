@@ -1,4 +1,10 @@
+@import './colors.css';
+
 header {
     height: 13.5rem;
-    background-color: blue;
+    background-color: var(--colorchip-80);
+    padding: 2.5rem 0rem 0rem 0rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
 }

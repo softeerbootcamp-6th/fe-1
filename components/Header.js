@@ -7,32 +7,36 @@ export function renderHeader() {
     const header = document.createElement('header');
 
     header.innerHTML = `
-    <div id="logo">Wise Wallet</div>
-    <div>
-        <button>
-            <img src="../assets/icons/chvron-left.svg">
-            </img>
-        </button>
-        <div>
-            <span>2023</span>
-            <span>8</span>
-            <span>August</span>
+    <div class='header-content'>
+        <div class="serif24" id="logo">
+            Wise Wallet
         </div>
-        <button>
-            <img src="../assets/icons/chvron-left.svg">
-            </img>
-        </button>
-        <div>
-            <button>
+        <div class='date-content'>
+            <button class='arrow'>
+                <img src="../assets/icons/chevron-left.svg">
+                </img>
+            </button>
+            <div class='date'>
+                <span class='year light14'>2023</span>
+                <span class='month serif48'>8</span>
+                <span class='month-text light14'>August</span>
+            </div>
+            <button class='arrow'>
+                <img src="../assets/icons/chevron-right.svg">
+                </img>
+            </button>
+        </div>
+        <nav class='tabs'>
+            <button class='tab-button'>
                 <img src="../assets/icons/doc.svg"></img>
             </button>
-            <button>
+            <button class='tab-button'>
                 <img src="../assets/icons/calendar.svg"></img>
             </button>
-            <button>
+            <button class='tab-button'>
                 <img src="../assets/icons/chart.svg"></img>
             </button>
-        </div>
+        </nav>
     </div>
 
     `
