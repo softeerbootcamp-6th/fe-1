@@ -98,7 +98,6 @@
 
 .history {
   width: 84.6rem;
-  background-color: bisque;
   margin-top: 3.4rem;
 }
 
@@ -128,4 +127,84 @@
 .history__header-filter-item img {
   width: 1.6rem;
   height: 1.6rem;
+}
+
+.history__list {
+  margin-top: 4rem;
+}
+
+.daily-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.daily-list__date {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.daily-list__amount {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.daily-list__content {
+  margin-top: 1.6rem;
+  border-top: 0.05rem solid var(--nuetral-border-default);
+  border-bottom: 0.05rem solid var(--nuetral-border-default);
+}
+
+.daily-list__content-row {
+  display: flex;
+  align-items: center;
+}
+
+.content-row__info {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6rem;
+  gap: 1.6rem;
+  flex: 1;
+}
+
+.content-row__title {
+  width: 40rem;
+}
+
+.content-row__payment {
+  width: 10.4rem;
+}
+
+.content-row__amount {
+  flex: 1;
+  text-align: right;
+}
+
+.amount-negative {
+  color: var(--brand-text-expense);
+}
+
+.amount-positive {
+  color: var(--brand-text-income);
+}
+
+.content-row__delete-button {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--danger-surface-default);
+}
+
+.daily-list__content-row:hover .content-row__info {
+  background-color: var(--nuetral-surface-point);
+}
+
+.daily-list__content-row:hover .content-row__delete-button {
+  display: flex;
 }

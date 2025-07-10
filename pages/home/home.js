@@ -1,4 +1,4 @@
-import { Header, CheckBox } from "../../components/index.js";
+import { Header, CheckBox, CategoryTag } from "../../components/index.js";
 
 const renderHeader = () => {
   const header = Header({
@@ -21,5 +21,19 @@ const renderFilter = () => {
   filterContainer.append(incomeCheckBox, expenseCheckBox);
 };
 
+const renderCategory = () => {
+  const categoryContainer1 = document.getElementById("category-test-1");
+  const categoryContainer2 = document.getElementById("category-test-2");
+  const category1 = CategoryTag({
+    label: "식비",
+  });
+  const category2 = CategoryTag({
+    label: "월급",
+  });
+  categoryContainer1.appendChild(category1);
+  categoryContainer2.appendChild(category2);
+};
+
 renderHeader();
 renderFilter();
+renderCategory();
