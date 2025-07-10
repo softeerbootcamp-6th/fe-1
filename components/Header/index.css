@@ -1,5 +1,5 @@
 header {
-    background-color: #73a4d0;
+    background-color: var(--colorchip-80);
     padding: 40px 0 64px 0;
     display: flex;
     align-items: center;
@@ -15,7 +15,7 @@ header {
 }
 
 .logo-text {
-    color: #000000;
+    color: var(--neutral-text-default);
     text-decoration: none;
 }
 
@@ -34,15 +34,15 @@ header {
 }
 
 .year {
-    color: #000000;
+    color: var(--neutral-text-default);
 }
 
 .month-number {
-    color: #000000;
+    color: var(--neutral-text-default);
 }
 
 .month-name {
-    color: #000000;
+    color: var(--neutral-text-default);
 }
 
 .month-control-button:hover {
@@ -77,5 +77,5 @@ li {
 }
 
 .header-nav-link.active {
-    background-color: #ffffff;
+    background-color: var(--neutral-surface-default);
 }
