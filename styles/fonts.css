@@ -1,0 +1,72 @@
+ @font-face {
+  font-family: 'Chosunilbo_myungjo';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'pretendard';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff')'
+}
+
+.serif48 {
+    font-family: 'Chosunilbo_myungjo';
+    font-size: 48px;
+    line-height: 56px;
+    font-weight: 400;
+}
+
+.serif24 {
+    font-family: 'Chosunilbo_myungjo';
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+}
+
+.serif14 {
+    font-family: 'Chosunilbo_myungjo';
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+}
+
+.semibold16 {
+    font-family: 'pretendard';
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.semibold14 {
+    font-family: 'pretendard';
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+}
+
+.semibold12 {
+    font-family: 'pretendard';
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+}
+
+.light16 {
+    font-family: 'pretendard';
+    font-size: 16px;
+    line-height: 32px;
+    font-weight: 300;
+}
+
+.light14 {
+    font-family: 'pretendard';
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 300;
+}
+
+.light12 {
+    font-family: 'pretendard';
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 300;
+}
