@@ -1,3 +1,103 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+@font-face {
+  font-family: "Chosunilbo_myungjo";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Fonts */
+
+/* Serif (조선일보명조) */
+.serif-48 {
+  font-family: "Chosunilbo", serif;
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 400;
+}
+
+.serif-24 {
+  font-family: "Chosunilbo", serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+}
+
+.serif-14 {
+  font-family: "Chosunilbo", serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+/* Semi Bold (Pretendard) */
+.semibold-16 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.semibold-14 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.semibold-12 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+/* Light (Pretendard) */
+.light-16 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  line-height: 32px;
+  font-weight: 300;
+}
+
+.light-14 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
+.light-12 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
+/* 사용 예시 */
+.title-large {
+  font-family: "Chosunilbo", serif;
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: normal;
+}
+
+.title-medium {
+  font-family: "Chosunilbo", serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: normal;
+}
+
+.body-text {
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
 body {
   margin: 0;
 }
@@ -38,8 +138,7 @@ header {
 }
 
 .input-bar {
-  margin: 40px auto;
-  width: 846px;
+  width: 100%;
   height: 112px;
   display: flex;
   justify-content: space-between;
@@ -51,5 +150,46 @@ header {
 
 .container {
   width: 846px;
-  margin: 40px auto;
+  margin: 0 auto;
+}
+
+/* 네비게이션 스타일 */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+nav li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo > a {
+  color: #000;
+}
+
+nav a {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 22px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+nav a.active {
+  background: rgba(255, 255, 255, 1);
 }

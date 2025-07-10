@@ -1,19 +1,20 @@
-import { renderInputBar } from "./inputBar.js";
-import { renderHeader } from "./header.js";
-import { renderMonthlyInfo } from "./monthlyInfo.js";
+import { renderHeader } from "./components/header.js";
+import { render, navigate } from "./routes.js";
 
-const inputBarContainer = document.getElementById("input-bar-container");
 const headerContainer = document.getElementById("header-container");
-const monthlyInfoContainer = document.getElementById("monthly-info-container");
-
-if (inputBarContainer) {
-  renderInputBar(inputBarContainer);
-}
 
 if (headerContainer) {
   renderHeader(headerContainer);
 }
 
-if (monthlyInfoContainer) {
-  renderMonthlyInfo(monthlyInfoContainer);
-}
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (link && link.getAttribute("href")) {
+      e.preventDefault();
+      navigate(link.getAttribute("href"));
+    }
+  });
+
+  render();
+});
