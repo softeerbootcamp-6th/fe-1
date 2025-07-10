@@ -3,6 +3,7 @@ import {
   renderCalendarPage,
   renderChartPage,
 } from "./pages.js";
+import { updateNavigationActive } from "./components/header.js";
 
 const routes = {
   "/": renderMainPage,
@@ -25,4 +26,6 @@ export function render() {
   } else {
     container.innerHTML = "<h1>404 Not Found</h1>";
   }
+
+  updateNavigationActive();
 }

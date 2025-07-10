@@ -9,12 +9,10 @@ if (headerContainer) {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
+    const link = e.target.closest("a");
+    if (link && link.getAttribute("href")) {
       e.preventDefault();
-      const href = e.target.getAttribute("href");
-      if (href) {
-        navigate(href);
-      }
+      navigate(link.getAttribute("href"));
     }
   });
 
