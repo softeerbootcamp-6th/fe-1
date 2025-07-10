@@ -36,6 +36,8 @@ export const renderHeader = () => {
   const navItems = ["doc", "calendar", "chart"];
   navItems.forEach((item, idx) => {
     const li = document.createElement("li");
+    li.classList.add("nav-item");
+    li.dataset.hash = "#" + item;
     li.innerHTML = `
     <a class="nav" href="#${item}">
       <img src="./src/assets/${item}.png" alt="${item} icon" />
@@ -44,15 +46,6 @@ export const renderHeader = () => {
     if (idx === 0) li.classList.add("active");
     li.dataset.item = item;
     nav.appendChild(li);
-  });
-
-  // 이벤트 위임
-  nav.addEventListener("click", (e) => {
-    const target = e.target.closest("li");
-    if (!target) return;
-    const current = nav.querySelector(".active");
-    if (current) current.classList.remove("active");
-    target.classList.add("active");
   });
 
   header.appendChild(nav);
