@@ -5,6 +5,7 @@ export const renderHeader = () => {
   // logo
   const logo = document.createElement("p");
   logo.classList.add("logo");
+  logo.classList.add("serif-24");
   logo.textContent = "Wise Wallet";
   header.appendChild(logo);
 
@@ -18,7 +19,7 @@ export const renderHeader = () => {
     <div class="arrow"><</div>
     <div class="currentDate">
         <span >${year}</span>
-        <span class="month_num">${month}</span>
+        <span class="month_num serif-48">${month}</span>
         <span >${monthEng}</span>
     </div>
     <div class="arrow">></div>

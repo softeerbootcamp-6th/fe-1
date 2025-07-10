@@ -1,4 +1,10 @@
 :root {
+  /**
+   * Color Tokens
+   * - Grayscale: Neutral colors for backgrounds, text, and borders.
+   * - Pastel: Soft colors for branding and UI elements.
+   * - Custom Tokens: Specific color combinations for various UI states.
+   */
   /* Grayscale */
   --grayscale-50: #ffffff;
   --grayscale-100: #fbfcfd;
@@ -54,6 +60,88 @@
   --colorchip-120: var(--pastel-chestnut);
 }
 
+/* Font Faces */
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chosunilbo_myungjo";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Serif (Chosunilbo_myungjo) */
+.serif-48 {
+  font-family: "Chosunilbo_myungjo", serif;
+  font-size: 48px;
+  line-height: 56px;
+}
+
+.serif-24 {
+  font-family: "Chosunilbo_myungjo", serif;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.serif-14 {
+  font-family: "Chosunilbo_myungjo", serif;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+/* Semibold (Pretendard, weight 600) */
+.semibold-16 {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.semibold-14 {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.semibold-12 {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+/* Light (Pretendard, weight 300) */
+.light-16 {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 32px;
+  font-weight: 300;
+}
+
+.light-14 {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
+.light-12 {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
 /** header **/
 #header {
   display: flex;
@@ -61,7 +149,7 @@
   align-items: center;
   background-color: var(--pastel-jordyBlue);
   height: 216px;
-  /* padding: 100px; */ /* 전체 레이아웃에 padding을 주고 싶은 경우엔 어떻게 사용하는가? */
+  padding: 0 297px; /* 전체 레이아웃에 padding을 주고 싶은 경우엔 어떻게 사용하는가? */
 }
 
 .logo {
