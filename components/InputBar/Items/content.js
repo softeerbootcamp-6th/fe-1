@@ -20,6 +20,15 @@ const createContent = () => {
         </div>
     `;
 
+    const countContentLength = () => {
+        const contentInput = contentItem.querySelector('#content');
+        const countDisplay = contentItem.querySelector('.content-length-count');
+        countDisplay.textContent = contentInput.value.length;
+    };
+    const contentInput = contentItem.querySelector('#content');
+    contentInput.addEventListener('input', countContentLength);
+    countContentLength();
+
     return contentItem;
 };
 
