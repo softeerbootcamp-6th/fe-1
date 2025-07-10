@@ -52,13 +52,12 @@ export default function addHeaderHTML() {
     dateData.initDateData();
 
     const $centerWrapper = document.getElementById('center-wrapper');
-    const children = $centerWrapper.children;
+    const [$minusBtn, _, $plusBtn] = $centerWrapper.children;
 
-    children[0].addEventListener('click', () => {
+    $minusBtn.addEventListener('click', () => {
         dateData.decreaseMonth();
-        console.log('dd');
     });
-    children[2].addEventListener('click', () => {
+    $plusBtn.addEventListener('click', () => {
         dateData.increaseMonth();
     });
 }
