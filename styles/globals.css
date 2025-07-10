@@ -1,10 +1,12 @@
 :root {
+    /* Primitives - Grayscale */
     --grayscale-50: #ffffff;
     --grayscale-100: #fbfcfd;
     --grayscale-200: #f1f4f8;
     --grayscale-300: #777d84;
     --grayscale-400: #000000;
 
+    /* Primitives - Pastel */
     --pastel-almondFrost: #a28878;
     --pastel-porsche: #e39d5d;
     --pastel-chenin: #d7ca6b;
@@ -20,6 +22,7 @@
     --pastel-amaranth: #e93b5a;
     --pastel-chestnut: #c04646;
 
+    /* Tokens - Neutral */
     --neutral-surface-weak: var(--grayscale-100);
     --neutral-surface-default: var(--grayscale-50);
     --neutral-surface-point: var(--grayscale-200);
@@ -28,15 +31,18 @@
     --neutral-text-rev-default: var(--grayscale-50);
     --neutral-border-default: var(--grayscale-400);
 
+    /* Tokens - Brand */
     --brand-surface-default: var(--grayscale-50);
     --brand-text-income: var(--pastel-seagull);
     --brand-text-expense: var(--pastel-chestnut);
 
+    /* Tokens - Danger */
     --danger-surface-default: var(--pastel-amaranth);
     --danger-text-default: var(--pastel-amaranth);
     --danger-text-rev-default: var(--grayscale-50);
     --danger-border-default: var(--pastel-amaranth);
 
+    /* Tokens - Colorchip */
     --colorchip-10: var(--pastel-almondFrost);
     --colorchip-20: var(--pastel-porsche);
     --colorchip-30: var(--pastel-chenin);
