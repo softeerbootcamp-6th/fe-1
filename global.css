@@ -1,14 +1,22 @@
 .header {
     background-color: #ababab;
     border-bottom: 1px solid #000000;
-    padding: 30px 20%;
+    padding: 40px 20% 64px 20%;
 }
 
-.row {
+.flex-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 0;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 .logo {
@@ -23,6 +31,9 @@
     width: 24px;
     height: 24px;
     margin: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .arrow-icon {
