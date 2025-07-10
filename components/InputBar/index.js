@@ -1,3 +1,4 @@
+import createDate from './Items/date.js';
 import createAmount from './Items/amount.js';
 import createContent from './Items/content.js';
 import createPaymentMethod from './Items/paymentMethod.js';
@@ -7,16 +8,7 @@ function createInputBar() {
     const container = document.createElement('div');
     container.className = 'input-bar-container';
 
-    const dateItem = document.createElement('div');
-    dateItem.className = 'input-bar-item';
-    dateItem.innerHTML = `
-        <div class="input-bar-item-wrapper">
-            <label for="date-input" class="light-12">일자</label>
-        </div>
-        <div class="input-bar-item-wrapper">
-            <input type="date" id="date-input" />
-        </div>
-    `;
+    const dateItem = createDate();
     container.appendChild(dateItem);
 
     const amountItem = createAmount();
