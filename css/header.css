@@ -1,0 +1,75 @@
+/* 헤더 전체 */
+.header {
+  height: 200px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #73A4D0;
+  padding: 16px 400px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+.month-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.month-control {
+    display: flex;
+    align-items: center;
+    justify-content : center;
+    gap:16px;
+    font-size:1.8rem;
+    font-weight:bold;
+}
+
+/* 왼쪽 로고 */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+/* 가운데 월 선택 */
+.month-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.2rem;
+  color: #444;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* 오른쪽 뷰 옵션 */
+.view-options {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.icon-btn.active {
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}

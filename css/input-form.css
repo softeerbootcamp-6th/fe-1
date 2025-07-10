@@ -1,0 +1,158 @@
+.input-form {
+  position: relative; /* 또는 absolute도 가능 */
+  top: -30px;          /* 헤더를 위로 겹쳐서 올라가게 */
+  margin: 0 auto;
+  padding: 16px;
+  width: fit-content;
+  background: #fff;
+  border: 1px solid #000;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  z-index: 10; /* 헤더 위에 떠야 한다면 1 이상 */
+}
+
+.vertical-line {
+  width: 1px;
+  height: 48px;
+  background-color: #ccc;
+  align-self: center;
+}
+
+.amount-block{
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+#amount {
+  border: none;
+  background: transparent;
+  outline: none;
+  text-align: right;
+  width: 100px;
+  color: #000;
+}
+
+#amount::placeholder {
+  color: #aaa;
+}
+
+.toggle-sign {
+  width: 12px;
+  height: 22px;
+  border-radius: 50%;
+  color: #000;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+.inter-input-block{
+    position: relative;
+}
+
+
+.content{
+    border: none;
+}
+
+
+.desc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.char-count {
+  font-size: 12px;
+  color: #888;
+}
+
+#date{
+    border: none;
+}
+
+/* 선택 영역 */
+.dropdown-display {
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 12px;
+  width: 100px;
+  margin: 4px;
+}
+
+/* 드롭다운 목록 */
+.dropdown-panel {
+  position: absolute;
+  top: 58px;
+  left: -10px;
+  width: 120%;
+  background: white;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  z-index: 10;
+}
+
+.dropdown-option,
+.dropdown-add {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-option:hover,
+.dropdown-add:hover {
+  background-color: #f0f0f0;
+}
+
+.hidden {
+  display: none;
+}
+
+.dropdown-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: red;
+  padding: 0 4px;
+}
+
+/* 모달 재사용 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 280px;
+  text-align: center;
+}

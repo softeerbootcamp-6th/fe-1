@@ -1,3 +1,10 @@
-import { hello } from "./message.js";
+// js/calendar.js
+import { initCalendar } from "./header.js";
+import { initInputForm } from "./input-form.js";
+initCalendar({
+  onUpdate: (year, month) => {
+    renderPageFor(year, month);
+  }
+});
 
-console.log(hello());
+initInputForm();
