@@ -1,5 +1,5 @@
 header {
-    background-color: #73a4d0;
+    background-color: var(--colorchip-80);
     padding: 40px 0 64px 0;
     display: flex;
     align-items: center;
@@ -15,10 +15,7 @@ header {
 }
 
 .logo-text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #000000;
-    font-family: 'Chosunilbo_myungjo', sans-serif;
+    color: var(--neutral-text-default);
     text-decoration: none;
 }
 
@@ -37,22 +34,15 @@ header {
 }
 
 .year {
-    color: #000000;
-    font-size: 14px;
-    font-weight: 300;
+    color: var(--neutral-text-default);
 }
 
 .month-number {
-    color: #000000;
-    font-size: 48px;
-    font-family: 'Chosunilbo_myungjo', sans-serif;
-    font-weight: 400;
+    color: var(--neutral-text-default);
 }
 
 .month-name {
-    color: #000000;
-    font-size: 14px;
-    font-weight: 300;
+    color: var(--neutral-text-default);
 }
 
 .month-control-button:hover {
@@ -87,5 +77,5 @@ li {
 }
 
 .header-nav-link.active {
-    background-color: #ffffff;
+    background-color: var(--neutral-surface-default);
 }

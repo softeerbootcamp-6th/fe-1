@@ -18,7 +18,7 @@ const NavItemIcon = [
 
 const headerHtml = `
     <div class="header-container">
-        <a href="/" class="logo-text">Wise Wallet</a>
+        <a href="/" class="logo-text serif-24">Wise Wallet</a>
         <div class="date">
             <button class="month-control-button">
                 <img
@@ -29,9 +29,9 @@ const headerHtml = `
                 />
             </button>
             <div class="date-container">
-                <span class="year">2023</span>
-                <span class="month-number">8</span>
-                <span class="month-name">August</span>
+                <span class="year light-14">2023</span>
+                <span class="month-number serif-48">8</span>
+                <span class="month-name light-14">August</span>
             </div>
             <button class="month-control-button">
                 <img

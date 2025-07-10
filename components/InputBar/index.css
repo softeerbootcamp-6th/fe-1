@@ -1,0 +1,61 @@
+.input-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 894px;
+
+    padding: 16px 24px;
+    background-color: var(--neutral-surface-default);
+    border: 0.5px solid var(--neutral-border-default);
+
+    gap: 24px;
+}
+
+.input-bar-item {
+    display: flex;
+    flex-direction: column;
+    padding-right: 24px;
+    border-right: 0.5px solid var(--neutral-border-default);
+    gap: 4px;
+}
+
+.input-bar-item:last-child {
+    padding-right: 0;
+    border-right: none;
+}
+
+.amount-button {
+    cursor: pointer;
+}
+
+.amount-input {
+    text-align: right;
+}
+
+.input-bar-item-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.content-length {
+    display: flex;
+    flex-direction: row;
+    color: var(--neutral-text-weak);
+}
+
+.submit-button {
+    padding: 8px;
+    background-color: var(--neutral-text-default);
+    border-radius: 50%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+.submit-icon {
+    filter: invert(1);
+}
