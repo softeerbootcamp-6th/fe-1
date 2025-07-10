@@ -1,0 +1,72 @@
+@import './colors.css';
+
+.header-content {
+    width: 52.875rem;
+    height: 7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo {
+    width: 8.25rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    white-space: nowrap;
+}
+
+.date-content {
+    width: 14.5rem;
+    height: 7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow {
+    width: 2rem;
+    height: 2rem;
+}
+
+.date {
+    width:7.5rem;
+    height: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.year .month-text{
+    width: 7.5rem;
+    height: 1.5rem;
+}
+
+.month {
+    width: 1.5rem;
+    height: 3.5rem;
+}
+
+.tabs {
+    width: 8.25rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tab-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 1.375rem;
+    padding: .5rem;
+    
+}
+
+.tab-button.selected {
+  background-color: white;
+}
+
+
