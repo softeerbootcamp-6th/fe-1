@@ -29,6 +29,10 @@
     cursor: pointer;
 }
 
+.amount-input {
+    text-align: right;
+}
+
 .input-bar-item-wrapper {
     display: flex;
     flex-direction: row;

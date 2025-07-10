@@ -10,7 +10,7 @@ const createDate = () => {
             <label for="date-input" class="light-12">일자</label>
         </div>
         <div class="input-bar-item-wrapper">
-            <input type="date" id="date-input" value=${today} />
+            <input type="date" id="date-input" class="semibold-12" value=${today} />
         </div>
     `;
 
