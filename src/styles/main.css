@@ -1,0 +1,41 @@
+#main {
+  position: relative;
+}
+
+.entire-form {
+  position: absolute;
+  top: -38px;
+  background-color: var(--nuetral-surface-default);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 0 273px;
+  height: 76px;
+  padding: 16px 24px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: var(--nuetral-border-default);
+}
+
+.entire-form .split {
+  height: 44px;
+  border-left: 1px solid var(--nuetral-text-default);
+}
+
+.form-money > div {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.form-content {
+  position: relative;
+}
+.form-content .content-length {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--nuetral-text-weak);
+}
