@@ -22,11 +22,14 @@ const Header = ({
   const header = document.createElement("header");
   header.className = "header";
 
+  const headerContents = document.createElement("div");
+  headerContents.className = "header__contents";
+
   // 제목 생성
   const title = document.createElement("h1");
   title.className = "header__title font-serif-24";
   title.textContent = "Wise Wallet";
-  header.appendChild(title);
+  headerContents.appendChild(title);
 
   // 월 선택 영역 생성
   const monthContainer = document.createElement("div");
@@ -79,7 +82,7 @@ const Header = ({
   }
   monthContainer.appendChild(nextButton);
 
-  header.appendChild(monthContainer);
+  headerContents.appendChild(monthContainer);
 
   // 네비게이션 생성
   const nav = document.createElement("ul");
@@ -127,7 +130,9 @@ const Header = ({
     nav.appendChild(li);
   });
 
-  header.appendChild(nav);
+  headerContents.appendChild(nav);
+
+  header.appendChild(headerContents);
 
   return header;
 };
