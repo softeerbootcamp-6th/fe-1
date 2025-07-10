@@ -1,0 +1,101 @@
+.input-box {
+    width: 894px;
+    height: 76px;
+    margin: auto;
+    background-color: #ffffff;
+    border: 0.5px solid #000000;
+    display: flex;
+    align-items: center;
+}
+
+.input-box > div {
+    padding-left: 24px;
+    padding-right: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.input-box input {
+    border: none;
+    box-sizing: border-box;
+    padding: 0px;
+}
+
+.value-box {
+    width: 134px;
+    display: flex;
+}
+
+.value-box button {
+    all: unset;
+}
+
+.value-box button:hover {
+    cursor: pointer;
+}
+
+.input-box input:focus {
+    border: none;
+    outline-offset: 2px;
+}
+
+.input-box select {
+    border: none;
+}
+
+input[type='number'] {
+    width: 100%;
+}
+
+input[type='date'] {
+    letter-spacing: -2px;
+}
+
+.input-box div:not(:last-child) {
+    border-right: 0.5px solid #000000;
+}
+
+.date-wrapper {
+    width: 88px;
+    height: 44px;
+}
+
+.value-wrapper {
+    width: 134px;
+    height: 44px;
+}
+
+.description-wrapper {
+    width: 160px;
+    height: 44px;
+}
+
+.payment-wrapper {
+    width: 104px;
+    height: 44px;
+}
+
+.category-wrapper {
+    width: 104px;
+    height: 44px;
+}
+
+.add-button-wrapper {
+    width: 40px;
+    height: 44px;
+    border-right: none;
+}
+
+.add-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    margin: auto;
+    border-radius: 100%;
+    background-color: var(--neutral-text-default);
+}
+
+.add-button img {
+    filter: invert(1);
+}
