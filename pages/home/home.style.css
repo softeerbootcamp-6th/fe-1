@@ -96,8 +96,36 @@
   height: 4rem;
 }
 
-.contents {
+.history {
   width: 84.6rem;
   background-color: bisque;
   margin-top: 3.4rem;
+}
+
+.history__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history__header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.history__header-filter {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.history__header-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.history__header-filter-item img {
+  width: 1.6rem;
+  height: 1.6rem;
 }
