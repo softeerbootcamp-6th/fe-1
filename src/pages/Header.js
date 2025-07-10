@@ -16,7 +16,7 @@ export const renderHeader = (currentDate) => {
   const month = currentDate.month;
   const monthEng = currentDate.monthEng;
   date.innerHTML = `
-    <div class="arrow">
+    <div class="arrow arrow-left">
       <img src="./src/assets/chevron-left.png" alt="left arrow" />
     </div>
     <div class="currentDate">
@@ -24,7 +24,7 @@ export const renderHeader = (currentDate) => {
         <span class="month_num serif-48">${month}</span>
         <span >${monthEng}</span>
     </div>
-    <div class="arrow">
+    <div class="arrow arrow-right">
       <img src="./src/assets/chevron-right.png" alt="right arrow" />
     </div>
   `;

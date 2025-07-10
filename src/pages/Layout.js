@@ -1,5 +1,6 @@
 import { renderHeader } from "./Header.js";
 import { renderMain } from "./Main.js";
+import { handleDate } from "../utils/handleDate.js";
 
 export const createLayout = () => {
   const app = document.getElementById("app");
@@ -9,8 +10,8 @@ export const createLayout = () => {
   }
 
   const date = {
-    year: "2023",
-    month: "8",
+    year: 2023,
+    month: 8,
     monthEng: "August",
   };
 
@@ -21,4 +22,6 @@ export const createLayout = () => {
   //main area
   const main = renderMain();
   app.appendChild(main);
+
+  handleDate(date);
 };
