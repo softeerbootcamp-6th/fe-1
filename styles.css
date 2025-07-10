@@ -54,8 +54,17 @@ html {
 }
 
 header {
-  color: black;
-  border: solid 1px;
+  color: #000000;
+  width: 100%;
+}
+
+#main {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
 }
 
 .header-calendar-bar{
