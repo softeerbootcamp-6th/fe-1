@@ -31,14 +31,24 @@ export const renderHeader = () => {
   const nav = document.createElement("ul");
   nav.classList.add("nav");
   const navItems = ["doc", "calendar", "chart"];
-  navItems.map((item) => {
+  navItems.forEach((item, idx) => {
     const li = document.createElement("li");
     li.innerHTML = `<img src="./src/assets/${item}.png" alt="${item} icon" />`;
-    li.addEventListener("click", () => {
-      navigate(item);
-    });
+    if (idx === 0) li.classList.add("active");
+    li.dataset.item = item;
     nav.appendChild(li);
   });
+
+  // 이벤트 위임
+  nav.addEventListener("click", (e) => {
+    const target = e.target.closest("li");
+    if (!target) return;
+    const current = nav.querySelector(".active");
+    if (current) current.classList.remove("active");
+    target.classList.add("active");
+    navigate(target.dataset.item);
+  });
+
   header.appendChild(nav);
   return header;
 };

@@ -20,10 +20,6 @@
   --pastel-chestnut: #c04646;
 }
 
-#app {
-  /* padding: 0 297px; */
-}
-
 /** header **/
 #header {
   display: flex;
@@ -31,6 +27,7 @@
   align-items: center;
   background-color: var(--pastel-jordyBlue);
   height: 216px;
+  /* padding: 100px; */ /* 전체 레이아웃에 padding을 주고 싶은 경우엔 어떻게 사용하는가? */
 }
 
 .logo {
@@ -70,4 +67,8 @@
 .nav li img {
   width: 40px;
   height: 40px;
+}
+
+.nav .active {
+  background-color: var(--grayscale-100);
 }
