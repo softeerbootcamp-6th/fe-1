@@ -8,7 +8,39 @@
     </head>
     <body>
         <header id="header-placeholder"></header>
-        <main id="main-placeholder"></main>
+        <main id="main-placeholder">
+            <div class="input-box">
+                <div class="date-wrapper">
+                    <span class="lt-12">일자</span>
+                    <input type="date" class="sb-12" />
+                </div>
+                <div class="value-wrapper">
+                    <span class="lt-12">금액</span>
+                    <input type="number" class="sb-12" />
+                </div>
+                <div class="description-wrapper">
+                    <span class="lt-12">내용</span>
+                    <input type="text" class="sb-12" maxlength="32" />
+                </div>
+                <div class="payment-wrapper">
+                    <span class="lt-12">결제수단</span>
+                    <select class="sb-12">
+                        <option>dfasdf</option>
+                    </select>
+                </div>
+                <div class="category-wrapper">
+                    <span class="lt-12">분류</span>
+                    <select>
+                        <option>dfasdf</option>
+                    </select>
+                </div>
+                <div class="add-button-wrapper">
+                    <button class="add-button">
+                        <img src="/public/check.svg" />
+                    </button>
+                </div>
+            </div>
+        </main>
 
         <script type="module" src="./index.js"></script>
     </body>
