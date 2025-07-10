@@ -1,21 +1,21 @@
 export function createHeader() {
   const headerTemplate = `
     <header>
-      <h1>Wise Wallet</h1>
+      <h1 class="serif-24">Wise Wallet</h1>
       <div class="flex-column">
-        <div class="currentYear">2023</div>
+        <div class="currentYear light-14">2023</div>
         <div class="flex-row">
-          <button id="prevMonth"><</button>
-          <div id="currentMonth">8</div>
-          <button id="nextMonth">></button>
+          <button id="prevMonth" class="light-14"><</button>
+          <div id="currentMonth" class="serif-48">8</div>
+          <button id="nextMonth" class="light-14">></button>
         </div>
-        <div id="currentMonthName">August</div>
+        <div id="currentMonthName" class="light-14">August</div>
       </div>
       <nav>
         <ul class="flex-row">
-          <li><a href="/">Home</a></li>
-          <li><a href="/calendar">Calendar</a></li>
-          <li><a href="/graph">Graph</a></li>
+          <li><a href="/"><img src="../icons/doc.svg" alt="main page" /></a></li>
+          <li><a href="/calendar"><img src="../icons/calendar.svg" alt="calendar" /></a></li>
+          <li><a href="/chart"><img src="../icons/chart.svg" alt="chart" /></a></li>
         </ul>
       </nav>
     </header>

@@ -86,10 +86,10 @@ export function createCalendarPage() {
   `;
 }
 
-export function createGraphPage() {
+export function createChartPage() {
   return `
-    <div class="graph-page">
-      <h2>그래프</h2>
+    <div class="chart-page">
+      <h2>차트</h2>
     </div>
   `;
 }
@@ -121,9 +121,9 @@ export function renderCalendarPage() {
   }
 }
 
-export function renderGraphPage() {
+export function renderChartPage() {
   const mainContainer = document.getElementById("main-container");
   if (mainContainer) {
-    mainContainer.innerHTML = createGraphPage();
+    mainContainer.innerHTML = createChartPage();
   }
 }

@@ -1,13 +1,13 @@
 import {
   renderMainPage,
   renderCalendarPage,
-  renderGraphPage,
+  renderChartPage,
 } from "./pages.js";
 
 const routes = {
   "/": renderMainPage,
   "/calendar": renderCalendarPage,
-  "/graph": renderGraphPage,
+  "/chart": renderChartPage,
 };
 
 export function navigate(url) {
