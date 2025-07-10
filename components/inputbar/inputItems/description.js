@@ -1,4 +1,5 @@
 import { createElement } from '../../../utils.js';
+import formData from '../../../store/formData.js';
 
 export default function () {
     const descriptionInputInnerHtml = `
@@ -21,6 +22,12 @@ export default function () {
         },
         descriptionInputInnerHtml,
     );
+
+    const $descriptionInput =
+        $descriptionInputItem.querySelector('#descriptionInput');
+    $descriptionInput.addEventListener('input', (e) => {
+        formData.setDescription(e.target.value);
+    });
 
     return $descriptionInputItem;
 }
