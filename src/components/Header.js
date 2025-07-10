@@ -16,13 +16,17 @@ export const renderHeader = () => {
   const month = "8";
   const monthEng = "August";
   date.innerHTML = `
-    <div class="arrow"><</div>
+    <div class="arrow">
+      <img src="./src/assets/chevron-left.png" alt="left arrow" />
+    </div>
     <div class="currentDate">
         <span >${year}</span>
         <span class="month_num serif-48">${month}</span>
         <span >${monthEng}</span>
     </div>
-    <div class="arrow">></div>
+    <div class="arrow">
+      <img src="./src/assets/chevron-right.png" alt="right arrow" />
+    </div>
   `;
   header.appendChild(date);
 

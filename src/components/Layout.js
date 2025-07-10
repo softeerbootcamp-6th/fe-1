@@ -3,6 +3,7 @@ import { renderMain } from "./Main.js";
 
 export const createLayout = () => {
   const app = document.getElementById("app");
+  app.classList.add("light-14");
   if (!app) {
     throw new Error("App element not found");
   }
