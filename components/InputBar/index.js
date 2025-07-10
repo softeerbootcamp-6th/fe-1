@@ -1,6 +1,7 @@
 import createAmount from './Items/amount.js';
 import createContent from './Items/content.js';
 import createPaymentMethod from './Items/paymentMethod.js';
+import createCategory from './Items/category.js';
 
 function createInputBar() {
     const container = document.createElement('div');
@@ -27,24 +28,7 @@ function createInputBar() {
     const paymentMethodItem = createPaymentMethod();
     container.appendChild(paymentMethodItem);
 
-    const categoryItem = document.createElement('div');
-    categoryItem.className = 'input-bar-item';
-    categoryItem.innerHTML = `
-        <div class="input-bar-item-wrapper">
-            <label for="category" class="light-12"> 분류 </label>
-        </div>
-        <div class="input-bar-item-wrapper">
-            <div class="select-container semibold-12">
-                선택하세요
-            </div>
-            <img
-                src="/assets/icons/chevron-down.svg"
-                alt="Chevron Down Icon"
-                width="16"
-                height="16"
-            />
-        </div>
-    `;
+    const categoryItem = createCategory();
     container.appendChild(categoryItem);
 
     const submitBtn = document.createElement('button');
