@@ -32,7 +32,7 @@ export const renderHeader = () => {
   navItems.forEach((item, idx) => {
     const li = document.createElement("li");
     li.innerHTML = `
-    <a class="nav" href="${item}">
+    <a class="nav" href="#${item}">
       <img src="./src/assets/${item}.png" alt="${item} icon" />
     </a>
     `;
