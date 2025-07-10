@@ -9,11 +9,14 @@
 }
 
 .header__title {
+  width: 33.33%;
   font-size: 2.4rem;
 }
 
 .header__month {
+  width: 33.33%;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 2.4rem;
 }
@@ -38,7 +41,9 @@
 }
 
 .header__nav {
+  width: 33.33%;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 0.4rem;
 }
