@@ -1,5 +1,5 @@
-import { renderMonthlyInfo } from "./monthlyInfo.js";
-import { renderInputBar } from "./inputBar.js";
+import { renderMonthlyInfo } from "./components/monthlyInfo.js";
+import { renderInputBar } from "./components/inputBar.js";
 
 export function createMainPage() {
   return `

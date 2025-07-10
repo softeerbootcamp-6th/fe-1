@@ -1,4 +1,4 @@
-import { renderHeader } from "./header.js";
+import { renderHeader } from "./components/header.js";
 import { render, navigate } from "./routes.js";
 
 const headerContainer = document.getElementById("header-container");
