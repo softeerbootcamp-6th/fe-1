@@ -38,6 +38,8 @@
 
   --font-light-xs-size: 0.75rem; /* 12px */
   --font-light-xs-line: 1.5rem; /* 24px */
+  
+  --font-light-xxs-line: 1rem; /* 16px */
 
   /* Font 크기 */
   --font-size-xs: 0.75rem; /* 12px */
