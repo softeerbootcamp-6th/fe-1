@@ -1,7 +1,8 @@
-// 1. Header 기본 구조 만들기 (innerHTML)
-// 2. css 적용
-// 3. 연월 표시 기능 추가
+// 1. Header 기본 구조 만들기 (innerHTML) v
+// 2. css 적용 v
+// 3. 연월 표시 기능 추가 
 // 4. 탭 기능 추가
+import { dateState } from "../states/DateState.js";
 
 export function renderHeader() {
     const header = document.createElement('header');
@@ -12,7 +13,7 @@ export function renderHeader() {
             Wise Wallet
         </div>
         <div class='date-content'>
-            <button class='arrow'>
+            <button class='arrow' id='left-arrow'>
                 <img src="../assets/icons/chevron-left.svg">
                 </img>
             </button>
@@ -21,7 +22,7 @@ export function renderHeader() {
                 <span class='month serif48'>8</span>
                 <span class='month-text light14'>August</span>
             </div>
-            <button class='arrow'>
+            <button class='arrow' id='right-arrow'>
                 <img src="../assets/icons/chevron-right.svg">
                 </img>
             </button>
@@ -38,7 +39,19 @@ export function renderHeader() {
             </button>
         </nav>
     </div>
-
     `
+    // 요소 가져오기
+    const leftArrow = header.querySelector('#left-arrow');
+    const rightArrow = header.querySelector('#right-arrow');
+
+    leftArrow.addEventListener('click', () => {
+    console.log('왼쪽 화살표 클릭!');
+    // 상태 변경 함수 호출 등
+    });
+
+    rightArrow.addEventListener('click', () => {
+    console.log('오른쪽 화살표 클릭!');
+    // 상태 변경 함수 호출 등
+    });
     return header
 }
