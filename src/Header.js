@@ -1,7 +1,7 @@
-export function createHeader() {
-    const header = document.createElement('header');
-    header.className ='flex-row-between';
-    header.innerHTML = `
+export function renderHeader() {
+  const header = document.getElementById("header");
+  header.className = "flex-row-between";
+  header.innerHTML = `
         <h1>Wise Wallet</h1>
         <div class="flex-column-between">
             <p>2023</p>
@@ -23,5 +23,5 @@ export function createHeader() {
                 <a href="#">graph</a> 
             </li>
         </div>`;
-    return header;
+  return header;
 }

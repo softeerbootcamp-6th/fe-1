@@ -1,4 +1,4 @@
-export function createTransactionForm() {
+export function renderTransactionForm() {
   const content = document.getElementById("transaction-form");
   content.className = "flex-column-between";
   content.innerHTML = `
