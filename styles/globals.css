@@ -126,7 +126,20 @@
     box-sizing: border-box;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-40px);
+}
+
 button {
     border: 0;
     background-color: transparent;
+}
+
+input {
+    border: 0;
+    background-color: transparent;
+    outline: none;
 }
