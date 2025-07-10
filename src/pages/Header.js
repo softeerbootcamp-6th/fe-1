@@ -1,4 +1,4 @@
-export const renderHeader = () => {
+export const renderHeader = (currentDate) => {
   const header = document.createElement("header");
   header.id = "header";
 
@@ -12,9 +12,9 @@ export const renderHeader = () => {
   // date
   const date = document.createElement("div");
   date.classList.add("date");
-  const year = "2023";
-  const month = "8";
-  const monthEng = "August";
+  const year = currentDate.year;
+  const month = currentDate.month;
+  const monthEng = currentDate.monthEng;
   date.innerHTML = `
     <div class="arrow">
       <img src="./src/assets/chevron-left.png" alt="left arrow" />

@@ -8,8 +8,14 @@ export const createLayout = () => {
     throw new Error("App element not found");
   }
 
+  const date = {
+    year: "2023",
+    month: "8",
+    monthEng: "August",
+  };
+
   //header area
-  const header = renderHeader();
+  const header = renderHeader(date);
   app.appendChild(header);
 
   //main area
