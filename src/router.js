@@ -1,4 +1,4 @@
-import { renderMain } from "./components/Main.js";
+import { renderMain } from "./pages/Main.js";
 
 export const renderRouter = () => {
   // 기존의 것 삭제

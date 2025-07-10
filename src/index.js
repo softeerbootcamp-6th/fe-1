@@ -1,4 +1,4 @@
-import { createLayout } from "./components/Layout.js";
+import { createLayout } from "./pages/Layout.js";
 import { renderRouter } from "./router.js";
 
 document.addEventListener("DOMContentLoaded", () => {
