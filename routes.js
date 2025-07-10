@@ -10,6 +10,11 @@ const routes = {
   "/graph": renderGraphPage,
 };
 
+export function navigate(url) {
+  history.pushState({}, "", url);
+  render();
+}
+
 export function render() {
   const path = window.location.pathname;
   const container = document.getElementById("main-container");
