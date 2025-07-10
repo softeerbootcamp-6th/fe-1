@@ -21,6 +21,8 @@ function createInputBox() {
     $rootElement.appendChild($paymentInputElement);
     $rootElement.appendChild($categoryInputElement);
     $rootElement.appendChild($summitBtnElement);
+
+    setNowDate();
 }
 
 function setNowDate() {
