@@ -1,0 +1,51 @@
+.modal {
+  width: 38.4rem;
+  height: 20rem;
+  top: calc(50% - 10rem);
+  left: calc(50% - 19.2rem);
+}
+
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal__container {
+  width: 100%;
+  height: 100%;
+  padding: 1px;
+  background-color: var(--nuetral-border-default);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.modal__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  padding: 3.2rem;
+  background-color: var(--nuetral-surface-default);
+}
+
+.modal__buttons {
+  height: 5.6rem;
+  display: flex;
+  gap: 1px;
+}
+
+.modal__button {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.modal__button--cancel {
+  color: var(--nuetral-text-weak);
+}
+
+.modal__button--confirm {
+  color: var(--nuetral-text-default);
+}

@@ -17,22 +17,22 @@
   /* Default input styles */
   padding: 1.2rem 1.6rem;
   border-radius: 0.8rem;
-  background-color: var(--neutral-surface-point);
+  background-color: var(--nuetral-surface-point);
 }
 
 .text-input:focus {
   /* Active/focused state styles */
-  background-color: var(--neutral-surface-default);
-  border: 1px solid var(--neutral-border-default);
+  background-color: var(--nuetral-surface-default);
+  border: 1px solid var(--nuetral-border-default);
 }
 
 .text-input:disabled {
   /* Disabled state styles */
-  background-color: var(--neutral-surface-weak);
+  background-color: var(--nuetral-surface-weak);
 }
 
 .text-input--error {
   /* Error state styles */
-  background-color: var(--neutral-surface-default);
+  background-color: var(--nuetral-surface-default);
   border: 1px solid var(--danger-border-default);
 }

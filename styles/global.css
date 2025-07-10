@@ -23,14 +23,14 @@
   --pastel-amaranth: #e93b5a;
   --pastel-chestnut: #c04646;
 
-  /* Tokens - Neutral */
-  --neutral-surface-weak: var(--grayscale-100);
-  --neutral-surface-default: var(--grayscale-50);
-  --neutral-surface-point: var(--grayscale-200);
-  --neutral-text-weak: var(--grayscale-300);
-  --neutral-text-default: var(--grayscale-400);
-  --neutral-text-rev-default: var(--grayscale-50);
-  --neutral-border-default: var(--grayscale-400);
+  /* Tokens - nuetral */
+  --nuetral-surface-weak: var(--grayscale-100);
+  --nuetral-surface-default: var(--grayscale-50);
+  --nuetral-surface-point: var(--grayscale-200);
+  --nuetral-text-weak: var(--grayscale-300);
+  --nuetral-text-default: var(--grayscale-400);
+  --nuetral-text-rev-default: var(--grayscale-50);
+  --nuetral-border-default: var(--grayscale-400);
 
   /* Tokens - Brand */
   --brand-surface-default: var(--grayscale-50);
@@ -60,4 +60,18 @@
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  color: var(--nuetral-text-default);
+  background-color: var(--nuetral-surface-weak);
+}
+
+.main {
+  max-width: 89.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  transform: translateY(-4rem);
 }

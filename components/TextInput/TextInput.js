@@ -1,14 +1,26 @@
-function createTextInput(options = {}) {
-  const {
-    type = "default", // 'default' | 'textAreaOnly'
-    state = "enabled", // 'enabled' | 'active' | 'disabled' | 'error'
-    placeholder = "",
-    value = "",
-    onChange = null,
-    onFocus = null,
-    onBlur = null,
-  } = options;
-
+/**
+ * TextInput 컴포넌트
+ *
+ * // 기본 사용법
+ * const input = TextInput({
+ *   type: 'default', // 'default' | 'textAreaOnly'
+ *   state: 'enabled', // 'enabled' | 'active' | 'disabled' | 'error'
+ *   placeholder: '이름을 입력하세요',
+ *   value: '',
+ *   onChange: (e) => console.log(e.target.value)
+ * });
+ *
+ * document.body.appendChild(input);
+ */
+const TextInput = ({
+  type = "default", // 'default' | 'textAreaOnly'
+  state = "enabled", // 'enabled' | 'active' | 'disabled' | 'error'
+  placeholder = "",
+  value = "",
+  onChange = null,
+  onFocus = null,
+  onBlur = null,
+} = {}) => {
   // 입력 요소 생성
   const inputElement = document.createElement("input");
   inputElement.type = "text";
@@ -35,24 +47,6 @@ function createTextInput(options = {}) {
   }
 
   return inputElement;
-}
+};
 
-// 기본 input
-const defaultInput = createTextInput({
-  label: "이름",
-  placeholder: "이름을 입력하세요",
-  state: "enabled",
-  onChange: (e) => console.log("Value:", e.target.value),
-});
-
-// textarea
-const textarea = createTextInput({
-  type: "textAreaOnly",
-  label: "설명",
-  placeholder: "설명을 입력하세요",
-  state: "enabled",
-  onChange: (e) => console.log("Textarea value:", e.target.value),
-});
-
-document.querySelector(".text-input-component").appendChild(defaultInput);
-document.querySelector(".text-input-component").appendChild(textarea);
+export default TextInput;
