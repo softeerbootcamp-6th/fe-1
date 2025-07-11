@@ -68,7 +68,7 @@ function renderDaySection(dateStr, items) {
     `;
 }
 
-export function renderTransactionItems() {
+export function renderTransactionList() {
   const container = document.getElementById("transaction-list");
   container.innerHTML = "";
 
