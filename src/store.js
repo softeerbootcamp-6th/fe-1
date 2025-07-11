@@ -1,0 +1,29 @@
+const observers = new Set();
+
+/* */
+function addObservers(observer) {
+  observers.add(observer);
+}
+
+function notifyObservers(data) {
+  observers.forEach((observer) => observer(data));
+}
+
+function setState(newState) {
+  Object.assign(state, newState);
+}
+
+const state = new Proxy(
+  {
+    items: [], // transaction list
+  },
+  {
+    set: (target, prop, value) => {
+      target[prop] = value;
+      notifyObservers({ [prop]: value }); // key 전달
+      return true;
+    },
+  }
+);
+
+export { state, setState, addObservers };
