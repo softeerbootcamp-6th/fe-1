@@ -1,5 +1,5 @@
 import { renderHeader } from "./components/header.js";
-import { render, navigate } from "./routes.js";
+import { render, navigate } from "./utils/routes.js";
 
 const headerContainer = document.getElementById("header-container");
 
