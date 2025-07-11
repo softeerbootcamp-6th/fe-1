@@ -12,7 +12,7 @@
  * document.body.appendChild(checkbox);
  */
 const CheckBox = ({ id, label, checked = false, onChange = null } = {}) => {
-  const checkboxContainer = document.createElement("div");
+  const checkboxContainer = document.createElement("label");
   checkboxContainer.className = "checkbox-container";
 
   // 숨겨진 실제 checkbox input 생성
@@ -31,8 +31,8 @@ const CheckBox = ({ id, label, checked = false, onChange = null } = {}) => {
   checkboxIcon.alt = checked ? "checked" : "unchecked";
 
   // 라벨 생성
-  const labelElement = document.createElement("label");
-  labelElement.className = "checkbox-label font-light-12";
+  const labelElement = document.createElement("span");
+  labelElement.className = `checkbox-label font-light-12 ${id}-label`;
   labelElement.textContent = label;
   labelElement.for = checkboxInput.id;
   labelElement.htmlFor = checkboxInput.id; // label과 input 연결
@@ -57,9 +57,6 @@ const CheckBox = ({ id, label, checked = false, onChange = null } = {}) => {
 
   // input의 change 이벤트 리스너 추가
   checkboxInput.addEventListener("change", (e) => handelToggleCheckbox(e));
-
-  // 아이콘 클릭 시 input 토글
-  checkboxIcon.addEventListener("click", (e) => handelToggleCheckbox(e));
 
   return checkboxContainer;
 };
