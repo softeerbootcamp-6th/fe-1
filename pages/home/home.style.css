@@ -61,21 +61,21 @@
   height: 1.6rem;
 }
 
-.add-input__title {
+.add-input__description {
   width: 16rem;
 }
 
-.add-input__title-wrapper {
+.add-input__description-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.add-input__title-count {
+.add-input__description-count {
   color: var(--nuetral-text-weak);
 }
 
-.add-input__payment {
+.add-input__method {
   width: 10.4rem;
 }
 
@@ -170,11 +170,11 @@
   flex: 1;
 }
 
-.content-row__title {
+.content-row__description {
   width: 40rem;
 }
 
-.content-row__payment {
+.content-row__method {
   width: 10.4rem;
 }
 
