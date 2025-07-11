@@ -1,3 +1,5 @@
+import { renderMainPage } from "../pages.js";
+
 // 현재 날짜 상태 관리
 let currentDate = new Date();
 
@@ -38,17 +40,15 @@ export function getCurrentDay() {
 // 이전 월로 이동
 export function goToPreviousMonth() {
   currentDate.setMonth(currentDate.getMonth() - 1);
-  updateHeaderDisplay();
 }
 
 // 다음 월로 이동
 export function goToNextMonth() {
   currentDate.setMonth(currentDate.getMonth() + 1);
-  updateHeaderDisplay();
 }
 
 // 헤더 표시 업데이트
-function updateHeaderDisplay() {
+function renderHeaderDate() {
   const header = document.getElementById("header-container");
   const currentMonthElement = header.querySelector(".currentMonth");
   const currentMonthNameElement = header.querySelector(".currentMonthName");
@@ -75,14 +75,16 @@ export function setDateEventListeners(container) {
   if (prevMonthBtn) {
     prevMonthBtn.addEventListener("click", () => {
       goToPreviousMonth();
-      console.log("이전 월로 이동:", getCurrentMonthName(), getCurrentYear());
+      renderHeaderDate();
+      renderMainPage();
     });
   }
 
   if (nextMonthBtn) {
     nextMonthBtn.addEventListener("click", () => {
       goToNextMonth();
-      console.log("다음 월로 이동:", getCurrentMonthName(), getCurrentYear());
+      renderHeaderDate();
+      renderMainPage();
     });
   }
 }

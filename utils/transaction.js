@@ -1,5 +1,13 @@
 import { transactionsData } from "../store/transactionsStore.js";
 
+// 특정 연도와 월의 거래내역을 가져옴
+export function getTransactionsByYearMonth(year, month) {
+  if (transactionsData[year] && transactionsData[year][month]) {
+    return transactionsData[year][month];
+  }
+  return [];
+}
+
 // 거래내역을 날짜별로 그룹화
 export function groupTransactionsByDate(transactions) {
   return transactions.reduce((grouped, transaction) => {

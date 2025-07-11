@@ -1,15 +1,21 @@
 import { renderMonthlyInfo } from "./components/monthlyInfo.js";
 import { renderInputBar } from "./components/inputBar.js";
 import {
+  getTransactionsByYearMonth,
   groupTransactionsByDate,
   deleteTransaction,
 } from "./utils/transaction.js";
-import { transactionsData } from "./store/transactionsStore.js";
+import { getCurrentYear, getCurrentMonth } from "./utils/currentDate.js";
 
 export function createMainPage() {
-  const grouped = groupTransactionsByDate(transactionsData);
+  const grouped = getTransactionsByYearMonth(
+    getCurrentYear(),
+    getCurrentMonth()
+  );
+  const groupedByDate = groupTransactionsByDate(grouped);
+  console.log(groupedByDate);
 
-  const sections = Object.entries(grouped)
+  const sections = Object.entries(groupedByDate)
     .map(([date, transactionList]) => {
       const totalIncome = transactionList
         .filter((transaction) => transaction.amount > 0)

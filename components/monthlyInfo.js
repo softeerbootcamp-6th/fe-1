@@ -1,9 +1,14 @@
-import { monthlyTotalData } from "../utils/transaction.js";
-import { transactionsData } from "../store/transactionsStore.js";
+import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
+import {
+  getTransactionsByYearMonth,
+  monthlyTotalData,
+} from "../utils/transaction.js";
 
 export function createMonthlyInfo() {
   const { monthlyTotalIncome, monthlyTotalExpense, monthlyTotalCount } =
-    monthlyTotalData(transactionsData);
+    monthlyTotalData(
+      getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+    );
 
   const monthlyInfoTemplate = `
     <div class="flex-row">
