@@ -10,6 +10,7 @@ export const EntireForm = () => {
   entireForm.classList.add("entire-form");
   const input = {
     date: new Date("2023-08-01"),
+    moneyType: "expense",
     money: "",
     content: "",
     payment: "",

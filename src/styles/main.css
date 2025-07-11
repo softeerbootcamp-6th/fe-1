@@ -51,13 +51,19 @@ input#date::-webkit-calendar-picker-indicator {
 }
 
 .form-money {
-  width: 88px;
+  width: 134px;
 }
 
 .form-money > div {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 8px;
+}
+
+.form-money > div > img {
+  width: 16px;
+  height: 16px;
 }
 
 input#money {
