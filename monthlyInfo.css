@@ -1,0 +1,159 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 846px;
+}
+
+.monthly-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.daily-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.item-counter {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.checkbox-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.checkbox-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.checkbox-button {
+    cursor: pointer;
+}
+
+.checkbox-button:hover {
+    opacity: 0.5;
+}
+
+.daily-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.daily-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.daily-info-detail-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--neutral-border-default);
+    border-bottom: 1px solid var(--neutral-border-default);
+}
+
+.daily-info-detail-list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding-right: 16px;
+    gap: 16px;
+}
+
+.daily-info-detail-list-item:hover {
+    background-color: var(--neutral-surface-point);
+}
+
+.category {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--colorchip-50);
+    width: 92px;
+    padding: 16px 0;
+}
+
+.description {
+    width: 400px;
+}
+
+.payment {
+    width: 104px;
+}
+
+.value {
+    text-align: right;
+    flex-grow: 1;
+}
+
+.expense-value {
+    color: var(--brand-text-expense);
+}
+
+.income-value {
+    color: var(--brand-text-income);
+}
+
+.daily-info-detail-list-item .delete-button {
+    display: none;
+    gap: 4px;
+    cursor: pointer;
+    opacity: 0;
+    flex-shrink: 0;
+}
+
+.daily-info-detail-list-item:hover .delete-button {
+    display: flex;
+    opacity: 1;
+}
+
+.daily-info-detail-list-item .delete-button .delete-button-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--danger-text-default);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+}
+
+.daily-info-detail-list-item .delete-button .delete-button-icon::before,
+.daily-info-detail-list-item .delete-button .delete-button-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 1px;
+    height: 6px;
+    background-color: var(--neutral-surface-default);
+    border-radius: 1px;
+}
+
+.daily-info-detail-list-item .delete-button .delete-button-icon::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.daily-info-detail-list-item .delete-button .delete-button-icon::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.delete-button-label {
+    color: var(--danger-text-default);
+}
