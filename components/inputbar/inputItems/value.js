@@ -1,4 +1,5 @@
 import { createElement } from '../../../utils.js';
+import formData from '../../../store/formData.js';
 
 export default function () {
     const valueInputInnerHtml = `
@@ -13,7 +14,7 @@ export default function () {
                         width="16px"
                     />
                 </button>
-                <input id="valueInput" type="number" class="sb-12" />
+                <input id="valueInput" type="text" class="sb-12" />
                 <span>원</span>
             </div>
         `;
@@ -25,6 +26,16 @@ export default function () {
         },
         valueInputInnerHtml,
     );
+
+    const $valueInput = $valueInputItem.querySelector('#valueInput');
+
+    $valueInput.addEventListener('input', (e) => {
+        const inputValue = e.target.value;
+        const rawValue = inputValue.replace(/[^0-9]/g, '');
+        const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        e.target.value = formattedValue;
+        formData.setAmount(inputValue);
+    });
 
     return $valueInputItem;
 }
