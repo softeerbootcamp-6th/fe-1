@@ -1,4 +1,5 @@
 import { createElement } from '../../../utils.js';
+import formData from '../../../store/formData.js';
 
 export default function () {
     const dateInputInnerHtml = `
@@ -13,6 +14,11 @@ export default function () {
         },
         dateInputInnerHtml,
     );
+
+    const $dateInput = $dateInputItem.querySelector('#dateInput');
+    $dateInput.addEventListener('change', (e) => {
+        formData.setDate(e.target.value);
+    });
 
     return $dateInputItem;
 }
