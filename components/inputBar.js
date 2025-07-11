@@ -1,5 +1,8 @@
+import { addNewTransaction } from "../utils/transaction.js";
+import { renderMainPage } from "../pages.js";
+
 export function createInputBar() {
-  return `
+  return ` 
     <form class="input-bar flex-row" id="inputBarForm">
       <div class="flex-column">
         <label>일자</label>
@@ -59,17 +62,13 @@ export function renderInputBar(container) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    console.log("Object로 바꾼 Form Data:", data);
-    console.log("Form Data:", formData);
-    /*
-      예시 출력:
-      {
-        date: '2025-07-10',
-        amount: '10000',
-        content: '점심',
-        paymentMethod: 'card',
-        category: 'food'
-      }
-    */
+    // 새로운 거래내역 추가
+    const newTransaction = addNewTransaction(data);
+
+    form.reset();
+
+    console.log("거래내역이 추가되었습니다: ", newTransaction);
+
+    renderMainPage();
   });
 }
