@@ -45,7 +45,7 @@ const createDailyList = (data) => {
                     <span class="serif-14">수입</span>
                     <span class="serif-14">${formatNumberWithCommas(
                         incomeValue
-                    )}원</span>q
+                    )}원</span>
                     <span class="serif-14">지출</span>
                     <span class="serif-14">${formatNumberWithCommas(
                         expenseValue
