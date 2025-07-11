@@ -186,6 +186,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 showModal();
                 // 선택된 값을 초기화 (placeholder로 되돌리기)
                 methodSelect.selectedIndex = 0; // placeholder로 되돌리기
+
+                // 모달에서 결제수단 추가 버튼 클릭 시
+                const modal = document.querySelector('.modal-box');
+                if (modal) {
+                    modal.querySelector('.confirm').addEventListener('click', () => {
+                        const modalOverlay = document.querySelector('.modal-overlay');
+
+                        const input = modal.querySelector('.modal-input');
+                        const newMethod = input.value.trim();
+                        if (newMethod) {
+                            // 결제수단의 중복체크
+                            const existingOptions = Array.from(methodSelect.options);
+                            newMethod.toLowerCase().replace(/\s+/g, '-'); // 공백을 하이픈으로 변환
+                            const isDuplicate = existingOptions.some(opt => opt.value.toLowerCase() === newMethod);
+                            if (isDuplicate) {
+                                alert('이미 추가한 결제수단입니다.');
+                                input.value = ''; // 입력 필드 초기화
+                                return;
+                            }
+
+                            // 새로운 결제수단을 select에 추가
+                            const newOption = document.createElement('option');
+                            newOption.textContent = newMethod;
+
+                            const newValue = "custom-" + (methodSelect.options.length - 3); // "custom-1", "custom-2" 등으로 설정
+                            newOption.value = newValue; // value 속성 설정
+
+                            const lastOption = methodSelect.options[methodSelect.options.length - 1];
+                            // 마지막 옵션 그 앞에 추가
+                            methodSelect.insertBefore(newOption, lastOption);
+                        }
+                        // 모달 닫기
+                        modalOverlay.remove();
+                    });
+                }
             }
         });
     }
@@ -361,7 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // 헤더에 값 반영
         const countSpan = monthSummary.querySelector('.total.count');
         const ieSpan = monthSummary.querySelector('.total.income-spend');
-        console.log(countSpan, ieSpan);
 
         if (countSpan) {
             countSpan.textContent = `전체 내역 ${totalCount}건`;
