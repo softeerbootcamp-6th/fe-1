@@ -13,8 +13,8 @@ const formData = {
     setAmount(amountValue) {
         this.amount = amountValue;
     },
-    setDescription(desriptionValue) {
-        this.description = desriptionValue;
+    setDescription(descriptionValue) {
+        this.description = descriptionValue;
     },
     setPayment(paymentValue) {
         this.payment = paymentValue;
