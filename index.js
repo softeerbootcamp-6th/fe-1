@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
       navigate(link.getAttribute("href"));
     }
   });
-
+  //초기 렌더링
   render();
+  //뒤로가기 시 렌더링
+  window.addEventListener("popstate", () => {
+    render();
+  });
 });
