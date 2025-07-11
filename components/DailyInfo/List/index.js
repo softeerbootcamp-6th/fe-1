@@ -38,14 +38,14 @@ const createDailyList = (data) => {
     dailyListItem.innerHTML = `
             <div class="daily-info">
                 <span class="serif-14">${formatDate(
-                    data.date,
+                    new Date(data.date),
                     'M월 D일 ddd'
                 )}</span>
                 <div>
                     <span class="serif-14">수입</span>
                     <span class="serif-14">${formatNumberWithCommas(
                         incomeValue
-                    )}원</span>
+                    )}원</span>q
                     <span class="serif-14">지출</span>
                     <span class="serif-14">${formatNumberWithCommas(
                         expenseValue
