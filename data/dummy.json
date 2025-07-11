@@ -1,0 +1,62 @@
+[
+    {
+        "id": "7a9a1d18-6953-47b6-8ed4-5c6f64b28e7e",
+        "date": "2025-07-14",
+        "sign": "-",
+        "amount": 8200,
+        "memo": "편의점 샌드위치",
+        "category": {
+            "value": "food",
+            "text": "식비"
+        },
+        "method": {
+            "value": "card",
+            "text": "현금"
+        }
+    },
+    {
+        "id": "53f0488f-4bb2-4fc9-9b18-315db6e9d4be",
+        "date": "2025-07-14",
+        "sign": "-",
+        "amount": 1650,
+        "memo": "지하철 교통비",
+        "category": {
+            "value": "transport",
+            "text": "교통"
+        },
+        "method": {
+            "value": "cash",
+            "text": "신용카드"
+        }
+    },
+    {
+        "id": "b60d3c4f-015e-4a23-8fcd-2e6af86b3c30",
+        "date": "2025-07-15",
+        "sign": "-",
+        "amount": 5000000000,
+        "memo": "현대차 매수",
+        "category": {
+            "value": "culture",
+            "text": "문화/취미"
+        },
+        "method": {
+            "value": "bank",
+            "text": "계좌이체"
+        }
+    },
+    {
+        "id": "a9f7ce02-1c40-4e5a-920b-3bafb998fd6d",
+        "date": "2025-07-16",
+        "sign": "-",
+        "amount": 23000,
+        "memo": "영화 관람",
+        "category": {
+            "value": "culture",
+            "text": "문화/취미"
+        },
+        "method": {
+            "value": "card",
+            "text": "현금"
+        }
+    }
+]

@@ -13,7 +13,7 @@
     <!-- 상단 고정 헤더 -->
     <header class="top-header">
         <div class="topbar">
-            <h3 class="app-name">Wise Wallet</h3>
+            <h2 class="app-name">Wise Wallet</h2>
 
             <!-- 월(Year/Month) 네비게이션 -->
             <nav class="month-nav" aria-label="월 이동">
@@ -41,6 +41,7 @@
         </div>
     </header>
 
+    <!-- 메인에 클래스를 통해 css로 display를 통해 차트, 통계 등 표시? -->
     <main>
         <form class="detail-form">
             <div class="col date">
@@ -93,28 +94,6 @@
             <!-- 날짜별 그룹 -->
             <article class="day-group">
                 <header class="day-header">
-                    <time datetime="2023-08-14">8월 14일 <span class="weekday">월요일</span></time>
-                    <output class="day-total spend">지출 56,240원</output>
-                </header>
-
-                <ul class="entries">
-                    <li class="entry spend">
-                        <span class="badge category subscription">문화/취미</span>
-                        <span class="detail">스트리밍 서비스 정기 결제</span>
-                        <span class="payment">현대카드</span>
-                        <span class="amount">-10,900원</span>
-                    </li>
-                    <li class="entry spend">
-                        <span class="badge category transport">교통</span>
-                        <span class="detail">후불 교통비 결제</span>
-                        <span class="payment">현대카드</span>
-                        <span class="amount">-45,340원</span>
-                    </li>
-                </ul>
-            </article>
-
-            <article class="day-group">
-                <header class="day-header">
                     <time datetime="2023-08-13">8월 13일 <span class="weekday">일요일</span></time>
                     <output class="day-total spend">지출 10,000원</output>
                 </header>
@@ -125,6 +104,7 @@
                         <span class="detail">온라인 세미나 신청</span>
                         <span class="payment">현대카드</span>
                         <span class="amount">-10,000원</span>
+                        <button type="button" class="delete-btn" aria-label="삭제">X</button>
                     </li>
                 </ul>
             </article>
@@ -135,7 +115,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <script>feather.replace();</script>
 
-    <script src="index.js"></script>
+    <!-- <script src="index.js"></script> -->
+    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>
