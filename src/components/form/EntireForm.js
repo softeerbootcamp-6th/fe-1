@@ -14,7 +14,7 @@ export const EntireForm = () => {
     money: "",
     content: "",
     payment: "",
-    category: "",
+    category: "aa",
   };
 
   const formList = [
