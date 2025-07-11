@@ -68,7 +68,7 @@ function renderHeaderDate() {
 }
 
 // 월 이동 이벤트 리스너 설정
-export function setDateEventListeners(container) {
+export function setupDateEventListeners(container) {
   const prevMonthBtn = container.querySelector(".prevMonth");
   const nextMonthBtn = container.querySelector(".nextMonth");
 

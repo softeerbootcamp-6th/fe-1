@@ -21,7 +21,7 @@ export function groupTransactionsByDate(transactions) {
 }
 
 // 새로운 거래내역 추가
-export function addNewTransaction(formData) {
+export function addNewTransaction(year, month, formData) {
   const newTransaction = {
     id: transactionsData.length + 1,
     date: formData.date,
@@ -32,38 +32,55 @@ export function addNewTransaction(formData) {
   };
 
   // 기존 데이터에 추가
-  transactionsData.push(newTransaction);
+  transactionsData[year][month].push(newTransaction);
 
   // 날짜순으로 정렬
-  transactionsData.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  console.log("새로운 거래내역을 입력받았습니다:", newTransaction);
-  console.log("전체 거래내역:", transactionsData);
+  transactionsData[year][month].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
 
   return newTransaction;
 }
 
 //기존 거래 내역 삭제
-export function deleteTransaction(id) {
-  const index = transactionsData.findIndex(
+export function deleteTransaction(year, month, id) {
+  const index = transactionsData[year][month].findIndex(
     (transaction) => transaction.id === id
   );
   if (index !== -1) {
-    transactionsData.splice(index, 1);
-    console.log(`거래내역 ID ${id}가 삭제되었습니다.`);
-    console.log("전체 거래내역:", transactionsData);
+    transactionsData[year][month].splice(index, 1);
+    alert(`거래내역 ID ${id}가 삭제되었습니다.`);
   } else {
-    console.log(`거래내역 ID ${id} 삭제에 실패했습니다.`);
+    alert(`거래내역 ID ${id} 삭제에 실패했습니다.`);
   }
 }
 
+// 월별 수입 건수, 총합, 지출 건수, 총합, 총 건수 계산
 export function monthlyTotalData(transactions) {
-  const monthlyTotalIncome = transactions
-    .filter((transaction) => transaction.amount > 0)
-    .reduce((sum, transaction) => sum + transaction.amount, 0);
-  const monthlyTotalExpense = transactions
-    .filter((transaction) => transaction.amount < 0)
-    .reduce((sum, transaction) => sum + transaction.amount, 0);
-  const monthlyTotalCount = transactions.length;
-  return { monthlyTotalIncome, monthlyTotalExpense, monthlyTotalCount };
+  const monthlyTotalIncomeTransactions = transactions.filter(
+    (transaction) => transaction.amount > 0
+  );
+  const monthlyTotalExpenseTransactions = transactions.filter(
+    (transaction) => transaction.amount < 0
+  );
+  const monthlyTotalIncome = monthlyTotalIncomeTransactions.reduce(
+    (sum, transaction) => sum + transaction.amount,
+    0
+  );
+  const monthlyTotalExpense = monthlyTotalExpenseTransactions.reduce(
+    (sum, transaction) => sum + transaction.amount,
+    0
+  );
+  const monthlyTotalIncomeCount = monthlyTotalIncomeTransactions.length;
+  const monthlyTotalExpenseCount = monthlyTotalExpenseTransactions.length;
+  const monthlyTotalCount =
+    monthlyTotalIncomeTransactions.length +
+    monthlyTotalExpenseTransactions.length;
+  return {
+    monthlyTotalIncome,
+    monthlyTotalExpense,
+    monthlyTotalCount,
+    monthlyTotalIncomeCount,
+    monthlyTotalExpenseCount,
+  };
 }

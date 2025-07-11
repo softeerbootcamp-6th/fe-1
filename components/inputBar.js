@@ -1,42 +1,47 @@
 import { addNewTransaction } from "../utils/transaction.js";
 import { renderMainPage } from "../pages.js";
+import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 
 export function createInputBar() {
   return ` 
     <form class="input-bar flex-row" id="inputBarForm">
       <div class="flex-column">
-        <label>일자</label>
-        <input type="date" name="date" required value="${
-          new Date().toISOString().split("T")[0]
-        }" />
+        <label>일자
+          <input type="date" name="date" required value="${
+            new Date().toISOString().split("T")[0]
+          }" />
+        </label>
       </div>
       <div class="flex-column">
-        <label>금액</label>
-        <div class="flex-row">
-          <button type="button" class="amountToggle" data-sign="+">+</button>
-          <input type="number" name="amount" placeholder="금액을 입력하세요" min="0" required />
-        </div>
+        <label>금액
+          <div class="flex-row">
+            <button type="button" class="amountToggle" data-sign="+">+</button>
+            <input type="number" name="amount" placeholder="금액을 입력하세요" min="0" required />
+          </div>
+        </label>
       </div>
       <div class="flex-column">
-        <label>내용</label>
-        <input
-          type="text"
-          name="content"
-          maxlength="32"
-          placeholder="내용을 입력하세요"
-          required
-        />
+        <label>내용
+          <input
+            type="text"
+            name="content"
+            maxlength="32"
+            placeholder="내용을 입력하세요"
+            required
+          />
+        </label>
       </div>
       <div class="flex-column">
-        <label>결제수단</label>
-        <select name="paymentMethod" required>
-          <option value="cash">현금</option>
-          <option value="card">카드</option>
-          <option value="add">추가하기</option>
-        </select>
+        <label>결제수단
+          <select name="paymentMethod" required>
+            <option value="cash">현금</option>
+            <option value="card">카드</option>
+            <option value="add">추가하기</option>
+          </select>
+        </label>
       </div>
       <div class="flex-column">
-        <label>분류</label>
+        <label>분류
         <select name="category" required>
           <option value="life">생활</option>
           <option value="food">식비</option>
@@ -46,6 +51,7 @@ export function createInputBar() {
           <option value="entertainment">문화/여가</option>
           <option value="etc">미분류</option>
         </select>
+        </label>
       </div>
       <div class="flex-column">
         <button type="submit" class="add-button">추가</button>
@@ -88,12 +94,10 @@ export function renderInputBar(container) {
     }
 
     // 새로운 거래내역 추가
-    const newTransaction = addNewTransaction(data);
+    addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
 
     form.reset();
-    amountToggle.textContent = "+"; // 버튼 초기화
-
-    console.log("거래내역이 추가되었습니다: ", newTransaction);
+    amountToggle.textContent = "+";
 
     renderMainPage();
   });

@@ -2,7 +2,7 @@ import {
   getCurrentYear,
   getCurrentMonth,
   getCurrentMonthName,
-  setDateEventListeners,
+  setupDateEventListeners,
 } from "../utils/currentDate.js";
 
 export function createHeader() {
@@ -41,7 +41,7 @@ export function createHeader() {
 
 export function renderHeader(container) {
   container.innerHTML = createHeader();
-  setDateEventListeners(container);
+  setupDateEventListeners(container);
 }
 
 export function updateNavigationActive() {

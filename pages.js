@@ -13,7 +13,6 @@ export function createMainPage() {
     getCurrentMonth()
   );
   const groupedByDate = groupTransactionsByDate(grouped);
-  console.log(groupedByDate);
 
   const sections = Object.entries(groupedByDate)
     .map(([date, transactionList]) => {
@@ -113,7 +112,7 @@ export function renderMainPage() {
   mainContainer.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const id = Number(btn.dataset.id);
-      deleteTransaction(id);
+      deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
       renderMainPage();
     });
   });
