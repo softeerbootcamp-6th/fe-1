@@ -1,5 +1,6 @@
 //js/input-form.js
 import { updateTotalAmounts } from "./totalAmount.js";
+import { dummyEntries } from "./dummy.js";
 
 export function initInputForm() {
   let selectedMethod = null;
@@ -210,6 +211,17 @@ export function initInputForm() {
     display.textContent = "선택하세요";
     categoryDisplay.textContent = "선택하세요";
   });
+
+
+  // 초기 더미 데이터 로드
+  function loadDummyEntries() {
+    dummyEntries.forEach(entry => {
+      addEntryToDOM(entry);
+      entries.push(entry);
+    });
+    updateTotalAmounts();
+  }
+  loadDummyEntries();
 
   renderCategoryOptions();
 }
