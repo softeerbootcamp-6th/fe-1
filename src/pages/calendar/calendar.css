@@ -1,0 +1,152 @@
+@import url("../../styles/colors.css");
+@import url("../../styles/fonts.css");
+
+/* 캘린더 컨테이너 */
+.calendar-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 캘린더 헤더 (요일) */
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  margin-bottom: 1px;
+  background-color: #e0e0e0;
+}
+
+.calendar-day-header {
+  background-color: #f5f5f5;
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  border-right: 1px solid #e0e0e0;
+}
+
+.calendar-day-header:last-child {
+  border-right: none;
+}
+
+/* 캘린더 그리드 */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: #e0e0e0;
+  border: 1px solid #e0e0e0;
+}
+
+/* 개별 달력 셀 */
+.calendar-cell {
+  background-color: white;
+  min-height: 130px;
+  min-width: 100px;
+  overflow: hidden;
+  padding: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.calendar-cell:hover {
+  background-color: #f8f9fa;
+}
+
+/* 다른 달의 날짜 */
+.calendar-cell.other-month {
+  background-color: #f8f9fa;
+  color: #ccc;
+}
+
+.calendar-cell.other-month .calendar-date {
+  color: #ccc;
+}
+
+/* 오늘 날짜 */
+.calendar-cell.today {
+  background-color: #e3f2fd;
+}
+
+.calendar-cell.today .calendar-date {
+  background-color: var(--colorchip-100);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 날짜 숫자 */
+.calendar-date {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-family: var(--font-family-serif);
+  font-size: var(--font-semibold-xxs-size);
+  line-height: var(--font-semibold-xxs-line);
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+/* 일일 합계 */
+.daily-summary {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-light-sm-size);
+  line-height: var(--font-light-sm-line);
+  font-weight: var(--font-weight-light);
+}
+
+.daily-summary .income {
+  color: var(--brand-text-income);
+  text-align: right;
+}
+
+.daily-summary .expense {
+  color: var(--brand-text-expense);
+  text-align: right;
+}
+
+.daily-summary .balance {
+  text-align: right;
+  margin-top: 2px;
+  border-top: 1px solid #e0e0e0;
+  color: var(--neutral-text-strong);
+  font-weight: var(--font-weight-light);
+}
+
+.daily-summary .balance.positive {
+  color: var(--brand-text-income);
+}
+
+.daily-summary .balance.negative {
+  color: var(--brand-text-expense);
+}
+
+/* 월별 요약 정보 */
+.calendar-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 20px;
+  font-family: var(--font-family-serif);
+  font-size: var(--font-semibold-xxs-size);
+  line-height: var(--font-semibold-xxs-line);
+  font-weight: var(--font-weight-light);
+}
+
+.summary-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
