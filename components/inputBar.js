@@ -11,8 +11,8 @@ export function createInputBar() {
       <div class="flex-column">
         <label>금액</label>
         <div class="flex-row">
-          <button type="button" id="amountToggle">+</button>
-          <input type="number" name="amount" placeholder="금액을 입력하세요" required />
+          <button type="button" class="amountToggle" data-sign="+">+</button>
+          <input type="number" name="amount" placeholder="금액을 입력하세요" min="0" required />
         </div>
       </div>
       <div class="flex-column">
@@ -56,16 +56,40 @@ export function renderInputBar(container) {
   container.innerHTML = createInputBar();
 
   const form = container.querySelector("#inputBarForm");
+  const amountToggle = container.querySelector(".amountToggle");
+  const amountInput = container.querySelector("input[name='amount']");
+
+  if (amountToggle && amountInput) {
+    amountToggle.addEventListener("click", () => {
+      //+ - 변경
+      if (amountToggle.dataset.sign === "+") {
+        amountToggle.textContent = "-";
+        amountToggle.dataset.sign = "-";
+      } else {
+        amountToggle.textContent = "+";
+        amountToggle.dataset.sign = "+";
+      }
+    });
+  }
+
   form.addEventListener("submit", (e) => {
     e.preventDefault(); // 페이지 새로고침 방지
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    // amountToggle 상태에 따라 금액 부호 결정
+    if (amountToggle && amountToggle.dataset.sign === "-") {
+      data.amount = -Math.abs(parseInt(data.amount));
+    } else {
+      data.amount = Math.abs(parseInt(data.amount));
+    }
+
     // 새로운 거래내역 추가
     const newTransaction = addNewTransaction(data);
 
     form.reset();
+    amountToggle.textContent = "+"; // 버튼 초기화
 
     console.log("거래내역이 추가되었습니다: ", newTransaction);
 
