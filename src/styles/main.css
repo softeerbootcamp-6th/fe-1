@@ -2,26 +2,56 @@
   position: relative;
 }
 
+/** form **/
 .entire-form {
-  position: absolute;
+  position: relative;
   top: -38px;
   background-color: var(--nuetral-surface-default);
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 24px;
-  margin: 0 273px;
+  width: 894px;
   height: 76px;
+  margin: 0 auto;
   padding: 16px 24px;
   border-style: solid;
   border-width: 0.5px;
   border-color: var(--nuetral-border-default);
 }
 
+.entire-form > div {
+  display: flex;
+  flex-direction: column;
+}
+
 .entire-form .split {
   height: 44px;
   border-left: 1px solid var(--nuetral-text-default);
+}
+
+.form-date {
+  width: 88px;
+}
+
+input#date {
+  position: relative;
+  width: 100%;
+}
+
+input#date::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.form-money {
+  width: 88px;
 }
 
 .form-money > div {
@@ -30,12 +60,24 @@
   gap: 8px;
 }
 
+input#money {
+  width: 100%;
+  text-align: right;
+}
+
 .form-content {
   position: relative;
+  width: 160px;
 }
-.form-content .content-length {
+
+.form-content > div {
   position: absolute;
   top: 0;
   right: 0;
   color: var(--nuetral-text-weak);
+}
+
+.form-payment,
+.form-category {
+  width: 104px;
 }

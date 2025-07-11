@@ -16,11 +16,21 @@ export const EntireForm = () => {
     category: "",
   };
 
-  entireForm.appendChild(DateForm(input));
-  entireForm.appendChild(MoneyForm(input));
-  entireForm.appendChild(ContentForm(input));
-  entireForm.appendChild(PaymentForm());
-  entireForm.appendChild(CategoryForm());
+  const formList = [
+    DateForm,
+    MoneyForm,
+    ContentForm,
+    PaymentForm,
+    CategoryForm,
+  ];
+  formList.forEach((Form, idx) => {
+    if (idx !== 0) {
+      const split = document.createElement("div");
+      split.classList.add("split");
+      entireForm.appendChild(split);
+    }
+    entireForm.appendChild(Form(input));
+  });
   entireForm.appendChild(FormChecker(input));
 
   entireForm.addEventListener("input", (e) => {
