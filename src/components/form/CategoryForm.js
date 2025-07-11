@@ -1,3 +1,6 @@
+import { CATEGORY } from "../../constants/category.js";
+import { DropDown } from "./DropDown.js";
+
 export const CategoryForm = (input) => {
   let isCategoryOpen = false;
   const categoryForm = document.createElement("div");
@@ -14,10 +17,17 @@ export const CategoryForm = (input) => {
 
   const categoryImg = categoryForm.querySelector("#category > img");
   categoryForm.addEventListener("click", () => {
+    // 이미지 업데이트
     isCategoryOpen = !isCategoryOpen;
     categoryImg.src = `./src/assets/chevron-${
       isCategoryOpen ? "up" : "down"
     }.png`;
+
+    // 드롭다운 화면에 표시/제거
+    if (isCategoryOpen) {
+      categoryForm.appendChild(DropDown(CATEGORY[input.moneyType]));
+    } else {
+    }
   });
   return categoryForm;
 };
