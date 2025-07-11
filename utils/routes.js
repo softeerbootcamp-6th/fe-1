@@ -2,8 +2,8 @@ import {
   renderMainPage,
   renderCalendarPage,
   renderChartPage,
-} from "./pages.js";
-import { updateNavigationActive } from "./components/header.js";
+} from "../pages.js";
+import { updateNavigationActive } from "../components/header.js";
 
 const routes = {
   "/": renderMainPage,
