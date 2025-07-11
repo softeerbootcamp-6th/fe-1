@@ -4,23 +4,17 @@ import { handleDate } from "../utils/handleDate.js";
 
 export const createLayout = () => {
   const app = document.getElementById("app");
-  app.classList.add("light-14");
-  if (!app) {
-    throw new Error("App element not found");
-  }
 
+  // 전역 상태 관리 시스템 구현 필요 ⚠️
   const date = {
     year: 2023,
     month: 8,
     monthEng: "August",
   };
 
-  //header area
   const header = renderHeader(date);
-  app.appendChild(header);
-
-  //main area
   const main = renderMain();
+  app.appendChild(header);
   app.appendChild(main);
 
   handleDate(date);

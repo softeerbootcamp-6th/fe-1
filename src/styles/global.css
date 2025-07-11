@@ -79,6 +79,14 @@
   font-display: swap;
 }
 
+* {
+  box-sizing: border-box;
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 300;
+}
+
 /* Serif (Chosunilbo_myungjo) */
 .serif-48 {
   font-family: "Chosunilbo_myungjo", serif;

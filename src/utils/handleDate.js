@@ -1,17 +1,4 @@
-const month = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { MONTH } from "../constants/month.js";
 
 export const handleDate = (date) => {
   const dateDiv = document.querySelector(".date");
@@ -40,7 +27,7 @@ const renderDate = (date) => {
   const monthEngSpan = currentDate.querySelector("span:nth-child(3)");
   yearSpan.textContent = date.year;
   monthNumSpan.textContent = date.month;
-  monthEngSpan.textContent = month[date.month - 1];
+  monthEngSpan.textContent = MONTH[date.month - 1];
 };
 
 const decreaseMonth = (date) => {
