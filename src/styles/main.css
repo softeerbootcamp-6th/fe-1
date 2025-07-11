@@ -89,6 +89,7 @@ input#money {
 }
 
 button#category {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -96,6 +97,7 @@ button#category {
   border: none;
   outline: none;
   background: none;
+  padding: 0;
 }
 
 .drop-down {

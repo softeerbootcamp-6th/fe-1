@@ -27,6 +27,8 @@ export const CategoryForm = (input) => {
     if (isCategoryOpen) {
       categoryForm.appendChild(DropDown(CATEGORY[input.moneyType]));
     } else {
+      const dropDown = categoryForm.querySelector(".drop-down");
+      categoryForm.removeChild(dropDown);
     }
   });
   return categoryForm;
