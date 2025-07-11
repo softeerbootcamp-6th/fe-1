@@ -15,6 +15,7 @@ export function groupTransactionsByDate(transactions) {
 // 새로운 거래내역 추가
 export function addNewTransaction(formData) {
   const newTransaction = {
+    id: transactionsData.length + 1,
     date: formData.date,
     amount: parseInt(formData.amount),
     description: formData.content,
@@ -32,4 +33,18 @@ export function addNewTransaction(formData) {
   console.log("전체 거래내역:", transactionsData);
 
   return newTransaction;
+}
+
+//기존 거래 내역 삭제
+export function deleteTransaction(id) {
+  const index = transactionsData.findIndex(
+    (transaction) => transaction.id === id
+  );
+  if (index !== -1) {
+    transactionsData.splice(index, 1);
+    console.log(`거래내역 ID ${id}가 삭제되었습니다.`);
+    console.log("전체 거래내역:", transactionsData);
+  } else {
+    console.log(`거래내역 ID ${id} 삭제에 실패했습니다.`);
+  }
 }

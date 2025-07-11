@@ -1,6 +1,9 @@
 import { renderMonthlyInfo } from "./components/monthlyInfo.js";
 import { renderInputBar } from "./components/inputBar.js";
-import { groupTransactionsByDate } from "./utils/transaction.js";
+import {
+  groupTransactionsByDate,
+  deleteTransaction,
+} from "./utils/transaction.js";
 import { transactionsData } from "./store/transactionsStore.js";
 
 export function createMainPage() {
@@ -33,6 +36,14 @@ export function createMainPage() {
           <td>${transaction.description}</td>
           <td>${transaction.paymentMethod}</td>
           <td>${transaction.amount}</td>
+          <td>
+            <button 
+              class="delete-btn" 
+              data-id="${transaction.id}"
+            >
+              삭제
+            </button>
+          </td>
         </tr> 
       `
         )
@@ -52,11 +63,9 @@ export function createMainPage() {
     .join("");
 
   return `
-    <div class="main-page">
-      <div id="input-bar-container"></div>
-      <div id="monthly-info-container"></div>
-      ${sections}
-    </div>
+    <div id="input-bar-container"></div>
+    <div id="monthly-info-container"></div>
+    ${sections}
   `;
 }
 
@@ -82,18 +91,26 @@ export function renderMainPage() {
     mainContainer.innerHTML = createMainPage();
   }
   // inputBar 렌더링
-  const inputBarContainer = document.getElementById("input-bar-container");
+  const inputBarContainer = mainContainer.querySelector("#input-bar-container");
   if (inputBarContainer) {
     renderInputBar(inputBarContainer);
   }
 
   // monthlyInfo 렌더링
-  const monthlyInfoContainer = document.getElementById(
-    "monthly-info-container"
+  const monthlyInfoContainer = mainContainer.querySelector(
+    "#monthly-info-container"
   );
   if (monthlyInfoContainer) {
     renderMonthlyInfo(monthlyInfoContainer);
   }
+
+  mainContainer.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.dataset.id);
+      deleteTransaction(id);
+      renderMainPage();
+    });
+  });
 }
 
 export function renderCalendarPage() {
