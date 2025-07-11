@@ -2,14 +2,34 @@ import { createElement } from "../utils/createElement.js";
 import { DropDown } from "./dropDown.js";
 
 export function Form() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
     const formState = {
-        date: null,
+        year: year,
+        month: Number(month),
+        date: Number(day),
         amount: null,
         type: "income",
         description: null,
         paymentMethod: null,
         category: null,
     };
+    function checkAvailability() {
+        const isValid =
+            formState.year &&
+            formState.month &&
+            formState.date &&
+            formState.amount &&
+            formState.type &&
+            formState.description &&
+            formState.paymentMethod &&
+            formState.category;
+        submitButton.disabled = !isValid;
+        console.log("Form state:", formState);
+        console.log("Form availability checked:", isValid);
+    }
     let isIncome = true;
     let isPaymentMethodOpen = false;
     let isCategoryOpen = false;
@@ -41,11 +61,16 @@ export function Form() {
         className: "form-date semibold-12",
         type: "date",
     });
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
+    
     dateInput.value = `${year}-${month}-${day}`;
+    dateInput.addEventListener("change", function (e) {
+        const selectedDate = new Date(e.target.value);
+        formState.year = selectedDate.getFullYear();
+        formState.month = selectedDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
+        formState.date = selectedDate.getDate();
+        console.log("Selected date:", formState.year, formState.month, formState.date);
+        checkAvailability();
+    });
 
     const dateLabel = createElement("p", {
         textContent: "일자",
@@ -102,6 +127,8 @@ export function Form() {
             value = parseInt(value).toLocaleString();
         }
         e.target.value = value;
+        formState.amount = value ? parseInt(value.replace(/,/g, "")) : null;
+        checkAvailability();
     });
 
     costInput.addEventListener("keypress", function (e) {
@@ -115,11 +142,14 @@ export function Form() {
     });
     costSign.addEventListener("click", function () {
         isIncome = !isIncome;
+        formState.type = isIncome ? "income" : "expense";
+        console.log("Type changed to:", formState.type);
         costSign.innerHTML = `<img style="width:16px;height:16px" src="../assets/icons/${
             isIncome ? "plus" : "minus"
         }.svg" alt="${isIncome ? "수입" : "지출"}">`;
         formState.type = isIncome ? "income" : "expense";
         updateCategoryDropdown();
+        checkAvailability();
     });
     const description = createElement("div", {
         className: "form-components",
@@ -150,6 +180,8 @@ export function Form() {
         const value = e.target.value;
         descriptionLength.textContent = `${value.length}/32`;
         formState.description = value;
+        console.log("Description:", formState.description);
+        checkAvailability();
     });
     form.appendChild(description);
     const paymentMethod = createElement("div", {
@@ -223,6 +255,8 @@ export function Form() {
                 e.stopPropagation();
                 inputElement.value = option;
                 formState[formStateKey] = option;
+                console.log(formStateKey, "selected:", formState.paymentMethod);
+                checkAvailability();
 
                 // 해당 드롭다운 닫기
                 if (type === "payment") {
@@ -258,6 +292,7 @@ export function Form() {
                             }
 
                             updatePaymentDropdown();
+                            checkAvailability();
                         }
                     }
                 });
@@ -283,6 +318,7 @@ export function Form() {
                 e.stopPropagation();
                 togglePaymentDropdown(false);
                 openPaymentModal();
+                checkAvailability();
             });
 
             addOption.appendChild(addButton);
@@ -350,6 +386,7 @@ export function Form() {
             }
             currentPaymentDropdown = createDropDown("payment");
             paymentMethod.appendChild(currentPaymentDropdown);
+            checkAvailability();
         }
     }
 
@@ -361,6 +398,7 @@ export function Form() {
             }
             currentCategoryDropdown = createDropDown("category");
             category.appendChild(currentCategoryDropdown);
+            checkAvailability();
         }
         // 현재 선택된 분류가 새 목록에 없으면 초기화
         const currentOptions = isIncome ? incomeList : costList;
@@ -400,6 +438,7 @@ export function Form() {
         e.preventDefault();
         e.stopPropagation();
         togglePaymentDropdown();
+        checkAvailability();
     });
 
     form.appendChild(paymentMethod);
@@ -444,5 +483,14 @@ export function Form() {
             toggleCategoryDropdown(false);
         }
     });
+    const submitButton = createElement("button", {
+        className: "form-submit-button semibold-12",
+        id: 'submitButton',
+        type: "submit",
+        innerHTML: `<img src="../assets/icons/check-white.svg" alt="제출">`,
+    });
+    submitButton.disabled = true;
+
+    form.appendChild(submitButton);
     return form;
 }

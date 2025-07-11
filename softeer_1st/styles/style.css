@@ -159,10 +159,10 @@
     border: 1px solid var(--neutral-border-default);
     position: relative;
     top: -40px;
-    width: 894px;
+    width: 897px;
     margin: 0 auto;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-48%);
 }
 .form > .form-components{
     border-left: 1px solid var(--neutral-border-default);
@@ -187,6 +187,8 @@ input[type="date"].form-date {
     position: relative;
     cursor: pointer;
     border: none;
+    width: 88px;
+    padding: 0px;
 }
 input[type="date"].form-date::-webkit-calendar-picker-indicator {
     position: absolute;
@@ -302,4 +304,24 @@ input[type="text"].form-cost-input {
 }
 button.form-category{
     width: 104px;
+}
+.form-submit-button{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background-color: var(--neutral-text-default);
+}
+.form-submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.32
+}
+.form-submit-button:hover{
+    opacity: 0.8
+}
+.form-submit-button:active {
+    opacity: 0.64;
 }
