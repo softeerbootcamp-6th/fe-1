@@ -170,7 +170,8 @@
     height: 44px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    justify-content: space-between;
+    position: relative;
 }
 .form > .form-components:first-child {
     border-left: none;
@@ -236,7 +237,7 @@ input[type="text"].form-cost-input {
     position: absolute;
     left: 0;
     right:0;
-    top: 100%;
+    top: 62px;
     background-color: #ffffff;
     border: 1px solid var(--neutral-border-default);
     z-index: 10;
@@ -262,7 +263,8 @@ input[type="text"].form-cost-input {
     border: none;
     outline: none;
     resize: none;
-    width: 80%
+    width: 80%;
+    cursor: pointer;
 }
 .form-payment-method-text::placeholder {
     color: var(--neutral-text-weak);
@@ -270,22 +272,34 @@ input[type="text"].form-cost-input {
 .form-payment-method-icon{
     width: 16px;
     height: 16px;
+    color: var(--danger-text-default);
     cursor: pointer;
 }
+
 .form-category-method-text::placeholder {
     color: var(--neutral-text-weak);
 }
 .form-category-icon{
     width: 16px;
     height: 16px;
+    
     cursor: pointer;
 }
 .delete-button{
-    height: 24px
+    height: 24px;
+    
+}
+.delete-button img{
+    color: var(--danger-text-default)
 }
 .form-category-text{
     border: none;
     outline: none;
     resize: none;
+    width: 80%;
+    cursor: pointer;
 
+}
+button.form-category{
+    width: 104px;
 }

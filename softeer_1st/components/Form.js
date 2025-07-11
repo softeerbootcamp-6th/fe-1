@@ -411,7 +411,7 @@ export function Form() {
         className: "light-12",
     });
     const categoryDropdown = createElement("button", {
-        className: "form-category semibold-12 relative flex justify-between",
+        className: "form-category semibold-12 flex justify-between",
     });
     categoryDropdown.type = "button";
     const categoryInput = createElement("input", {
