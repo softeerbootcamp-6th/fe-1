@@ -17,12 +17,16 @@
   font-size: 2.4rem;
 }
 
-.header__month {
+.header__month-container {
   width: 33.33%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2.4rem;
+}
+
+.header__month {
+  cursor: pointer;
 }
 
 .header__month-button {

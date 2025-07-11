@@ -1,3 +1,10 @@
+import {
+  getCurrentMonth,
+  resetSelectedMonth,
+  goToPreviousMonth,
+  goToNextMonth,
+} from "../../utils/month.js";
+
 /**
  * Header 컴포넌트
  *
@@ -6,19 +13,30 @@
  *   currentYear: 2025,
  *   currentMonth: 8,
  *   selectedNav: 'chart', // 'home', 'calendar', 'chart'
- *   onMonthChange: (direction) => console.log('Month changed:', direction),
  *   onNavClick: (nav) => console.log('Nav clicked:', nav)
  * });
  *
  * document.body.appendChild(header);
  */
+
+const renderMonth = () => {
+  const { year, month, monthText } = getCurrentMonth();
+
+  const yearSpan = document.querySelector(".header__year");
+  const monthSpan = document.querySelector(".header__month");
+  const monthNameSpan = document.querySelector(".header__month-name");
+
+  yearSpan.textContent = year;
+  monthSpan.textContent = month;
+  monthNameSpan.textContent = monthText;
+};
+
 const Header = ({
-  currentYear = new Date().getFullYear(),
-  currentMonth = new Date().getMonth() + 1,
   selectedNav = "home", // 'home', 'calendar', 'chart'
-  onMonthChange = null,
-  onNavClick = null,
+  onChangeMonth = null,
 } = {}) => {
+  const { year, month, monthText } = getCurrentMonth();
+
   const header = document.createElement("header");
   header.className = "header";
 
@@ -33,7 +51,7 @@ const Header = ({
 
   // 월 선택 영역 생성
   const monthContainer = document.createElement("div");
-  monthContainer.className = "header__month";
+  monthContainer.className = "header__month-container";
 
   // 이전 월 버튼
   const prevButton = document.createElement("button");
@@ -43,9 +61,12 @@ const Header = ({
   prevIcon.alt = "arrow-left";
   prevButton.appendChild(prevIcon);
 
-  if (onMonthChange) {
-    prevButton.addEventListener("click", () => onMonthChange("prev"));
-  }
+  prevButton.addEventListener("click", () => {
+    goToPreviousMonth();
+    renderMonth();
+    onChangeMonth();
+  });
+
   monthContainer.appendChild(prevButton);
 
   // 월 정보
@@ -54,15 +75,21 @@ const Header = ({
 
   const yearSpan = document.createElement("span");
   yearSpan.className = "header__year font-light-14";
-  yearSpan.textContent = currentYear;
+  yearSpan.textContent = year;
 
   const monthSpan = document.createElement("span");
   monthSpan.className = "header__month font-serif-48";
-  monthSpan.textContent = currentMonth.toString().padStart(2, "0");
+  monthSpan.textContent = month;
+
+  monthSpan.addEventListener("click", () => {
+    resetSelectedMonth();
+    renderMonth();
+    onChangeMonth();
+  });
 
   const monthNameSpan = document.createElement("span");
   monthNameSpan.className = "header__month-name font-light-14";
-  monthNameSpan.textContent = getMonthName(currentMonth);
+  monthNameSpan.textContent = monthText;
 
   monthInfo.appendChild(yearSpan);
   monthInfo.appendChild(monthSpan);
@@ -77,9 +104,12 @@ const Header = ({
   nextIcon.alt = "arrow-right";
   nextButton.appendChild(nextIcon);
 
-  if (onMonthChange) {
-    nextButton.addEventListener("click", () => onMonthChange("next"));
-  }
+  nextButton.addEventListener("click", () => {
+    goToNextMonth();
+    renderMonth();
+    onChangeMonth();
+  });
+
   monthContainer.appendChild(nextButton);
 
   headerContents.appendChild(monthContainer);
@@ -120,13 +150,6 @@ const Header = ({
     link.appendChild(icon);
     li.appendChild(link);
 
-    if (onNavClick) {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        onNavClick(item.id);
-      });
-    }
-
     nav.appendChild(li);
   });
 
@@ -135,25 +158,6 @@ const Header = ({
   header.appendChild(headerContents);
 
   return header;
-};
-
-// 월 이름을 반환하는 헬퍼 함수
-const getMonthName = (month) => {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  return monthNames[month - 1];
 };
 
 export default Header;
