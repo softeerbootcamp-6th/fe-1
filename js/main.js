@@ -97,6 +97,20 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryEl: summaryEl
     });
 
+    // *****
+    // ***** 더미데이터 주입 *****
+    // *****
+    // 더미 주입·폼 제출 이전, 즉 DOMContentLoaded 안에서 가장 먼저
+    document
+        .querySelectorAll('.month-summary article.day-group')
+        .forEach(el => el.remove());
+
+    // JSON 파일을 fetch로 가져오기
+    fetch('../data/dummy.json')
+        .then(res => res.json())
+        .then(data => data.forEach(entry => summary.addEntry(entry)))
+        .catch(console.error);
+
     // 요약을 정렬하는 함수 실행
     summary.sortGroups();
     // 요약의 총합을 계산하는 함수 실행
