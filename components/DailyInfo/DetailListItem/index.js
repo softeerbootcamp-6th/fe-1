@@ -7,7 +7,7 @@ function createDetailListItem({ category, description, payment, value }) {
     const isIncome = value > 0 ? 'income-value' : 'expense-value';
 
     const itemElement = document.createElement('li');
-    itemElement.className = 'daily-info-detail-list';
+    itemElement.className = 'daily-info-detail-list-item';
     itemElement.innerHTML = `
         <div class="category" style="background-color: var(--${categoryColor})">
             <span class="light-12">${categoryLabel}</span>
