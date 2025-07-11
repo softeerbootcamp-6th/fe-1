@@ -1,11 +1,11 @@
 .main-page {
-    margin: 0 20%;
-    background-color: pink;
+    margin: 0 273px;
 }
 
-.input-bar{
+.input-bar {
     background-color: #ffffff;
     border: 0.5px solid #000000;
+    z-index: 1;
     transform: translate(0, -50%);
     display: flex;
     justify-content: space-between;
@@ -18,7 +18,7 @@
     font-weight: 300;
     font-size: 12px;
     margin-bottom: 4px;
-    height: 24px    ;
+    height: 24px;
 }
 
 .input-bar input {
@@ -42,7 +42,7 @@
 }
 
 .border-line {
-    background-color:#000000;
+    background-color: #000000;
     width: 0.5px;
     height: 100%;
 }
@@ -50,4 +50,30 @@
 .sign-button {
     width: 16px;
     height: 16px;
+}
+
+.main-page-body {
+    padding: 0 24px;
+    background-color: #FFC0CB;
+}
+
+/* Daily List Styles */
+.daily-list {
+    margin-top: 40px;
+    border: 2px solid #4c88ef;
+}
+
+.daily-list-content {
+    margin-top: 16px;
+}
+
+.daily-list-content {
+    border-top: 0.5px solid #000000;
+    border-bottom: 0.5px solid #000000;
+}
+
+.daily-list-block {
+    display: flex;
+    align-items: center;
+    /* 필요에 따라 조정 가능 */
 }

@@ -1,12 +1,14 @@
 import DropDown from '../../../components/DropDown/DropDown.js';
 
-function InputBar() {
-    const pluscCategoryList = [
-        '월급', '용돈', '기타 수입'
-    ];
-    const minusCategoryList = [
-        '생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/건강', '미분류'
-    ];
+const pluscCategoryList = [
+    '월급', '용돈', '기타 수입'
+];
+const minusCategoryList = [
+    '생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/건강', '미분류'
+];
+
+function InputBar(onSubmitCallback) {
+    const paymentOptions = ['카드', '현금', '계좌이체', '기타'];
 
     let isPlus = false;
 
@@ -37,8 +39,10 @@ function InputBar() {
         updateCategoryOptions();
     };
 
+
+
     const validateInputs = () => {
-        const dateInput = document.querySelector('.input-field input');
+        const dateInput = document.getElementById('date-select');
         const amountInput = document.querySelector('.amount-field');
         const contentInput = document.querySelector('.content-field');
         const paymentSelect = document.getElementById('payment-field');
@@ -59,8 +63,10 @@ function InputBar() {
             checkButton.disabled = !isValid; // 체크 버튼 활성화/비활성화
             if (isValid) {
                 checkButton.classList.remove('disabled');
+                checkButton.style.cursor = 'pointer';
             } else {
                 checkButton.classList.add('disabled');
+                checkButton.style.cursor = 'not-allowed';
             }
             const img = checkButton.querySelector('img');
 
@@ -71,12 +77,35 @@ function InputBar() {
         else console.error('Check button not found');
     };
 
+    const handleSubmit = () => {
+        const dateInput = document.getElementById('date-select');
+        const amountInput = document.querySelector('.amount-field');
+        const contentInput = document.querySelector('.content-field');
+        const paymentSelect = document.getElementById('payment-field');
+        const categorySelect = document.getElementById('category-select');
+
+        const formData = {
+            date: dateInput.value,
+            amount: amountInput.value,
+            content: contentInput.value,
+            payment: paymentSelect.value,
+            category: categorySelect.value
+        };
+
+        console.log('Form submitted:', formData);
+
+        // MainPage로 formData 전달
+        if (onSubmitCallback) {
+            onSubmitCallback(formData);
+        }
+    };
+
     return {
         element: `
             <div class="input-bar">
                 <div class="flex-column input-field">
                     <label>일자</label>
-                    <input type="text" placeholder="항목을 입력하세요">
+                    <input type="date" id='date-select'>
                 </div>
                 <div class="border-line"></div>
                 <div class="flex-column">
@@ -85,7 +114,7 @@ function InputBar() {
                         <button class="icon-button sign-button" id="plus-minus-btn">
                             <img src="assets/icons/minus.svg" alt="minus icon">
                         </button>
-                        <input type="number" class="amount-field" placeholder="0">
+                        <input type="text" class="amount-field" placeholder="0">
                         <span>원</span>
                     </div>
                 </div>
@@ -101,7 +130,7 @@ function InputBar() {
                 <div class="flex-column">
                     <label>결제 수단</label>
                     ${DropDown({
-            options: ['카드', '현금', '계좌이체', '기타'],
+            options: paymentOptions,
             id: 'payment-field',
             editable: true
         }).element}
@@ -109,23 +138,20 @@ function InputBar() {
                 <div class="border-line"></div>
                 <div class="flex-column">
                     <label>분류</label>
-                    <select id="category-select">
-                        <option value="" disabled selected>선택하세요.</option>
-                        <option value="생활">생활</option>
-                        <option value="식비">식비</option>
-                        <option value="교통">교통</option>
-                        <option value="쇼핑/뷰티">쇼핑/뷰티</option>
-                        <option value="의료/건강">의료/건강</option>
-                        <option value="문화/건강">문화/건강</option>
-                        <option value="미분류">미분류</option>
-                    </select>
+                    ${DropDown({
+            options: isPlus ? pluscCategoryList : minusCategoryList,
+            id: 'category-select',
+            editable: false
+        }).element}
                 </div>
                 <button class="icon-button" id="submit-btn">
-                    <img src="/assets/icons/check-button.svg" alt="check icon" id="check-icon">
+                    <img src="assets/icons/check-button.svg" alt="check icon" id="check-icon">
                 </button>
             </div>
         `,
         init: () => {
+            document.getElementById('date-select').value = new Date().toISOString().substring(0, 10);
+
             // DOM이 렌더링된 후에 이벤트 리스너 등록
             const plusMinusBtn = document.getElementById('plus-minus-btn');
             if (plusMinusBtn) {
@@ -143,6 +169,15 @@ function InputBar() {
 
             // 초기 체크 버튼 상태 설정
             validateInputs();
+
+            const checkButton = document.getElementById('submit-btn');
+            if (checkButton) {
+                checkButton.addEventListener('click', () => {
+                    if (!checkButton.classList.contains('disabled')) {
+                        handleSubmit();
+                    }
+                });
+            }
         }
     }
 }
