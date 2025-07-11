@@ -1,6 +1,6 @@
 import { createElement } from '../../utils.js';
 import createCenterNavigation from './centerNavigation.js';
-import createHeaderTab from './haaderTab.js';
+import createHeaderTab from './headerTab.js';
 
 export default function initializeHeader() {
     const $headerPlaceholder = document.getElementById('header-placeholder');
