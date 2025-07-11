@@ -5,7 +5,7 @@ import createPaymentMethod from './InputItems/paymentMethod.js';
 import createCategory from './InputItems/category.js';
 import createSubmitButton from './submitButton.js';
 
-function createInputBar() {
+export default function createInputBar() {
     const container = document.createElement('div');
     container.className = 'input-bar-container';
 
@@ -25,7 +25,3 @@ function createInputBar() {
 
     return container;
 }
-
-const mainPlaceholder = document.getElementById('main-placeholder');
-const inputBar = createInputBar();
-mainPlaceholder.appendChild(inputBar);

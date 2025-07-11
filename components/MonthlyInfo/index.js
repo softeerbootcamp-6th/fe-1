@@ -1,7 +1,7 @@
 import createDailyList from '../DailyInfo/List/index.js';
 import { monthlyInfoDummyData } from '../../lib/datas/monthlyInfoDummyData.js';
 
-function createMonthlyInfo() {
+export default function createMonthlyInfo() {
     const monthlyInfo = document.createElement('div');
     monthlyInfo.className = 'main-container';
     monthlyInfo.innerHTML = `
@@ -52,7 +52,3 @@ function createMonthlyInfo() {
 
     return monthlyInfo;
 }
-
-const mainPlaceholder = document.getElementById('main-placeholder');
-const monthlyInfo = createMonthlyInfo();
-mainPlaceholder.appendChild(monthlyInfo);

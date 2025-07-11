@@ -16,8 +16,10 @@ const NavItemIcon = [
     },
 ];
 
-const headerHtml = `
-    <div class="header-container">
+export default function createHeader() {
+    const header = document.createElement('div');
+    header.className = 'header-container';
+    header.innerHTML = `
         <a href="/" class="logo-text serif-24">Wise Wallet</a>
         <div class="date">
             <button class="month-control-button">
@@ -66,7 +68,7 @@ const headerHtml = `
                 ).join('')}
             </ul>
         </nav>
-    </div>
-`;
+    `;
 
-document.getElementById('header-placeholder').innerHTML += headerHtml;
+    return header;
+}
