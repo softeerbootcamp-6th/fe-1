@@ -8,7 +8,7 @@ export default function () {
             </select>
         `;
 
-    const $CategorynputItem = createElement(
+    const $categorynputItem = createElement(
         'div',
         {
             class: 'category-wrapper',
@@ -16,5 +16,5 @@ export default function () {
         categoryInputInnerHtml,
     );
 
-    return $CategorynputItem;
+    return $categorynputItem;
 }
