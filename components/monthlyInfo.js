@@ -1,4 +1,10 @@
+import { monthlyTotalAmount } from "../utils/transaction.js";
+import { transactionsData } from "../store/transactionsStore.js";
+
 export function createMonthlyInfo() {
+  const { monthlyTotalIncome, monthlyTotalExpense } =
+    monthlyTotalAmount(transactionsData);
+
   const monthlyInfoTemplate = `
     <div class="flex-row">
       <div>전체 내역 13건</div>
@@ -7,14 +13,14 @@ export function createMonthlyInfo() {
           type="checkbox"
           checked
         />
-        <div>수입 2,010,580</div>
+        <div>수입 ${monthlyTotalIncome}</div>
       </div>
       <div class="flex-row">
         <input
           type="checkbox"
           checked
         />
-        <div>지출 798,180</div>
+        <div>지출 ${monthlyTotalExpense}</div>
       </div>
     </div>
     `;
