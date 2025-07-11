@@ -1,15 +1,27 @@
-import { elements } from "./elements";
+// input 바에서 사용하는 드롭다운, 유효성 검증, 글자수 세기 등의 로직을 다루는 파일
 
+import { elements } from "./elements.js";
+
+let valueSign = "minus"; // or "plus"
 let paymentOptions = ["현금", "신용카드", "추가하기"];
-const categoryOptions = ["생활", "식비", "교통", "쇼핑/뷰티", "의료/건강", "문화/여가", "미분류"];
-
+const categoryOptions = {
+  minus: ["생활", "식비", "교통", "쇼핑/뷰티", "의료/건강", "문화/여가", "미분류"],
+  plus: ["월급", "용돈", "기타 수입"],
+};
 // 지출/수입 +/- 토글 함수
 export const initToggleButton = () => {
   const toggleButtonEl = elements.toggleButtonEl();
   toggleButtonEl.addEventListener("click", () => {
     console.log("Toggle button clicked");
     const currentSign = toggleButtonEl.textContent.trim();
-    toggleButtonEl.textContent = currentSign === "+" ? "-" : "+";
+    if (currentSign === "+") {
+      toggleButtonEl.textContent = "-";
+      valueSign = "minus";
+    } else {
+      toggleButtonEl.textContent = "+";
+      valueSign = "plus";
+    }
+    initCategoryDropdown();
   });
 };
 
@@ -26,19 +38,30 @@ export const initDropdown = ({
   const selectedP = dropdown.querySelector(selectedSelector);
   const arrow = dropdown.querySelector(arrowSelector);
   const optionsUl = dropdown.querySelector(optionsSelector);
-
   // 옵션 렌더링
   optionsUl.innerHTML = options
     .map((option) => `<div class="dropdown-option">${option}</div>`)
     .join("");
 
+  //
+  if (dropdown.dataset.initialized) {
+    // 이미 초기화 되었다면 옵션만 바꾸고 함수 종료
+    return;
+  }
+
   dropdown.addEventListener("click", toggleDropdown);
+  dropdown.dataset.initialized = "true";
 
   // 드롭다운 토글 함수
   function toggleDropdown(e) {
     e.stopPropagation();
     const isOpen = optionsUl.style.display === "block";
-    optionsUl.style.display = isOpen ? "none" : "block";
+    console.log(isOpen);
+    if (isOpen) {
+      optionsUl.setAttribute("style", "display: none");
+    } else {
+      optionsUl.setAttribute("style", "display: block");
+    }
     arrow.style.transform = isOpen ? "" : "rotate(180deg)";
   }
 
@@ -78,7 +101,7 @@ export const initCategoryDropdown = () => {
     selectedSelector: ".selected-category",
     arrowSelector: ".category-arrow-icon",
     optionsSelector: ".category-dropdown-options",
-    options: categoryOptions,
+    options: categoryOptions[valueSign],
   });
 };
 
