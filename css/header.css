@@ -1,6 +1,6 @@
 /* 헤더 전체 */
 .header {
-  height: 200px;
+  height: 180px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -8,6 +8,13 @@
   background: #73A4D0;
   padding: 16px 400px;
   border-bottom: 1px solid #ddd;
+}
+
+.center-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -58,7 +65,7 @@
   display: flex;
   gap: 8px;
 }
-
+/* 
 .icon-btn {
   background: none;
   border: none;
@@ -72,4 +79,20 @@
   color: #000;
   font-weight: bold;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+} */
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.icon-btn.active,
+.icon-btn:hover {
+  background-color: white;
+  border-radius: 25px;
+  opacity: 1;
 }

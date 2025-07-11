@@ -3,6 +3,7 @@ import { renderCategoryOptions } from "../function/categoryRender.js";
 
 export function initListener() {
     const entries = [];
+
     let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
     let selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
     let isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
@@ -33,6 +34,7 @@ export function initListener() {
       toggleSign.classList.toggle("minus", !isIncome);
       categoryDisplay.textContent = "선택하세요";
       selectedCategory = null;
+      sharedState.selectedCategory = selectedCategory; // sharedState에 selectedCategory 업데이트
       renderCategoryOptions();
     });
   
@@ -81,6 +83,7 @@ export function initListener() {
   
       display.textContent = newMethod;
       selectedMethod = newMethod;
+      sharedState.selectedMethod = selectedMethod; // sharedState에 selectedMethod 업데이트
       modal.classList.add("hidden");
     });
   
@@ -119,6 +122,7 @@ export function initListener() {
     categoryPanel.addEventListener("click", (e) => {
       if (e.target.classList.contains("dropdown-option")) {
         selectedCategory = e.target.dataset.value;
+        sharedState.selectedCategory = selectedCategory; // sharedState에 selectedCategory 업데이트
         categoryDisplay.textContent = selectedCategory;
         categoryPanel.classList.add("hidden");
       }

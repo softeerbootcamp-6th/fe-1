@@ -2,7 +2,7 @@
   position: relative; /* 또는 absolute도 가능 */
   top: -30px;          /* 헤더를 위로 겹쳐서 올라가게 */
   margin: 0 auto;
-  padding: 16px;
+  padding: 10px;
   width: fit-content;
   background: #fff;
   border: 1px solid #000;
@@ -155,4 +155,12 @@
   border-radius: 8px;
   width: 280px;
   text-align: center;
+}
+
+.income-amount {
+  color: #3a8ad2;
+}
+
+.expense-amount {
+  color: #d23a3a;
 }

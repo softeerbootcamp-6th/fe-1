@@ -1,8 +1,8 @@
 //js/input-form.js
-import { updateTotalAmounts } from "./function/totalAmount.js";
-import { dummyEntries } from "./dummy/dummy.js";
-import { sharedState } from "./state/state.js";
-import { renderCategoryOptions } from "./function/categoryRender.js";
+import { updateTotalAmounts } from "./totalAmount.js";
+import { dummyEntries } from "../dummy/dummy.js";
+import { sharedState } from "../state/state.js";
+import { renderCategoryOptions } from "./categoryRender.js";
 
 export function initInputForm() {
   let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
@@ -13,7 +13,6 @@ export function initInputForm() {
 
   const display = document.getElementById("dropdown-display");
   const categoryDisplay = document.getElementById("category-display");
-
 
   const entries = [];
 
@@ -46,7 +45,7 @@ export function initInputForm() {
     item.className = "entry-row";
     
     // 수입이면 + 기호, 지출이면 - 기호 표시
-    const sign = entry.isIncome ? '+' : '-';
+    const sign = entry.isIncome ? '' : '-';
     const amountClass = entry.isIncome ? 'income-amount' : 'expense-amount';
     
     item.innerHTML = `
@@ -63,6 +62,10 @@ export function initInputForm() {
     const rawAmount = document.getElementById("amount").value.replace(/,/g, "");
     const amount = Number(rawAmount);
     const desc = document.getElementById("desc").value;
+    isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
+    selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
+    selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
+
 
     if (!date || !amount || !desc) {
       alert("모든 항목을 정확히 입력해주세요!");

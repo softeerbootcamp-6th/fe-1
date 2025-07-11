@@ -37,7 +37,6 @@ body {
   border-left: none;
   border-right: none;
   align-items: center;
-  min-height: 48px;
 }
 
 .entry-category {
@@ -88,4 +87,16 @@ body {
   justify-content:space-between;
 }
 
+.entry-items .entry-row {
+  border-top: none;
+  border-bottom: none;
+}
+
+.entry-items .entry-row:first-child {
+  border-top: 1px solid #ccc;
+}
+
+.entry-items .entry-row:last-child {
+  border-bottom: 1px solid #ccc;
+}
 
