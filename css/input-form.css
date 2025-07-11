@@ -94,9 +94,9 @@
 /* 드롭다운 목록 */
 .dropdown-panel {
   position: absolute;
-  top: 58px;
-  left: -10px;
-  width: 120%;
+  top: 56px;
+  left: -22px;
+  width: 140%;
   background: white;
   border: 1px solid #ccc;
   margin-top: 4px;
