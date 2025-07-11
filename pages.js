@@ -7,12 +7,44 @@ import {
 } from "./utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "./utils/currentDate.js";
 
+let isIncomeChecked = true;
+let isExpenseChecked = true;
+
+export function getFilteringState() {
+  return { isIncomeChecked, isExpenseChecked };
+}
+
+export function setFilteringState(income, expense) {
+  isIncomeChecked = income;
+  isExpenseChecked = expense;
+}
+
 export function createMainPage() {
+  const { isIncomeChecked, isExpenseChecked } = getFilteringState();
+
   const grouped = getTransactionsByYearMonth(
     getCurrentYear(),
     getCurrentMonth()
   );
-  const groupedByDate = groupTransactionsByDate(grouped);
+
+  // 체크박스 상태에 따라 거래내역 필터링
+  const filteredTransactions = grouped.filter((transaction) => {
+    if (isIncomeChecked && isExpenseChecked) {
+      // 둘 다 체크된 경우: 모든 거래 표시
+      return true;
+    } else if (!isIncomeChecked && isExpenseChecked) {
+      // 수입 해제, 지출 체크: 지출만 표시
+      return transaction.amount < 0;
+    } else if (isIncomeChecked && !isExpenseChecked) {
+      // 수입 체크, 지출 해제: 수입만 표시
+      return transaction.amount > 0;
+    } else {
+      // 둘 다 해제된 경우: 모든 거래 미표시
+      return false;
+    }
+  });
+
+  const groupedByDate = groupTransactionsByDate(filteredTransactions);
 
   const sections = Object.entries(groupedByDate)
     .map(([date, transactionList]) => {
@@ -27,8 +59,10 @@ export function createMainPage() {
         <div class="flex-row">
           <div>${date}</div>
           <div>
-            ${totalIncome > 0 ? `수입 ${totalIncome} ` : ""}
-            ${totalExpense < 0 ? `지출 ${totalExpense}` : ""}
+            ${isIncomeChecked && totalIncome > 0 ? `수입 ${totalIncome} ` : ""}
+            ${
+              isExpenseChecked && totalExpense < 0 ? `지출 ${totalExpense}` : ""
+            }
           </div>
         </div>
       `;
@@ -91,6 +125,8 @@ export function createChartPage() {
 }
 
 export function renderMainPage() {
+  const { isIncomeChecked, isExpenseChecked } = getFilteringState();
+
   const mainContainer = document.getElementById("main-container");
   if (mainContainer) {
     mainContainer.innerHTML = createMainPage();
@@ -106,7 +142,7 @@ export function renderMainPage() {
     "#monthly-info-container"
   );
   if (monthlyInfoContainer) {
-    renderMonthlyInfo(monthlyInfoContainer);
+    renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
   }
 
   mainContainer.querySelectorAll(".delete-btn").forEach((btn) => {

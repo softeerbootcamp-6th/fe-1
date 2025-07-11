@@ -3,8 +3,13 @@ import {
   getTransactionsByYearMonth,
   monthlyTotalData,
 } from "../utils/transaction.js";
+import { renderMainPage, setFilteringState } from "../pages.js";
 
-export function createMonthlyInfo(monthlyData) {
+export function createMonthlyInfo(
+  monthlyData,
+  isIncomeChecked,
+  isExpenseChecked
+) {
   const { monthlyTotalIncome, monthlyTotalExpense, monthlyTotalCount } =
     monthlyData;
 
@@ -12,35 +17,41 @@ export function createMonthlyInfo(monthlyData) {
     <div class="flex-row">
       <div class="totalCount">전체 내역 ${monthlyTotalCount}건</div>
       <div class="flex-row">
-        <label class="flex-row">
-          <input
-            type="checkbox"
-            name="income"
-            class="incomeCheckbox"
-            checked
-          />  
-          수입 ${monthlyTotalIncome}
-        </label>
-        <label class="flex-row">
-          <input
-            type="checkbox"
-            name="expense"
-            class="expenseCheckbox"
-            checked
-          />
-          지출 ${monthlyTotalExpense}
-        </label>
+        <input
+          type="checkbox"
+          class="incomeCheckbox"
+          ${isIncomeChecked ? "checked" : ""}
+        />  
+        <div>수입 ${monthlyTotalIncome}</div>
+      </div>
+      <div class="flex-row">
+        <input
+          type="checkbox"
+          class="expenseCheckbox"
+          ${isExpenseChecked ? "checked" : ""}
+        />
+        <div>지출 ${monthlyTotalExpense}</div>
+      </div>
     </div>
     `;
 
   return monthlyInfoTemplate;
 }
 
-export function renderMonthlyInfo(container) {
+export function renderMonthlyInfo(
+  container,
+  isIncomeChecked,
+  isExpenseChecked
+) {
   const monthlyData = monthlyTotalData(
     getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
   );
-  container.innerHTML = createMonthlyInfo(monthlyData);
+
+  container.innerHTML = createMonthlyInfo(
+    monthlyData,
+    isIncomeChecked,
+    isExpenseChecked
+  );
   setupMonthlyInfoEventListeners(container, monthlyData);
 }
 
@@ -60,15 +71,24 @@ function setupMonthlyInfoEventListeners(container, monthlyData) {
       const isIncomeChecked = incomeCheckbox.checked;
       const isExpenseChecked = expenseCheckbox.checked;
 
+      // 전역 상태 업데이트
+      setFilteringState(isIncomeChecked, isExpenseChecked);
+
+      renderMainPage();
+
+      // 체크박스 따라 내역 변경되지 않는 문제 수정 필요
       if (isIncomeChecked && !isExpenseChecked) {
         // 수입만 체크된 경우: 수입 내역
         totalCountElement.textContent = `수입 내역 ${monthlyTotalIncomeCount}건`;
       } else if (!isIncomeChecked && isExpenseChecked) {
         // 지출만 체크된 경우: 지출 내역
         totalCountElement.textContent = `지출 내역 ${monthlyTotalExpenseCount}건`;
-      } else {
-        // 둘 다 해제된 경우: 전체 내역 (기본값)
+      } else if (isIncomeChecked && isExpenseChecked) {
+        // 둘 다 체크된 경우: 수입 내역 + 지출 내역
         totalCountElement.textContent = `전체 내역 ${monthlyTotalCount}건`;
+      } else {
+        // 둘 다 체크 해제된 경우: 전체 내역
+        totalCountElement.textContent = `전체 내역 0건`;
       }
     }
 
