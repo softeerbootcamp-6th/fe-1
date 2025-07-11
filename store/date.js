@@ -13,26 +13,26 @@ const dateData = {
         changeDateView(this.year, this.month);
     },
 
-    increaseMonth() {
-        const clacMonth = this.month + 1;
-        if (clacMonth > 12) {
+    changeMonth(offset) {
+        this.month += offset;
+
+        if (this.month > 12) {
             this.month = 1;
             this.year += 1;
-        } else {
-            this.month += 1;
+        } else if (this.month < 1) {
+            this.month = 12;
+            this.year -= 1;
         }
+
         changeDateView(this.year, this.month);
     },
 
+    increaseMonth() {
+        this.changeMonth(1);
+    },
+
     decreaseMonth() {
-        const clacMonth = this.month - 1;
-        if (clacMonth < 1) {
-            this.month = 12;
-            this.year -= 1;
-        } else {
-            this.month -= 1;
-        }
-        changeDateView(this.year, this.month);
+        this.changeMonth(-1);
     },
 };
 
@@ -47,4 +47,5 @@ function changeDateView(nowYear, nowMonth) {
     children[1].textContent = nowMonth;
     children[2].textContent = monthName;
 }
+
 export default dateData;
