@@ -27,6 +27,11 @@
     display: flex;
 }
 
+.value-box span {
+    margin-left: 10px;
+    line-height: 2;
+}
+
 .value-box button {
     all: unset;
 }
@@ -102,4 +107,22 @@ input[type='date'] {
 
 .add-button img {
     filter: invert(1);
+}
+
+.count-box-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-button:disabled {
+    opacity: 32%;
+}
+.add-button:enabled {
+    opacity: 100%;
+}
+
+.add-button:enabled:hover {
+    opacity: 80%;
+    cursor: pointer;
 }
