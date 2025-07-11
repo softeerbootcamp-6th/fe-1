@@ -1,12 +1,33 @@
-import { items } from "../constants/items.js";
+import { items as DummyItem } from "../constants/items.js";
+import { state, setState, addObservers } from "../store.js";
 import { groupItemsByDate } from "../utils/group.js";
 import { calculateSummary } from "../utils/summary.js";
 import { formatDate } from "../utils/date.js";
 
-function renderItemHTML(item) {
+// 상태 변경 감지 및 자동 리렌더링
+addObservers((data) => {
+  if (data.items) {
+    renderTransactionList();
+  }
+});
+
+// 초기 데이터를 상태에 설정 (한 번만 실행)
+if (state.items.length === 0) {
+  const initialItems = DummyItem;
+  setState({ items: initialItems });
+}
+
+/* 아이템 삭제 함수 */
+function deleteItem(itemId) {
+  const currItems = state.items;
+  const updatedItems = currItems.filter((item) => item.id !== itemId);
+  setState({ items: updatedItems });
+}
+
+function renderTransactionItem(item) {
   const amount = Number(item.amount);
   return `
-      <div class="flex-row-between item">
+      <div class="flex-row-between item" data-id="${item.id}">
         <div class="category">${item.category}</div>
         <p class="description">${item.description}</p>
         <p class="method">${item.method}</p>
@@ -32,7 +53,7 @@ function renderDaySection(dateStr, items) {
         }`
       : `지출 ${summary.withdraw.toLocaleString()}원`;
 
-  const itemHTML = items.map(renderItemHTML).join("");
+  const itemHTML = items.map(renderTransactionItem).join("");
 
   return `
       <div class="day-section">
@@ -40,7 +61,7 @@ function renderDaySection(dateStr, items) {
           <span class="date">${dateTitle}</span>
           <span class="summary">${summaryText}</span>
         </div>
-        <div class="transactions">
+        <div class="transactions-container">
           ${itemHTML}
         </div>
       </div>
@@ -51,6 +72,9 @@ export function renderTransactionItems() {
   const container = document.getElementById("transaction-list");
   container.innerHTML = "";
 
+  // 상태에서 items 가져오기
+  const items = state.items;
+
   const grouped = groupItemsByDate(items);
   const sortedDates = Object.keys(grouped).sort(
     (a, b) => new Date(b) - new Date(a)
@@ -60,14 +84,19 @@ export function renderTransactionItems() {
     const html = renderDaySection(dateStr, grouped[dateStr]);
     container.innerHTML += html;
   });
+  return container;
+}
+
+function initEventListeners() {
+  const container = document.getElementById("transaction-list");
 
   container.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete-btn")) {
-      const itemDel = e.target.closest(".item");
-      itemDel.remove();
-      //  삭제 이후 지출/입금 금액 리렌더링
+      const itemElement = e.target.closest(".item");
+      const itemId = parseInt(itemElement.dataset.id);
+      deleteItem(itemId);
     }
   });
-
-  return container;
 }
+
+initEventListeners(); // 이벤트 리스너 등록
