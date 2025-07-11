@@ -13,90 +13,16 @@
         <div id="header-container"></div>
         <!-- 입력 폼 부분입니다 -->
         <div id="input-form-container"></div>
+
         <div class="total-amount">
-            <div class="total-amount-text">총 금액</div>
+            <div class="total-amount-text" id="total-amount-text">전체 내역</div>
             <div class="total-amount-value" id="total-amount-value">
-                <div class="">수입</div>
-                <div class="">지출</div>
+                <div id="total-income">수입</div>
+                <div id="total-expense">지출</div>
             </div>
         </div>
+
         <section class="entry-list" id="entry-list">
-            <!-- 더미 데이터 시작 -->
-            <div class="entry-date-section" data-date="2025-07-10">
-                <div class="entry-sort">
-                    <div>7월 10일 목요일</div>
-                    <div>235,000</div>
-                </div>
-                <div class="entry-items">
-                    <div class="entry-row">
-                        <div class="entry-category">식비</div>
-                        <div class="entry-desc">점심 식사</div>
-                        <div class="entry-method">신용카드</div>
-                        <div class="entry-amount expense-amount">-15,000원</div>
-                    </div>
-                    <div class="entry-row">
-                        <div class="entry-category">쇼핑/뷰티</div>
-                        <div class="entry-desc">여름 옷 구매</div>
-                        <div class="entry-method">체크카드</div>
-                        <div class="entry-amount expense-amount">-120,000원</div>
-                    </div>
-                    <div class="entry-row">
-                        <div class="entry-category">월급</div>
-                        <div class="entry-desc">7월 월급</div>
-                        <div class="entry-method">계좌이체</div>
-                        <div class="entry-amount income-amount">+3,000,000원</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="entry-date-section" data-date="2025-07-09">
-                <div class="entry-sort">
-                    <div>7월 9일 수요일</div>
-                    <div>52,000</div>
-                </div>
-                <div class="entry-items">
-                    <div class="entry-row">
-                        <div class="entry-category">교통</div>
-                        <div class="entry-desc">택시비</div>
-                        <div class="entry-method">카카오페이</div>
-                        <div class="entry-amount expense-amount">-12,000원</div>
-                    </div>
-                    <div class="entry-row">
-                        <div class="entry-category">문화/여가</div>
-                        <div class="entry-desc">영화 관람</div>
-                        <div class="entry-method">신용카드</div>
-                        <div class="entry-amount expense-amount">-15,000원</div>
-                    </div>
-                    <div class="entry-row">
-                        <div class="entry-category">식비</div>
-                        <div class="entry-desc">저녁 식사</div>
-                        <div class="entry-method">현금</div>
-                        <div class="entry-amount expense-amount">-25,000원</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="entry-date-section" data-date="2025-07-08">
-                <div class="entry-sort">
-                    <div>7월 8일 화요일</div>
-                    <div>75,000</div>
-                </div>
-                <div class="entry-items">
-                    <div class="entry-row">
-                        <div class="entry-category">용돈</div>
-                        <div class="entry-desc">생일 축하 용돈</div>
-                        <div class="entry-method">계좌이체</div>
-                        <div class="entry-amount income-amount">+100,000원</div>
-                    </div>
-                    <div class="entry-row">
-                        <div class="entry-category">의료/건강</div>
-                        <div class="entry-desc">약국</div>
-                        <div class="entry-method">체크카드</div>
-                        <div class="entry-amount expense-amount">-25,000원</div>
-                    </div>
-                </div>
-            </div>
-            <!-- 더미 데이터 끝 -->
         </section>
         <script type="module"src="js/loadComponents.js"></script>
         <!-- <script type="module" src="js/middleCalendar.js"></script> -->
