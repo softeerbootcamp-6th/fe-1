@@ -32,7 +32,7 @@ const CheckBox = ({ id, label, checked = false, onChange = null } = {}) => {
 
   // 라벨 생성
   const labelElement = document.createElement("span");
-  labelElement.className = "checkbox-label font-light-12";
+  labelElement.className = `checkbox-label font-light-12 ${id}-label`;
   labelElement.textContent = label;
   labelElement.for = checkboxInput.id;
   labelElement.htmlFor = checkboxInput.id; // label과 input 연결
