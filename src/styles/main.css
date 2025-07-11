@@ -11,24 +11,35 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
   width: 894px;
   height: 76px;
   margin: 0 auto;
-  padding: 16px 24px;
   border-style: solid;
   border-width: 0.5px;
   border-color: var(--nuetral-border-default);
 }
 
 .entire-form > div {
+  position: relative;
   display: flex;
   flex-direction: column;
+  padding: 16px 24px;
+  height: 100%;
 }
 
-.entire-form .split {
+.entire-form > div:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5px;
   height: 44px;
-  border-left: 1px solid var(--nuetral-text-default);
+  background-color: var(--nuetral-border-default);
+}
+
+.entire-form > div:last-child {
+  border: none;
 }
 
 .form-date {
@@ -51,7 +62,7 @@ input#date::-webkit-calendar-picker-indicator {
 }
 
 .form-money {
-  width: 134px;
+  width: 182px;
 }
 
 .form-money > div {
@@ -73,19 +84,23 @@ input#money {
 
 .form-content {
   position: relative;
-  width: 160px;
+  width: 210px;
 }
 
 .form-content > div {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 16px;
+  right: 24px;
   color: var(--nuetral-text-weak);
 }
 
 .form-payment,
 .form-category {
-  width: 104px;
+  width: 152px;
+}
+
+.form-category {
+  position: relative;
 }
 
 button#category {
@@ -101,4 +116,19 @@ button#category {
 }
 
 .drop-down {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: var(--nuetral-border-default);
+}
+
+.drop-down > li {
+  padding: 16px 24px;
+}
+
+.drop-down > li:not(:last-child) {
+  border-bottom: 0.5px solid var(--nuetral-border-default);
 }

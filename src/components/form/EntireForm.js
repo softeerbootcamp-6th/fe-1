@@ -25,11 +25,6 @@ export const EntireForm = () => {
     CategoryForm,
   ];
   formList.forEach((Form, idx) => {
-    if (idx !== 0) {
-      const split = document.createElement("div");
-      split.classList.add("split");
-      entireForm.appendChild(split);
-    }
     entireForm.appendChild(Form(input));
   });
   entireForm.appendChild(FormChecker(input));
