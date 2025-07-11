@@ -1,11 +1,11 @@
 import { loadPage } from "./router.js";
 import { initializeHeader } from "./header.js";
 import {
-  elements,
   initToggleButton,
   getInputValues,
   initPaymentDropdown,
   initCategoryDropdown,
+  initInputChanges,
 } from "./input.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
@@ -18,6 +18,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   initToggleButton();
   initCategoryDropdown();
   initPaymentDropdown();
+  initInputChanges();
   getInputValues();
 });
 
