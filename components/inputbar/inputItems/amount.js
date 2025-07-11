@@ -1,7 +1,7 @@
 import { createElement } from '../../../utils.js';
 import formData from '../../../store/formData.js';
 
-export default function () {
+export default function createAmountInput() {
     const valueInputInnerHtml = `
             <label for="valueInput" class="lt-12">
                 금액

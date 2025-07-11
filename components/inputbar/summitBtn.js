@@ -1,7 +1,7 @@
 import { createElement } from '../../utils.js';
 import formData from '../../store/formData.js';
 
-export default function () {
+export default function createSummitButton() {
     const summitBtnInnerHtml = `
             <button class="add-button" disabled>
                 <img

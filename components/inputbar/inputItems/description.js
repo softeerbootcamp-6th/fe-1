@@ -1,7 +1,7 @@
 import { createElement } from '../../../utils.js';
 import formData from '../../../store/formData.js';
 
-export default function () {
+export default function createDescriptionInput() {
     const descriptionInputInnerHtml = `
             <span class="count-box-header">
                 <label for="descriptionInput" class="lt-12"> 내용 </label>

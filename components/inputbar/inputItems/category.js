@@ -1,7 +1,7 @@
 import { createElement } from '../../../utils.js';
 import formData from '../../../store/formData.js';
 
-export default function () {
+export default function createCategoryInput() {
     const categoryInputInnerHtml = `
             <label for="categoryInput" class="lt-12">분류</label>
             <select id="categoryInput">
