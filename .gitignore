@@ -1,1 +1,18 @@
 node_modules
+
+# VS Code settings
+.vscode/
+settings.json
+
+# Prettier config
+.prettierrc
+.prettierrc.json
+.prettierrc.yml
+.prettierrc.yaml
+.prettierrc.js
+.prettierrc.cjs
+prettier.config.js
+prettier.config.cjs
+
+# Editor configs
+.editorconfig

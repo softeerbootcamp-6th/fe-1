@@ -1,4 +1,4 @@
-export function dateState() {
+function createDateState() {
     // 함수로 감쌈으로써 year, month, listener같은 변수에 접근하지 못하도록 함.
     let year = 2025;
     let month = 8;
@@ -19,7 +19,8 @@ export function dateState() {
         notify();
     }
 
-    // state의 변화 감지가 필요한 컴포넌트 추가
+    // 상태가 바뀔 때 실행할 함수들 추가
+    // 할 일 목록 등록
     function subscribe(listener) {
         listeners.push(listener);
     }
@@ -34,6 +35,9 @@ export function dateState() {
         getMonth,
         setYear,
         setMonth,
-        subscribe
+        subscribe,
     }
 }
+
+const dateState = createDateState();
+export default dateState;
