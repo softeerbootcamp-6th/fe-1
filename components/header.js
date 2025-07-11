@@ -2,6 +2,7 @@ import {
   getCurrentYear,
   getCurrentMonth,
   getCurrentMonthName,
+  setDateEventListeners,
 } from "../utils/currentDate.js";
 
 export function createHeader() {
@@ -13,11 +14,11 @@ export function createHeader() {
       <div class="flex-column">
         <div class="currentYear light-14">${getCurrentYear()}</div>
         <div class="flex-row">
-          <button id="prevMonth" class="light-14"><</button>
-          <div id="currentMonth" class="serif-48">${getCurrentMonth()}</div>
-          <button id="nextMonth" class="light-14">></button>
+          <button class="prevMonth light-14"><</button>
+          <div class="currentMonth serif-48">${getCurrentMonth()}</div>
+          <button class="nextMonth light-14">></button>
         </div>
-        <div id="currentMonthName" class="light-14">${getCurrentMonthName()}</div>
+        <div class="currentMonthName light-14">${getCurrentMonthName()}</div>
       </div>
       <nav>
         <ul class="flex-row">
@@ -40,6 +41,7 @@ export function createHeader() {
 
 export function renderHeader(container) {
   container.innerHTML = createHeader();
+  setDateEventListeners(container);
 }
 
 export function updateNavigationActive() {

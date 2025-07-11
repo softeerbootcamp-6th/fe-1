@@ -1,4 +1,5 @@
-const currentDate = new Date();
+// 현재 날짜 상태 관리
+let currentDate = new Date();
 
 const MonthNames = [
   "January",
@@ -15,18 +16,73 @@ const MonthNames = [
   "December",
 ];
 
-export function getCurrentMonth() {
-  return currentDate.getMonth() + 1;
-}
-
-export function getCurrentMonthName() {
-  return MonthNames[currentDate.getMonth()];
-}
-
+// 현재 연도 가져오기
 export function getCurrentYear() {
   return currentDate.getFullYear();
 }
 
+// 현재 월 가져오기 (숫자)
+export function getCurrentMonth() {
+  return currentDate.getMonth() + 1;
+}
+
+// 현재 월 이름 가져오기
+export function getCurrentMonthName() {
+  return MonthNames[currentDate.getMonth()];
+}
+
 export function getCurrentDay() {
   return currentDate.getDate();
+}
+
+// 이전 월로 이동
+export function goToPreviousMonth() {
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  updateHeaderDisplay();
+}
+
+// 다음 월로 이동
+export function goToNextMonth() {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  updateHeaderDisplay();
+}
+
+// 헤더 표시 업데이트
+function updateHeaderDisplay() {
+  const header = document.getElementById("header-container");
+  const currentMonthElement = header.querySelector(".currentMonth");
+  const currentMonthNameElement = header.querySelector(".currentMonthName");
+  const currentYearElement = header.querySelector(".currentYear");
+
+  if (currentMonthElement) {
+    currentMonthElement.textContent = getCurrentMonth();
+  }
+
+  if (currentMonthNameElement) {
+    currentMonthNameElement.textContent = getCurrentMonthName();
+  }
+
+  if (currentYearElement) {
+    currentYearElement.textContent = getCurrentYear();
+  }
+}
+
+// 월 이동 이벤트 리스너 설정
+export function setDateEventListeners(container) {
+  const prevMonthBtn = container.querySelector(".prevMonth");
+  const nextMonthBtn = container.querySelector(".nextMonth");
+
+  if (prevMonthBtn) {
+    prevMonthBtn.addEventListener("click", () => {
+      goToPreviousMonth();
+      console.log("이전 월로 이동:", getCurrentMonthName(), getCurrentYear());
+    });
+  }
+
+  if (nextMonthBtn) {
+    nextMonthBtn.addEventListener("click", () => {
+      goToNextMonth();
+      console.log("다음 월로 이동:", getCurrentMonthName(), getCurrentYear());
+    });
+  }
 }
