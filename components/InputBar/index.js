@@ -27,6 +27,5 @@ function createInputBar() {
 }
 
 const mainPlaceholder = document.getElementById('main-placeholder');
-mainPlaceholder.innerHTML = '';
 const inputBar = createInputBar();
 mainPlaceholder.appendChild(inputBar);
