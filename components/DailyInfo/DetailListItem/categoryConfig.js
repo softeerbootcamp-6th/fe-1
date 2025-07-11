@@ -41,4 +41,4 @@ const categoryConfig = {
     },
 };
 
-export default categories;
+export default categoryConfig;
