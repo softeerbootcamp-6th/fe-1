@@ -144,4 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
         els.catSel.selectedIndex = els.methSel.selectedIndex = 0;
         els.memoInp.focus();
     };
+
+    // 요약의 항목 삭제 버튼 클릭 시 해당 항목 삭제
+    summaryEl.onclick = e => {
+        // 클릭한 요소가 삭제 버튼인 경우
+        if (e.target.classList.contains('delete-btn')) {
+            // 삭제 버튼의 부모 요소(li.entry)를 찾아서 삭제
+            const entry = e.target.closest('li.entry');
+            summary.deleteEntry(entry);
+        }
+    }
+    
 });

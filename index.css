@@ -296,3 +296,14 @@ article>ul>li>.amount {
     min-width: 186px;
     text-align: end;
 }
+
+.entry > .delete-btn {
+  display: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.entry:hover > .delete-btn {
+  display: inline;
+}

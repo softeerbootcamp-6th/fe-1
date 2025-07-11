@@ -72,7 +72,8 @@ export const createSummaryManager = ({ summaryEl }) => {
       <span class="badge category ${category.value}">${category.text}</span>
       <span class="detail">${memo}</span>
       <span class="payment">${method.text}</span>
-      <span class="amount">${sign}${amount.toLocaleString('ko-KR')}원</span>`;
+      <span class="amount">${sign}${amount.toLocaleString('ko-KR')}원</span>
+      <button type="button" class="delete-btn" aria-label="삭제">X</button>`;
         group.querySelector('.entries').appendChild(li);
 
         sortGroups();
@@ -80,5 +81,26 @@ export const createSummaryManager = ({ summaryEl }) => {
         calcTotals(summaryEl);
     };
 
-    return { addEntry, sortGroups, calcTotals };
+    // 요약에서 항목을 삭제하는 함수
+    const deleteEntry = (entry) => {
+        // entry는 삭제할 항목(li) 요소
+        const group = entry.closest('article.day-group');
+        // entry를 그룹에서 제거
+        entry.remove();
+        // 그룹이 비어있으면 그룹(article Tag)도 제거
+        if (group.querySelector('.entries').children.length === 0) {
+            group.remove();
+            // 그룹이 제거되면 전체 요약에서 해당 날짜의 총합도 제거
+            const date = group.dataset.date;
+            const total = summaryEl.querySelector(`.day-group[data-date="${date}"] .day-total`);
+            if (total) total.remove();
+        }
+        
+        // 그룹의 총합을 다시 계산
+        calcTotals(group);
+        // 전체 요약의 총합도 다시 계산
+        calcTotals(summaryEl);
+    };
+
+    return { addEntry, sortGroups, calcTotals, deleteEntry };
 };
