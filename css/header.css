@@ -2,19 +2,22 @@
 .header {
   height: 216px;
   position: relative;
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #73A4D0;
+  background: var(--colorchip-80, #73a7d4);
   padding: 16px 400px;
   border-bottom: 1px solid #ddd;
 }
-
-.center-block{
+.inter-header{
+    position: absolute;
+    top: 40px;          /* 헤더를 위로 겹쳐서 올라가게 */
     display: flex;
-    flex-direction: column;
+    align-content: center;
     align-items: center;
-    justify-content: center;
+    z-index: 1; /* 헤더 위에 떠야 한다면 1 이상 */
+    width: 945px;
+    height: 112px;
+    justify-content: space-between;
 }
 
 
@@ -96,3 +99,4 @@
   border-radius: 25px;
   opacity: 1;
 }
+

@@ -20,7 +20,21 @@ export function updateTotalAmounts(){
     const expenseDisplay = document.getElementById("total-expense");
 
     totalSize = incomeTotal.length + expenseTotal.length;
-    sizeDisplay.textContent = `전체 내역: ${totalSize}건`;
-    incomeDisplay.textContent = `수입: +${totalIncome.toLocaleString()}원`;
-    expenseDisplay.textContent = `지출: -${totalExpense.toLocaleString()}원`;
+    sizeDisplay.innerHTML = `
+    <div class="total-size">
+        전체 내역: ${totalSize}건
+    </div>
+    `;
+    incomeDisplay.innerHTML = `
+    <div class="total-income">
+        <img src="../../assets/icons/black-check.svg"></img>
+        <div class="total-size">수입: ${totalIncome.toLocaleString()}원</div>
+    </div>
+    `;
+    expenseDisplay.innerHTML =  `
+    <div class="total-income">
+        <img src="../../assets/icons/black-check.svg"></img>
+        <div class="total-size">지출: ${totalExpense.toLocaleString()}원</div>
+    </div>
+    `;
 }

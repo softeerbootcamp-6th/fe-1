@@ -1,12 +1,15 @@
+@import url("./fonts.css");
+
 * {
   box-sizing: border-box;
 }
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: var(--font-family-sans );
+  font-size: 16px; /* 1rem = 16px */
+  min-height: 100%;
+  width: 100%;
 }
-
-
 
 
 .entry-date-section{
@@ -37,17 +40,23 @@ body {
   border-left: none;
   border-right: none;
   align-items: center;
+  height: 56px;
+
 }
 
 .entry-category {
   width: 80px;
   background-color: #aabbee;
+  height: 100%;
   color: #000;
   font-weight: bold;
   text-align: center;
   padding: 8px;
   border-right: 1px solid #ccc;
   flex-shrink: 0;
+  display: flex;               /* flexbox 사용 */
+  justify-content: center;     /* 가로 중앙 정렬 */
+  align-items: center;         /* 세로 중앙 정렬 */
 }
 
 .entry-desc {
@@ -87,6 +96,8 @@ body {
   justify-content:space-between;
 }
 
+
+
 .entry-items .entry-row {
   border-top: none;
   border-bottom: none;
@@ -100,3 +111,6 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
+.entry-list {
+  margin: 30px 0;
+}
