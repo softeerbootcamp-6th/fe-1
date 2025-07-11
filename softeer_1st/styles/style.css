@@ -1,4 +1,4 @@
-#main{
+#main {
     width: 846px;
     margin: 0 auto;
 }
@@ -61,6 +61,110 @@
     --colorchip-110: var(--pastel-lavenderPink);
     --colorchip-120: var(--pastel-chestnut);
 }
+
+.colorchip-10 {
+    background-color: var(--colorchip-10);
+}
+
+.colorchip-20 {
+    background-color: var(--colorchip-20);
+}
+
+.colorchip-30 {
+    background-color: var(--colorchip-30);
+}
+
+.colorchip-40 {
+    background-color: var(--colorchip-40);
+}
+
+.colorchip-50 {
+    background-color: var(--colorchip-50);
+}
+
+.colorchip-60 {
+    background-color: var(--colorchip-60);
+}
+
+.colorchip-70 {
+    background-color: var(--colorchip-70);
+}
+
+.colorchip-80 {
+    background-color: var(--colorchip-80);
+}
+
+.colorchip-90 {
+    background-color: var(--colorchip-90);
+}
+
+.colorchip-100 {
+    background-color: var(--colorchip-100);
+}
+
+.colorchip-110 {
+    background-color: var(--colorchip-110);
+}
+
+.colorchip-120 {
+    background-color: var(--colorchip-120);
+}
+.pastel-almondFrost {
+    background-color: var(--pastel-almondFrost);
+}
+
+.pastel-porsche {
+    background-color: var(--pastel-porsche);
+}
+
+.pastel-chenin {
+    background-color: var(--pastel-chenin);
+}
+
+.pastel-caper {
+    background-color: var(--pastel-caper);
+}
+
+.pastel-cruise {
+    background-color: var(--pastel-cruise);
+}
+
+.pastel-onahau {
+    background-color: var(--pastel-onahau);
+}
+
+.pastel-glacier {
+    background-color: var(--pastel-glacier);
+}
+
+.pastel-seagull {
+    background-color: var(--pastel-seagull);
+}
+
+.pastel-jordyBlue {
+    background-color: var(--pastel-jordyBlue);
+}
+
+.pastel-perano {
+    background-color: var(--pastel-perano);
+}
+
+.pastel-perfume {
+    background-color: var(--pastel-perfume);
+}
+
+.pastel-lavenderPink {
+    background-color: var(--pastel-lavenderPink);
+}
+
+.pastel-amaranth {
+    background-color: var(--pastel-amaranth);
+}
+
+.pastel-chestnut {
+    background-color: var(--pastel-chestnut);
+}
+
 .absolute {
     position: absolute;
 }
@@ -152,7 +256,7 @@
     align-items: center;
     gap: 4px;
 }
-.form{
+.form {
     display: flex;
     padding: 18px 24px;
     background-color: #ffffff;
@@ -164,7 +268,7 @@
     left: 50%;
     transform: translateX(-48%);
 }
-.form > .form-components{
+.form > .form-components {
     border-left: 1px solid var(--neutral-border-default);
     padding: 0px 23.78px;
     height: 44px;
@@ -177,7 +281,7 @@
     border-left: none;
     padding-left: 0px;
 }
-.form-cost{
+.form-cost {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -208,46 +312,45 @@ input[type="text"].form-cost-input {
     text-align: right;
     margin-right: 8px;
 }
-.form-cost-sign{
+.form-cost-sign {
     width: 16px;
     height: 16px;
     cursor: pointer;
-
 }
 .form-cost-sign img {
     width: 16px;
     height: 16px;
 }
-.form-description{
+.form-description {
     width: 160px;
 }
-.form-description-length{
-    color: var(--neutral-text-weak)
+.form-description-length {
+    color: var(--neutral-text-weak);
 }
-.form-description-input{
+.form-description-input {
     border: none;
     outline: none;
     resize: none;
     width: 100%;
 }
 
-.drop-down-wrapper{
+.drop-down-wrapper {
     display: none;
 }
 .drop-down-wrapper.open {
     display: block;
     position: absolute;
     left: 0;
-    right:0;
+    right: 0;
     top: 62px;
     background-color: #ffffff;
     border: 1px solid var(--neutral-border-default);
     z-index: 10;
 }
-.drop-down-container{
+.drop-down-container {
     position: relative;
 }
-.drop-down-wrapper .drop-down-element{
+.drop-down-wrapper .drop-down-element {
     padding: 16px 0px;
     margin: 0px 24px;
     border-top: 1px solid var(--neutral-border-default);
@@ -258,10 +361,10 @@ input[type="text"].form-cost-input {
 .drop-down-wrapper .drop-down-element:first-child {
     border-top: none;
 }
-.form-payment-method{
+.form-payment-method {
     width: 104px;
 }
-.form-payment-method-text{
+.form-payment-method-text {
     border: none;
     outline: none;
     resize: none;
@@ -271,7 +374,7 @@ input[type="text"].form-cost-input {
 .form-payment-method-text::placeholder {
     color: var(--neutral-text-weak);
 }
-.form-payment-method-icon{
+.form-payment-method-icon {
     width: 16px;
     height: 16px;
     color: var(--danger-text-default);
@@ -281,31 +384,29 @@ input[type="text"].form-cost-input {
 .form-category-method-text::placeholder {
     color: var(--neutral-text-weak);
 }
-.form-category-icon{
+.form-category-icon {
     width: 16px;
     height: 16px;
-    
+
     cursor: pointer;
 }
-.delete-button{
+.delete-button {
     height: 24px;
-    
 }
-.delete-button img{
-    color: var(--danger-text-default)
+.delete-button img {
+    color: var(--danger-text-default);
 }
-.form-category-text{
+.form-category-text {
     border: none;
     outline: none;
     resize: none;
     width: 80%;
     cursor: pointer;
-
 }
-button.form-category{
+button.form-category {
     width: 104px;
 }
-.form-submit-button{
+.form-submit-button {
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -317,11 +418,47 @@ button.form-category{
 }
 .form-submit-button:disabled {
     cursor: not-allowed;
-    opacity: 0.32
+    opacity: 0.32;
 }
-.form-submit-button:hover{
-    opacity: 0.8
+.form-submit-button:hover {
+    opacity: 0.8;
 }
 .form-submit-button:active {
     opacity: 0.64;
+}
+.cost-list-item{
+    margin: 40px 0px;
+}
+.cost-item-list{
+    border-top: 1px solid var(--neutral-border-default);
+    border-bottom: 1px solid var(--neutral-border-default);
+}
+.dates-card{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+.dates-card > div:first-child{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 92px;
+    height: 56px;
+}
+.dates-card > div:nth-child(2){
+    width: 400px;
+}
+.dates-card > div:nth-child(3){
+    width:104px;
+}
+.dates-card > div:nth-child(4){
+    width: 186px;
+    text-align:right;
+}
+.expense{
+    color: var(--brand-text-expense)
+}
+.income{
+    color: var(--brand-text-income)
 }
