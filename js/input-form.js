@@ -1,3 +1,6 @@
+//js/input-form.js
+import { updateTotalAmounts } from "./totalAmount.js";
+
 export function initInputForm() {
   let selectedMethod = null;
   let selectedCategory = null;
@@ -29,6 +32,8 @@ export function initInputForm() {
   const entries = [];
 
   function renderCategoryOptions() {
+    // 수입/지출에 따라 카테고리 옵션을 업데이트
+    updateTotalAmounts();
     categoryPanel.innerHTML = "";
     const list = isIncome ? incomeCategories : expenseCategories;
 
@@ -194,6 +199,7 @@ export function initInputForm() {
     };
     entries.push(entry);
     addEntryToDOM(entry);
+    updateTotalAmounts();
 
     document.getElementById("date").value = "";
     document.getElementById("amount").value = "";
