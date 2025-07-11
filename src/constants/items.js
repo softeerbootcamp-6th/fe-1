@@ -1,6 +1,7 @@
 // 거래 내역 더미 데이터
 export const items = [
   {
+    id: 1,
     date: "2025-08-05",
     category: "교통",
     description: "후불 교통비 결제",
@@ -9,6 +10,7 @@ export const items = [
     amount: "10000000",
   },
   {
+    id: 2,
     date: "2025-07-04",
     category: "문화/여가",
     description: "스트리밍 서비스 정기 결제",
@@ -17,6 +19,7 @@ export const items = [
     amount: "10900",
   },
   {
+    id: 3,
     date: "2025-08-04",
     category: "문화/여가",
     description: "스트리밍 서비스 정기 결제",
@@ -25,6 +28,7 @@ export const items = [
     amount: "10900",
   },
   {
+    id: 4,
     date: "2025-08-04",
     category: "교통",
     description: "후불 교통비 결제",
@@ -33,6 +37,7 @@ export const items = [
     amount: "45340",
   },
   {
+    id: 5,
     date: "2025-08-05",
     category: "문화/여가",
     description: "스트리밍 서비스 정기 결제",
@@ -41,6 +46,7 @@ export const items = [
     amount: "10900",
   },
   {
+    id: 6,
     date: "2025-08-05",
     category: "교통",
     description: "후불 교통비 결제",
