@@ -49,12 +49,13 @@ export function deleteTransaction(id) {
   }
 }
 
-export function monthlyTotalAmount(transactions) {
+export function monthlyTotalData(transactions) {
   const monthlyTotalIncome = transactions
     .filter((transaction) => transaction.amount > 0)
     .reduce((sum, transaction) => sum + transaction.amount, 0);
   const monthlyTotalExpense = transactions
     .filter((transaction) => transaction.amount < 0)
     .reduce((sum, transaction) => sum + transaction.amount, 0);
-  return { monthlyTotalIncome, monthlyTotalExpense };
+  const monthlyTotalCount = transactions.length;
+  return { monthlyTotalIncome, monthlyTotalExpense, monthlyTotalCount };
 }

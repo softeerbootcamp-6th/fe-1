@@ -6,7 +6,9 @@ export function createInputBar() {
     <form class="input-bar flex-row" id="inputBarForm">
       <div class="flex-column">
         <label>일자</label>
-        <input type="date" name="date" required />
+        <input type="date" name="date" required value="${
+          new Date().toISOString().split("T")[0]
+        }" />
       </div>
       <div class="flex-column">
         <label>금액</label>
