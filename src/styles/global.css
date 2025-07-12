@@ -1,3 +1,12 @@
+/* Font Faces */
+@font-face {
+  font-family: "Chosunilbo_myungjo";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   /**
    * Color Tokens
@@ -60,28 +69,9 @@
   --colorchip-120: var(--pastel-chestnut);
 }
 
-/* Font Faces */
-@font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Chosunilbo_myungjo";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 * {
   box-sizing: border-box;
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 14px;
   line-height: 24px;
   font-weight: 300;
@@ -108,21 +98,21 @@
 
 /* Semibold (Pretendard, weight 600) */
 .semibold-16 {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
 }
 
 .semibold-14 {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 14px;
   line-height: 16px;
   font-weight: 600;
 }
 
 .semibold-12 {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 12px;
   line-height: 16px;
   font-weight: 600;
@@ -130,21 +120,21 @@
 
 /* Light (Pretendard, weight 300) */
 .light-16 {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 16px;
   line-height: 32px;
   font-weight: 300;
 }
 
 .light-14 {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 14px;
   line-height: 24px;
   font-weight: 300;
 }
 
 .light-12 {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard", sans-serif;
   font-size: 12px;
   line-height: 24px;
   font-weight: 300;
