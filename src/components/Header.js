@@ -1,7 +1,10 @@
+import { renderComponent } from "../utils/render.js";
+
 export function renderHeader() {
-  const header = document.getElementById("header");
-  header.className = "flex-row-between";
-  header.innerHTML = `
+  renderComponent({
+    id: "header",
+    className: "flex-row-between",
+    innerHTML: `
         <h1>Wise Wallet</h1>
         <div class="flex-column-between">
             <p>2023</p>
@@ -22,6 +25,7 @@ export function renderHeader() {
             <li>
                 <a href="#">graph</a> 
             </li>
-        </div>`;
-  return header;
+        </div>
+    `,
+  });
 }
