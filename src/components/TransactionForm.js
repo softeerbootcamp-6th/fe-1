@@ -1,7 +1,31 @@
+import { setState, state } from "../store.js";
+import { addEventListener } from "../utils/addEvent.js";
 import { renderComponent } from "../utils/render.js";
 
 export function initTransactionForm() {
+  addEventListener({
+    id: "transaction-form",
+    event: "submit",
+    onEvent: (e) => {
+      e.preventDefault();
+      addItem({ form: e.target });
+    },
+  });
   renderTransactionForm();
+}
+
+function addItem({ form }) {
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData);
+
+  const item = {
+    ...data,
+    id: Date.now(), // TODO - generateNextId 생성
+  };
+
+  setState({
+    items: [...state.items, item],
+  });
 }
 
 function renderTransactionForm() {
@@ -26,20 +50,21 @@ function renderTransactionForm() {
                 <input type="date" name="date" value="2023-08-17" />
                 </td>
                 <td>
-                    <button type="button" id="typeToggle">-</button>
-                <input type="number" name="amount" value="0" /> 원
+                    <input type="hidden" name="type" value="withdraw" />
+                    <button type="button" name="type" value="withdraw">+</button>
+                <input type="number" name="amount" value="10" /> 원
                 </td>
                 <td>
-                <input type="text" name="description" placeholder="입력하세요" maxlength="32" />
+                <input type="text" name="description" placeholder="입력하세요" maxlength="32" value="설명" />
                 </td>
                 <td>
                 <select name="payment">
-                    <option selected disabled>카드</option>
+                    <option selected value="현대카드">카드</option>
                 </select>
                 </td>
                 <td>
                 <select name="category">
-                    <option selected disabled>음식</option>
+                    <option selected value="음식">음식</option>
                 </select>
                 </td>
                 <td>
