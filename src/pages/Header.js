@@ -1,17 +1,15 @@
+import { ElementManager } from "../utils/ElementManager.js";
+
 export const renderHeader = (currentDate) => {
-  const header = document.createElement("header");
-  header.id = "header";
+  const header = ElementManager.renderElementId("header", "header");
 
   // logo
-  const logo = document.createElement("p");
-  logo.classList.add("logo");
-  logo.classList.add("serif-24");
+  const logo = ElementManager.renderElement("p", ["logo", "serif-24"]);
   logo.textContent = "Wise Wallet";
   header.appendChild(logo);
 
   // date
-  const date = document.createElement("div");
-  date.classList.add("date");
+  const date = ElementManager.renderElement("div", "date");
   const year = currentDate.year;
   const month = currentDate.month;
   const monthEng = currentDate.monthEng;
@@ -31,12 +29,10 @@ export const renderHeader = (currentDate) => {
   header.appendChild(date);
 
   // navigation
-  const nav = document.createElement("ul");
-  nav.classList.add("nav");
+  const nav = ElementManager.renderElement("ul", "nav");
   const navItems = ["doc", "calendar", "chart"];
   navItems.forEach((item, idx) => {
-    const li = document.createElement("li");
-    li.classList.add("nav-item");
+    const li = ElementManager.renderElement("li", "nav-item");
     li.dataset.path = item;
     li.innerHTML = `
     <a class="nav" href="${item}">

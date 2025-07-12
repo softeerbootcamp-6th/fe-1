@@ -1,6 +1,7 @@
+import { ElementManager } from "../../utils/ElementManager.js";
+
 export const DropDown = (data) => {
-  const dropDown = document.createElement("ul");
-  dropDown.classList.add("drop-down");
+  const dropDown = ElementManager.renderElement("div", "drop-down");
   data.map((partData) => {
     const dropDownList = document.createElement("li");
     dropDownList.textContent = partData;

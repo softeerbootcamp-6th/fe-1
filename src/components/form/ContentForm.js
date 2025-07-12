@@ -1,12 +1,13 @@
+import { ElementManager } from "../../utils/ElementManager.js";
+
 export const ContentForm = (input) => {
   const maxLength = 32;
-  const contentForm = document.createElement("div");
-  contentForm.classList.add("form-content");
+  const contentForm = ElementManager.renderElement("div", "form-content");
   contentForm.innerHTML = `
-      <div class="light-12">${input.content.length}/${maxLength}</div>
-      <label for="content" class="light-12">내용</label>
-      <input type="text" id="content" name="content" placeholder="입력하세요" maxlength="32" value="${input.content}">
-    `;
+  <label for="content" class="light-12">내용</label>
+  <input type="text" id="content" name="content" placeholder="입력하세요" maxlength="32" value="${input.content}">
+  <div class="light-12">${input.content.length}/${maxLength}</div>
+  `;
 
   const contentInput = contentForm.querySelector("input");
   const contentInputLength = contentForm.querySelector("div");

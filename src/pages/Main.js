@@ -1,8 +1,9 @@
-import { EntireForm } from "../components/form/EntireForm.js";
+import { EntireForm } from "../components/form/index.js";
+import { ElementManager } from "../utils/ElementManager.js";
 
 export const renderMain = (type = "doc") => {
-  const main = document.createElement("main");
-  main.id = "main";
+  const main = ElementManager.renderElementId("main", "main");
   main.appendChild(EntireForm());
+  main.appendChild(ElementManager.renderElement("div", ["test", "A"], type));
   return main;
 };

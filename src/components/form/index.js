@@ -4,10 +4,10 @@ import { ContentForm } from "./ContentForm.js";
 import { PaymentForm } from "./PaymentForm.js";
 import { CategoryForm } from "./CategoryForm.js";
 import { FormChecker } from "./FormChecker.js";
+import { ElementManager } from "../../utils/ElementManager.js";
 
 export const EntireForm = () => {
-  const entireForm = document.createElement("div");
-  entireForm.classList.add("entire-form");
+  const entireForm = ElementManager.renderElement("div", "entire-form");
   const input = {
     date: new Date("2023-08-01"),
     moneyType: "expense",

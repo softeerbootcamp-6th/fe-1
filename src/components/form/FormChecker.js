@@ -1,6 +1,7 @@
+import { ElementManager } from "../../utils/ElementManager.js";
+
 export const FormChecker = (input) => {
-  const formChecker = document.createElement("div");
-  formChecker.classList.add("form-checker");
+  const formChecker = ElementManager.renderElement("div", "form-checker");
   formChecker.innerHTML = `
       <img style="width:40px" src="./src/assets/check.png" alt="check icon">
     `;
