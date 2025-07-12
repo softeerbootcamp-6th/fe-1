@@ -3,6 +3,7 @@ import { state, setState, addObservers } from "../store.js";
 import { groupItemsByDate } from "../utils/group.js";
 import { calculateSummary } from "../utils/summary.js";
 import { formatDate } from "../utils/date.js";
+import { renderComponent } from "../utils/render.js";
 
 // 상태 변경 감지 및 자동 리렌더링
 addObservers((data) => {
@@ -69,9 +70,6 @@ function renderDaySection(dateStr, items) {
 }
 
 export function renderTransactionList() {
-  const container = document.getElementById("transaction-list");
-  container.innerHTML = "";
-
   // 상태에서 items 가져오기
   const items = state.items;
 
@@ -80,11 +78,16 @@ export function renderTransactionList() {
     (a, b) => new Date(b) - new Date(a)
   );
 
+  let innerHTML = "";
   sortedDates.forEach((dateStr) => {
     const html = renderDaySection(dateStr, grouped[dateStr]);
-    container.innerHTML += html;
+    innerHTML += html;
   });
-  return container;
+
+  renderComponent({
+    id: "transaction-list",
+    innerHTML: innerHTML,
+  });
 }
 
 export function initEventListeners() {
