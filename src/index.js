@@ -5,7 +5,7 @@ import {
   renderTransactionList,
 } from "./components/TransactionList.js";
 
-export function createMainLayout() {
+function createMainLayout() {
   initEventListnerAtTransactionList();
 
   renderHeader();
