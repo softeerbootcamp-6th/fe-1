@@ -87,7 +87,7 @@ export function renderTransactionList() {
   return container;
 }
 
-function initEventListeners() {
+export function initEventListeners() {
   const container = document.getElementById("transaction-list");
 
   container.addEventListener("click", (e) => {
@@ -98,5 +98,3 @@ function initEventListeners() {
     }
   });
 }
-
-initEventListeners(); // 이벤트 리스너 등록
