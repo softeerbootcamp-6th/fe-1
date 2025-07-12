@@ -69,7 +69,7 @@ function renderDaySection(dateStr, items) {
     `;
 }
 
-export function renderTransactionList() {
+function renderDaySectionList() {
   // 상태에서 items 가져오기
   const items = state.items;
 
@@ -83,10 +83,13 @@ export function renderTransactionList() {
     const html = renderDaySection(dateStr, grouped[dateStr]);
     innerHTML += html;
   });
+  return innerHTML;
+}
 
+export function renderTransactionList() {
   renderComponent({
     id: "transaction-list",
-    innerHTML: innerHTML,
+    innerHTML: renderDaySectionList(),
   });
 }
 
