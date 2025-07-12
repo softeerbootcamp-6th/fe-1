@@ -58,7 +58,7 @@ function renderTransactionForm() {
                 <input type="text" name="description" placeholder="입력하세요" maxlength="32" value="설명" />
                 </td>
                 <td>
-                <select name="payment">
+                <select name="method">
                     <option selected value="현대카드">카드</option>
                 </select>
                 </td>
