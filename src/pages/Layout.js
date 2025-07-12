@@ -1,6 +1,6 @@
 import { renderHeader } from "./Header.js";
 import { renderMain } from "./Main.js";
-import { handleDate } from "../utils/handleDate.js";
+import { DateManager } from "../utils/DateManager.js";
 
 export const createLayout = () => {
   const app = document.getElementById("app");
@@ -17,5 +17,5 @@ export const createLayout = () => {
   app.appendChild(header);
   app.appendChild(main);
 
-  handleDate(date);
+  DateManager.init(date);
 };
