@@ -7,13 +7,12 @@ export const renderRouter = () => {
   if (oldMain) oldMain.remove();
 
   // 새로 생성
-  const path = window.location.pathname;
+  const path = window.location.pathname.replace("/", "");
   const newMain = renderMain(path);
-
   app.appendChild(newMain);
 
   // 활성화된 페이지 표현
-  const target = document.querySelector(`.nav-item[data-pathname="#${path}"]`);
+  const target = document.querySelector(`.nav-item[data-path="${path}"]`);
   if (!target) return; // 해당 페이지가 없으면 종료
 
   const current = document.querySelector(".nav > .active");

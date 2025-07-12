@@ -37,7 +37,7 @@ export const renderHeader = (currentDate) => {
   navItems.forEach((item, idx) => {
     const li = document.createElement("li");
     li.classList.add("nav-item");
-    li.dataset.pathname = item;
+    li.dataset.path = item;
     li.innerHTML = `
     <a class="nav" href="${item}">
       <img src="./src/assets/${item}.png" alt="${item} icon" />
