@@ -1,6 +1,10 @@
 import { renderComponent } from "../utils/render.js";
 
-export function renderTransactionForm() {
+export function initTransactionForm() {
+  renderTransactionForm();
+}
+
+function renderTransactionForm() {
   renderComponent({
     id: "transaction-form",
     className: "flex-column-center",

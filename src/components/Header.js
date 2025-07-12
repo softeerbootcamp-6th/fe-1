@@ -1,6 +1,10 @@
 import { renderComponent } from "../utils/render.js";
 
-export function renderHeader() {
+export function initHeader() {
+  renderHeader();
+}
+
+function renderHeader() {
   renderComponent({
     id: "header",
     className: "flex-row-between",

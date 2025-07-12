@@ -5,17 +5,20 @@ import { calculateSummary } from "../utils/summary.js";
 import { formatDate } from "../utils/date.js";
 import { renderComponent } from "../utils/render.js";
 
-// 상태 변경 감지 및 자동 리렌더링
-addObservers((data) => {
-  if (data.items) {
-    renderTransactionList();
+export function initTransactionList() {
+  renderTransactionList();
+  initEventListeners();
+  // 상태 변경 감지 및 자동 리렌더링
+  addObservers((data) => {
+    if (data.items) {
+      renderTransactionList();
+    }
+  });
+  // 초기 데이터를 상태에 설정 (한 번만 실행)
+  if (state.items.length === 0) {
+    const initialItems = DummyItem;
+    setState({ items: initialItems });
   }
-});
-
-// 초기 데이터를 상태에 설정 (한 번만 실행)
-if (state.items.length === 0) {
-  const initialItems = DummyItem;
-  setState({ items: initialItems });
 }
 
 /* 아이템 삭제 함수 */
@@ -86,14 +89,14 @@ function createDaySectionListInnerHtml() {
   return innerHTML;
 }
 
-export function renderTransactionList() {
+function renderTransactionList() {
   renderComponent({
     id: "transaction-list",
     innerHTML: createDaySectionListInnerHtml(),
   });
 }
 
-export function initEventListeners() {
+function initEventListeners() {
   const container = document.getElementById("transaction-list");
 
   container.addEventListener("click", (e) => {
