@@ -13,13 +13,18 @@ export const CategoryForm = (input) => {
   </button>
   `;
 
-  const categoryImg = categoryForm.querySelector("#category > img");
   categoryForm.addEventListener("click", (e) => {
     // 이미지 업데이트
+    const categoryImg = categoryForm.querySelector("#category > img");
     isCategoryOpen = !isCategoryOpen;
     categoryImg.src = `./src/assets/chevron-${
       isCategoryOpen ? "up" : "down"
     }.png`;
+
+    if (e.target.closest("li")) {
+      const categoryText = categoryForm.querySelector("#category > span");
+      categoryText.textContent = e.target.innerText;
+    }
 
     // 드롭다운 화면에 표시/제거
     if (isCategoryOpen) {

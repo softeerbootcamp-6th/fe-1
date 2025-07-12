@@ -14,7 +14,7 @@ export const EntireForm = () => {
     money: "",
     content: "",
     payment: "",
-    category: "용돈",
+    category: "",
   };
 
   const formList = [
