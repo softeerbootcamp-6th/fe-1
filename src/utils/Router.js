@@ -25,14 +25,15 @@ export const Router = {
     const nav = document.querySelector(".nav");
     nav.addEventListener("click", (e) => {
       if (e.target.closest(".nav-item")) {
+        e.preventDefault(); // a태그 새로고침 기능 제한
         const navItem = e.target.closest(".nav-item");
-        e.preventDefault();
         const href = navItem.getAttribute("href");
         window.history.pushState({}, "", href);
         Router.renderRouter();
       }
     });
 
+    // 앞/뒤로가기 버튼 이벤트 리스너 등록
     window.addEventListener("popstate", Router.renderRouter);
   },
 };

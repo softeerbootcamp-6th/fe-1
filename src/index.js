@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     createLayout();
     Router.setupRouter();
-    Router.renderRouter();
   } catch (error) {
     console.error("Error setting up layout:", error);
   }
