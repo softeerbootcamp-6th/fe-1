@@ -3,10 +3,21 @@ import { groupItemsByDate } from "../utils/group.js";
 import { calculateSummary } from "../utils/summary.js";
 import { formatDate } from "../utils/date.js";
 import { renderComponent } from "../utils/render.js";
+import { addEventListener } from "../utils/addEvent.js";
 
 export function initTransactionList() {
   renderTransactionList();
-  initEventListeners();
+  addEventListener({
+    id: "transaction-list",
+    event: "click",
+    onEvent: (e) => {
+      if (e.target.classList.contains("delete-btn")) {
+        const itemElement = e.target.closest(".item");
+        const itemId = parseInt(itemElement.dataset.id);
+        deleteItem(itemId);
+      }
+    },
+  });
   // 상태 변경 감지 및 자동 리렌더링
   addObservers((data) => {
     if (data.items) {
@@ -87,17 +98,5 @@ function renderTransactionList() {
   renderComponent({
     id: "transaction-list",
     innerHTML: createDaySectionListInnerHtml(),
-  });
-}
-
-function initEventListeners() {
-  const container = document.getElementById("transaction-list");
-
-  container.addEventListener("click", (e) => {
-    if (e.target.classList.contains("delete-btn")) {
-      const itemElement = e.target.closest(".item");
-      const itemId = parseInt(itemElement.dataset.id);
-      deleteItem(itemId);
-    }
   });
 }
