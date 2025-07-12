@@ -25,7 +25,7 @@ function deleteItem(itemId) {
   setState({ items: updatedItems });
 }
 
-function renderTransactionItem(item) {
+function createTransactionItemInnerHtml(item) {
   const amount = Number(item.amount);
   return `
       <div class="flex-row-between item" data-id="${item.id}">
@@ -42,7 +42,7 @@ function renderTransactionItem(item) {
     `;
 }
 
-function renderDaySection(dateStr, items) {
+function createDaySectionInnerHtml(dateStr, items) {
   const summary = calculateSummary(items);
   const dateTitle = formatDate(dateStr);
   const summaryText =
@@ -54,7 +54,7 @@ function renderDaySection(dateStr, items) {
         }`
       : `지출 ${summary.withdraw.toLocaleString()}원`;
 
-  const itemHTML = items.map(renderTransactionItem).join("");
+  const itemHTML = items.map(createTransactionItemInnerHtml).join("");
 
   return `
       <div class="day-section">
@@ -69,7 +69,7 @@ function renderDaySection(dateStr, items) {
     `;
 }
 
-function renderDaySectionList() {
+function createDaySectionListInnerHtml() {
   // 상태에서 items 가져오기
   const items = state.items;
 
@@ -80,7 +80,7 @@ function renderDaySectionList() {
 
   let innerHTML = "";
   sortedDates.forEach((dateStr) => {
-    const html = renderDaySection(dateStr, grouped[dateStr]);
+    const html = createDaySectionInnerHtml(dateStr, grouped[dateStr]);
     innerHTML += html;
   });
   return innerHTML;
@@ -89,7 +89,7 @@ function renderDaySectionList() {
 export function renderTransactionList() {
   renderComponent({
     id: "transaction-list",
-    innerHTML: renderDaySectionList(),
+    innerHTML: createDaySectionListInnerHtml(),
   });
 }
 
