@@ -1,4 +1,3 @@
-import { items as DummyItem } from "../constants/items.js";
 import { state, setState, addObservers } from "../store.js";
 import { groupItemsByDate } from "../utils/group.js";
 import { calculateSummary } from "../utils/summary.js";
@@ -14,11 +13,6 @@ export function initTransactionList() {
       renderTransactionList();
     }
   });
-  // 초기 데이터를 상태에 설정 (한 번만 실행)
-  if (state.items.length === 0) {
-    const initialItems = DummyItem;
-    setState({ items: initialItems });
-  }
 }
 
 /* 아이템 삭제 함수 */
