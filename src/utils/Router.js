@@ -1,0 +1,38 @@
+import { renderMain } from "../pages/Main.js";
+
+export const Router = {
+  renderRouter: () => {
+    // 기존의 것 삭제
+    const app = document.querySelector("#app");
+    const oldMain = document.querySelector("#main");
+    if (oldMain) oldMain.remove();
+
+    // 새로 생성
+    const path = window.location.pathname.replace("/", "");
+    const newMain = renderMain(path);
+    app.appendChild(newMain);
+
+    // 활성화된 페이지 표현
+    const target = document.querySelector(`.nav-item[data-path="${path}"]`);
+    if (!target) return; // 해당 페이지가 없으면 종료
+
+    const current = document.querySelector(".nav > .active");
+    if (current) current.classList.remove("active");
+    target.classList.add("active");
+  },
+  setupRouter: () => {
+    // a 태그 이벤트 리스너 등록
+    const nav = document.querySelector(".nav");
+    nav.addEventListener("click", (e) => {
+      if (e.target.closest(".nav-item")) {
+        const navItem = e.target.closest(".nav-item");
+        e.preventDefault();
+        const href = navItem.getAttribute("href");
+        window.history.pushState({}, "", href);
+        Router.renderRouter();
+      }
+    });
+
+    window.addEventListener("popstate", Router.renderRouter);
+  },
+};

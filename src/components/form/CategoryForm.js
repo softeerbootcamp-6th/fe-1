@@ -8,10 +8,10 @@ export const CategoryForm = (input) => {
   categoryForm.innerHTML = `
   <label for="category" class="light-12">카테고리</label>
   <button id="category">
-    <img width="16px" src="./src/assets/chevron-down.png" alt="arrow"/>
     <span class="semibold-12">${input.category}</span>
+    <img width="16px" src="./src/assets/chevron-down.png" alt="arrow"/>
   </button>
-    `;
+  `;
 
   const categoryImg = categoryForm.querySelector("#category > img");
   categoryForm.addEventListener("click", () => {

@@ -1,9 +1,16 @@
-import { EntireForm } from "../components/form/index.js";
 import { ElementManager } from "../utils/ElementManager.js";
+import { renderDoc } from "./Doc.js";
+import { renderCalendar } from "./Calendar.js";
+import { renderChart } from "./Chart.js";
 
+const mainList = {
+  doc: renderDoc,
+  calendar: renderCalendar,
+  chart: renderChart,
+};
 export const renderMain = (type = "doc") => {
   const main = ElementManager.renderElementId("main", "main");
-  main.appendChild(EntireForm());
-  main.appendChild(ElementManager.renderElement("div", ["test", "A"], type));
+  console.log(type);
+  main.appendChild(mainList[type]());
   return main;
 };

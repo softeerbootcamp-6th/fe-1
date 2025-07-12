@@ -48,12 +48,12 @@
   flex-direction: row;
 }
 
-.nav li {
+.nav .nav-item {
   padding: 8px;
   border-radius: 40px;
 }
 
-.nav li img {
+.nav .nav-item img {
   width: 24px;
   height: 24px;
 }

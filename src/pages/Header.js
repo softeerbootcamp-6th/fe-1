@@ -29,19 +29,17 @@ export const renderHeader = (currentDate) => {
   header.appendChild(date);
 
   // navigation
-  const nav = ElementManager.renderElement("ul", "nav");
+  const nav = ElementManager.renderElement("nav", "nav");
   const navItems = ["doc", "calendar", "chart"];
   navItems.forEach((item, idx) => {
-    const li = ElementManager.renderElement("li", "nav-item");
-    li.dataset.path = item;
-    li.innerHTML = `
-    <a class="nav" href="${item}">
-      <img src="./src/assets/${item}.png" alt="${item} icon" />
-    </a>
+    const navItem = ElementManager.renderElement("a", "nav-item");
+    navItem.dataset.path = item;
+    navItem.href = item;
+    navItem.innerHTML = `<img src="./src/assets/${item}.png" alt="${item} icon" />
     `;
-    if (idx === 0) li.classList.add("active");
-    li.dataset.item = item;
-    nav.appendChild(li);
+    if (idx === 0) navItem.classList.add("active");
+    navItem.dataset.item = item;
+    nav.appendChild(navItem);
   });
 
   header.appendChild(nav);
