@@ -104,6 +104,12 @@ function resetForm(form) {
     form.reset();
     setInitialState(form);
 
+    const paymentMethodLabel = form.querySelector('.select-label');
+    if (paymentMethodLabel) {
+        paymentMethodLabel.textContent = '선택하세요';
+        paymentMethodLabel.style.color = 'var(--neutral-text-weak)';
+    }
+
     const submitButton = form.querySelector('button[type="submit"]');
     if (submitButton) {
         updateSubmitButtonState(form, submitButton);

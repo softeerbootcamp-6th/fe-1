@@ -75,6 +75,10 @@
     min-width: 104px;
 }
 
+.select-label {
+    color: var(--neutral-text-weak);
+}
+
 .content-length {
     display: flex;
     flex-direction: row;

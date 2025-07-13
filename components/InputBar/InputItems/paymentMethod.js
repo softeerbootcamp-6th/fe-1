@@ -42,6 +42,7 @@ const createPaymentMethod = () => {
         paymentMethodOptions,
         (value, label) => {
             selectLabel.textContent = label;
+            selectLabel.style.color = 'var(--neutral-text-default)';
             hiddenInput.value = value;
             hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
         }
