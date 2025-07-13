@@ -27,12 +27,21 @@
     display: flex;
 }
 
+.value-box span {
+    margin-left: 10px;
+    line-height: 2;
+}
+
 .value-box button {
     all: unset;
 }
 
 .value-box button:hover {
     cursor: pointer;
+}
+
+#valueInput {
+    text-align: right;
 }
 
 .input-box input:focus {
@@ -44,7 +53,7 @@
     border: none;
 }
 
-input[type='number'] {
+input[type='text'] {
     width: 100%;
 }
 
@@ -98,4 +107,22 @@ input[type='date'] {
 
 .add-button img {
     filter: invert(1);
+}
+
+.count-box-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-button:disabled {
+    opacity: 32%;
+}
+.add-button:enabled {
+    opacity: 100%;
+}
+
+.add-button:enabled:hover {
+    opacity: 80%;
+    cursor: pointer;
 }
