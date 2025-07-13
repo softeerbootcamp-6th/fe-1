@@ -1,17 +1,24 @@
+import {
+  getCurrentYear,
+  getCurrentMonth,
+  getCurrentMonthName,
+  setupDateEventListeners,
+} from "../utils/currentDate.js";
+
 export function createHeader() {
   const currentPath = window.location.pathname;
 
-  const headerTemplate = `
+  const headerTemplate = `  
     <header>
       <h1 class="logo serif-24"><a href="/">Wise Wallet</a></h1>
       <div class="flex-column">
-        <div class="currentYear light-14">2023</div>
+        <div class="currentYear light-14">${getCurrentYear()}</div>
         <div class="flex-row">
-          <button id="prevMonth" class="light-14"><</button>
-          <div id="currentMonth" class="serif-48">8</div>
-          <button id="nextMonth" class="light-14">></button>
+          <button class="prevMonth light-14"><</button>
+          <div class="currentMonth serif-48">${getCurrentMonth()}</div>
+          <button class="nextMonth light-14">></button>
         </div>
-        <div id="currentMonthName" class="light-14">August</div>
+        <div class="currentMonthName light-14">${getCurrentMonthName()}</div>
       </div>
       <nav>
         <ul class="flex-row">
@@ -34,6 +41,7 @@ export function createHeader() {
 
 export function renderHeader(container) {
   container.innerHTML = createHeader();
+  setupDateEventListeners(container);
 }
 
 export function updateNavigationActive() {

@@ -1,80 +1,110 @@
 import { renderMonthlyInfo } from "./components/monthlyInfo.js";
 import { renderInputBar } from "./components/inputBar.js";
+import {
+  getTransactionsByYearMonth,
+  groupTransactionsByDate,
+  deleteTransaction,
+} from "./utils/transaction.js";
+import { getCurrentYear, getCurrentMonth } from "./utils/currentDate.js";
+
+let isIncomeChecked = true;
+let isExpenseChecked = true;
+
+export function getFilteringState() {
+  return { isIncomeChecked, isExpenseChecked };
+}
+
+export function setFilteringState(income, expense) {
+  isIncomeChecked = income;
+  isExpenseChecked = expense;
+}
 
 export function createMainPage() {
-  return `
-    <div class="main-page">
-      <div id="input-bar-container"></div>
-      <div id="monthly-info-container"></div>
-      <div class="flex-row">    
-        <div>8월 14일 월요일</div>
-        <div>지출 56,240원</div>
-      </div>
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <td>문화/여가</td>
-              <td>스트리밍 서비스 정기 결제</td>
-              <td>현대카드</td>
-              <td>-10,900원</td>
-            </tr>
-            <tr>
-              <td>교통</td>
-              <td>후불 교통비 결제</td>
-              <td>현대카드</td>
-              <td>-45,340원</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <div>
-          <div>8월 9일 수요일</div>
-          <div>지출 519,140원</div>
+  const { isIncomeChecked, isExpenseChecked } = getFilteringState();
+
+  const grouped = getTransactionsByYearMonth(
+    getCurrentYear(),
+    getCurrentMonth()
+  );
+
+  // 체크박스 상태에 따라 거래내역 필터링
+  const filteredTransactions = grouped.filter((transaction) => {
+    if (isIncomeChecked && isExpenseChecked) {
+      // 둘 다 체크된 경우: 모든 거래 표시
+      return true;
+    } else if (!isIncomeChecked && isExpenseChecked) {
+      // 수입 해제, 지출 체크: 지출만 표시
+      return transaction.amount < 0;
+    } else if (isIncomeChecked && !isExpenseChecked) {
+      // 수입 체크, 지출 해제: 수입만 표시
+      return transaction.amount > 0;
+    } else {
+      // 둘 다 해제된 경우: 모든 거래 미표시
+      return false;
+    }
+  });
+
+  const groupedByDate = groupTransactionsByDate(filteredTransactions);
+
+  const sections = Object.entries(groupedByDate)
+    .map(([date, transactionList]) => {
+      const totalIncome = transactionList
+        .filter((transaction) => transaction.amount > 0)
+        .reduce((sum, transaction) => sum + transaction.amount, 0);
+      const totalExpense = transactionList
+        .filter((transaction) => transaction.amount < 0)
+        .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+      const header = `
+        <div class="flex-row">
+          <div>${date}</div>
+          <div>
+            ${isIncomeChecked && totalIncome > 0 ? `수입 ${totalIncome} ` : ""}
+            ${
+              isExpenseChecked && totalExpense < 0 ? `지출 ${totalExpense}` : ""
+            }
+          </div>
         </div>
+      `;
+
+      const rows = transactionList
+        .map(
+          (transaction) => `
+        <tr>
+          <td>${transaction.category}</td>
+          <td>${transaction.description}</td>
+          <td>${transaction.paymentMethod}</td>
+          <td>${transaction.amount}</td>
+          <td>
+            <button 
+              class="delete-btn" 
+              data-id="${transaction.id}"
+            >
+              삭제
+            </button>
+          </td>
+        </tr> 
+      `
+        )
+        .join("");
+
+      return `
+        ${header}
         <div>
           <table>
             <tbody>
-              <tr>
-                <td>식비</td>
-                <td>두유 4개</td>
-                <td>현대카드</td>
-                <td>-19,140원</td>
-              </tr>
-              <tr>
-                <td>생활</td>
-                <td>8월 월세</td>
-                <td>현대카드</td>
-                <td>-500,000원</td>
-              </tr>
+              ${rows}
             </tbody>
           </table>
         </div>
-      </div>
-      <div>
-        <div>8월 13일 일요일</div>
-        <div>수입 2,010,580원 지출 10,000원</div>
-      </div>
-      <div>
-        <table>
-          <tbody>
-            <tr>
-              <td>식비</td>
-              <td>잔치국수와 김밥</td>
-              <td>현대카드</td>
-              <td>-10,000원</td>
-            </tr>
-            <tr>
-              <td>월급</td>
-              <td>8월 급여</td>
-              <td>현금</td>
-              <td>2,010,580원</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      `;
+    })
+    .join("");
+
+  return `
+    <div id="input-bar-container"></div>
+    <div id="monthly-info-container"></div>
+    ${sections}
   `;
 }
 
@@ -95,23 +125,33 @@ export function createChartPage() {
 }
 
 export function renderMainPage() {
+  const { isIncomeChecked, isExpenseChecked } = getFilteringState();
+
   const mainContainer = document.getElementById("main-container");
   if (mainContainer) {
     mainContainer.innerHTML = createMainPage();
   }
   // inputBar 렌더링
-  const inputBarContainer = document.getElementById("input-bar-container");
+  const inputBarContainer = mainContainer.querySelector("#input-bar-container");
   if (inputBarContainer) {
     renderInputBar(inputBarContainer);
   }
 
   // monthlyInfo 렌더링
-  const monthlyInfoContainer = document.getElementById(
-    "monthly-info-container"
+  const monthlyInfoContainer = mainContainer.querySelector(
+    "#monthly-info-container"
   );
   if (monthlyInfoContainer) {
-    renderMonthlyInfo(monthlyInfoContainer);
+    renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
   }
+
+  mainContainer.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.dataset.id);
+      deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
+      renderMainPage();
+    });
+  });
 }
 
 export function renderCalendarPage() {

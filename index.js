@@ -1,5 +1,5 @@
 import { renderHeader } from "./components/header.js";
-import { render, navigate } from "./routes.js";
+import { render, navigate } from "./utils/routes.js";
 
 const headerContainer = document.getElementById("header-container");
 
@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
       navigate(link.getAttribute("href"));
     }
   });
-
+  //초기 렌더링
   render();
+  //뒤로가기 시 렌더링
+  window.addEventListener("popstate", () => {
+    render();
+  });
 });
