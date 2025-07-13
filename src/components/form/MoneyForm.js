@@ -1,4 +1,5 @@
 import { ElementManager } from "../../utils/ElementManager.js";
+import { NumberFormatter } from "../../utils/NumberFormatter.js";
 
 export const MoneyForm = (input) => {
   const moneyForm = ElementManager.renderElement("div", "form-money");
@@ -19,7 +20,10 @@ export const MoneyForm = (input) => {
   });
 
   moneyForm.addEventListener("input", (e) => {
-    input.money = e.target.value;
+    const moneyInput = moneyForm.querySelector(".money-input-wrapper > input");
+    const normalMoney = NumberFormatter.parseToNormalNumber(e.target.value);
+    moneyInput.value = NumberFormatter.parseToCommaNumber(normalMoney);
+    input.money = normalMoney;
   });
   return moneyForm;
 };

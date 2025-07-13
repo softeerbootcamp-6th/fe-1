@@ -10,6 +10,7 @@ export const InputValidator = {
   validateFullCorrectType: (input) => {
     const parsedMoney = Number(input.money);
     if (isNaN(parsedMoney) || parsedMoney < 0) {
+      alert("금액을 숫자로 작성해주세요!");
       return false;
     }
     return true;

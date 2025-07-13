@@ -96,6 +96,7 @@ input#money {
 .form-payment,
 .form-category {
   width: 104px;
+  height: 100%;
   position: relative;
 }
 
@@ -115,8 +116,8 @@ button#payment {
 .drop-down {
   position: absolute;
   top: calc(100% + 16px);
-  left: 0;
-  width: calc(100%);
+  left: -23.78px;
+  width: calc(100% + 23.78 * 2px);
   border-style: solid;
   border-width: 0.5px;
   border-color: var(--nuetral-border-default);

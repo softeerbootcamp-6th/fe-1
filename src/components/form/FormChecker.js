@@ -9,12 +9,15 @@ export const FormChecker = (input) => {
 
   formChecker.addEventListener("click", () => {
     const isFullFilled = InputValidator.validateFullFilled(input);
+    if (!isFullFilled) return;
+
     const isFullCorrectType = InputValidator.validateFullCorrectType(input);
-    if (isFullFilled && isFullCorrectType) {
+    if (isFullCorrectType) {
       console.log("ok");
     } else {
       console.log("no");
     }
+    console.log(input);
   });
   return formChecker;
 };
