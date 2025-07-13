@@ -1,0 +1,12 @@
+export const elements = {
+  dateInputEl: () => document.querySelector(".date-input"),
+  toggleButtonEl: () => document.querySelector(".toggle-button"),
+  valueInputEl: () => document.querySelector(".value-number"),
+  descInputEl: () => document.querySelector(".description-input"),
+  submitButtonEl: () => document.querySelector(".submit-button"),
+  paymentCellEl: () => document.querySelector(".selected-payment"),
+  categoryCellEl: () => document.querySelector(".selected-category"),
+  paymentArrowIconEl: () => document.querySelector(".payment-arrow-icon"),
+  submitButtonEl: () => document.querySelector(".submit-button"),
+  checkBoxEl: () => document.querySelector(".checkbox"),
+};
