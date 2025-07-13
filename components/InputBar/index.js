@@ -122,6 +122,10 @@ function validateFormData(data) {
         return false;
     }
 
+    if (!data.category) {
+        return false;
+    }
+
     return true;
 }
 
