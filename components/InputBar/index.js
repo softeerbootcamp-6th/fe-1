@@ -1,5 +1,7 @@
 import { extractNumbersOnly } from '../../lib/utils.js';
 
+let isIncomeMode = false;
+
 export default function createInputBar(formItemsConfig) {
     if (!formItemsConfig) {
         throw new Error('formItemsConfig is required');
@@ -30,6 +32,36 @@ function initInputBar(form) {
     form.addEventListener('submit', handleFormSubmit);
     setInitialState(form);
     setupRealTimeValidation(form);
+    setupAmountButtonListener(form);
+}
+
+function setupAmountButtonListener(form) {
+    const amountButton = form.querySelector('.amount-button');
+    if (amountButton) {
+        amountButton.addEventListener('click', () => {
+            isIncomeMode = !isIncomeMode;
+
+            const categoryItem = form
+                .querySelector('input[name="category"]')
+                ?.closest('.input-bar-item');
+            if (categoryItem && categoryItem.updateCategories) {
+                categoryItem.updateCategories(isIncomeMode);
+            }
+
+            const categoryLabel = categoryItem?.querySelector('.select-label');
+            const categoryInput = categoryItem?.querySelector(
+                'input[name="category"]'
+            );
+            if (categoryLabel && categoryInput) {
+                categoryLabel.textContent = '선택하세요';
+                categoryLabel.style.color = 'var(--neutral-text-weak)';
+                categoryInput.value = '';
+                categoryInput.dispatchEvent(
+                    new Event('input', { bubbles: true })
+                );
+            }
+        });
+    }
 }
 
 function setupRealTimeValidation(form) {
@@ -98,17 +130,35 @@ function setInitialState(form) {
     if (dateInput && !dateInput.value) {
         dateInput.value = new Date().toISOString().split('T')[0];
     }
+
+    const paymentMethodInput = form.querySelector(
+        'input[name="paymentMethod"]'
+    );
+    if (paymentMethodInput) {
+        const paymentMethodContainer =
+            paymentMethodInput.closest('.input-bar-item');
+        const paymentMethodLabel =
+            paymentMethodContainer.querySelector('.select-label');
+        if (paymentMethodLabel) {
+            paymentMethodLabel.textContent = '선택하세요';
+            paymentMethodLabel.style.color = 'var(--neutral-text-weak)';
+        }
+    }
+
+    const categoryInput = form.querySelector('input[name="category"]');
+    if (categoryInput) {
+        const categoryContainer = categoryInput.closest('.input-bar-item');
+        const categoryLabel = categoryContainer.querySelector('.select-label');
+        if (categoryLabel) {
+            categoryLabel.textContent = '선택하세요';
+            categoryLabel.style.color = 'var(--neutral-text-weak)';
+        }
+    }
 }
 
 function resetForm(form) {
     form.reset();
     setInitialState(form);
-
-    const paymentMethodLabel = form.querySelector('.select-label');
-    if (paymentMethodLabel) {
-        paymentMethodLabel.textContent = '선택하세요';
-        paymentMethodLabel.style.color = 'var(--neutral-text-weak)';
-    }
 
     const submitButton = form.querySelector('button[type="submit"]');
     if (submitButton) {
