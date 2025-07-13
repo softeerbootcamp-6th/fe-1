@@ -29,8 +29,8 @@ export const CategoryForm = (input) => {
       categoryTextInput.textContent = selectedCategory;
 
       const event = new Event("input", {
-        bubbles: true, // 이벤트 버블링을 허용하여 상위 entireForm까지 도달하게 함
-        cancelable: true, // 이벤트 취소 가능하게 함 (필요시)
+        bubbles: true, // 이벤트 버블링을 허용 -> 상위 entireForm까지 도달
+        cancelable: false,
       });
       categoryTextInput.dispatchEvent(event);
     }

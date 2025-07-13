@@ -15,28 +15,22 @@ export const PaymentForm = (input) => {
 
   const paymentImg = paymentForm.querySelector("#payment > img");
   paymentForm.addEventListener("click", (e) => {
-    // 이미지 업데이트
-    isPaymentOpen = !isPaymentOpen;
-    paymentImg.src = `./src/assets/chevron-${
-      isPaymentOpen ? "up" : "down"
-    }.png`;
-
     // 값 선택 업데이트+화면에 표시
-    if (e.target.closest("li") && !e.target.closest(".add-button")) {
+    if (e.target.closest(".drop-down-li")) {
       const selectedPayment = e.target.innerText;
       input.payment = selectedPayment;
       const paymentTextInput = paymentForm.querySelector("#payment > span");
       paymentTextInput.textContent = selectedPayment;
 
       const event = new Event("input", {
-        bubbles: true, // 이벤트 버블링을 허용하여 상위 entireForm까지 도달하게 함
-        cancelable: true, // 이벤트 취소 가능하게 함 (필요시)
+        bubbles: true, // 이벤트 버블링을 허용 -> entireForm까지 도달
+        cancelable: false,
       });
       paymentTextInput.dispatchEvent(event);
     }
 
     // 값 추가
-    if (e.target.closest("li") && e.target.closest(".add-button")) {
+    if (e.target.closest(".add-button")) {
       if (defaultPayment.includes("aaa")) {
       } else {
         defaultPayment.push("aaa");
@@ -44,10 +38,19 @@ export const PaymentForm = (input) => {
     }
 
     // 값 삭제
-    if (e.target.closest("li") && e.target.closest(".delete-button")) {
-      defaultPayment = defaultPayment.filter((item) => item !== "현금");
+    if (e.target.closest(".delete-button")) {
+      const selectedLi = e.target.closest("li");
+      const selectedSpan = selectedLi.querySelector(".drop-down-li");
+      defaultPayment = defaultPayment.filter(
+        (item) => item !== selectedSpan.textContent
+      );
     }
 
+    // 이미지 업데이트
+    isPaymentOpen = !isPaymentOpen;
+    paymentImg.src = `./src/assets/chevron-${
+      isPaymentOpen ? "up" : "down"
+    }.png`;
     // 드롭다운 화면에 표시/제거
     if (isPaymentOpen) {
       paymentForm.appendChild(DropDown("payment", defaultPayment));

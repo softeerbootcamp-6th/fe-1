@@ -4,13 +4,15 @@ export const DropDown = (type, data) => {
   const dropDown = ElementManager.renderElement("ul", "drop-down");
   data.map((partData) => {
     const dropDownList = document.createElement("li");
-    if (type === "category") {
-      dropDownList.textContent = partData;
-    }
+
+    const drpDownListText = ElementManager.renderElement(
+      "span",
+      "drop-down-li"
+    );
+    drpDownListText.textContent = partData;
+    dropDownList.appendChild(drpDownListText);
+
     if (type === "payment") {
-      const drpDownListText = document.createElement("span");
-      drpDownListText.textContent = partData;
-      dropDownList.appendChild(drpDownListText);
       const xImg = ElementManager.renderElement("img", "delete-button");
       xImg.src = "./src/assets/closed.svg";
       xImg.alt = "closed icon";
