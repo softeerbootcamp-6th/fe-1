@@ -1,4 +1,5 @@
-// icon 객체는 상수이므로 모듈 스코프에 두어도 괜찮습니다.
+import { formatNumberInput } from '../../../lib/utils.js';
+
 const icon = {
     plus: {
         src: '/assets/icons/plus.svg',
@@ -20,7 +21,7 @@ const createAmount = () => {
             <label for="amount" class="light-12">금액</label>
         </div>
         <div class="input-bar-item-wrapper">
-            <button class="amount-button">
+            <button type="button" class="amount-button">
                 <img
                     src="${icon.minus.src}"
                     alt="${icon.minus.alt}"
@@ -29,8 +30,9 @@ const createAmount = () => {
                 />
             </button>
             <input
-                type="number"
+                type="text"
                 id="amount"
+                name="amount"
                 class="semibold-12 amount-input"
                 placeholder="0"
             />
@@ -40,12 +42,18 @@ const createAmount = () => {
 
     const amountButton = amountItem.querySelector('.amount-button');
     const amountIcon = amountButton.querySelector('img');
+    const amountInput = amountItem.querySelector('.amount-input');
 
-    amountButton.addEventListener('click', () => {
+    amountButton.addEventListener('click', (event) => {
+        event.preventDefault();
         isMinus = !isMinus;
         const currentIcon = isMinus ? icon.minus : icon.plus;
         amountIcon.src = currentIcon.src;
         amountIcon.alt = currentIcon.alt;
+    });
+
+    amountInput.addEventListener('input', (event) => {
+        event.target.value = formatNumberInput(event.target.value);
     });
 
     return amountItem;

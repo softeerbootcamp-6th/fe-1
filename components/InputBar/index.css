@@ -3,25 +3,26 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    max-width: 894px;
+    width: 894px;
 
-    padding: 16px 24px;
+    padding: 16px 0;
+    margin-bottom: 34px;
     background-color: var(--neutral-surface-default);
     border: 0.5px solid var(--neutral-border-default);
-
-    gap: 24px;
 }
 
 .input-bar-item {
+    position: relative;
+
     display: flex;
     flex-direction: column;
-    padding-right: 24px;
+    padding: 0 24px;
     border-right: 0.5px solid var(--neutral-border-default);
     gap: 4px;
 }
 
-.input-bar-item:last-child {
-    padding-right: 0;
+.input-bar-item:nth-last-child(1),
+.input-bar-item:nth-last-child(2) {
     border-right: none;
 }
 
@@ -33,12 +34,67 @@
     text-align: right;
 }
 
+.dropdown-options {
+    z-index: 1000;
+    position: absolute;
+    top: calc(100% + 20px);
+    left: 0;
+    right: 0;
+    background: var(--grayscale-50);
+    border: 0.5px solid var(--neutral-border-default);
+
+    box-shadow: 0px 4px 4px 0px #524d901a;
+    box-shadow: 0px 2px 2px 0px #524d9014;
+}
+
+.dropdown-option-container {
+    width: 100%;
+    cursor: pointer;
+}
+
+.dropdown-option-container:last-child .dropdown-option {
+    border-bottom: none;
+}
+
+.dropdown-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    margin: 0 24px;
+    border-bottom: 0.5px solid var(--neutral-border-default);
+}
+
+.add-payment-method-button {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px 24px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-option-container:hover,
+.add-payment-method-button:hover {
+    background-color: var(--neutral-surface-point);
+}
+
+.chevron-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
 .input-bar-item-wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 4px;
+    min-width: 104px;
+}
+
+.select-label {
+    color: var(--neutral-text-weak);
 }
 
 .content-length {
@@ -49,6 +105,7 @@
 
 .submit-button {
     padding: 8px;
+    margin-right: 24px;
     background-color: var(--neutral-text-default);
     border-radius: 50%;
     cursor: pointer;
@@ -58,4 +115,8 @@
 
 .submit-icon {
     filter: invert(1);
+}
+
+.select-container {
+    cursor: pointer;
 }

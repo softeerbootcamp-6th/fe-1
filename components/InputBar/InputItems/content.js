@@ -16,6 +16,7 @@ const createContent = () => {
                 type="text"
                 maxlength=${MAX_LENGTH}
                 id="content"
+                name="content"
                 class="semibold-12"
                 placeholder="입력하세요"
             />

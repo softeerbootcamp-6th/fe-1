@@ -1,6 +1,7 @@
 const createSubmitButton = () => {
     const submitButton = document.createElement('button');
     submitButton.className = 'submit-button';
+    submitButton.type = 'submit';
     submitButton.innerHTML = `
             <img
                 src="/assets/icons/check.svg"
