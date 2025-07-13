@@ -2,11 +2,15 @@ import { ElementManager } from "../utils/ElementManager.js";
 
 export const renderHeader = (currentDate) => {
   const header = ElementManager.renderElementId("header", "header");
+  const headerContainer = ElementManager.renderElement(
+    "div",
+    "header-container"
+  );
 
   // logo
   const logo = ElementManager.renderElement("p", ["logo", "serif-24"]);
   logo.textContent = "Wise Wallet";
-  header.appendChild(logo);
+  headerContainer.appendChild(logo);
 
   // date
   const date = ElementManager.renderElement("div", "date");
@@ -26,7 +30,7 @@ export const renderHeader = (currentDate) => {
       <img src="./src/assets/chevron-right.png" alt="right arrow" />
     </div>
   `;
-  header.appendChild(date);
+  headerContainer.appendChild(date);
 
   // navigation
   const nav = ElementManager.renderElement("nav", "nav");
@@ -42,6 +46,7 @@ export const renderHeader = (currentDate) => {
     nav.appendChild(navItem);
   });
 
-  header.appendChild(nav);
+  headerContainer.appendChild(nav);
+  header.appendChild(headerContainer);
   return header;
 };
