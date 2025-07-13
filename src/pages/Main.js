@@ -10,7 +10,6 @@ const mainList = {
 };
 export const renderMain = (type = "doc") => {
   const main = ElementManager.renderElementId("main", "main");
-  console.log(type);
   main.appendChild(mainList[type]());
   return main;
 };
