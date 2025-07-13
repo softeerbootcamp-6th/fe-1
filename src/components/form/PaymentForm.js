@@ -1,4 +1,5 @@
 import { ElementManager } from "../../utils/ElementManager.js";
+import { Modal } from "../modal/index.js";
 import { DropDown } from "./DropDown.js";
 
 let defaultPayment = ["현금", "신용카드"];
@@ -31,10 +32,9 @@ export const PaymentForm = (input) => {
 
     // 값 추가
     if (e.target.closest(".add-button")) {
-      if (defaultPayment.includes("aaa")) {
-      } else {
-        defaultPayment.push("aaa");
-      }
+      Modal.renderModal("add", (newPayment) => {
+        defaultPayment.push(newPayment);
+      });
     }
 
     // 값 삭제
@@ -59,5 +59,6 @@ export const PaymentForm = (input) => {
       paymentForm.removeChild(dropDown);
     }
   });
+
   return paymentForm;
 };

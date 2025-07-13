@@ -12,7 +12,7 @@ const COMMENT_TYPE = {
 };
 
 export const Modal = {
-  renderModal: (type) => {
+  renderModal: (type, confimAction) => {
     const modal = ElementManager.renderElementId("div", "modal");
     modal.innerHTML = `
     <div class="modal-wrapper">
@@ -29,11 +29,13 @@ export const Modal = {
     document.body.appendChild(modal);
 
     const buttonContainer = modal.querySelector(".button-container");
+    const modalInput = modal.querySelector(".input-container > input");
     buttonContainer.addEventListener("click", (e) => {
       if (e.target.closest(".cancel")) {
         Modal.hideModal();
       }
       if (e.target.closest(".confirm")) {
+        confimAction(modalInput.value);
         Modal.hideModal();
       }
     });
