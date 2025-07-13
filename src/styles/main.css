@@ -179,6 +179,7 @@ button#payment {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 40px;
   width: 846px;
   margin: 0 auto;
 }
@@ -205,6 +206,30 @@ button#payment {
 .list-overview > .list-type-container img {
   width: 16px;
   height: 16px;
+}
+
+.list-day {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.day-overview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.day-overview .date {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.day-overview .money-counter {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 }
 
 .list-wrapper {
