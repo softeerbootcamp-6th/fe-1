@@ -35,7 +35,6 @@ function handleFormSubmit(event) {
     event.preventDefault();
 
     const formData = collectFormData(event.target);
-
     if (validateFormData(formData)) {
         resetForm(event.target);
     }
@@ -60,6 +59,11 @@ function validateFormData(data) {
 
     if (!data.content.trim()) {
         alert('내용을 입력해주세요.');
+        return false;
+    }
+
+    if (!data.paymentMethod) {
+        alert('결제수단을 선택해주세요.');
         return false;
     }
 
