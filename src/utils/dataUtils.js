@@ -35,13 +35,7 @@ export function deleteItem(itemIndex) {
 
 // 폼 데이터 유효성 검사
 export function validateFormData(date, amount, content, method, category) {
-  if (
-    !date ||
-    !amount ||
-    !content ||
-    method === "선택하세요" ||
-    category === "선택하세요"
-  ) {
+  if (!date || !amount || !content || !method || !category) {
     alert("모든 항목을 올바르게 입력해 주세요.");
     return false;
   }
@@ -60,13 +54,13 @@ export function processAmountSign(amount, currentToggleType) {
 }
 
 // 새 아이템 생성 (객체 반환)
-export function createNewItem(date, category, content, method, amount) {
+export function createNewItem(date, amount, content, method, category) {
   return {
     date,
-    category,
+    amount,
     content,
     method,
-    amount,
+    category,
   };
 }
 
@@ -86,4 +80,10 @@ export function onMonthChanged(year, month) {
     window.enterEditMode,
     window.deleteItem
   );
+
+  // 캘린더 업데이트
+  window.initCalendar();
+
+  // 통계 업데이트
+  window.updateStatistics(year, month);
 }

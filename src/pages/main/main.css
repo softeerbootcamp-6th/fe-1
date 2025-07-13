@@ -1,0 +1,470 @@
+/* 입력 행 스타일 */
+.input-row-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  overflow: visible;
+}
+
+/* 입력 행 내부 스타일 */
+.input-row {
+  display: flex;
+  align-items: center;
+  width: 98%;
+  max-width: 1400px;
+  border: 1px solid #b0b0b0;
+  border-radius: 4px;
+  background: #fff;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.summary-row-right {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-light-xs-size);
+  line-height: var(--font-light-xs-line);
+  font-weight: var(--font-weight-light);
+}
+
+/* 입력 행 내부 셀 스타일 */
+.input-cell {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 120px;
+  font-size: 1rem;
+  color: #222;
+  border-right: 1px solid #ddd;
+  background: #fff;
+  position: relative;
+  overflow: visible;
+}
+
+.input-cell span {
+  font-size: var(--font-light-xs-size);
+  line-height: var(--font-light-xs-line);
+  font-family: var(--font-family-sans);
+  font-weight: 300;
+}
+
+.input-cell-content-wrapper {
+  font-size: var(--font-light-xs-size);
+  line-height: var(--font-light-xxs-line);
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-cell-content-wrapper.stretch {
+  flex: 1;
+  width: 100%;
+  justify-content: space-between;
+}
+.input-cell-content-wrapper input {
+  width: 100%;
+}
+
+/* 입력 행 내부 셀 금액 스타일 */
+.input-cell.amount {
+  display: flex;
+  gap: 8px;
+}
+
+/* 입력 행 내부 셀 금액 입력 스타일 */
+.input-cell.amount input.amount-input {
+  display: inline-block;
+  width: 80%;
+  font-size: var(--font-light-xs-size);
+  line-height: var(--font-light-xxs-line);
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 6px 10px;
+  text-align: right;
+}
+
+.input-cell.amount input.amount-input:focus {
+  border: 1.5px solid var(--colorchip-80);
+  background: #fff;
+}
+
+.input-cell.amount input.amount-input::placeholder {
+  color: #bbb;
+  font-weight: normal;
+}
+
+/* 토글 버튼 스타일 */
+.toggle-btn {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.toggle-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.toggle-icon.active {
+  opacity: 1;
+}
+
+/* 입력 행 내부 셀 내용 스타일 */
+.input-cell.content {
+  flex: 2;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+/* 입력 행 내부 셀 내용 입력 스타일 */
+.input-cell.content input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  width: 100%;
+  color: #444;
+  background: transparent;
+}
+
+/* 입력 행 내부 셀 내용 글자수 스타일 */
+.input-cell.content .char-count {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+/* 입력 행 내부 셀 카테고리 스타일 */
+.input-cell.method {
+  padding: 0px;
+}
+
+/* 입력 행 내부 셀 카테고리 스타일 */
+.input-cell.method span {
+  padding: 0px 12px;
+}
+
+/* 입력 행 내부 셀 카테고리 스타일 */
+.input-cell.category {
+  padding: 0px;
+  border-right: none;
+}
+
+/* 입력 행 내부 셀 카테고리 스타일 */
+.input-cell.category span {
+  padding: 0px 12px;
+}
+
+/* 커스텀 드롭다운 스타일 */
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dropdown-selected {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #fff;
+  font-size: var(--font-light-xs-size);
+  color: #444;
+  transition: all 0.2s ease;
+}
+
+.dropdown-selected:hover {
+  border-color: #999;
+}
+
+.dropdown-arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+}
+
+.dropdown-selected.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 9999;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-options.show {
+  display: block;
+}
+
+.dropdown-option {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  padding: 2px 8px;
+  font-size: var(--font-light-xs-size);
+  color: #444;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
+}
+
+.dropdown-option:hover {
+  background-color: var(--neutral-surface-point);
+}
+
+.dropdown-option.selected {
+  color: var(--colorchip-80);
+}
+
+.dropdown-option.add-option {
+  color: var(--colorchip-80);
+  font-weight: 500;
+  border-top: 1px solid #e0e0e0;
+}
+
+.dropdown-option.add-option:hover {
+  background-color: #f0f7ff;
+}
+
+.add-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.delete-btn {
+  padding: 0px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.delete-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* 입력 행 내부 셀 제출 버튼 스타일 */
+.input-cell.submit {
+  justify-content: center;
+  min-width: 60px;
+}
+
+/* 입력 행 내부 셀 제출 버튼 스타일 */
+.circle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 가계부 리스트 스타일 */
+.history-list {
+  width: 98%;
+  max-width: 1400px;
+  margin: 32px auto 0 auto;
+}
+
+/* 가계부 내역 리스트 날짜 그룹 스타일 */
+.history-date-group {
+  margin-bottom: 32px;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* 가계부 내역 리스트 날짜 스타일 */
+.history-date {
+  font-size: var(--font-semibold-sm-size);
+  line-height: var(--font-semibold-sm-line);
+  font-family: var(--font-family-serif);
+  padding: 18px 24px 10px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+}
+
+/* 가계부 내역 리스트 날짜 합계 스타일 */
+.history-total {
+  font-size: var(--font-semibold-sm-size);
+  line-height: var(--font-semibold-sm-line);
+  font-family: var(--font-family-serif);
+  font-weight: var(--font-weight-light);
+}
+
+/* 가계부 내역 리스트 아이템 스타일 */
+.history-item {
+  display: flex;
+  align-items: stretch;
+  min-height: 60px;
+  background: var(--grayscale-100);
+}
+
+/* 가계부 내역 리스트 시작과 끝에만 테두리 스타일 */
+.history-date {
+  border-bottom: 1px solid #000;
+}
+
+.history-date-group .history-item:last-of-type {
+  border-bottom: 1px solid #000;
+}
+
+/* 가계부 내역 리스트 아이템 카테고리 스타일 */
+.history-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  max-width: 110px;
+  font-weight: 300;
+
+  text-align: center;
+
+  border-right: 1px solid #e0e0e0;
+}
+
+/* 가계부 내역 리스트 아이템 내용 스타일 */
+.history-content {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: #222;
+  background: #fafbfc;
+}
+
+/* 가계부 내역 리스트 아이템 방법 스타일 */
+.history-method {
+  min-width: 120px;
+  max-width: 120px;
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  justify-content: center;
+
+  font-size: 1.05rem;
+  color: #222;
+  background: #fafbfc;
+}
+
+/* 가계부 내역 리스트 아이템 금액 스타일 */
+.history-amount {
+  min-width: 120px;
+  max-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.05rem;
+  font-weight: 300;
+  padding-right: 24px;
+  background: #fafbfc;
+}
+
+/* 카테고리별 색상 클래스 */
+
+.history-category.category-생활 {
+  background: var(--colorchip-90);
+}
+.history-category.category-쇼핑\/뷰티 {
+  background: var(--colorchip-30);
+}
+
+.history-category.category-의료\/건강 {
+  background: var(--colorchip-50);
+}
+.history-category.category-식비 {
+  background: var(--colorchip-60);
+}
+.history-category.category-교통 {
+  background: var(--colorchip-70);
+}
+.history-category.category-문화\/여가 {
+  background: var(--pastel-perfume);
+}
+.history-category.category-미분류 {
+  background: var(--pastel-lavenderPink);
+}
+.history-category.category-월급 {
+  background: var(--colorchip-20);
+}
+.history-category.category-기타수입 {
+  background: var(--colorchip-10);
+}
+.history-category.category-용돈 {
+  background: var(--colorchip-40);
+}
+/* 금액 색상 변수 적용 */
+.history-amount.minus {
+  color: var(--brand-text-expense);
+}
+.history-amount.plus {
+  color: var(--brand-text-income);
+}
+
+/* 수정 모드 아이템 스타일 */
+.history-item.edit-mode {
+  background-color: #f1f4f8 !important;
+}
+
+.history-item.edit-mode .history-content,
+.history-item.edit-mode .history-method,
+.history-item.edit-mode .history-amount {
+  background-color: #f1f4f8 !important;
+}
+
+.history-item.edit-mode .history-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  padding-right: 6px;
+}
+
+.history-actions .delete-btn {
+  color: #ff4444;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}

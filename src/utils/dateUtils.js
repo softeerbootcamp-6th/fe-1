@@ -6,6 +6,20 @@ export function formatDateText(dateStr) {
   }요일`;
 }
 
+// 날짜를 YYYY-MM-DD 형식으로 포맷팅
+export function formatDateString(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+// 오늘 날짜인지 확인
+export function isDateToday(date) {
+  const today = new Date();
+  return date.toDateString() === today.toDateString();
+}
+
 // 입력 폼 날짜 업데이트 함수
 export function updateInputDate(currentYear, currentMonth, dateInput) {
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
@@ -17,6 +31,13 @@ export function updateInputDate(currentYear, currentMonth, dateInput) {
   const formattedDate = `${year}-${month}-${day}`;
 
   dateInput.value = formattedDate;
+
+  // 폼 유효성 검사 업데이트 (약간의 지연을 두어 DOM 업데이트 후 실행)
+  setTimeout(() => {
+    if (typeof window.updateFormValidation === "function") {
+      window.updateFormValidation();
+    }
+  }, 10);
 }
 
 // 헤더 월/년 업데이트 함수
