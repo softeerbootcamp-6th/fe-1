@@ -39,11 +39,13 @@ export const PaymentForm = (input) => {
 
     // 값 삭제
     if (e.target.closest(".delete-button")) {
-      const selectedLi = e.target.closest("li");
-      const selectedSpan = selectedLi.querySelector(".drop-down-li");
-      defaultPayment = defaultPayment.filter(
-        (item) => item !== selectedSpan.textContent
-      );
+      Modal.renderModal("delete", (isConfirm) => {
+        const selectedLi = e.target.closest("li");
+        const selectedSpan = selectedLi.querySelector(".drop-down-li");
+        defaultPayment = defaultPayment.filter(
+          (item) => item !== selectedSpan.textContent
+        );
+      });
     }
 
     // 이미지 업데이트
