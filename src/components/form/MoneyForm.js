@@ -12,10 +12,14 @@ export const MoneyForm = (input) => {
     `;
 
   const moneyTypeImg = moneyForm.querySelector(".money-input-wrapper > img");
-  moneyTypeImg.addEventListener("click", () => {
+  moneyTypeImg.addEventListener("click", (e) => {
     input.moneyType = input.moneyType === "income" ? "expense" : "income";
     moneyTypeImg.src = `./src/assets/${input.moneyType}.png`;
     moneyTypeImg.alt = `${input.moneyType} icon`;
+  });
+
+  moneyForm.addEventListener("input", (e) => {
+    input.money = e.target.value;
   });
   return moneyForm;
 };

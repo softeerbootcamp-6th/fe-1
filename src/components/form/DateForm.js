@@ -8,5 +8,9 @@ export const DateForm = (input) => {
     input.date.toISOString().split("T")[0]
   }" class="semibold-12">
   `;
+
+  dateForm.addEventListener("input", (e) => {
+    input.date = new Date(e.target.value);
+  });
   return dateForm;
 };
