@@ -34,14 +34,16 @@ const createPaymentMethod = () => {
     const selectContainer =
         paymentMethodItem.querySelector('.select-container');
     const selectLabel = paymentMethodItem.querySelector('.select-label');
+    const hiddenInput = paymentMethodItem.querySelector(
+        'input[name="paymentMethod"]'
+    );
 
     const dropdownOptions = createDropdownOptions(
         paymentMethodOptions,
         (value, label) => {
             selectLabel.textContent = label;
-            paymentMethodItem.querySelector(
-                'input[name="paymentMethod"]'
-            ).value = value;
+            hiddenInput.value = value;
+            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
         }
     );
 

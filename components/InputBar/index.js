@@ -29,15 +29,41 @@ function createForm(formItemsConfig) {
 function initInputBar(form) {
     form.addEventListener('submit', handleFormSubmit);
     setInitialState(form);
+    setupRealTimeValidation(form);
+}
+
+function setupRealTimeValidation(form) {
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (!submitButton) return;
+
+    updateSubmitButtonState(form, submitButton);
+
+    const inputs = form.querySelectorAll('input');
+    inputs.forEach((input) => {
+        input.addEventListener('input', () =>
+            updateSubmitButtonState(form, submitButton)
+        );
+    });
+}
+
+function updateSubmitButtonState(form, submitButton) {
+    const formData = collectFormData(form);
+    const isValid = validateFormData(formData);
+
+    submitButton.style.opacity = isValid ? '1' : '0.5';
+    submitButton.style.cursor = isValid ? 'pointer' : 'not-allowed';
+    submitButton.disabled = !isValid;
 }
 
 function handleFormSubmit(event) {
     event.preventDefault();
 
     const formData = collectFormData(event.target);
-    if (validateFormData(formData)) {
-        resetForm(event.target);
+    if (!validateFormData(formData)) {
+        return;
     }
+
+    resetForm(event.target);
 }
 
 function collectFormData(form) {
@@ -53,17 +79,14 @@ function collectFormData(form) {
 
 function validateFormData(data) {
     if (!data.amount || data.amount === 0) {
-        alert('금액을 입력해주세요.');
         return false;
     }
 
     if (!data.content.trim()) {
-        alert('내용을 입력해주세요.');
         return false;
     }
 
     if (!data.paymentMethod) {
-        alert('결제수단을 선택해주세요.');
         return false;
     }
 
@@ -80,4 +103,9 @@ function setInitialState(form) {
 function resetForm(form) {
     form.reset();
     setInitialState(form);
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (submitButton) {
+        updateSubmitButtonState(form, submitButton);
+    }
 }
