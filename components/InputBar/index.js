@@ -1,3 +1,5 @@
+import { extractNumbersOnly } from '../../lib/utils.js';
+
 export default function createInputBar(formItemsConfig) {
     if (!formItemsConfig) {
         throw new Error('formItemsConfig is required');
@@ -43,7 +45,7 @@ function collectFormData(form) {
     const formData = new FormData(form);
     return {
         date: formData.get('date') || new Date().toISOString().split('T')[0],
-        amount: parseFloat(formData.get('amount')) || 0,
+        amount: parseFloat(extractNumbersOnly(formData.get('amount'))) || 0,
         content: formData.get('content') || '',
         paymentMethod: formData.get('paymentMethod') || '',
         category: formData.get('category') || '',

@@ -1,3 +1,5 @@
+import { formatNumberInput } from '../../../lib/utils.js';
+
 const icon = {
     plus: {
         src: '/assets/icons/plus.svg',
@@ -28,7 +30,7 @@ const createAmount = () => {
                 />
             </button>
             <input
-                type="number"
+                type="text"
                 id="amount"
                 name="amount"
                 class="semibold-12 amount-input"
@@ -40,6 +42,7 @@ const createAmount = () => {
 
     const amountButton = amountItem.querySelector('.amount-button');
     const amountIcon = amountButton.querySelector('img');
+    const amountInput = amountItem.querySelector('.amount-input');
 
     amountButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -47,6 +50,10 @@ const createAmount = () => {
         const currentIcon = isMinus ? icon.minus : icon.plus;
         amountIcon.src = currentIcon.src;
         amountIcon.alt = currentIcon.alt;
+    });
+
+    amountInput.addEventListener('input', (event) => {
+        event.target.value = formatNumberInput(event.target.value);
     });
 
     return amountItem;
