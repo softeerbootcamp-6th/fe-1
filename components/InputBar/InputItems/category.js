@@ -60,7 +60,8 @@ const createCategory = () => {
                 hiddenInput.dispatchEvent(
                     new Event('input', { bubbles: true })
                 );
-            }
+            },
+            false
         );
 
         categoryItem.appendChild(currentDropdownOptions);

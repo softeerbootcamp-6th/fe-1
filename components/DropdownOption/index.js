@@ -1,37 +1,46 @@
-import { open, close } from '../../lib/utils.js';
+import { close } from '../../lib/utils.js';
 
-const createDropdownOption = (option) => {
+const createDropdownOption = (option, deleteOption) => {
     const optionContainer = document.createElement('div');
     optionContainer.className = 'dropdown-option-container';
 
     optionContainer.innerHTML = `
         <div class="dropdown-option" data-value="${option.value}">
             <span class="light-12 option-label">${option.label}</span>
-            <img 
-                src="/assets/icons/closed.red.svg" 
-                alt="Delete Icon" 
-                width="24" 
-                height="24" 
-                class="option-delete-button"
-            />
+            ${
+                deleteOption
+                    ? `
+                        <img 
+                            src="/assets/icons/closed.red.svg" 
+                            alt="Delete Icon" 
+                            width="24" 
+                            height="24" 
+                            class="option-delete-button"
+                        />
+                    `
+                    : ''
+            }
         </div>
     `;
 
     return optionContainer;
 };
 
-const createDropdownOptions = (options, onSelect) => {
+const createDropdownOptions = (options, onSelect, deleteOption) => {
     const optionsContainer = document.createElement('div');
     optionsContainer.className = 'dropdown-options';
     optionsContainer.style.display = 'none';
 
     options.forEach((option) => {
-        const optionElement = createDropdownOption(option);
+        const optionElement = createDropdownOption(option, deleteOption);
         optionsContainer.appendChild(optionElement);
     });
 
     optionsContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('option-delete-button')) {
+        if (
+            deleteOption &&
+            event.target.classList.contains('option-delete-button')
+        ) {
             event.stopPropagation();
             close(optionsContainer);
             deleteDropdownOption(

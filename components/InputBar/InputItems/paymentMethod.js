@@ -45,10 +45,18 @@ const createPaymentMethod = () => {
             selectLabel.style.color = 'var(--neutral-text-default)';
             hiddenInput.value = value;
             hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
-        }
+        },
+        true
     );
 
     paymentMethodItem.appendChild(dropdownOptions);
+
+    const addPaymentMethodButton = document.createElement('button');
+    addPaymentMethodButton.className = 'add-payment-method-button';
+    addPaymentMethodButton.innerHTML = `
+        <span class="light-12">추가하기</span>
+    `;
+    dropdownOptions.appendChild(addPaymentMethodButton);
 
     selectContainer.addEventListener('click', () => {
         toggle(dropdownOptions);
