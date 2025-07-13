@@ -1,4 +1,19 @@
-const categoryConfig = {
+const incomeCategoryConfig = {
+    salary: {
+        text: '월급',
+        color: 'colorchip-20',
+    },
+    other_income: {
+        text: '기타 수입',
+        color: 'colorchip-10',
+    },
+    allowance: {
+        text: '용돈',
+        color: 'colorchip-40',
+    },
+};
+
+const expenseCategoryConfig = {
     living: {
         text: '생활',
         color: 'colorchip-90',
@@ -27,18 +42,11 @@ const categoryConfig = {
         text: '미분류',
         color: 'colorchip-110',
     },
-    salary: {
-        text: '월급',
-        color: 'colorchip-20',
-    },
-    other_income: {
-        text: '기타 수입',
-        color: 'colorchip-10',
-    },
-    allowance: {
-        text: '용돈',
-        color: 'colorchip-40',
-    },
 };
 
-export default categoryConfig;
+const categoryConfig = {
+    ...incomeCategoryConfig,
+    ...expenseCategoryConfig,
+};
+
+export { incomeCategoryConfig, expenseCategoryConfig, categoryConfig };

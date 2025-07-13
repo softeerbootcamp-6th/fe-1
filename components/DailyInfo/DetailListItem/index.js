@@ -1,5 +1,5 @@
 import { formatNumberWithCommas } from '../../../lib/utils.js';
-import categoryConfig from './categoryConfig.js';
+import { categoryConfig } from './categoryConfig.js';
 
 function createDetailListItem({ category, description, payment, value }) {
     const categoryLabel = categoryConfig[category].text || '미분류';
