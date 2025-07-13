@@ -172,3 +172,36 @@ button#payment {
   width: 24px;
   height: 24px;
 }
+
+/** list **/
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 846px;
+  margin: 0 auto;
+}
+
+.list-overview {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.list-overview > .list-counter {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.list-overview > .list-type-container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.list-overview > .list-type-container img {
+  width: 16px;
+  height: 16px;
+}
