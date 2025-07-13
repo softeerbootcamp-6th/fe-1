@@ -8,6 +8,7 @@ const createPaymentMethod = () => {
             </label>
         </div>
         <div class="input-bar-item-wrapper">
+            <input type="hidden" name="paymentMethod" id="payment-method" value="" />
             <div class="select-container semibold-12">
                 선택하세요
             </div>

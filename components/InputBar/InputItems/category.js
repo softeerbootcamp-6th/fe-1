@@ -6,6 +6,7 @@ const createCategory = () => {
             <label for="category" class="light-12"> 분류 </label>
         </div>
         <div class="input-bar-item-wrapper">
+            <input type="hidden" name="category" id="category" value="" />
             <div class="select-container semibold-12">
                 선택하세요
             </div>

@@ -1,6 +1,5 @@
 import createHeader from './components/Header/index.js';
-import createInputBar from './components/InputBar/index.js';
-import createMonthlyInfo from './components/MonthlyInfo/index.js';
+import { createMain } from './js/mainpage.js';
 
 function init() {
     render();
@@ -8,17 +7,16 @@ function init() {
 
 function render() {
     const header = createHeader();
-    const inputBar = createInputBar();
-    const monthlyInfo = createMonthlyInfo();
 
     const headerContainer = document.getElementById('header-placeholder');
     headerContainer.innerHTML = '';
     headerContainer.appendChild(header);
 
+    const main = createMain();
+
     const mainContainer = document.getElementById('main-placeholder');
     mainContainer.innerHTML = '';
-    mainContainer.appendChild(inputBar);
-    mainContainer.appendChild(monthlyInfo);
+    main.map((item) => mainContainer.appendChild(item));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
