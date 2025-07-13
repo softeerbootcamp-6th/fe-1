@@ -5,6 +5,7 @@ import { PaymentForm } from "./PaymentForm.js";
 import { CategoryForm } from "./CategoryForm.js";
 import { FormChecker } from "./FormChecker.js";
 import { ElementManager } from "../../utils/ElementManager.js";
+import { InputValidator } from "../../utils/InputValidator.js";
 
 export const EntireForm = () => {
   const entireForm = ElementManager.renderElement("div", "entire-form");
@@ -29,9 +30,12 @@ export const EntireForm = () => {
   });
   entireForm.appendChild(FormChecker(input));
 
-  entireForm.addEventListener("input", (e) => {
-    const target = e.target;
-    if (!target.name) return;
+  entireForm.addEventListener("input", () => {
+    const isFullFilled = InputValidator.validateFullFilled(input);
+    if (isFullFilled) {
+      const formChecker = entireForm.querySelector(".form-checker");
+      formChecker.classList.add("active");
+    }
   });
 
   return entireForm;
