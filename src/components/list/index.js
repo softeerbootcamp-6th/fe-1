@@ -1,4 +1,6 @@
+import { DummyList } from "../../mocks/DummyList.js";
 import { ElementManager } from "../../utils/ElementManager.js";
+import { DayList } from "./DayList.js";
 import { ListTypeFilter } from "./ListTypeFilter.js";
 
 export const List = () => {
@@ -20,5 +22,9 @@ export const List = () => {
   listTypeFilterWrapper.appendChild(ListTypeFilter("expense"));
   listOverview.appendChild(listTypeFilterWrapper);
   list.appendChild(listOverview);
+
+  const listWrapper = ElementManager.renderElement("div", "list-wrapper");
+  listWrapper.appendChild(DayList(DummyList));
+  list.appendChild(listWrapper);
   return list;
 };

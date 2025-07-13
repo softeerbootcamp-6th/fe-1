@@ -176,6 +176,7 @@ button#payment {
 /** list **/
 .list {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 846px;
@@ -204,4 +205,41 @@ button#payment {
 .list-overview > .list-type-container img {
   width: 16px;
   height: 16px;
+}
+
+.list-wrapper {
+  width: 100%;
+}
+
+.list-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  height: 56px;
+  padding: 16px 16px 16px 0;
+}
+
+.list-item .category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 92px;
+  min-width: 92px;
+  padding: 16px 23px;
+  background-color: var(--colorchip-10);
+}
+
+.list-item .content {
+  width: 400px;
+}
+
+.list-item .payment {
+  width: 104px;
+}
+
+.list-item .money {
+  flex-grow: 1;
+  text-align: right;
 }
