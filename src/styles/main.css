@@ -24,10 +24,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
-.entire-form > div::after {
+.entire-form > div:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
   content: "";
   position: absolute;
   top: 0;
@@ -160,7 +159,6 @@ button#payment {
   height: 100%;
   background-color: var(--nuetral-text-default);
   opacity: 0.32;
-  border-radius: 50%;
 }
 
 .form-checker.active::before {
