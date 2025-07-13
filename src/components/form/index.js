@@ -31,6 +31,7 @@ export const EntireForm = () => {
 
   entireForm.addEventListener("input", (e) => {
     const target = e.target;
+    console.log("aaa");
     if (!target.name) return;
     if (target.name === "date") {
       input.date = new Date(target.value);

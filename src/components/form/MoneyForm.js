@@ -5,8 +5,8 @@ export const MoneyForm = (input) => {
   moneyForm.innerHTML = `
     <label for="money" class="light-12">금액</label>
     <div class="money-input-wrapper">
-      <img src="./src/assets/${input.moneyType}.png" alt="${input.moneyType} icon">
-      <input type="text" id="money" name="money" value="${input.money}">
+      <img src="./src/assets/expense.png" alt="expense icon">
+      <input type="text" id="money" name="money" placeholder="0">
       <span>원</span>
     </div>
     `;

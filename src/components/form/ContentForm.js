@@ -6,7 +6,7 @@ export const ContentForm = (input) => {
   contentForm.innerHTML = `
   <label for="content" class="light-12">내용</label>
   <input type="text" id="content" name="content" placeholder="입력하세요" maxlength="32" value="${input.content}">
-  <div class="light-12">${input.content.length}/${maxLength}</div>
+  <div class="light-12">0/32</div>
   `;
 
   const contentInput = contentForm.querySelector("input");
