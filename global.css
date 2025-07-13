@@ -1,13 +1,18 @@
+body {
+    margin: 0;
+}
+
 .header {
     background-color: #ababab;
     border-bottom: 1px solid #000000;
-    padding: 40px 20% 64px 20%;
+    padding: 40px 273px 64px 273px
 }
 
 .flex-row {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
 
 .flex-column {
@@ -54,4 +59,47 @@
 
 .month-text {
     font-size: 48px;
+}
+
+/* DailyListBlock */
+.daily-list-block {
+    align-items: center;
+    width: 100%;
+    height: 56px;
+    background-color: #ffffff;
+
+}
+
+.daily-list-block:hover {
+    background-color: #F1F4F8;
+    cursor: pointer;
+}
+
+.daily-list-block-content {
+    width: 400px;
+    text-align: start;
+}
+
+.daily-list-block-payment {
+    width: 104px;
+    text-align: start;
+}
+
+.daily-list-block-price {
+    width: 92px;
+    text-align: end;
+}
+
+/* TagBox */
+.tag-box {
+    display: flex;
+    background-color: aquamarine;
+    height: 56px;
+    width: 92px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tag {
+    font-size: 12px;
 }
