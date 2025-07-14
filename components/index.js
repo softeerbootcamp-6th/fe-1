@@ -6,6 +6,7 @@ import Header from "./Header/Header.js";
 import CategoryTag from "./CategoryTag/CategoryTag.js";
 import DailyHistory from "./DailyHistory/DailyHistory.js";
 import Select from "./Select/Select.js";
+import InputForm from "./InputForm/InputForm.js";
 
 export {
   Button,
@@ -16,4 +17,5 @@ export {
   CategoryTag,
   DailyHistory,
   Select,
+  InputForm,
 };
