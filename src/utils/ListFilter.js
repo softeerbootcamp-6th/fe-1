@@ -15,4 +15,13 @@ export const ListFilter = {
     });
     return groupedListByDate;
   },
+  groupTransactionsByMoneyType: (transactions, moneyTypeFilter) => {
+    return transactions.filter((transaction) => {
+      if (transaction.moneyType === "income") {
+        return moneyTypeFilter.isIncomeTypeOpen;
+      } else {
+        return moneyTypeFilter.isExpenseTypeOpen;
+      }
+    });
+  },
 };

@@ -11,13 +11,27 @@ export const List = () => {
     isIncomeTypeOpen: true,
   };
   const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, 8);
+  const groupedListByMoneyType = ListFilter.groupTransactionsByMoneyType(
+    groupedListByMonth,
+    moneyTypeFilter
+  );
+
+  // setup list wrpper
+  const renderListWrapper = (data) => {
+    listWrapper.innerHTML = ``;
+    const groupedListByDate = ListFilter.groupTransactionsByDate(data);
+    const groupedListKeys = Object.keys(groupedListByDate);
+    groupedListKeys.map((key) => {
+      listWrapper.appendChild(DateList(key, groupedListByDate[key]));
+    });
+  };
 
   // list overview
   const listOverview = ElementManager.renderElement("div", "list-overview");
   const listCounter = ElementManager.renderElement("div", "list-counter");
   listCounter.innerHTML = `
     <span>전체 내역</span>
-    <span>${groupedListByMonth.length}건</span>
+    <span class="total-count">${groupedListByMonth.length}건</span>
     `;
   listOverview.appendChild(listCounter);
 
@@ -25,19 +39,28 @@ export const List = () => {
     "div",
     "list-type-container"
   );
-  listTypeFilterWrapper.appendChild(ListTypeFilter("income", moneyTypeFilter));
-  listTypeFilterWrapper.appendChild(ListTypeFilter("expense", moneyTypeFilter));
+  listTypeFilterWrapper.appendChild(
+    ListTypeFilter(
+      "income",
+      groupedListByMonth,
+      moneyTypeFilter,
+      renderListWrapper
+    )
+  );
+  listTypeFilterWrapper.appendChild(
+    ListTypeFilter(
+      "expense",
+      groupedListByMonth,
+      moneyTypeFilter,
+      renderListWrapper
+    )
+  );
   listOverview.appendChild(listTypeFilterWrapper);
   list.appendChild(listOverview);
 
-  // list wrpper
+  // render list wrapper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
-  const groupedListByDate =
-    ListFilter.groupTransactionsByDate(groupedListByMonth);
-  const groupedListKeys = Object.keys(groupedListByDate);
-  groupedListKeys.map((key) => {
-    listWrapper.appendChild(DateList(key, groupedListByDate[key]));
-  });
   list.appendChild(listWrapper);
+  renderListWrapper(groupedListByMoneyType);
   return list;
 };
