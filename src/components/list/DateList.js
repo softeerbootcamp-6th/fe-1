@@ -4,15 +4,15 @@ import { ListItem } from "./ListItem.js";
 
 export const DateList = (date, list) => {
   const splitDate = date.split("-");
-  const dateList = ElementManager.renderElement("div", "list-day");
+  const dateList = ElementManager.renderElement("div", "list-date");
   const dateOverview = ElementManager.renderElement("div", [
-    "day-overview",
+    "date-overview",
     "serif-14",
   ]);
   dateOverview.innerHTML = `
   <div class="date">
     <span>${splitDate[1]}월 ${splitDate[2]}일</span>
-    <span>${DateManager.renderDay(date)}</span>
+    <span>${DateManager.renderDay(date)}요일</span>
   </div>
   <div class="money-counter">
     <div>
@@ -27,8 +27,7 @@ export const DateList = (date, list) => {
   `;
   dateList.appendChild(dateOverview);
 
-  const dateWrapper = ElementManager.renderElement("div", "day-wrapper");
-
+  const dateWrapper = ElementManager.renderElement("div", "date-wrapper");
   list.map((input) => {
     dateWrapper.appendChild(ListItem(input));
   });

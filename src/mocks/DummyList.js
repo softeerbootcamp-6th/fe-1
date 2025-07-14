@@ -1,5 +1,21 @@
 export const DummyList = [
   {
+    date: new Date("2023-07-25"),
+    moneyType: "expense",
+    money: 50000,
+    content: "식료품 구매",
+    payment: "신용카드",
+    category: "생활",
+  },
+  {
+    date: new Date("2023-07-30"),
+    moneyType: "expense",
+    money: 50000,
+    content: "식료품 구매",
+    payment: "신용카드",
+    category: "생활",
+  },
+  {
     date: new Date("2023-08-01"),
     moneyType: "expense",
     money: 50000,

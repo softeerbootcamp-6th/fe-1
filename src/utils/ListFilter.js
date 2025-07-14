@@ -1,4 +1,9 @@
 export const ListFilter = {
+  groupTransactionsByMonth: (transactions, month) => {
+    return transactions.filter(
+      (transaction) => transaction.date.getMonth() + 1 === month
+    );
+  },
   groupTransactionsByDate: (transactions) => {
     const groupedListByDate = {};
     transactions.map((transaction) => {

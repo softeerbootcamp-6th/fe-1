@@ -10,13 +10,14 @@ export const List = () => {
     isExpenseTypeOpen: true,
     isIncomeTypeOpen: true,
   };
+  const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, 8);
 
   // list overview
   const listOverview = ElementManager.renderElement("div", "list-overview");
   const listCounter = ElementManager.renderElement("div", "list-counter");
   listCounter.innerHTML = `
     <span>전체 내역</span>
-    <span>${DummyList.length}건</span>
+    <span>${groupedListByMonth.length}건</span>
     `;
   listOverview.appendChild(listCounter);
 
@@ -31,7 +32,8 @@ export const List = () => {
 
   // list wrpper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
-  const groupedListByDate = ListFilter.groupTransactionsByDate(DummyList);
+  const groupedListByDate =
+    ListFilter.groupTransactionsByDate(groupedListByMonth);
   const groupedListKeys = Object.keys(groupedListByDate);
   groupedListKeys.map((key) => {
     listWrapper.appendChild(DateList(key, groupedListByDate[key]));

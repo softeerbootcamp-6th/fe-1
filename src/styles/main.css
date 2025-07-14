@@ -208,25 +208,25 @@ button#payment {
   height: 16px;
 }
 
-.list-day {
+.list-date {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.day-overview {
+.date-overview {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.day-overview .date {
+.date-overview .date {
   display: flex;
   flex-direction: row;
   gap: 8px;
 }
 
-.day-overview .money-counter {
+.date-overview .money-counter {
   display: flex;
   flex-direction: row;
   gap: 8px;
