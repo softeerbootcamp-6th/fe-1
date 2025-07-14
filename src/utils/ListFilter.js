@@ -1,8 +1,8 @@
 export const ListFilter = {
   groupTransactionsByMonth: (transactions, month) => {
-    return transactions.filter(
-      (transaction) => transaction.date.getMonth() + 1 === month
-    );
+    return transactions
+      .filter((transaction) => transaction.date.getMonth() + 1 === month)
+      .sort((a, b) => b.date - a.date);
   },
   groupTransactionsByDate: (transactions) => {
     const groupedListByDate = {};
@@ -12,6 +12,12 @@ export const ListFilter = {
         groupedListByDate[date] = [];
       }
       groupedListByDate[date].push(transaction);
+    });
+    const groupedListKeys = Object.keys(groupedListByDate);
+    groupedListKeys.map((key) => {
+      groupedListByDate[key] = groupedListByDate[key].sort(
+        (a, b) => b.date - a.date
+      );
     });
     return groupedListByDate;
   },

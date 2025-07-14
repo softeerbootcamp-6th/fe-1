@@ -1,6 +1,6 @@
 export const DummyList = [
   {
-    date: new Date("2023-07-25"),
+    date: new Date("2023-07-25T10:30:00"),
     moneyType: "expense",
     money: 50000,
     content: "식료품 구매",
@@ -8,7 +8,7 @@ export const DummyList = [
     category: "생활",
   },
   {
-    date: new Date("2023-07-30"),
+    date: new Date("2023-07-30T10:30:00"),
     moneyType: "expense",
     money: 50000,
     content: "식료품 구매",
@@ -16,23 +16,23 @@ export const DummyList = [
     category: "생활",
   },
   {
-    date: new Date("2023-08-01"),
-    moneyType: "expense",
-    money: 50000,
-    content: "식료품 구매",
-    payment: "신용카드",
-    category: "생활",
-  },
-  {
-    date: new Date("2023-08-01"),
+    date: new Date("2023-08-01T11:00:00"),
     moneyType: "income",
     money: 2000000,
     content: "월급",
-    payment: "현금", // Assuming '현금' can represent bank transfer for income
+    payment: "현금",
     category: "월급",
   },
   {
-    date: new Date("2023-08-02"),
+    date: new Date("2023-08-01T10:30:00"),
+    moneyType: "expense",
+    money: 50000,
+    content: "식료품 구매",
+    payment: "신용카드",
+    category: "생활",
+  },
+  {
+    date: new Date("2023-08-02T12:00:00"),
     moneyType: "expense",
     money: 12000,
     content: "점심 식사",
@@ -40,7 +40,7 @@ export const DummyList = [
     category: "식비",
   },
   {
-    date: new Date("2023-08-02"),
+    date: new Date("2023-08-02T17:45:00"),
     moneyType: "expense",
     money: 3500,
     content: "버스비",
@@ -48,7 +48,7 @@ export const DummyList = [
     category: "교통",
   },
   {
-    date: new Date("2023-08-03"),
+    date: new Date("2023-08-03T15:00:00"),
     moneyType: "expense",
     money: 89000,
     content: "옷 구매",
@@ -56,7 +56,7 @@ export const DummyList = [
     category: "쇼핑/뷰티",
   },
   {
-    date: new Date("2023-08-03"),
+    date: new Date("2023-08-03T09:00:00"),
     moneyType: "income",
     money: 50000,
     content: "용돈",
@@ -64,7 +64,7 @@ export const DummyList = [
     category: "용돈",
   },
   {
-    date: new Date("2023-08-04"),
+    date: new Date("2023-08-04T19:00:00"),
     moneyType: "expense",
     money: 25000,
     content: "영화 관람",
@@ -72,7 +72,7 @@ export const DummyList = [
     category: "문화/여가",
   },
   {
-    date: new Date("2023-08-04"),
+    date: new Date("2023-08-04T14:30:00"),
     moneyType: "expense",
     money: 7500,
     content: "커피 및 간식",
@@ -80,7 +80,7 @@ export const DummyList = [
     category: "식비",
   },
   {
-    date: new Date("2023-08-05"),
+    date: new Date("2023-08-05T09:45:00"),
     moneyType: "expense",
     money: 45000,
     content: "병원 진료비",
@@ -88,7 +88,7 @@ export const DummyList = [
     category: "의료/건강",
   },
   {
-    date: new Date("2023-08-05"),
+    date: new Date("2023-08-05T18:00:00"),
     moneyType: "expense",
     money: 60000,
     content: "인터넷 요금",
@@ -96,7 +96,7 @@ export const DummyList = [
     category: "생활",
   },
   {
-    date: new Date("2023-08-06"),
+    date: new Date("2023-08-06T08:15:00"),
     moneyType: "expense",
     money: 9000,
     content: "택시비",
@@ -104,7 +104,7 @@ export const DummyList = [
     category: "교통",
   },
   {
-    date: new Date("2023-08-06"),
+    date: new Date("2023-08-06T10:00:00"),
     moneyType: "income",
     money: 10000,
     content: "은행 이자",
@@ -112,7 +112,7 @@ export const DummyList = [
     category: "기타수입",
   },
   {
-    date: new Date("2023-08-07"),
+    date: new Date("2023-08-07T13:30:00"),
     moneyType: "expense",
     money: 120000,
     content: "새 운동화 구매",
@@ -120,7 +120,7 @@ export const DummyList = [
     category: "쇼핑/뷰티",
   },
   {
-    date: new Date("2023-08-07"),
+    date: new Date("2023-08-07T16:00:00"),
     moneyType: "expense",
     money: 15000,
     content: "도서 구매",
@@ -128,7 +128,7 @@ export const DummyList = [
     category: "문화/여가",
   },
   {
-    date: new Date("2023-08-08"),
+    date: new Date("2023-08-08T07:00:00"),
     moneyType: "expense",
     money: 5000,
     content: "편의점 사용",
@@ -136,7 +136,7 @@ export const DummyList = [
     category: "미분류",
   },
   {
-    date: new Date("2023-08-08"),
+    date: new Date("2023-08-08T11:45:00"),
     moneyType: "income",
     money: 30000,
     content: "중고물품 판매",
@@ -144,7 +144,7 @@ export const DummyList = [
     category: "기타수입",
   },
   {
-    date: new Date("2023-08-09"),
+    date: new Date("2023-08-09T19:30:00"),
     moneyType: "expense",
     money: 20000,
     content: "외식",
@@ -152,7 +152,7 @@ export const DummyList = [
     category: "식비",
   },
   {
-    date: new Date("2023-08-09"),
+    date: new Date("2023-08-09T08:00:00"),
     moneyType: "expense",
     money: 2500,
     content: "지하철 요금",
@@ -160,7 +160,7 @@ export const DummyList = [
     category: "교통",
   },
   {
-    date: new Date("2023-08-10"),
+    date: new Date("2023-08-10T14:00:00"),
     moneyType: "expense",
     money: 70000,
     content: "피부과 방문",
@@ -168,7 +168,7 @@ export const DummyList = [
     category: "의료/건강",
   },
   {
-    date: new Date("2023-08-10"),
+    date: new Date("2023-08-10T20:00:00"),
     moneyType: "expense",
     money: 18000,
     content: "음악 스트리밍 구독",
