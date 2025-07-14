@@ -6,15 +6,13 @@ function renderStatistic() {
       <div class="statistics-content">
         <!-- 차트 영역 -->
         <div class="stats-chart">
-          <h3>지출 분석</h3>
           <div id="chart-placeholder"></div>
         </div>
         
         <!-- 카테고리별 상세 정보 -->
         <div class="stats-categories">
-          <h3>카테고리별 지출</h3>
           <div class="stats-period-title">
-            <span>총 지출: </span>
+            <span>이번 달 지출 금액</span>
             <span id="total-expense-amount">0원</span>
           </div>
           <div class="category-list" id="category-list">
@@ -23,6 +21,8 @@ function renderStatistic() {
         </div>
       </div>
     </div>
+    <!-- 카테고리별 월별 지출 추이 차트 랜더링 예정-->
+    <div class="trend-chart" id="trend-chart"></div>
   `;
 
   return statisticHTML;
@@ -33,6 +33,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const bodyContainer = document.getElementById("body-container");
   if (bodyContainer) {
     bodyContainer.innerHTML = renderStatistic();
-    if (typeof initStatistic === "function") initStatistic();
+    if (typeof initStatistic === "function") {
+      /**
+       * 차트 초기화를 비동기로 처리하여 렌더링 완료 후 실행하게끔 유도해야함... 너무 오래 걸렸다
+       * */
+      setTimeout(() => {
+        initStatistic();
+      }, 100);
+    } else {
+      console.error("initStatistic 함수를 찾을 수 없습니다");
+    }
   }
 });
