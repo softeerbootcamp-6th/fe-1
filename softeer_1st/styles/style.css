@@ -177,8 +177,17 @@
 .grow {
     flex-grow: 1;
 }
+.ml-16 {
+    margin-left: 16px;
+}
+.justify-start {
+    justify-content: flex-start;
+}
 .justify-center {
     justify-content: center;
+}
+.justify-end {
+    justify-content: flex-end;
 }
 .align-center {
     align-items: center;
@@ -266,7 +275,7 @@
     width: 897px;
     margin: 0 auto;
     left: 50%;
-    transform: translateX(-48%);
+    transform: translateX(-50%);
 }
 .form > .form-components {
     border-left: 1px solid var(--neutral-border-default);
@@ -439,6 +448,9 @@ button.form-category {
     gap: 16px;
     width: 100%;
 }
+.dates-card:hover{
+    background-color: var(--neutral-surface-point);
+}
 .dates-card > div:first-child{
     display: flex;
     justify-content: center;
@@ -461,4 +473,37 @@ button.form-category {
 }
 .income{
     color: var(--brand-text-income)
+}
+/* <div id="modal" class="modal hidden">
+            <div id="modal-title" class="modal-title"></div>
+            <div id="modal-content" class="modal-content"></div>
+            <div class="flex" class="modal-buttons">
+                <button id="modal-cancel">취소</button>
+                <button id="modal-feature">추가</button>
+            </div>
+        </div> */
+
+.modal.hidden {
+    display: none;
+}
+.modal{
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-backdrop {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+}
+.modal-center{
+    position: relative;
+    background: white;
+    z-index: 10000;
+}
+.modal-body{
+    padding: 32px;
 }

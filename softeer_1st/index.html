@@ -10,9 +10,25 @@
         <link rel="icon" href="./assets/favicon.png" type="image/x-icon" />
     </head>
     <body>
-        <header id="header"></header>
+        <header id="header" class="flex justify-center align-center"></header>
         <main id="main"></main>
         <script type="module" src="./main.js"></script>
-        
+        <div id="modal-root" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-center">
+                <div class="modal-body">
+                    <div
+                        id="modal-title"
+                        class="modal-title light-16"
+                        style="padding-bottom: 8px"
+                    ></div>
+                    <div id="modal-content" class="modal-content"></div>
+                </div>
+                <div class="flex" class="modal-buttons semibold-16">
+                    <button id="modal-cancel">취소</button>
+                    <button id="modal-feature">추가</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

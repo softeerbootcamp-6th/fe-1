@@ -1,0 +1,1128 @@
+[
+  {
+    "year": 2024,
+    "months": [
+      {
+        "month": 1,
+        "list": [
+          {
+            "date": 3,
+            "type": "income",
+            "category": "월급",
+            "description": "1월 급여",
+            "paymentMethod": "현금",
+            "amount": 2100000
+          },
+          {
+            "date": 12,
+            "type": "expense",
+            "category": "교통",
+            "description": "버스교통비 충전",
+            "paymentMethod": "현금",
+            "amount": 10000
+          },
+          {
+            "date": 12,
+            "type": "expense",
+            "category": "식비",
+            "description": "점심 김치찌개",
+            "paymentMethod": "현금",
+            "amount": 7000
+          },
+          {
+            "date": 18,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "영화 \"위시\" 관람",
+            "paymentMethod": "신용카드",
+            "amount": 12000
+          },
+          {
+            "date": 18,
+            "type": "expense",
+            "category": "식비",
+            "description": "영화관 팝콘 세트",
+            "paymentMethod": "신용카드",
+            "amount": 8500
+          },
+          {
+            "date": 24,
+            "type": "expense",
+            "category": "생활",
+            "description": "세탁세제 대용량 구매",
+            "paymentMethod": "신용카드",
+            "amount": 8900
+          },
+          {
+            "date": 14,
+            "amount": 2000000,
+            "type": "income",
+            "description": "입금 테스트",
+            "paymentMethod": "현금",
+            "category": "월급"
+          },
+          {
+            "date": 5,
+            "amount": 5000,
+            "type": "expense",
+            "description": "커피 구매",
+            "paymentMethod": "현대카드",
+            "category": "생활"
+          }
+        ]
+      },
+      {
+        "month": 2,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "2월 급여",
+            "paymentMethod": "현금",
+            "amount": 2100000
+          },
+          {
+            "date": 2,
+            "type": "expense",
+            "category": "식비",
+            "description": "아침 토스트 세트",
+            "paymentMethod": "현금",
+            "amount": 4500
+          },
+          {
+            "date": 7,
+            "type": "expense",
+            "category": "식비",
+            "description": "치킨 배달",
+            "paymentMethod": "신용카드",
+            "amount": 18500
+          },
+          {
+            "date": 7,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "넷플릭스 영화 대여",
+            "paymentMethod": "신용카드",
+            "amount": 4500
+          },
+          {
+            "date": 10,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "샴푸·린스 세트",
+            "paymentMethod": "신용카드",
+            "amount": 16500
+          },
+          {
+            "date": 10,
+            "type": "expense",
+            "category": "생활",
+            "description": "욕실 청소용품",
+            "paymentMethod": "신용카드",
+            "amount": 9800
+          },
+          {
+            "date": 16,
+            "type": "expense",
+            "category": "교통",
+            "description": "지하철 충전권",
+            "paymentMethod": "현금",
+            "amount": 5000
+          },
+          {
+            "date": 23,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "넷플릭스 정기결제",
+            "paymentMethod": "신용카드",
+            "amount": 14500
+          }
+        ]
+      },
+      {
+        "month": 3,
+        "list": [
+          {
+            "date": 4,
+            "type": "income",
+            "category": "월급",
+            "description": "3월 급여",
+            "paymentMethod": "현금",
+            "amount": 2120000
+          },
+          {
+            "date": 6,
+            "type": "expense",
+            "category": "식비",
+            "description": "회사 구내식당 점심",
+            "paymentMethod": "현금",
+            "amount": 6000
+          },
+          {
+            "date": 11,
+            "type": "expense",
+            "category": "생활",
+            "description": "방향제 교체",
+            "paymentMethod": "신용카드",
+            "amount": 7800
+          },
+          {
+            "date": 17,
+            "type": "expense",
+            "category": "교통",
+            "description": "버스 후불요금",
+            "paymentMethod": "신용카드",
+            "amount": 1350
+          },
+          {
+            "date": 25,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "치과 스케일링",
+            "paymentMethod": "신용카드",
+            "amount": 48000
+          }
+        ]
+      },
+      {
+        "month": 4,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "4월 급여",
+            "paymentMethod": "현금",
+            "amount": 2120000
+          },
+          {
+            "date": 5,
+            "type": "expense",
+            "category": "식비",
+            "description": "카페 아메리카노",
+            "paymentMethod": "현금",
+            "amount": 4500
+          },
+          {
+            "date": 9,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "벚꽃축제 간식",
+            "paymentMethod": "현금",
+            "amount": 9800
+          },
+          {
+            "date": 15,
+            "type": "expense",
+            "category": "교통",
+            "description": "KTX 왕복 예매",
+            "paymentMethod": "신용카드",
+            "amount": 99000
+          },
+          {
+            "date": 21,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "봄 자켓 구입",
+            "paymentMethod": "신용카드",
+            "amount": 65000
+          },
+          {
+            "date": 27,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "헬스장 1개월 등록",
+            "paymentMethod": "현금",
+            "amount": 75000
+          }
+        ]
+      },
+      {
+        "month": 5,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "5월 급여",
+            "paymentMethod": "현금",
+            "amount": 2135000
+          },
+          {
+            "date": 6,
+            "type": "expense",
+            "category": "식비",
+            "description": "어버이날 케이크",
+            "paymentMethod": "신용카드",
+            "amount": 28000
+          },
+          {
+            "date": 7,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "콘서트 예매",
+            "paymentMethod": "신용카드",
+            "amount": 110000
+          },
+          {
+            "date": 15,
+            "type": "expense",
+            "category": "생활",
+            "description": "선풍기 청소용품",
+            "paymentMethod": "신용카드",
+            "amount": 9800
+          },
+          {
+            "date": 20,
+            "type": "expense",
+            "category": "교통",
+            "description": "택시비",
+            "paymentMethod": "현금",
+            "amount": 18400
+          },
+          {
+            "date": 26,
+            "type": "expense",
+            "category": "미분류",
+            "description": "알 수 없는 소액결제",
+            "paymentMethod": "신용카드",
+            "amount": 1900
+          }
+        ]
+      },
+      {
+        "month": 6,
+        "list": [
+          {
+            "date": 3,
+            "type": "income",
+            "category": "월급",
+            "description": "6월 급여",
+            "paymentMethod": "현금",
+            "amount": 2135000
+          },
+          {
+            "date": 4,
+            "type": "expense",
+            "category": "식비",
+            "description": "점심 비빔밥",
+            "paymentMethod": "현금",
+            "amount": 7000
+          },
+          {
+            "date": 11,
+            "type": "expense",
+            "category": "생활",
+            "description": "주방세제 리필",
+            "paymentMethod": "신용카드",
+            "amount": 5600
+          },
+          {
+            "date": 18,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "썬크림 구매",
+            "paymentMethod": "신용카드",
+            "amount": 21000
+          },
+          {
+            "date": 22,
+            "type": "expense",
+            "category": "교통",
+            "description": "시외버스 요금",
+            "paymentMethod": "현금",
+            "amount": 14200
+          },
+          {
+            "date": 28,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "넷플릭스 정기결제",
+            "paymentMethod": "신용카드",
+            "amount": 14500
+          }
+        ]
+      },
+      {
+        "month": 7,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "7월 급여",
+            "paymentMethod": "현금",
+            "amount": 2150000
+          },
+          {
+            "date": 15,
+            "type": "income",
+            "category": "기타 수입",
+            "description": "프리랜서 번역료",
+            "paymentMethod": "현금",
+            "amount": 320000
+          },
+          {
+            "date": 1,
+            "type": "expense",
+            "category": "식비",
+            "description": "아침 샐러드",
+            "paymentMethod": "현금",
+            "amount": 6300
+          },
+          {
+            "date": 3,
+            "type": "expense",
+            "category": "생활",
+            "description": "세탁소 드라이",
+            "paymentMethod": "신용카드",
+            "amount": 9000
+          },
+          {
+            "date": 4,
+            "type": "expense",
+            "category": "교통",
+            "description": "후불 버스비",
+            "paymentMethod": "신용카드",
+            "amount": 1350
+          },
+          {
+            "date": 5,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "서점 만화책 2권",
+            "paymentMethod": "현금",
+            "amount": 18000
+          },
+          {
+            "date": 6,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "여름 티셔츠",
+            "paymentMethod": "신용카드",
+            "amount": 29000
+          },
+          {
+            "date": 7,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "약국 종합비타민",
+            "paymentMethod": "현금",
+            "amount": 23000
+          },
+          {
+            "date": 8,
+            "type": "expense",
+            "category": "식비",
+            "description": "저녁 삼겹살",
+            "paymentMethod": "신용카드",
+            "amount": 32000
+          },
+          {
+            "date": 9,
+            "type": "expense",
+            "category": "교통",
+            "description": "택시 심야할증",
+            "paymentMethod": "현금",
+            "amount": 24000
+          },
+          {
+            "date": 10,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "넷플릭스 정기결제",
+            "paymentMethod": "신용카드",
+            "amount": 14500
+          },
+          {
+            "date": 11,
+            "type": "expense",
+            "category": "생활",
+            "description": "전기세 납부",
+            "paymentMethod": "신용카드",
+            "amount": 52000
+          },
+          {
+            "date": 12,
+            "type": "expense",
+            "category": "미분류",
+            "description": "잡지 impulse 구매",
+            "paymentMethod": "신용카드",
+            "amount": 7200
+          },
+          {
+            "date": 13,
+            "type": "expense",
+            "category": "식비",
+            "description": "점심 초밥 세트",
+            "paymentMethod": "신용카드",
+            "amount": 15800
+          },
+          {
+            "date": 14,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "스니커즈 한 켤레",
+            "paymentMethod": "신용카드",
+            "amount": 67000
+          },
+          {
+            "date": 16,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "야구경기 입장권",
+            "paymentMethod": "현금",
+            "amount": 24000
+          },
+          {
+            "date": 17,
+            "type": "expense",
+            "category": "교통",
+            "description": "KTX 요금",
+            "paymentMethod": "신용카드",
+            "amount": 57000
+          },
+          {
+            "date": 18,
+            "type": "expense",
+            "category": "식비",
+            "description": "카페 아이스라떼",
+            "paymentMethod": "현금",
+            "amount": 5300
+          },
+          {
+            "date": 19,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "정형외과 물리치료",
+            "paymentMethod": "신용카드",
+            "amount": 44000
+          },
+          {
+            "date": 20,
+            "type": "expense",
+            "category": "생활",
+            "description": "휴대폰 요금",
+            "paymentMethod": "신용카드",
+            "amount": 59000
+          }
+        ]
+      },
+      {
+        "month": 8,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "8월 급여",
+            "paymentMethod": "현금",
+            "amount": 2150000
+          },
+          {
+            "date": 5,
+            "type": "expense",
+            "category": "식비",
+            "description": "분식 김밥·떡볶이",
+            "paymentMethod": "현금",
+            "amount": 8000
+          },
+          {
+            "date": 8,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "온라인 게임 결제",
+            "paymentMethod": "신용카드",
+            "amount": 19900
+          },
+          {
+            "date": 16,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "가을 셔츠 예약구매",
+            "paymentMethod": "신용카드",
+            "amount": 42000
+          },
+          {
+            "date": 22,
+            "type": "expense",
+            "category": "교통",
+            "description": "지하철 정기권",
+            "paymentMethod": "현금",
+            "amount": 55000
+          },
+          {
+            "date": 27,
+            "type": "expense",
+            "category": "생활",
+            "description": "정수기 필터 교체",
+            "paymentMethod": "신용카드",
+            "amount": 35000
+          }
+        ]
+      },
+      {
+        "month": 9,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "9월 급여",
+            "paymentMethod": "현금",
+            "amount": 2150000
+          },
+          {
+            "date": 3,
+            "type": "expense",
+            "category": "식비",
+            "description": "회사 구내식당 중식",
+            "paymentMethod": "현금",
+            "amount": 6500
+          },
+          {
+            "date": 9,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "독감 예방접종",
+            "paymentMethod": "현금",
+            "amount": 24000
+          },
+          {
+            "date": 14,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "헤어 트리트먼트",
+            "paymentMethod": "신용카드",
+            "amount": 21000
+          },
+          {
+            "date": 20,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "OTT 구독료",
+            "paymentMethod": "신용카드",
+            "amount": 14500
+          },
+          {
+            "date": 28,
+            "type": "expense",
+            "category": "교통",
+            "description": "시외버스 요금",
+            "paymentMethod": "현금",
+            "amount": 13400
+          }
+        ]
+      },
+      {
+        "month": 10,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "10월 급여",
+            "paymentMethod": "현금",
+            "amount": 2180000
+          },
+          {
+            "date": 7,
+            "type": "expense",
+            "category": "식비",
+            "description": "라면·맥주 야식",
+            "paymentMethod": "신용카드",
+            "amount": 9800
+          },
+          {
+            "date": 19,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "가을축제 입장권",
+            "paymentMethod": "현금",
+            "amount": 20000
+          },
+          {
+            "date": 23,
+            "type": "expense",
+            "category": "생활",
+            "description": "가을 전기요금",
+            "paymentMethod": "신용카드",
+            "amount": 47000
+          }
+        ]
+      },
+      {
+        "month": 11,
+        "list": [
+          {
+            "date": 4,
+            "type": "income",
+            "category": "월급",
+            "description": "11월 급여",
+            "paymentMethod": "현금",
+            "amount": 2180000
+          },
+          {
+            "date": 6,
+            "type": "expense",
+            "category": "교통",
+            "description": "버스 후불 요금",
+            "paymentMethod": "신용카드",
+            "amount": 1350
+          },
+          {
+            "date": 14,
+            "type": "expense",
+            "category": "식비",
+            "description": "연어 덮밥",
+            "paymentMethod": "신용카드",
+            "amount": 12800
+          },
+          {
+            "date": 22,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "콘텐츠 스트리밍",
+            "paymentMethod": "신용카드",
+            "amount": 14500
+          },
+          {
+            "date": 27,
+            "type": "expense",
+            "category": "생활",
+            "description": "고지서 수도요금",
+            "paymentMethod": "신용카드",
+            "amount": 31000
+          }
+        ]
+      },
+      {
+        "month": 12,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "12월 급여",
+            "paymentMethod": "현금",
+            "amount": 2180000
+          },
+          {
+            "date": 15,
+            "type": "income",
+            "category": "용돈",
+            "description": "연말 부모님 용돈",
+            "paymentMethod": "현금",
+            "amount": 300000
+          },
+          {
+            "date": 5,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "겨울 코트 할인구매",
+            "paymentMethod": "신용카드",
+            "amount": 129000
+          },
+          {
+            "date": 12,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "스키장 시즌권",
+            "paymentMethod": "신용카드",
+            "amount": 189000
+          },
+          {
+            "date": 20,
+            "type": "expense",
+            "category": "식비",
+            "description": "연말 회식",
+            "paymentMethod": "신용카드",
+            "amount": 43000
+          },
+          {
+            "date": 24,
+            "type": "expense",
+            "category": "미분류",
+            "description": "비상금 인출",
+            "paymentMethod": "현금",
+            "amount": 50000
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "months": [
+      {
+        "month": 1,
+        "list": [
+          {
+            "date": 3,
+            "type": "income",
+            "category": "월급",
+            "description": "1월 급여",
+            "paymentMethod": "현금",
+            "amount": 2200000
+          },
+          {
+            "date": 7,
+            "type": "expense",
+            "category": "식비",
+            "description": "편의점 컵라면",
+            "paymentMethod": "현금",
+            "amount": 2000
+          },
+          {
+            "date": 12,
+            "type": "expense",
+            "category": "교통",
+            "description": "전동 킥보드 대여",
+            "paymentMethod": "신용카드",
+            "amount": 3200
+          },
+          {
+            "date": 19,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "전자책 구매",
+            "paymentMethod": "신용카드",
+            "amount": 12000
+          },
+          {
+            "date": 25,
+            "type": "expense",
+            "category": "생활",
+            "description": "주방 타월 세트",
+            "paymentMethod": "신용카드",
+            "amount": 7500
+          },
+          {
+            "date": 7,
+            "amount": 21212121,
+            "type": "income",
+            "description": "ㅈㄷ;ㅣ걷ㄹ",
+            "paymentMethod": "현금",
+            "category": "월급"
+          }
+        ]
+      },
+      {
+        "month": 2,
+        "list": [
+          {
+            "date": 4,
+            "type": "income",
+            "category": "월급",
+            "description": "2월 급여",
+            "paymentMethod": "현금",
+            "amount": 2200000
+          },
+          {
+            "date": 6,
+            "type": "expense",
+            "category": "식비",
+            "description": "초밥 포장",
+            "paymentMethod": "신용카드",
+            "amount": 18000
+          },
+          {
+            "date": 14,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "발렌타인데이 초콜릿",
+            "paymentMethod": "현금",
+            "amount": 12000
+          },
+          {
+            "date": 20,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "피트니스 PT 1회",
+            "paymentMethod": "신용카드",
+            "amount": 60000
+          },
+          {
+            "date": 28,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "OTT 구독료",
+            "paymentMethod": "신용카드",
+            "amount": 14500
+          }
+        ]
+      },
+      {
+        "month": 3,
+        "list": [
+          {
+            "date": 3,
+            "type": "income",
+            "category": "월급",
+            "description": "3월 급여",
+            "paymentMethod": "현금",
+            "amount": 2220000
+          },
+          {
+            "date": 9,
+            "type": "expense",
+            "category": "식비",
+            "description": "점심 카레라이스",
+            "paymentMethod": "현금",
+            "amount": 8500
+          },
+          {
+            "date": 12,
+            "type": "expense",
+            "category": "생활",
+            "description": "세탁세제 리필",
+            "paymentMethod": "신용카드",
+            "amount": 9400
+          },
+          {
+            "date": 16,
+            "type": "expense",
+            "category": "교통",
+            "description": "버스 요금 충전",
+            "paymentMethod": "현금",
+            "amount": 20000
+          },
+          {
+            "date": 26,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "공연 예매",
+            "paymentMethod": "신용카드",
+            "amount": 55000
+          }
+        ]
+      },
+      {
+        "month": 4,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "4월 급여",
+            "paymentMethod": "현금",
+            "amount": 2220000
+          },
+          {
+            "date": 8,
+            "type": "expense",
+            "category": "식비",
+            "description": "봄나물 비빔밥",
+            "paymentMethod": "신용카드",
+            "amount": 9800
+          },
+          {
+            "date": 14,
+            "type": "expense",
+            "category": "교통",
+            "description": "택시 요금",
+            "paymentMethod": "현금",
+            "amount": 18700
+          },
+          {
+            "date": 21,
+            "type": "expense",
+            "category": "생활",
+            "description": "창고 정리박스",
+            "paymentMethod": "신용카드",
+            "amount": 23000
+          },
+          {
+            "date": 27,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "야구경기 간식",
+            "paymentMethod": "현금",
+            "amount": 12000
+          }
+        ]
+      },
+      {
+        "month": 5,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "5월 급여",
+            "paymentMethod": "현금",
+            "amount": 2240000
+          },
+          {
+            "date": 9,
+            "type": "expense",
+            "category": "식비",
+            "description": "초밥 세트 점심",
+            "paymentMethod": "신용카드",
+            "amount": 16500
+          },
+          {
+            "date": 16,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "약국 감기약",
+            "paymentMethod": "현금",
+            "amount": 8800
+          },
+          {
+            "date": 20,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "여름 모자",
+            "paymentMethod": "신용카드",
+            "amount": 22000
+          },
+          {
+            "date": 28,
+            "type": "expense",
+            "category": "교통",
+            "description": "고속버스 예매",
+            "paymentMethod": "신용카드",
+            "amount": 32000
+          }
+        ]
+      },
+      {
+        "month": 6,
+        "list": [
+          {
+            "date": 3,
+            "type": "income",
+            "category": "월급",
+            "description": "6월 급여",
+            "paymentMethod": "현금",
+            "amount": 2240000
+          },
+          {
+            "date": 4,
+            "type": "expense",
+            "category": "식비",
+            "description": "카페 라떼",
+            "paymentMethod": "현금",
+            "amount": 4800
+          },
+          {
+            "date": 11,
+            "type": "expense",
+            "category": "생활",
+            "description": "방향제 리필",
+            "paymentMethod": "신용카드",
+            "amount": 9700
+          },
+          {
+            "date": 19,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "넷플릭스 정기결제",
+            "paymentMethod": "신용카드",
+            "amount": 14500
+          },
+          {
+            "date": 25,
+            "type": "expense",
+            "category": "교통",
+            "description": "지하철 티머니 충전",
+            "paymentMethod": "현금",
+            "amount": 30000
+          }
+        ]
+      },
+      {
+        "month": 7,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "7월 급여",
+            "paymentMethod": "현금",
+            "amount": 2250000
+          },
+          {
+            "date": 6,
+            "type": "expense",
+            "category": "식비",
+            "description": "점심 냉면",
+            "paymentMethod": "신용카드",
+            "amount": 9000
+          },
+          {
+            "date": 12,
+            "type": "expense",
+            "category": "의료/건강",
+            "description": "스포츠 마사지",
+            "paymentMethod": "신용카드",
+            "amount": 55000
+          },
+          {
+            "date": 17,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "워터파크 입장권",
+            "paymentMethod": "신용카드",
+            "amount": 44000
+          },
+          {
+            "date": 23,
+            "type": "expense",
+            "category": "생활",
+            "description": "에어컨 필터 청소용품",
+            "paymentMethod": "신용카드",
+            "amount": 23000
+          }
+        ]
+      },
+      {
+        "month": 8,
+        "list": [
+          {
+            "date": 2,
+            "type": "income",
+            "category": "월급",
+            "description": "8월 급여",
+            "paymentMethod": "현금",
+            "amount": 2250000
+          },
+          {
+            "date": 4,
+            "type": "expense",
+            "category": "식비",
+            "description": "샌드위치 세트",
+            "paymentMethod": "현금",
+            "amount": 8900
+          },
+          {
+            "date": 11,
+            "type": "expense",
+            "category": "교통",
+            "description": "버스 후불 요금",
+            "paymentMethod": "신용카드",
+            "amount": 1350
+          },
+          {
+            "date": 18,
+            "type": "expense",
+            "category": "문화/여가",
+            "description": "여름 음악축제 티켓",
+            "paymentMethod": "신용카드",
+            "amount": 99000
+          },
+          {
+            "date": 24,
+            "type": "expense",
+            "category": "쇼핑/뷰티",
+            "description": "선글라스 구입",
+            "paymentMethod": "신용카드",
+            "amount": 54000
+          }
+        ]
+      }
+    ]
+  }
+]
