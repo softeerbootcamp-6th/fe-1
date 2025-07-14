@@ -9,7 +9,7 @@ export function initTransactionForm() {
     event: "submit",
     onEvent: (e) => {
       e.preventDefault();
-      addItem({ form: e.target });
+      handleTransactionFormSubmit({ form: e.target });
     },
   });
 
@@ -17,11 +17,11 @@ export function initTransactionForm() {
     id: "transaction-amount-type-toggle",
     event: "click",
     onEvent: (e) => {
-      toggleItemType({ btn: e.target });
+      handleTransactionTypeToggle({ btn: e.target });
     },
   });
 
-  addFormValidationListeners(
+  addTransactionFormValidationListeners(
     [
       "date-input",
       "amount-input",
@@ -29,11 +29,11 @@ export function initTransactionForm() {
       "method-select",
       "category-select",
     ],
-    validateForm
+    validateTransactionForm
   );
 }
 
-function validateForm() {
+function validateTransactionForm() {
   const form = document.getElementById("transaction-form");
   const date = form.querySelector('input[name="date"]').value;
   const amount = form.querySelector('input[name="amount"]').value;
@@ -49,7 +49,7 @@ function validateForm() {
   }
 }
 
-function addFormValidationListeners(ids, validateForm) {
+function addTransactionFormValidationListeners(ids, validateForm) {
   ids.forEach((id) => {
     addEventListener({
       id,
@@ -66,7 +66,7 @@ function addFormValidationListeners(ids, validateForm) {
   });
 }
 
-function addItem({ form }) {
+function handleTransactionFormSubmit({ form }) {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
   const item = {
@@ -80,7 +80,7 @@ function addItem({ form }) {
   });
 }
 
-function toggleItemType({ btn }) {
+function handleTransactionTypeToggle({ btn }) {
   const isMinus = btn.classList.contains("transaction-type-icon-minus");
 
   const form = btn.closest("form");
@@ -97,10 +97,8 @@ function toggleItemType({ btn }) {
   }
 }
 
-function renderTransactionForm() {
-  renderComponent({
-    id: "transaction-form",
-    innerHTML: `
+function createTransactionFormInnerHtml() {
+  return `
     <div class="transaction-form-row">
           <!-- 일자 -->
           <div class="transaction-form-col">
@@ -215,6 +213,14 @@ function renderTransactionForm() {
             </button>
           </div>
         </div>
-    `,
+    `;
+}
+
+function renderTransactionForm() {
+  renderComponent({
+    id: "transaction-form",
+    innerHTML: createTransactionFormInnerHtml(),
   });
+  // TODO - 렌더링 이후 유효성 검증 함수를 실행해야하는지
+  // validateTransactionForm();
 }
