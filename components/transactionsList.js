@@ -6,9 +6,7 @@ import {
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { getFilteringState } from "../pages.js";
 
-export function createTransactionList() {
-  const { isIncomeChecked, isExpenseChecked } = getFilteringState();
-
+export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListByYearMonth = getTransactionsByYearMonth(
     getCurrentYear(),
     getCurrentMonth()
@@ -97,19 +95,22 @@ export function createTransactionList() {
   `;
 }
 
-export function renderTransactionList() {
+export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListContainer = document.getElementById(
     "transaction-list-container"
   );
   if (transactionListContainer) {
-    transactionListContainer.innerHTML = createTransactionList();
+    transactionListContainer.innerHTML = createTransactionList(
+      isIncomeChecked,
+      isExpenseChecked
+    );
 
     // 삭제 버튼 이벤트 리스너 추가
     transactionListContainer.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = Number(btn.dataset.id);
         deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
-        renderTransactionList();
+        renderTransactionList(isIncomeChecked, isExpenseChecked);
       });
     });
   }

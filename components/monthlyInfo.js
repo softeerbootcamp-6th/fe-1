@@ -74,7 +74,7 @@ function setupMonthlyInfoEventListeners(container, monthlyData) {
 
       // 전역 상태 업데이트
       setFilteringState(isIncomeChecked, isExpenseChecked);
-      renderTransactionList();
+      renderTransactionList(isIncomeChecked, isExpenseChecked);
 
       // 체크박스 따라 내역 변경되지 않는 문제 수정 필요
       if (isIncomeChecked && !isExpenseChecked) {

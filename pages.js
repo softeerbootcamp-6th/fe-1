@@ -60,16 +60,7 @@ export function renderMainPage() {
     renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
   }
 
-  const transactionListContainer = mainContainer.querySelector(
-    "#transaction-list-container"
-  );
-  if (transactionListContainer) {
-    renderTransactionList(
-      transactionListContainer,
-      isIncomeChecked,
-      isExpenseChecked
-    );
-  }
+  renderTransactionList(isIncomeChecked, isExpenseChecked);
 }
 
 export function renderCalendarPage() {
