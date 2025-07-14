@@ -114,9 +114,24 @@ const DailyHistory = ({ date = "", items = [] } = {}) => {
       label: "삭제",
       size: "small",
       onClick: () => {
-        if (onDeleteItem) {
-          onDeleteItem(index);
+        li.remove();
+        if (ul.children.length === 0) {
+          article.remove();
         }
+
+        const transactionsData = localStorage.getItem("transactionsData");
+        const transactions = transactionsData
+          ? JSON.parse(transactionsData)
+          : {};
+
+        const monthKey =
+          item.date.split("-")[0] + "-" + item.date.split("-")[1];
+
+        transactions[monthKey] = transactions[monthKey].filter(
+          (transaction) => transaction.id !== item.id
+        );
+
+        localStorage.setItem("transactionsData", JSON.stringify(transactions));
       },
     });
     deleteButton.className = "content-row__delete-button font-semibold-12";
