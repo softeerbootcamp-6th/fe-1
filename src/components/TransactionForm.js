@@ -23,6 +23,14 @@ export function initTransactionForm() {
     },
   });
 
+  addEventListener({
+    id: "desc-input",
+    event: "input",
+    onEvent: (e) => {
+      updateDescriptionCount({ descInput: e.target });
+    },
+  });
+
   addTransactionFormValidationListeners(
     [
       "date-input",
@@ -66,6 +74,13 @@ function addTransactionFormValidationListeners(ids, validateForm) {
       });
     }
   });
+}
+
+function updateDescriptionCount({ descInput }) {
+  const descCount = document.getElementById("desc-count");
+  if (descInput && descCount) {
+    descCount.textContent = `${descInput.value.length}/32`;
+  }
 }
 
 function handleTransactionFormSubmit({ form }) {
