@@ -7,6 +7,7 @@ import {
   initCategoryDropdown,
   initInputChanges,
 } from "./input.js";
+import { records, renderRecords, renderRecordByDate, getFormattedDate } from "./records.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
   // 헤더 html 로딩 후 초기화
@@ -20,6 +21,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   initPaymentDropdown();
   initInputChanges();
   getInputValues();
+
+  renderRecords(records);
 });
 
 window.addEventListener("hashchange", loadPage);
