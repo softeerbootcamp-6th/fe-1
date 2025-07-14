@@ -1,3 +1,6 @@
+/*
+    이제 서버에서 가져오므로 사용안함
+*/
 export const dummyEntries = [
   {
     date: "2025-07-10",
