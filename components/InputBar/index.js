@@ -1,7 +1,5 @@
 import { extractNumbersOnly } from '../../lib/utils.js';
 
-let isIncomeMode = false;
-
 export default function createInputBar(formItemsConfig) {
     if (!formItemsConfig) {
         throw new Error('formItemsConfig is required');
@@ -32,36 +30,6 @@ function initInputBar(form) {
     form.addEventListener('submit', handleFormSubmit);
     setInitialState(form);
     setupRealTimeValidation(form);
-    setupAmountButtonListener(form);
-}
-
-function setupAmountButtonListener(form) {
-    const amountButton = form.querySelector('.amount-button');
-    if (amountButton) {
-        amountButton.addEventListener('click', () => {
-            isIncomeMode = !isIncomeMode;
-
-            const categoryItem = form
-                .querySelector('input[name="category"]')
-                ?.closest('.input-bar-item');
-            if (categoryItem && categoryItem.updateCategories) {
-                categoryItem.updateCategories(isIncomeMode);
-            }
-
-            const categoryLabel = categoryItem?.querySelector('.select-label');
-            const categoryInput = categoryItem?.querySelector(
-                'input[name="category"]'
-            );
-            if (categoryLabel && categoryInput) {
-                categoryLabel.textContent = '선택하세요';
-                categoryLabel.style.color = 'var(--neutral-text-weak)';
-                categoryInput.value = '';
-                categoryInput.dispatchEvent(
-                    new Event('input', { bubbles: true })
-                );
-            }
-        });
-    }
 }
 
 function setupRealTimeValidation(form) {

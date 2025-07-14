@@ -1,4 +1,5 @@
 import { formatNumberInput } from '../../../lib/utils.js';
+import formStore from '../../../store/form.js';
 
 const icon = {
     plus: {
@@ -50,6 +51,8 @@ const createAmount = () => {
         const currentIcon = isMinus ? icon.minus : icon.plus;
         amountIcon.src = currentIcon.src;
         amountIcon.alt = currentIcon.alt;
+
+        formStore.toggleIncomeMode();
     });
 
     amountInput.addEventListener('input', (event) => {
