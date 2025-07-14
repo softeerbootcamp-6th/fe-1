@@ -1,4 +1,19 @@
+import dateStore from "../../store/dateStore.js";
+
 function Header() {
+    const updateDateText = () => {
+        const { year, month } = dateStore.getCurrentDate();
+        document.getElementById("year-text").textContent = `${year}`;
+        document.getElementById("month-text").textContent = `${month}`;
+
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        document.querySelector(".date-container span:last-child").textContent = monthNames[month - 1];
+    };
+
     return {
         element: `
             <header>
@@ -6,15 +21,15 @@ function Header() {
                     <div class="flex-row">
                         <span class="logo">Wise Wallet</span>
                         <div class="flex-row">
-                            <button class="arrow-icon">
+                            <button class="arrow-icon" id="prev-month">
                                 <img src="assets/icons/chevron-left.svg" alt="이전 달">
                             </button>
                             <div class="date-container">
-                                <span class="year-text">2023</span>
-                                <span class="month-text">8</span>
+                                <span class="year-text" id="year-text"></span>
+                                <span class="month-text" id="month-text"></span>
                                 <span>August</span>
                             </div>
-                            <button class="arrow-icon">
+                            <button class="arrow-icon" id="next-month">
                                 <img src="assets/icons/chevron-right.svg" alt="다음 달">
                             </button>
                         </div>
@@ -33,6 +48,23 @@ function Header() {
                 </div>
             </header>
         `,
+        init: () => {
+
+
+            // 초기 날짜 표시
+            updateDateText();
+
+            // 버튼 이벤트 연결
+            document.getElementById("prev-month").addEventListener("click", () => {
+                dateStore.decreaseMonth();
+                updateDateText();
+            });
+
+            document.getElementById("next-month").addEventListener("click", () => {
+                dateStore.increaseMonth();
+                updateDateText();
+            });
+        }
     }
 }
 
