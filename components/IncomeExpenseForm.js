@@ -28,7 +28,8 @@ export function renderIncomeExpenseForm() {
                 <button class="money-button">
                     <img src="../assets/icons/plus.svg"/>
                 </button>
-                <input id="money-input" type="string" class="money-input"></input>
+                <input id="money-input" type="string" class="money-input" value="0"></input>
+                <span class="money-unit light12">원</span>
             </div>
         </div>
     `;
@@ -109,6 +110,7 @@ export function renderIncomeExpenseForm() {
   const moneyButton = form.querySelector('.money-button');
   const moneyButtonIcon = moneyButton.querySelector('img');
   const classSelect = form.querySelector('.class-select');
+  const moneyInput = form.querySelector('#money-input');
 
   moneyButton.addEventListener('click', e => {
     e.preventDefault();
@@ -119,6 +121,19 @@ export function renderIncomeExpenseForm() {
 
     // 클래스 옵션 업데이트
     updateClassSelect(incomeClasses, expenseClasses);
+  });
+
+  moneyInput.addEventListener('keyup', e => {
+    let moneyValue = Number(e.target.value.replace(/[^0-9]/g, '')); // 숫자가 아닌 것들은 제외
+    let formattedValue = moneyValue.toLocaleString('ko-KR'); // 세자리마다 콤마
+    e.target.value = formattedValue; // 입력 필드에 포맷된 값 설정
+  });
+
+  // 입력 시 기본값 0 제거
+  moneyInput.addEventListener('focus', e => {
+    if (e.target.value === '0') {
+      e.target.value = '';
+    }
   });
 
   const updateClassSelect = (incomeClasses, expenseClasses) => {
