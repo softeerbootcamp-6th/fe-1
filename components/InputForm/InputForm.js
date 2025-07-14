@@ -1,6 +1,7 @@
 import { Select } from "../index.js";
 
 const inputData = {
+  id: localStorage.getItem("currentId"),
   date: new Date().toISOString().split("T")[0],
   type: "expenses", // income, expenses
   amount: 0,
@@ -14,6 +15,7 @@ const validateInputForm = () => {
   const buttonImg = inputFormButton.querySelector("img");
 
   if (
+    inputData.id &&
     inputData.date &&
     inputData.amount &&
     inputData.description &&
@@ -39,8 +41,7 @@ const renderCategorySelect = async (inputFormElement) => {
   const categorySelect = await Select({
     label: "분류",
     options: categoryObject[inputData.type],
-    id: "category",
-    onSelect: (selectedOption) => {
+    onChange: (selectedOption) => {
       inputData.category = selectedOption;
       validateInputForm();
     },
@@ -110,6 +111,7 @@ const InputForm = async () => {
       inputData.type = "expenses";
     }
     renderCategorySelect(inputFormElement);
+    inputData.category = "";
     validateInputForm();
   });
 
@@ -120,9 +122,8 @@ const InputForm = async () => {
     await Select({
       label: "결제수단",
       options: JSON.parse(localStorage.getItem("method")),
-      id: "method",
       isEditable: true,
-      onSelect: (selectedOption) => {
+      onChange: (selectedOption) => {
         inputData.method = selectedOption;
         validateInputForm();
       },
@@ -134,11 +135,18 @@ const InputForm = async () => {
   inputFormElement.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const transactionsData = localStorage.getItem("transactions");
+    const transactionsData = localStorage.getItem("transactionsData");
     const transactions = transactionsData ? JSON.parse(transactionsData) : {};
 
     const monthKey =
       inputData.date.split("-")[0] + "-" + inputData.date.split("-")[1];
+
+    if (!transactions[monthKey]) {
+      transactions[monthKey] = [];
+    }
+    transactions[monthKey].push(inputData);
+    localStorage.setItem("transactionsData", JSON.stringify(transactions));
+    localStorage.setItem("currentId", Number(inputData.id) + 1);
   });
 
   return inputFormElement;
