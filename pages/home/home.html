@@ -13,51 +13,60 @@
   <body>
     <div id="header-container"></div>
     <main class="main">
-      <div id="add-input-container">
-        <form action="" class="add-input-form">
-          <div class="add-input add-input__date">
+      <div id="input-form-container">
+        <form action="" class="input-form">
+          <div class="input-form__row input-form__date">
             <label class="font-light-12" for="date">일자</label>
-            <input type="text" id="date" />
+            <input
+              class="input-form__date-input"
+              type="date"
+              id="date"
+              required
+            />
           </div>
-          <div class="add-input__divider"></div>
-          <div class="add-input add-input__amount">
+          <div class="input-form__row input-form__amount">
             <label class="font-light-12" for="amount">금액</label>
-            <div class="add-input__amount-wrapper">
-              <img
-                src="/assets/icons/minus.svg"
-                alt="minus-icon"
-                class="add-input__icon"
+            <div class="input-form__amount-wrapper">
+              <button
+                class="input-form__amount-icon input-form__amount-icon--minus"
+                type="button"
+              ></button>
+              <input
+                class="input-form__amount-input"
+                type="text"
+                id="amount"
+                placeholder="0"
+                required
               />
-              <input type="text" id="amount" placeholder="0" />
               <span class="font-light-14">원</span>
             </div>
           </div>
-          <div class="add-input__divider"></div>
-          <div class="add-input add-input__description">
-            <div class="add-input__description-wrapper">
+          <div class="input-form__row input-form__description">
+            <div class="input-form__description-wrapper">
               <label class="font-light-12" for="description">내용</label>
-              <span class="add-input__description-count font-light-12"
+              <span class="input-form__description-count font-light-12"
                 >0/32</span
               >
             </div>
             <input
+              class="input-form__description-input"
               type="text"
               id="description"
               placeholder="입력하세요"
               maxlength="32"
+              required
             />
           </div>
-          <div class="add-input__divider"></div>
-          <div class="add-input add-input__method">
-            <label class="font-light-12" for="method">결제수단</label>
-            <input type="text" id="method" />
-          </div>
-          <div class="add-input__divider"></div>
-          <div class="add-input add-input__category">
-            <label class="font-light-12" for="category">분류</label>
-            <input type="text" id="category" />
-          </div>
-          <button type="submit" class="add-input-form__button">
+          <div
+            id="method-select-container"
+            class="input-form__row input-form__method"
+          ></div>
+          <div
+            id="category-select-container"
+            class="input-form__row input-form__category"
+          ></div>
+
+          <button type="submit" class="input-form__button">
             <img
               src="/assets/icons/add-button-disabled.svg"
               alt="add-button-disabled"
@@ -76,6 +85,7 @@
         <div class="history__list"></div>
       </section>
     </main>
+    <div id="modal-container"></div>
     <script
       type="module"
       src="/components/DailyHistory/DailyHistory.js"
