@@ -212,11 +212,13 @@ export async function addEntryToDOM(entry) {
       <div class="entry-category ${category[entry.category]}">${entry.category}</div>
       <div class="entry-desc">${entry.desc}</div>
       <div class="entry-method">${entry.method}</div>
-      <div class="entry-amount ${amountClass}">${sign}${entry.amount.toLocaleString()}원</div>
-      <div class="delete-btn">
-        <div class="delete-icon-wrapper">
-        <img src="../../assets/icons/delete-botton.svg" alt="삭제" class="delete-icon"></img>
-        삭제
+      <div class="entry-amount-delete">
+        <div class="entry-amount ${amountClass}">${sign}${entry.amount.toLocaleString()}원</div>
+        <div class="delete-btn">
+          <div class="delete-icon-wrapper">
+          <img src="../../assets/icons/delete-botton.svg" alt="삭제" class="delete-icon"></img>
+          삭제
+          </div>
         </div>
       </div>
     `;

@@ -48,3 +48,11 @@
     display: flex;
     align-items: center;
 }
+
+.entry-amount-delete {
+    display: flex;
+    justify-content: space-between;
+    
+    align-items: center;
+    width: 180px;
+}
