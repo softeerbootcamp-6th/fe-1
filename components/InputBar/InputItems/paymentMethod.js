@@ -1,5 +1,6 @@
 import { createDropdownOptions } from '../../DropdownOption/index.js';
 import { toggle } from '../../../lib/utils.js';
+import createModal from '../../Modal/index.js';
 
 const paymentMethodOptions = [
     { value: 'card', label: '카드' },
@@ -60,6 +61,31 @@ const createPaymentMethod = () => {
 
     selectContainer.addEventListener('click', () => {
         toggle(dropdownOptions);
+    });
+
+    const modal = createModal({
+        okText: '추가',
+        onOk: () => {
+            const input = modal.querySelector('.input-payment-method');
+            paymentMethodOptions.push({
+                value: input.value,
+                label: input.value,
+            });
+
+            input.value = '';
+        },
+        content: `
+            <span class="light-16">추가하실 결제 수단을 입력해주세요.</span>
+            <input
+                class="semibold-12 input-payment-method"
+                type="text"
+                placeholder="입력하세요"
+            />
+        `,
+    });
+
+    addPaymentMethodButton.addEventListener('click', () => {
+        modal.open();
     });
 
     return paymentMethodItem;
