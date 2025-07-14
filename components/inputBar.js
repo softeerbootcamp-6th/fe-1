@@ -1,6 +1,6 @@
 import { addNewTransaction } from "../utils/transaction.js";
-import { renderMainPage } from "../pages.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
+import { renderTransactionList } from "./transactionsList.js";
 
 export function createInputBar() {
   return ` 
@@ -99,6 +99,6 @@ export function renderInputBar(container) {
     form.reset();
     amountToggle.textContent = "+";
 
-    renderMainPage();
+    renderTransactionList();
   });
 }

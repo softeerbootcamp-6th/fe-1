@@ -3,7 +3,8 @@ import {
   getTransactionsByYearMonth,
   monthlyTotalData,
 } from "../utils/transaction.js";
-import { renderMainPage, setFilteringState } from "../pages.js";
+import { setFilteringState } from "../pages.js";
+import { renderTransactionList } from "./transactionsList.js";
 
 export function createMonthlyInfo(
   monthlyData,
@@ -73,8 +74,7 @@ function setupMonthlyInfoEventListeners(container, monthlyData) {
 
       // 전역 상태 업데이트
       setFilteringState(isIncomeChecked, isExpenseChecked);
-
-      renderMainPage();
+      renderTransactionList();
 
       // 체크박스 따라 내역 변경되지 않는 문제 수정 필요
       if (isIncomeChecked && !isExpenseChecked) {
