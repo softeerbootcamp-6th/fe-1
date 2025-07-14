@@ -1,4 +1,5 @@
 import { items as DummyItems } from "./constants/items.js";
+import { getDateYMD } from "./utils/date.js";
 
 const observers = new Set();
 
@@ -18,6 +19,7 @@ function setState(newState) {
 const state = new Proxy(
   {
     items: DummyItems, // transaction list
+    curDate: getDateYMD(new Date()),
   },
   {
     set: (target, prop, value) => {

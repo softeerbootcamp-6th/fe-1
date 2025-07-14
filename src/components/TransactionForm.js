@@ -1,7 +1,6 @@
-import { setState, state } from "../store.js";
+import { addObservers, setState, state } from "../store.js";
 import { addEventListener } from "../utils/addEvent.js";
 import { renderComponent } from "../utils/render.js";
-
 export function initTransactionForm() {
   renderTransactionForm();
 
@@ -33,6 +32,7 @@ function addItem({ form }) {
 
   setState({
     items: [...state.items, item],
+    curDate: data.date,
   });
 }
 
@@ -68,7 +68,7 @@ function renderTransactionForm() {
               name="date"
               class="transaction-form-date-input font-semibold-12"
               type="date"
-              value="2023-08-17"
+              value="${state.curDate}"
             />
           </div>
           <!-- 금액 -->
