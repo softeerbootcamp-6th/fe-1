@@ -6,6 +6,7 @@ export function renderIncomeExpenseForm() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
   let isIncome = true; // true: 수입, false: 지출
+  let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
   const incomeClasses = ['용돈', '월급'];
   const expenseClasses = ['식비', '교통', '문화여가', '기타'];
@@ -40,7 +41,7 @@ export function renderIncomeExpenseForm() {
         <div class="description-container">
             <div class="description-label-container">
                 <label class="description-label light12" for="description-input">내용</label>
-                <span class="description-length light12">0/32</span>
+                <span class="description-length light12">${descriptionLength}/32</span>
             </div>
             <input id="description-input" type="text" class="description-input" maxlength="32"></input>
         </div>
@@ -111,6 +112,7 @@ export function renderIncomeExpenseForm() {
   const moneyButtonIcon = moneyButton.querySelector('img');
   const classSelect = form.querySelector('.class-select');
   const moneyInput = form.querySelector('#money-input');
+  const descriptionInput = form.querySelector('#description-input');
 
   moneyButton.addEventListener('click', e => {
     e.preventDefault();
@@ -133,6 +135,19 @@ export function renderIncomeExpenseForm() {
   moneyInput.addEventListener('focus', e => {
     if (e.target.value === '0') {
       e.target.value = '';
+    }
+  });
+
+  descriptionInput.addEventListener('keyup', e => {
+    descriptionLength = e.target.value.length;
+    const lengthSpan = form.querySelector('.description-length');
+    lengthSpan.textContent = `${descriptionLength}/32`;
+
+    // 32자 이상 입력 시 입력 받지 않음
+    if (descriptionLength > 32) {
+      e.target.value = e.target.value.slice(0, 32);
+      descriptionLength = 32;
+      lengthSpan.textContent = `${descriptionLength}/32`;
     }
   });
 
