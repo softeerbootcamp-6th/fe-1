@@ -140,11 +140,11 @@ body {
 }
 
 .entry-items .entry-row:first-child {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #000000;
 }
 
 .entry-items .entry-row:last-child {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #000;
 }
 
 .entry-list {
