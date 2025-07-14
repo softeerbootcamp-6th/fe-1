@@ -2739,6 +2739,27 @@ const items = {
   ],
 };
 
+const method = ["현금", "카드"];
+const category = {
+  income: ["월급", "용돈", "기타수입"],
+  expenses: [
+    "생활",
+    "식비",
+    "교통",
+    "쇼핑/뷰티",
+    "의료/건강",
+    "문화/여가",
+    "미분류",
+  ],
+};
 if (!localStorage.getItem("transactionsData")) {
   localStorage.setItem("transactionsData", JSON.stringify(items));
+}
+
+if (!localStorage.getItem("method")) {
+  localStorage.setItem("method", JSON.stringify(method));
+}
+
+if (!localStorage.getItem("category")) {
+  localStorage.setItem("category", JSON.stringify(category));
 }
