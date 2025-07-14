@@ -316,7 +316,7 @@ select:invalid {
   width: 40px;
   height: 40px;
   border-radius: 100%;
-  background: var(--nuetral-surface-weak);
+  background: var(--nuetral-text-default);
   border: none;
   outline: none;
   cursor: pointer;
@@ -327,11 +327,11 @@ select:invalid {
 }
 
 .add-button:hover {
-  background: var(--nuetral-surface-default);
+  background: var(--nuetral-text-default);
 }
 
 .add-button:active {
-  background: var(--nuetral-surface-default);
+  background: var(--nuetral-text-default);
 }
 
 .add-button img {
@@ -375,6 +375,15 @@ button:focus {
 
 button:hover {
   outline: none;
+  opacity: 0.8;
+}
+
+button:active {
+  opacity: 0.64;
+}
+
+button:disabled {
+  opacity: 0.32;
 }
 
 /* 버튼 내부 이미지 스타일 */
@@ -510,6 +519,7 @@ table {
 }
 
 .delete-btn-icon {
+  margin: 0 6px;
   color: var(--nuetral-surface-default);
   background-color: var(--danger-surface-default);
   border-radius: 100%;
@@ -518,6 +528,12 @@ table {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.delete-btn-icon img {
+  filter: brightness(0) invert(1);
+  width: 12px;
+  height: 12px;
 }
 
 tr:hover .delete-btn {

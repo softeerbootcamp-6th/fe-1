@@ -67,6 +67,7 @@ export function createInputBar() {
         required
         class="semibold-12 text-input"
       >
+        <option value="" disabled selected hidden>선택하세요</option>
         <option value="life">생활</option>
         <option value="food">식비</option>
         <option value="transportation">교통</option>

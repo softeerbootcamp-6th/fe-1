@@ -70,7 +70,9 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
                 class="delete-btn flex-row semibold-14" 
                 data-id="${transaction.id}"
                 >
-                <div class="delete-btn-icon">x</div>
+                <div class="delete-btn-icon">
+                  <img src="../icons/closed.svg" alt="delete" />
+                </div>
                 <div>삭제</div>
             </button>
           </td>
