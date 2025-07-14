@@ -1,8 +1,10 @@
 import { ElementManager } from "../../utils/ElementManager.js";
 import { ListFilter } from "../../utils/ListFilter.js";
+import { NumberManager } from "../../utils/NumberManager.js";
 
 export const ListTypeFilter = (
   type,
+  totalMoney,
   groupedListByMonth,
   entireFilter,
   renderListWrapper
@@ -11,7 +13,7 @@ export const ListTypeFilter = (
   listTypeFilter.innerHTML = `
   <img src="./src/assets/checkbox.png" alt="checkbox"/>
   <span>${type === "income" ? "수입" : "지출"}</span>
-  <span>0</span>
+  <span>${NumberManager.parseToCommaNumber(totalMoney)}</span>
   `;
 
   listTypeFilter.addEventListener("click", () => {

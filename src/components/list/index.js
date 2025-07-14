@@ -1,5 +1,6 @@
 import { DummyList } from "../../mocks/DummyList.js";
 import { ElementManager } from "../../utils/ElementManager.js";
+import { NumberManager } from "../../utils/NumberManager.js";
 import { ListFilter } from "../../utils/ListFilter.js";
 import { DateList } from "./DateList.js";
 import { ListTypeFilter } from "./ListTypeFilter.js";
@@ -39,9 +40,11 @@ export const List = () => {
     "div",
     "list-type-container"
   );
+  const totalMoney = NumberManager.calculateTotalMoney(groupedListByMoneyType);
   listTypeFilterWrapper.appendChild(
     ListTypeFilter(
       "income",
+      totalMoney.income,
       groupedListByMonth,
       moneyTypeFilter,
       renderListWrapper
@@ -50,6 +53,7 @@ export const List = () => {
   listTypeFilterWrapper.appendChild(
     ListTypeFilter(
       "expense",
+      totalMoney.expense,
       groupedListByMonth,
       moneyTypeFilter,
       renderListWrapper
