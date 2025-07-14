@@ -1,49 +1,63 @@
+export async function loadHeaderHTML() {
+  const headerEl = document.getElementById("header");
+  const res = await fetch("./components/header.html");
+  const html = await res.text();
+  headerEl.innerHTML = html;
+}
+
 export function initializeHeader() {
+  const headerEl = document.querySelector("header");
 
-const headerEl = document.querySelector('header');
+  const prevBtn = headerEl.querySelector(".prev-month");
+  const nextBtn = headerEl.querySelector(".next-month");
+  const yearEl = headerEl.querySelector(".year");
+  const monthEl = headerEl.querySelector(".month");
+  const monthEnEl = headerEl.querySelector(".month-en");
 
-const prevBtn = headerEl.querySelector('.prev-month');
-const nextBtn = headerEl.querySelector('.next-month');
-const yearEl = headerEl.querySelector('.year');
-const monthEl = headerEl.querySelector('.month');
-const monthEnEl = headerEl.querySelector('.month-en');
+  let currentYear = yearEl.textContent;
+  let currentMonth = monthEl.textContent;
+  console.log("initial value: ", currentYear, currentMonth);
+  const monthNames = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-
-let currentYear = yearEl.textContent;
-let currentMonth = monthEl.textContent;
-console.log("initial value: ", currentYear, currentMonth);
-const monthNames = ["",
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-];
-
-function updateDisplay() {
+  function updateDisplay() {
     yearEl.textContent = currentYear;
     monthEl.textContent = currentMonth;
     monthEnEl.textContent = monthNames[currentMonth];
-}
+  }
 
-prevBtn.addEventListener('click', () => {
+  prevBtn.addEventListener("click", () => {
     if (currentMonth === 1) {
-        currentMonth = 12;
-        currentYear--;
-    }
-    else {
-        currentMonth--;
+      currentMonth = 12;
+      currentYear--;
+    } else {
+      currentMonth--;
     }
 
-    console.log("prevBtn clicked", currentMonth, currentYear);
     updateDisplay();
-})
+  });
 
-nextBtn.addEventListener('click', () => {
-    if( currentMonth === 12) {
-        currentMonth = 1;
-        currentYear++;
+  nextBtn.addEventListener("click", () => {
+    if (currentMonth === 12) {
+      currentMonth = 1;
+      currentYear++;
+    } else {
+      currentMonth++;
     }
-    else{
-        currentMonth++;
-    }
-    console.log("nextBtn clicked", currentMonth, currentYear);
+
     updateDisplay();
-})}
+  });
+}

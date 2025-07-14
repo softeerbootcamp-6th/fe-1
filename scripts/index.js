@@ -1,5 +1,5 @@
 import { loadPage } from "./router.js";
-import { initializeHeader } from "./header.js";
+import { loadHeaderHTML, initializeHeader } from "./header.js";
 import {
   initToggleButton,
   getInputValues,
@@ -9,11 +9,11 @@ import {
 } from "./input.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
-  const headerEl = document.getElementById("header");
-  const res = await fetch("./components/header.html");
-  const html = await res.text();
-  headerEl.innerHTML = html;
+  // 헤더 html 로딩 후 초기화
+  await loadHeaderHTML();
   initializeHeader();
+
+  // 해시 값 별 각 페이지 로딩 후 초기화
   await loadPage();
   initToggleButton();
   initCategoryDropdown();
