@@ -27,13 +27,13 @@ export function updateTotalAmounts(){
     `;
     incomeDisplay.innerHTML = `
     <div class="total-income">
-        <img src="../../assets/icons/black-check.svg"></img>
+        <img src="../../assets/icons/checkbox.svg"></img>
         <div class="total-size">수입: ${totalIncome.toLocaleString()}원</div>
     </div>
     `;
     expenseDisplay.innerHTML =  `
     <div class="total-income">
-        <img src="../../assets/icons/black-check.svg"></img>
+        <img src="../../assets/icons/checkbox.svg"></img>
         <div class="total-size">지출: ${totalExpense.toLocaleString()}원</div>
     </div>
     `;
