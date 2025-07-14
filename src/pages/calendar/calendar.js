@@ -1,4 +1,4 @@
-import { dummyData } from "../../constants/dummy.js";
+import { accountBookStore } from "../../store/account-book-store.js";
 import {
   updateHeaderDate,
   formatDateString,
@@ -28,7 +28,7 @@ function initCalendar() {
     // 달력 초기화
     calendarBody.innerHTML = "";
 
-    // 6주 * 7일 = 42개 셀 생성
+    // 5주 * 7일 = 35개 셀 생성
     for (let i = 0; i < 35; i++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + i);
@@ -123,13 +123,15 @@ function initCalendar() {
   // 특정 날짜의 거래 내역을 가져오는 함수
   function getTransactionsForDate(date) {
     const dateString = formatDateString(date);
-    return dummyData.filter((item) => item.date === dateString);
+    const transactions = accountBookStore.getTransactions();
+    return transactions.filter((item) => item.date === dateString);
   }
 
   // 월별 요약 정보 업데이트 (utils의 getFilteredData 활용)
   function updateSummary(year, month) {
     // getFilteredData 함수 활용
-    const monthlyData = getFilteredData(dummyData, year, month);
+    const transactions = accountBookStore.getTransactions();
+    const monthlyData = getFilteredData(transactions, year, month);
 
     const totalIncome = monthlyData
       .filter((item) => item.amount > 0)
