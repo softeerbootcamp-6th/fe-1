@@ -11,11 +11,17 @@ export function renderIncomeExpenseForm() {
   const expenseClasses = ['식비', '교통', '문화여가', '기타'];
 
   // TODO: select UI 구현 (현재는 단순한 select로 구현)
-  form.innerHTML = `
+  const getDateContainerHTML = () => {
+    return `
         <div class="date-container">
             <label class="date-label">날짜</label>
             <input type="date" class="date-input" name="date" value="${formattedDate}">
         </div>
+    `;
+  };
+
+  const getMoneyContainerHTML = () => {
+    return `
         <div class="money-container">
             <label class="money-label">금액</label>
             <button class="money-button">
@@ -23,11 +29,21 @@ export function renderIncomeExpenseForm() {
             </button>
             <input type="string" class="money-input"></input>
         </div>
+    `;
+  };
+
+  const getDescriptionContainerHTML = () => {
+    return `
         <div class="description-container">
             <label class="description-label">내용</label>
             <span class="description-length">0/32</span>
             <input type="text" class="description-input" maxlength="32"></input>
         </div>
+    `;
+  };
+
+  const getPaymentContainerHTML = () => {
+    return `
         <div class="payment-container">
             <label class="payment-label">결제수단</label>
             <select class="payment-select">
@@ -36,6 +52,11 @@ export function renderIncomeExpenseForm() {
                   .join('')}
             </select>
         </div>
+    `;
+  };
+
+  const getClassContainerHTML = () => {
+    return `
         <div class="class-container">
             <label class="class-label">분류</label>
             <select class="class-select">
@@ -44,7 +65,15 @@ export function renderIncomeExpenseForm() {
                   .join('')}
             </select>
         </div>
+        `;
+  };
 
+  form.innerHTML = `
+    ${getDateContainerHTML()}
+    ${getMoneyContainerHTML()}
+    ${getDescriptionContainerHTML()}
+    ${getPaymentContainerHTML()}
+    ${getClassContainerHTML()}
     `;
 
   return form;
