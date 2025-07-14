@@ -56,101 +56,52 @@
   --colorchip-120: var(--pastel-chestnut);
 }
 
-/* === Grayscale text === */
-.text-grayscale-50 {
-  color: var(--grayscale-50);
+/* === Neutral Tokens === */
+.text-neutral-surface-weak {
+  color: var(--neutral-surface-weak);
 }
-.text-grayscale-100 {
-  color: var(--grayscale-100);
+.text-neutral-surface-default {
+  color: var(--neutral-surface-default);
 }
-.text-grayscale-200 {
-  color: var(--grayscale-200);
-}
-.text-grayscale-300 {
-  color: var(--grayscale-300);
-}
-.text-grayscale-400 {
-  color: var(--grayscale-400);
+.text-neutral-surface-point {
+  color: var(--neutral-surface-point);
 }
 
-/* === Pastel text === */
-.text-pastel-almondFrost {
-  color: var(--pastel-almondFrost);
+.text-neutral-text-weak {
+  color: var(--neutral-text-weak);
 }
-.text-pastel-porsche {
-  color: var(--pastel-porsche);
+.text-neutral-text-default {
+  color: var(--neutral-text-default);
 }
-.text-pastel-chenin {
-  color: var(--pastel-chenin);
-}
-.text-pastel-caper {
-  color: var(--pastel-caper);
-}
-.text-pastel-cruise {
-  color: var(--pastel-cruise);
-}
-.text-pastel-onahau {
-  color: var(--pastel-onahau);
-}
-.text-pastel-glacier {
-  color: var(--pastel-glacier);
-}
-.text-pastel-seagull {
-  color: var(--pastel-seagull);
-}
-.text-pastel-jordyBlue {
-  color: var(--pastel-jordyBlue);
-}
-.text-pastel-perano {
-  color: var(--pastel-perano);
-}
-.text-pastel-perfume {
-  color: var(--pastel-perfume);
-}
-.text-pastel-lavenderPink {
-  color: var(--pastel-lavenderPink);
-}
-.text-pastel-amaranth {
-  color: var(--pastel-amaranth);
-}
-.text-pastel-chestnut {
-  color: var(--pastel-chestnut);
+.text-neutral-text-rev-default {
+  color: var(--neutral-text-rev-default);
 }
 
-/* === Colorchip text === */
-.text-colorchip-10 {
-  color: var(--colorchip-10);
+.text-neutral-border-default {
+  color: var(--neutral-border-default);
 }
-.text-colorchip-20 {
-  color: var(--colorchip-20);
+
+/* === Brand Tokens === */
+.text-brand-surface-default {
+  color: var(--brand-surface-default);
 }
-.text-colorchip-30 {
-  color: var(--colorchip-30);
+.text-brand-text-income {
+  color: var(--brand-text-income);
 }
-.text-colorchip-40 {
-  color: var(--colorchip-40);
+.text-brand-text-expense {
+  color: var(--brand-text-expense);
 }
-.text-colorchip-50 {
-  color: var(--colorchip-50);
+
+/* === Danger Tokens === */
+.text-danger-surface-default {
+  color: var(--danger-surface-default);
 }
-.text-colorchip-60 {
-  color: var(--colorchip-60);
+.text-danger-text-default {
+  color: var(--danger-text-default);
 }
-.text-colorchip-70 {
-  color: var(--colorchip-70);
+.text-danger-text-rev-default {
+  color: var(--danger-text-rev-default);
 }
-.text-colorchip-80 {
-  color: var(--colorchip-80);
-}
-.text-colorchip-90 {
-  color: var(--colorchip-90);
-}
-.text-colorchip-100 {
-  color: var(--colorchip-100);
-}
-.text-colorchip-110 {
-  color: var(--colorchip-110);
-}
-.text-colorchip-120 {
-  color: var(--colorchip-120);
+.text-danger-border-default {
+  color: var(--danger-border-default);
 }
