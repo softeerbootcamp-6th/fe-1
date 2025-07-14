@@ -1,5 +1,7 @@
 import Modal from "../Modal/Modal.js";
 
+const modalContainer = document.getElementById("modal-container");
+
 const Select = async ({
   id,
   label,
@@ -53,9 +55,22 @@ const Select = async ({
         deleteButtonIcon.alt = "delete-item";
         deleteButton.appendChild(deleteButtonIcon);
 
-        listItem.addEventListener("click", () => {
-          options = options.filter((item) => item !== option);
-          localStorage.setItem("method", JSON.stringify(options));
+        deleteButton.addEventListener("click", (e) => {
+          e.stopPropagation();
+
+          const modal = Modal({
+            className: "modal--delete-method",
+            type: "delete",
+            text: "해당 결제 수단을 삭제하시겠습니까?",
+            value: option,
+            onConfirm: (value) => {
+              options = options.filter((item) => item !== value);
+              localStorage.setItem("method", JSON.stringify(options));
+            },
+          });
+
+          modalContainer.appendChild(modal);
+          modal.showModal();
         });
 
         selectItemContent.appendChild(deleteButton);
@@ -86,9 +101,9 @@ const Select = async ({
       addButton.type = "button";
 
       listItem.addEventListener("click", () => {
-        const modalContainer = document.getElementById("modal-container");
         const modal = Modal({
-          className: "modal--add-category",
+          className: "modal--add-method",
+          type: "add",
           text: "추가하실 결제 수단을 입력해주세요.",
           placeholder: "카테고리 이름",
           onConfirm: (value) => {
@@ -116,13 +131,13 @@ const Select = async ({
     });
 
     // 외부 클릭시 닫기
-    // document.addEventListener("click", (e) => {
-    //   if (!selectElement.contains(e.target)) {
-    //     selectList.classList.remove("select-list--open");
-    //     const selectIcon = selectWrapper.querySelector(".select-icon");
-    //     selectIcon.classList.remove("select-icon--open");
-    //   }
-    // });
+    document.addEventListener("click", (e) => {
+      if (!selectElement.contains(e.target)) {
+        selectList.classList.remove("select-list--open");
+        const selectIcon = selectWrapper.querySelector(".select-icon");
+        selectIcon.classList.remove("select-icon--open");
+      }
+    });
 
     return selectElement;
   } catch (error) {
