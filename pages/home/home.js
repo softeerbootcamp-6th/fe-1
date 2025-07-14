@@ -4,17 +4,9 @@ import {
   CategoryTag,
   DailyHistory,
   Select,
+  InputForm,
 } from "../../components/index.js";
 import { getCurrentMonth } from "../../utils/month.js";
-
-const inputData = {
-  date: new Date().toISOString().split("T")[0],
-  type: "expenses", // income, expenses
-  amount: 0,
-  description: "",
-  method: "",
-  category: "",
-};
 
 const renderHeader = () => {
   const header = Header({
@@ -25,83 +17,8 @@ const renderHeader = () => {
 };
 
 const renderInputForm = async () => {
-  const dateInput = document.querySelector(".input-form__date-input");
-  const amountInput = document.querySelector(".input-form__amount-input");
-  const descriptionInput = document.querySelector(
-    ".input-form__description-input"
-  );
-  const descriptionCount = document.querySelector(
-    ".input-form__description-count"
-  );
-
-  dateInput.value = inputData.date;
-  amountInput.value = inputData.amount;
-  descriptionInput.value = inputData.description;
-
-  dateInput.addEventListener("change", (e) => {
-    inputData.date = e.target.value;
-  });
-
-  amountInput.addEventListener("input", (e) => {
-    const numericValue = e.target.value.replace(/[^\d,]/g, "");
-    const amount = Number(numericValue.replace(/,/g, ""));
-
-    if (!isNaN(amount)) {
-      inputData.amount = amount;
-      amountInput.value = amount.toLocaleString() || "";
-    } else {
-      // 잘못된 입력인 경우 이전 값 유지
-      amountInput.value = inputData.amount.toLocaleString() || "";
-    }
-  });
-
-  descriptionInput.addEventListener("input", (e) => {
-    inputData.description = e.target.value;
-    descriptionCount.textContent = `${e.target.value.length}/32`;
-  });
-
-  const inputAmountIcon = document.querySelector(".input-form__amount-icon");
-  inputAmountIcon.addEventListener("click", () => {
-    if (inputAmountIcon.classList.contains("input-form__amount-icon--minus")) {
-      inputAmountIcon.classList.remove("input-form__amount-icon--minus");
-      inputAmountIcon.classList.add("input-form__amount-icon--plus");
-      inputData.type = "income";
-    } else {
-      inputAmountIcon.classList.remove("input-form__amount-icon--plus");
-      inputAmountIcon.classList.add("input-form__amount-icon--minus");
-      inputData.type = "expenses";
-    }
-  });
-
-  const methodSelectContainer = document.getElementById(
-    "method-select-container"
-  );
-  const methodSelect = await Select({
-    label: "결제수단",
-    options: JSON.parse(localStorage.getItem("method")),
-    id: "method",
-    isEditable: true,
-    onSelect: (selectedOption) => {
-      inputData.method = selectedOption;
-    },
-  });
-
-  methodSelectContainer.appendChild(methodSelect);
-
-  const categorySelectContainer = document.getElementById(
-    "category-select-container"
-  );
-  const categoryObject = JSON.parse(localStorage.getItem("category"));
-  const categorySelect = await Select({
-    label: "분류",
-    options: categoryObject[inputData.type],
-    id: "category",
-    onSelect: (selectedOption) => {
-      inputData.category = selectedOption;
-    },
-  });
-
-  categorySelectContainer.appendChild(categorySelect);
+  const inputForm = await InputForm();
+  document.getElementById("input-form-container").appendChild(inputForm);
 };
 
 const renderFilter = () => {
