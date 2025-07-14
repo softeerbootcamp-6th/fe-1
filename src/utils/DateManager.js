@@ -1,4 +1,4 @@
-import { MONTH } from "../constants/month.js";
+import { DAY, MONTH } from "../constants/date.js";
 
 export const DateManager = {
   init: (date) => {
@@ -31,6 +31,11 @@ export const DateManager = {
     if (yearSpan) yearSpan.textContent = date.year;
     if (monthNumSpan) monthNumSpan.textContent = date.month;
     if (monthEngSpan) monthEngSpan.textContent = MONTH[date.month - 1];
+  },
+  renderDay: (date) => {
+    const dayIdx = new Date(date).getDay();
+    const day = DAY[dayIdx];
+    return day;
   },
   decreaseMonth: (date) => {
     date.month -= 1;

@@ -1,6 +1,7 @@
 import { DummyList } from "../../mocks/DummyList.js";
 import { ElementManager } from "../../utils/ElementManager.js";
-import { DayList } from "./DayList.js";
+import { ListFilter } from "../../utils/ListFilter.js";
+import { DateList } from "./DateList.js";
 import { ListTypeFilter } from "./ListTypeFilter.js";
 
 export const List = () => {
@@ -15,7 +16,7 @@ export const List = () => {
   const listCounter = ElementManager.renderElement("div", "list-counter");
   listCounter.innerHTML = `
     <span>전체 내역</span>
-    <span>0건</span>
+    <span>${DummyList.length}건</span>
     `;
   listOverview.appendChild(listCounter);
 
@@ -30,7 +31,11 @@ export const List = () => {
 
   // list wrpper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
-  listWrapper.appendChild(DayList(DummyList));
+  const groupedListByDate = ListFilter.groupTransactionsByDate(DummyList);
+  const groupedListKeys = Object.keys(groupedListByDate);
+  groupedListKeys.map((key) => {
+    listWrapper.appendChild(DateList(key, groupedListByDate[key]));
+  });
   list.appendChild(listWrapper);
   return list;
 };
