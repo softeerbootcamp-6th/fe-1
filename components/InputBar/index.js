@@ -107,6 +107,7 @@ function setInitialState(form) {
         'input[name="paymentMethod"]'
     );
     if (paymentMethodInput) {
+        paymentMethodInput.value = '';
         const paymentMethodContainer =
             paymentMethodInput.closest('.input-bar-item');
         const paymentMethodLabel =
@@ -119,6 +120,7 @@ function setInitialState(form) {
 
     const categoryInput = form.querySelector('input[name="category"]');
     if (categoryInput) {
+        categoryInput.value = '';
         const categoryContainer = categoryInput.closest('.input-bar-item');
         const categoryLabel = categoryContainer.querySelector('.select-label');
         if (categoryLabel) {
