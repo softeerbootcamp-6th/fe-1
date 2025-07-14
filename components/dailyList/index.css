@@ -16,19 +16,23 @@
 
 .category-info {
     width: 92px;
-    margin: 10px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
 }
 
 .description-info {
     width: 400px;
     text-align: left;
-    margin: 10px;
+    margin-right: 15px;
 }
 
 .payment-info {
     width: 104px;
     text-align: left;
-    margin: 14px;
+    margin-inline: 15px;
 }
 
 .amount-info {
@@ -38,4 +42,10 @@
 
 .date-info {
     margin-bottom: 10px;
+}
+
+.daily-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
 }
