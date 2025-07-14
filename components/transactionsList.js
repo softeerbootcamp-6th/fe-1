@@ -57,17 +57,17 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
       const rows = transactionList
         .map(
           (transaction) => `
-        <tr class="flex-between">
-          <td>${transaction.category}</td>
-          <td>${transaction.description}</td>
-          <td>${transaction.paymentMethod}</td>
-          <td>${transaction.amount}</td>
-          <td>
+        <tr>
+          <td class="td-category light-12">${transaction.category}</td>
+          <td class="td-description light-14">${transaction.description}</td>
+          <td class="td-payment-method light-14">${transaction.paymentMethod}</td>
+          <td class="td-amount light-14">${transaction.amount}
             <button 
-              class="delete-btn" 
-              data-id="${transaction.id}"
-            >
-              삭제
+                class="delete-btn flex-row semibold-14" 
+                data-id="${transaction.id}"
+                >
+                <div class="delete-btn-icon">x</div>
+                <div>삭제</div>
             </button>
           </td>
         </tr> 
@@ -77,21 +77,17 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
 
       return `
         ${header}
-        <div>
-          <table>
-            <tbody>
-              ${rows}
+        <table>
+            <tbody class="tbody-border">
+                ${rows}
             </tbody>
-          </table>
-        </div>
+        </table>
       `;
     })
     .join("");
 
   return `
-    <div id="transaction-list-container">
       ${sections}
-    </div>
   `;
 }
 
