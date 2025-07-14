@@ -17,11 +17,11 @@ function InputBar(onSubmitCallback) {
         if (categorySelect) {
             const categoryList = isPlus ? pluscCategoryList : minusCategoryList;
             categorySelect.innerHTML = `
-            <option value="" disabled selected>선택하세요.</option>
-            ${categoryList.map(category =>
+                <option value="" disabled selected>선택하세요.</option>
+                ${categoryList.map(category =>
                 `<option value="${category}">${category}</option>`
             ).join('')}
-        `;
+            `;
         }
     };
 
@@ -49,7 +49,6 @@ function InputBar(onSubmitCallback) {
         const categorySelect = document.getElementById('category-select');
         const checkButton = document.getElementById('submit-btn');
 
-        console.log(dateInput.value, amountInput.value, contentInput.value, paymentSelect.value, categorySelect.value, checkButton);
 
         const isValid = dateInput.value.trim() !== '' &&
             !isNaN(parseFloat(amountInput.value)) &&
@@ -57,7 +56,6 @@ function InputBar(onSubmitCallback) {
             paymentSelect.value.trim() !== '' &&
             categorySelect.value.trim() !== '';
 
-        console.log('Validation result:', isValid);
 
         if (checkButton) {
             checkButton.disabled = !isValid; // 체크 버튼 활성화/비활성화
@@ -92,7 +90,6 @@ function InputBar(onSubmitCallback) {
             category: categorySelect.value
         };
 
-        console.log('Form submitted:', formData);
 
         // MainPage로 formData 전달
         if (onSubmitCallback) {
@@ -109,8 +106,8 @@ function InputBar(onSubmitCallback) {
                 </div>
                 <div class="border-line"></div>
                 <div class="flex-column">
-                    <label>금액</label>
-                    <div class="inline-block">
+                    <label class="mr-1">금액</label>
+                    <div class="flex-row">
                         <button class="icon-button sign-button" id="plus-minus-btn">
                             <img src="assets/icons/minus.svg" alt="minus icon">
                         </button>
