@@ -17,8 +17,10 @@ export function setFilteringState(income, expense) {
 export function createMainPage() {
   return `
     <div id="input-bar-container"></div>
-    <div id="monthly-info-container"></div>
-    <div id="transaction-list-container"></div>
+    <div class="container">
+      <div id="monthly-info-container"></div>
+      <div id="transaction-list-container"></div>
+    </div>
   `;
 }
 
@@ -52,8 +54,10 @@ export function renderMainPage() {
     renderInputBar(inputBarContainer);
   }
 
+  const container = mainContainer.querySelector(".container");
+
   // monthlyInfo 렌더링
-  const monthlyInfoContainer = mainContainer.querySelector(
+  const monthlyInfoContainer = container.querySelector(
     "#monthly-info-container"
   );
   if (monthlyInfoContainer) {

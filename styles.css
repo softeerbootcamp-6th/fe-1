@@ -160,8 +160,8 @@ header {
 }
 
 .container {
-  width: 894px;
-  margin: 0 auto;
+  width: 846px;
+  margin: 40px auto 0;
 }
 
 /* 네비게이션 스타일 */
@@ -313,4 +313,33 @@ button:hover {
 button img {
   pointer-events: none;
   user-select: none;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 4px;
+  margin: 0 10px;
+}
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  border: 1px solid #000;
+  object-fit: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-icon img {
+  width: 20px;
+  height: 20px;
+  display: block;
 }

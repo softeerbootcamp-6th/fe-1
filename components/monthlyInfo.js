@@ -15,23 +15,43 @@ export function createMonthlyInfo(
     monthlyData;
 
   const monthlyInfoTemplate = `
-    <div class="flex-row">
+    <div class="flex-between light-12">
       <div class="totalCount">전체 내역 ${monthlyTotalCount}건</div>
       <div class="flex-row">
+      <label class="custom-checkbox flex-row">
         <input
           type="checkbox"
+          name="income"
           class="incomeCheckbox"
           ${isIncomeChecked ? "checked" : ""}
-        />  
+          style="display:none"
+        />
+        <span class="checkbox-icon">
+          ${
+            isIncomeChecked
+              ? `<img src="../icons/checkbox.svg" alt="checkbox" />`
+              : ""
+          }
+        </span>
         <div>수입 ${monthlyTotalIncome}</div>
-      </div>
-      <div class="flex-row">
+      </label>
+      <label class="custom-checkbox flex-row">
         <input
           type="checkbox"
+          name="expense"
           class="expenseCheckbox"
           ${isExpenseChecked ? "checked" : ""}
+          style="display:none"
         />
+        <span class="checkbox-icon">
+          ${
+            isExpenseChecked
+              ? `<img src="../icons/checkbox.svg" alt="checkbox" />`
+              : ""
+          }
+        </span>
         <div>지출 ${monthlyTotalExpense}</div>
+        </label>
       </div>
     </div>
     `;
@@ -57,8 +77,14 @@ export function renderMonthlyInfo(
 }
 
 function setupMonthlyInfoEventListeners(container, monthlyData) {
-  const incomeCheckbox = container.querySelector(".incomeCheckbox");
-  const expenseCheckbox = container.querySelector(".expenseCheckbox");
+  const incomeCheckbox = container.querySelector("input[name='income']");
+  const expenseCheckbox = container.querySelector("input[name='expense']");
+  const incomeIcon = container
+    .querySelector("input[name='income']")
+    .parentElement.querySelector(".checkbox-icon");
+  const expenseIcon = container
+    .querySelector("input[name='expense']")
+    .parentElement.querySelector(".checkbox-icon");
   const totalCountElement = container.querySelector(".totalCount");
 
   if (incomeCheckbox && expenseCheckbox && totalCountElement) {
@@ -71,6 +97,14 @@ function setupMonthlyInfoEventListeners(container, monthlyData) {
     function updateCheckbox() {
       const isIncomeChecked = incomeCheckbox.checked;
       const isExpenseChecked = expenseCheckbox.checked;
+
+      // 아이콘 동적 변경
+      incomeIcon.innerHTML = isIncomeChecked
+        ? `<img src="../icons/checkbox.svg" alt="checkbox" />`
+        : "";
+      expenseIcon.innerHTML = isExpenseChecked
+        ? `<img src="../icons/checkbox.svg" alt="checkbox" />`
+        : "";
 
       // 전역 상태 업데이트
       setFilteringState(isIncomeChecked, isExpenseChecked);
