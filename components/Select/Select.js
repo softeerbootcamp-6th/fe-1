@@ -57,7 +57,6 @@ const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
 };
 
 const Select = async ({
-  id,
   label,
   options = [],
   placeholder = "입력하세요",
