@@ -1,11 +1,11 @@
 @font-face {
   font-family: "ChosunilboNM";
-  src: url("public/fonts/ChosunNm.woff") format("truetype");
+  src: url("../../public/fonts/ChosunNm.woff") format("truetype");
 }
 
 @font-face {
   font-family: "Pretendard";
-  src: url("public/fonts/PretendardVariable.woff2") format("truetype");
+  src: url("../../public/fonts/PretendardVariable.woff2") format("truetype");
 }
 
 /* ===== Typography System ===== */
