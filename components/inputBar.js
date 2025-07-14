@@ -55,9 +55,9 @@ export function createInputBar() {
         class="semibold-12 text-input"
       >
         <option value="" disabled selected hidden>선택하세요</option>
-        <option value="cash">현금</option>
-        <option value="card">카드</option>
-        <option value="add">추가하기</option>
+        <option value="현금">현금</option>
+        <option value="카드">카드</option>
+        <option value="추가하기">추가하기</option>
       </select>
     </label>
     <label class="flex-column w-full px-20">
@@ -68,13 +68,13 @@ export function createInputBar() {
         class="semibold-12 text-input"
       >
         <option value="" disabled selected hidden>선택하세요</option>
-        <option value="life">생활</option>
-        <option value="food">식비</option>
-        <option value="transportation">교통</option>
-        <option value="shopping">쇼핑/뷰티</option>
-        <option value="health">의료/건강</option>
-        <option value="entertainment">문화/여가</option>
-        <option value="etc">미분류</option>
+        <option value="생활">생활</option>
+        <option value="식비">식비</option>
+        <option value="교통">교통</option>
+        <option value="쇼핑/뷰티">쇼핑/뷰티</option>
+        <option value="의료/건강">의료/건강</option>
+        <option value="문화/여가">문화/여가</option>
+        <option value="미분류">미분류</option>
       </select>
     </label>
     <div class="flex-column">
