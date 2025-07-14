@@ -123,7 +123,7 @@ const InputForm = async () => {
       options: JSON.parse(localStorage.getItem("method")),
       id: "method",
       isEditable: true,
-      onSelect: (selectedOption) => {
+      onChange: (selectedOption) => {
         inputData.method = selectedOption;
         validateInputForm();
       },
