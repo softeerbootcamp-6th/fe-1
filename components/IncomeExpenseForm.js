@@ -28,7 +28,7 @@ export function renderIncomeExpenseForm() {
                 <button class="money-button">
                     <img src="../assets/icons/plus.svg"/>
                 </button>
-                <input id="money-input" type="string" class="money-input" value="0"></input>
+                <input id="money-input" type="string" class="money-input" value="0" dir="rtl"></input>
                 <span class="money-unit light12">원</span>
             </div>
         </div>

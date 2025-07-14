@@ -38,9 +38,15 @@
   align-items: center;
 }
 
+.money-button,
+.money-unit {
+  width: 1rem;
+}
+
 .money-input {
   width: 5.5rem;
   height: inherit;
+  border-width: 0;
 }
 
 .description-container {
