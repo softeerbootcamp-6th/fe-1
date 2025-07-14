@@ -53,6 +53,7 @@ export function renderIncomeExpenseForm() {
         <div class="payment-container">
             <label class="payment-label light12">결제수단</label>
             <select class="payment-select">
+            <option value="" selected disabled hidden>선택하세요</option>
                 ${paymentOptions
                   .map(option => `<option value="${option}">${option}</option>`)
                   .join('')}
@@ -66,16 +67,10 @@ export function renderIncomeExpenseForm() {
         <div class="class-container">
             <label class="class-label light12">분류</label>
             <select class="class-select">
-                ${
-                  isIncome
-                    ? incomeClasses
-                    : expenseClasses
-                        .map(
-                          option =>
-                            `<option value="${option}">${option}</option>`
-                        )
-                        .join('')
-                }
+            <option value="" selected disabled hidden>선택하세요</option>
+                ${incomeClasses
+                  .map(option => `<option value="${option}">${option}</option>`)
+                  .join('')}
             </select>
         </div>
         `;
@@ -152,13 +147,10 @@ export function renderIncomeExpenseForm() {
   });
 
   const updateClassSelect = (incomeClasses, expenseClasses) => {
-    classSelect.innerHTML = isIncome
-      ? incomeClasses
-          .map(option => `<option value="${option}">${option}</option>`)
-          .join('')
-      : expenseClasses
-          .map(option => `<option value="${option}">${option}</option>`)
-          .join('');
+    classSelect.innerHTML = `<option value="" selected disabled hidden>선택해주세요</option>
+    ${(isIncome ? incomeClasses : expenseClasses)
+      .map(option => `<option value="${option}">${option}</option>`)
+      .join('')}`;
   };
 
   return form;
