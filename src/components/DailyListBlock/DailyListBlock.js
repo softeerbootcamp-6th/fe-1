@@ -1,26 +1,31 @@
 import TagBox from "../TagBox/TagBox.js";
 
-function handleBlockClick() {
-    const blocks = document.querySelectorAll('.daily-list-block');
-    blocks.forEach(block => {
-        block.addEventListener('click', () => {
-            console.log('DailyListBlock clicked');
+function DailyListBlock({ data }) {
+    const handleBlockClick = () => {
+        const blocks = document.querySelectorAll('.daily-list-block');
+        blocks.forEach(block => {
+            block.addEventListener('click', () => {
+            });
         });
-    });
-}
+    }
 
-function DailyListBlock() {
+    handleBlockClick();
+
     return {
         element: `
-            <div class="daily-list-block">
-                ${TagBox({ value: '식비' }).element}
-                <span class="daily-list-block-content inline-block">점심</span>
-                <span class="daily-list-block-payment inline-block">카드</span>
-                <span class="daily-list-block-price inline-block">1,300원</span>
+            <div class="daily-list-block daily-list-block__content-row">
+                ${TagBox({ value: data.category }).element}
+                <span class="content-row__info">${data.description}</span>
+                <span class="content-row__method">${data.method}</span>
+                <span class="content-row__amount">${data.amount}</span>
             </div>
-        `,
-        init: handleBlockClick
+        `
+        ,
+        init: () => {
+            console.log('블록 파라미터:', data);
+        }
     };
-}
+
+};
 
 export default DailyListBlock;
