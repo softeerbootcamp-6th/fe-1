@@ -4,6 +4,7 @@ import { sharedState } from "../state/state.js";
 import { renderCategoryOptions } from "./categoryRender.js";
 import { saveEntriesToServer, loadEntriesFromServer } from "../api/api.js";
 import { currentMonth, currentYear } from "./header.js";
+import { getDateFromServer } from "./entry.js";
 
 export function initInputForm() {
   let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
@@ -92,8 +93,8 @@ export function initInputForm() {
     isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
     selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
     selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
-
-
+    //date에서 연도와 월을 가져와서 현재 월과 연도와 비교하는 로직만들어줘
+    // 현재 월과 연도를 비교하여 입력된 날짜가 현재 월인지 확인
     if (!date || !amount || !desc) {
       alert("모든 항목을 정확히 입력해주세요!");
       return;
@@ -120,14 +121,6 @@ export function initInputForm() {
     display.textContent = "선택하세요";
     categoryDisplay.textContent = "선택하세요";
 
-    // 서버에 저장
-    saveEntriesToServer(entries).then(() => {
-      console.log("Entries saved successfully");
-    }).catch(error => {
-      console.error("Error saving entries:", error);
-    });
-
-
   });
 
 
@@ -140,7 +133,7 @@ export function initInputForm() {
       return;
     }
     entriesFromServer.forEach(entry => {
-      addEntryToDOM(entry);
+      getDateFromServer(entry);
       sharedState.entries.push(entry);
     });
     updateTotalAmounts();
@@ -157,7 +150,7 @@ export function initInputForm() {
 
 
 //// 항목을 DOM에 추가하는 함수
-export function addEntryToDOM(entry) {
+export async function addEntryToDOM(entry) {
     const entryList = document.getElementById("entry-list");
 
     const dateObj = new Date(entry.date);
@@ -165,6 +158,12 @@ export function addEntryToDOM(entry) {
     const day = dateObj.getDate();
     const weekday = ['일', '월', '화', '수', '목', '금', '토'][dateObj.getDay()];
     const dateLabel = `${month}월 ${day}일 ${weekday}요일`;
+
+    if(dateObj.getFullYear() !== currentYear || dateObj.getMonth() + 1 !== currentMonth) {
+      const yearMonth = dateObj.getFullYear() + '-' + String(dateObj.getMonth() + 1).padStart(2, '0');
+      saveEntriesToServer(yearMonth, entry);
+      return;
+    }
 
     let dateSection = entryList.querySelector(`[data-date="${entry.date}"]`);
     if (!dateSection) {
@@ -222,4 +221,7 @@ export function addEntryToDOM(entry) {
       </div>
     `;
     entryItems.appendChild(item);
+    const yearMonth = dateObj.getFullYear() + '-' + String(dateObj.getMonth() + 1).padStart(2, '0');
+    saveEntriesToServer(yearMonth, entry);
+
   }

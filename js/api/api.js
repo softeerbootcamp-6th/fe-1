@@ -1,9 +1,9 @@
 // 저장하기
-export async function saveEntriesToServer(month, entries) {
+export async function saveEntriesToServer(month, entry) {
   await fetch(`http://localhost:3000/api/entries/${month}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(entries)
+    body: JSON.stringify(entry)
   });
 }
 

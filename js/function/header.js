@@ -1,9 +1,9 @@
 import { sharedState } from "../state/state.js";
 import { loadEntriesFromServer } from "../api/api.js";
-import { addEntryToDOM } from "./input-form.js";
+import { getDateFromServer } from "./entry.js";
 
-export let currentMonth = 8;
-export let currentYear = 2023;
+export let currentMonth = Date.now() ? new Date().getMonth() + 1 : 1; // 현재 월 (1~12)
+export let currentYear = Date.now() ? new Date().getFullYear() : 2023; // 현재 연도
 
 export function initCalendar({ onUpdate }) {
   const yearEl = document.getElementById("year");
@@ -30,7 +30,7 @@ export function initCalendar({ onUpdate }) {
     console.log("Server data:", serverData);
     
     serverData.forEach(entry => {
-      addEntryToDOM(entry);
+      getDateFromServer(entry);
       sharedState.entries.push(entry); // sharedState에 항목 추가
     }
     );

@@ -1,6 +1,7 @@
 import { saveEntriesToServer } from "../api/api.js";
 import { sharedState } from "../state/state.js";
 import { updateTotalAmounts } from "./totalAmount.js";
+import { currentMonth, currentYear } from "./header.js";
 
 export function deleteEntries() {
 
@@ -30,3 +31,73 @@ export function deleteEntries() {
     // updateTotalAmounts();
   });
 }
+
+export async function getDateFromServer(entry) {
+    const entryList = document.getElementById("entry-list");
+
+    const dateObj = new Date(entry.date);
+    const month = dateObj.getMonth() + 1;
+    const day = dateObj.getDate();
+    const weekday = ['일', '월', '화', '수', '목', '금', '토'][dateObj.getDay()];
+    const dateLabel = `${month}월 ${day}일 ${weekday}요일`;
+
+    let dateSection = entryList.querySelector(`[data-date="${entry.date}"]`);
+    if (!dateSection) {
+      dateSection = document.createElement("div");
+      dateSection.className = "entry-date-section";
+      dateSection.setAttribute("data-date", entry.date);
+      dateSection.innerHTML = `
+        <div class="entry-sort">
+          <div>${dateLabel}</div>
+          <div class="entry-amount-section">
+            <div>수입</div>
+            ${entry.amount}
+            <div>지출</div>
+            ${entry.amount}
+          </div>
+        </div>
+        <div class="entry-items"></div>
+      `;
+      entryList.insertBefore(dateSection, entryList.firstChild);
+    }
+
+    const entryItems = dateSection.querySelector(".entry-items");
+    const item = document.createElement("div");
+    item.className = "entry-row";
+    
+    // 수입이면 + 기호, 지출이면 - 기호 표시
+    const sign = entry.isIncome ? '' : '-';
+    const amountClass = entry.isIncome ? 'income-amount' : 'expense-amount';
+
+    const category = {
+      "생활": "--colorchip-90",
+      "식비": "--colorchip-60",
+      "교통": "--colorchip-70",
+      "쇼핑/뷰티": "--colorchip-30",
+      "의료/건강": "--colorchip-50",
+      "문화/여가": "--colorchip-100",
+      미분류: "--colorchip-110",
+      월급: "--colorchip-20",
+      용돈: "--colorchip-40",
+      기타수입: "--colorchip-10"
+    }
+
+    item.setAttribute("data-id", entry.id);
+    
+    item.innerHTML = `
+      <div class="entry-category ${category[entry.category]}">${entry.category}</div>
+      <div class="entry-desc">${entry.desc}</div>
+      <div class="entry-method">${entry.method}</div>
+      <div class="entry-amount ${amountClass}">${sign}${entry.amount.toLocaleString()}원</div>
+      <div class="delete-btn">
+        <div class="delete-icon-wrapper">
+        <img src="../../assets/icons/delete-botton.svg" alt="삭제" class="delete-icon"></img>
+        삭제
+        </div>
+      </div>
+    `;
+    entryItems.appendChild(item);
+    const currentDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
+    // saveEntriesToServer(currentDate, entry);
+    
+  }
