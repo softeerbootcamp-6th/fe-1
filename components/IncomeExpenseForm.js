@@ -103,11 +103,25 @@ export function renderIncomeExpenseForm() {
     ${addButtonHTML()}
     `;
 
+  // 날짜
+  const dateInput = form.querySelector('.date-input');
+
+  // 금액
   const moneyButton = form.querySelector('.money-button');
   const moneyButtonIcon = moneyButton.querySelector('img');
-  const classSelect = form.querySelector('.class-select');
   const moneyInput = form.querySelector('#money-input');
+
+  // 내용
   const descriptionInput = form.querySelector('#description-input');
+
+  // 결제수단
+  const paymentSelect = form.querySelector('.payment-select');
+
+  // 분류
+  const classSelect = form.querySelector('.class-select');
+
+  // add 버튼
+  const addButton = form.querySelector('.add-button');
 
   moneyButton.addEventListener('click', e => {
     e.preventDefault();
@@ -146,11 +160,72 @@ export function renderIncomeExpenseForm() {
     }
   });
 
+  // keyup, select 이벤트 발생 시 유효성 검사
+  [dateInput, moneyInput, descriptionInput, paymentSelect, classSelect].forEach(
+    input => {
+      input.addEventListener('keyup', () => {
+        validateForm(
+          dateInput,
+          moneyInput,
+          descriptionInput,
+          paymentSelect,
+          classSelect
+        );
+      });
+      input.addEventListener('change', () => {
+        validateForm(
+          dateInput,
+          moneyInput,
+          descriptionInput,
+          paymentSelect,
+          classSelect
+        );
+      });
+    }
+  );
+
   const updateClassSelect = (incomeClasses, expenseClasses) => {
     classSelect.innerHTML = `<option value="" selected disabled hidden>선택해주세요</option>
     ${(isIncome ? incomeClasses : expenseClasses)
       .map(option => `<option value="${option}">${option}</option>`)
       .join('')}`;
+  };
+
+  // 입력값 유효성 검사
+  const validateForm = (
+    dateInput,
+    moneyInput,
+    descriptionInput,
+    paymentSelect,
+    classSelect
+  ) => {
+    // 날짜 입력값 확인
+    const isDateValid = !!dateInput.value; // 날짜가 선택되었는지 확인(true/false 강제변환)
+    // 금액 입력값 확인 (0 보다 큰가)
+    const isMoneyValid = Number(moneyInput.value.replace(/[^0-9]/g, '')) > 0;
+    // 내용 입력값 확인 (1글자 이상)
+    const isDescriptionValid = descriptionInput.value.trim().length > 0;
+    // 결제수단 선택 여부 확인
+    const isPaymentValid = paymentSelect.value !== '';
+    // 분류 선택 여부 확인
+    const isClassValid = classSelect.value !== '';
+
+    const isValid =
+      isDateValid &&
+      isMoneyValid &&
+      isDescriptionValid &&
+      isPaymentValid &&
+      isClassValid;
+
+    activeAddButton(isValid);
+  };
+
+  const activeAddButton = isValid => {
+    if (isValid) {
+      addButton.classList.toggle('active', isValid);
+    } else {
+      addButton.classList.remove('active');
+    }
   };
 
   return form;

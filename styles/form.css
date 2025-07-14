@@ -81,4 +81,11 @@
 .add-button {
   width: 2.5rem;
   height: 2.5rem;
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.add-button.active {
+  opacity: 1;
+  pointer-events: auto;
 }
