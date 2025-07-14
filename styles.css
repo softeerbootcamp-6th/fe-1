@@ -446,6 +446,38 @@ table {
   background-color: var(--danger-surface-default);
 }
 
+.category-life {
+  background: var(--colorchip-90);
+}
+.category-shopping {
+  background: var(--colorchip-30);
+}
+.category-health {
+  background: var(--colorchip-50);
+}
+.category-food {
+  background: var(--colorchip-60);
+}
+.category-transportation {
+  background: var(--colorchip-70);
+}
+.category-entertainment {
+  background: var(--pastel-perfume);
+}
+.category-etc {
+  background: var(--pastel-lavenderPink);
+}
+
+.category-salary {
+  background: var(--colorchip-20);
+}
+.category-etc-income {
+  background: var(--colorchip-10);
+}
+.category-etc-expense {
+  background: var(--colorchip-40);
+}
+
 .td-description {
   width: 400px;
   height: 56px;

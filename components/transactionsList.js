@@ -4,7 +4,7 @@ import {
   deleteTransaction,
 } from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
-import { getFilteringState } from "../pages.js";
+import { CATEGORY_NAME } from "../constants/categoryName.js";
 
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListByYearMonth = getTransactionsByYearMonth(
@@ -58,9 +58,13 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
         .map(
           (transaction) => `
         <tr>
-          <td class="td-category light-12">${transaction.category}</td>
+          <td class="td-category light-12 category-${
+            CATEGORY_NAME[transaction.category]
+          }">${transaction.category}</td>
           <td class="td-description light-14">${transaction.description}</td>
-          <td class="td-payment-method light-14">${transaction.paymentMethod}</td>
+          <td class="td-payment-method light-14">${
+            transaction.paymentMethod
+          }</td>
           <td class="td-amount light-14">${transaction.amount}
             <button 
                 class="delete-btn flex-row semibold-14" 
