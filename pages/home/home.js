@@ -16,8 +16,6 @@ const inputData = {
   category: "",
 };
 
-console.log(inputData);
-
 const renderHeader = () => {
   const header = Header({
     selectedNav: "home",
