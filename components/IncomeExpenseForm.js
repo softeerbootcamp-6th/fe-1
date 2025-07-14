@@ -5,7 +5,7 @@ export function renderIncomeExpenseForm() {
   // 현재 날짜를 기본값으로 설정
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
-
+  let isIncome = true; // true: 수입, false: 지출
   const paymentOptions = ['현금', '신용카드'];
   const incomeClasses = ['용돈', '월급'];
   const expenseClasses = ['식비', '교통', '문화여가', '기타'];
@@ -26,7 +26,7 @@ export function renderIncomeExpenseForm() {
             <label class="money-label light12" for="money-input">금액</label>
             <div class="money-input-container">
                 <button class="money-button">
-                    <img src="../assets/icons/plus.svg" alt="Add"></img>
+                    <img src="../assets/icons/plus.svg"/>
                 </button>
                 <input id="money-input" type="string" class="money-input"></input>
             </div>
@@ -64,9 +64,16 @@ export function renderIncomeExpenseForm() {
         <div class="class-container">
             <label class="class-label light12">분류</label>
             <select class="class-select">
-                ${expenseClasses
-                  .map(option => `<option value="${option}">${option}</option>`)
-                  .join('')}
+                ${
+                  isIncome
+                    ? incomeClasses
+                    : expenseClasses
+                        .map(
+                          option =>
+                            `<option value="${option}">${option}</option>`
+                        )
+                        .join('')
+                }
             </select>
         </div>
         `;
@@ -98,6 +105,31 @@ export function renderIncomeExpenseForm() {
     ${getClassContainerHTML()}
     ${addButtonHTML()}
     `;
+
+  const moneyButton = form.querySelector('.money-button');
+  const moneyButtonIcon = moneyButton.querySelector('img');
+  const classSelect = form.querySelector('.class-select');
+
+  moneyButton.addEventListener('click', e => {
+    e.preventDefault();
+    isIncome = !isIncome;
+    moneyButtonIcon.src = isIncome
+      ? '../assets/icons/plus.svg'
+      : '../assets/icons/minus.svg';
+
+    // 클래스 옵션 업데이트
+    updateClassSelect(incomeClasses, expenseClasses);
+  });
+
+  const updateClassSelect = (incomeClasses, expenseClasses) => {
+    classSelect.innerHTML = isIncome
+      ? incomeClasses
+          .map(option => `<option value="${option}">${option}</option>`)
+          .join('')
+      : expenseClasses
+          .map(option => `<option value="${option}">${option}</option>`)
+          .join('');
+  };
 
   return form;
 }
