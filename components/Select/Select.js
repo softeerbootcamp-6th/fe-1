@@ -81,6 +81,8 @@ const Select = async ({
         const optionText = typeof option === "string" ? option : option.text;
         inputElement.value = optionText;
         selectList.classList.remove("select-list--open");
+        const selectIcon = selectWrapper.querySelector(".select-icon");
+        selectIcon.classList.remove("select-icon--open");
 
         onSelect(optionText);
       });
