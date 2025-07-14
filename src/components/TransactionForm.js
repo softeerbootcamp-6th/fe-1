@@ -11,13 +11,20 @@ export function initTransactionForm() {
       addItem({ form: e.target });
     },
   });
+
+  addEventListener({
+    id: "transaction-amount-type-toggle",
+    event: "click",
+    onEvent: (e) => {
+      toggleItemType({ btn: e.target });
+    },
+  });
   renderTransactionForm();
 }
 
 function addItem({ form }) {
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
-
   const item = {
     ...data,
     id: Date.now(), // TODO - generateNextId 생성
@@ -26,6 +33,23 @@ function addItem({ form }) {
   setState({
     items: [...state.items, item],
   });
+}
+
+function toggleItemType({ btn }) {
+  const isMinus = btn.classList.contains("transaction-type-icon-minus");
+
+  const form = btn.closest("form");
+  const typeInput = form.querySelector("input[name='type']");
+
+  if (isMinus) {
+    btn.classList.remove("transaction-type-icon-minus");
+    btn.classList.add("transaction-type-icon-plus");
+    if (typeInput) typeInput.value = "deposit";
+  } else {
+    btn.classList.remove("transaction-type-icon-plus");
+    btn.classList.add("transaction-type-icon-minus");
+    if (typeInput) typeInput.value = "withdraw";
+  }
 }
 
 function renderTransactionForm() {
@@ -40,6 +64,7 @@ function renderTransactionForm() {
             >
             <input
               id="date-input"
+              name="date"
               class="transaction-form-date-input font-semibold-12"
               type="date"
               value="2023-08-17"
@@ -53,13 +78,19 @@ function renderTransactionForm() {
               >금액</label
             >
             <div class="transaction-form-amount-group">
+              <input
+                id="type-input"
+                name="type"
+                type="hidden"
+              />
               <button
                 type="button"
-                class="transaction-form-toggle-btn transaction-type-icon-plus"
-                id="amount-toggle"
+                class="transaction-form-toggle-btn transaction-type-icon-minus"
+                id="transaction-amount-type-toggle"
               ></button>
               <input
                 id="amount-input"
+                name="amount"
                 class="transaction-form-amount-input font-semibold-12 text-neutral-text-weak"
                 type="number"
                 min="0"
@@ -77,6 +108,7 @@ function renderTransactionForm() {
             <div class="transaction-form-desc-group">
               <input
                 id="desc-input"
+                name="description"
                 class="transaction-form-desc-input font-semibold-12 text-neutral-text-weak"
                 type="text"
                 maxlength="32"
@@ -99,11 +131,12 @@ function renderTransactionForm() {
             >
             <select
               id="method-select"
+              name="method"
               class="transaction-form-select font-semibold-12 text-neutral-text-weak"
             >
               <option value="">선택하세요</option>
-              <option value="card">카드</option>
-              <option value="cash">현금</option>
+              <option value="카드">카드</option>
+              <option value="현금">현금</option>
               <!-- 필요시 추가 -->
             </select>
           </div>
@@ -117,11 +150,12 @@ function renderTransactionForm() {
             >
             <select
               id="category-select"
+              name="category"
               class="transaction-form-select font-semibold-12 text-neutral-text-weak"
             >
               <option value="">선택하세요</option>
-              <option value="food">식비</option>
-              <option value="transport">교통</option>
+              <option value="식비">식비</option>
+              <option value="교통">교통</option>
               <!-- 필요시 추가 -->
             </select>
           </div>
