@@ -75,19 +75,30 @@ body {
     cursor: pointer;
 }
 
-.daily-list-block-content {
-    width: 400px;
-    text-align: start;
+.daily-list-block__content-row {
+    display: flex;
+    align-items: center;
 }
 
-.daily-list-block-payment {
-    width: 104px;
-    text-align: start;
+.content-row__info {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 1.6rem;
+    gap: 1.6rem;
+    flex: 1;
 }
 
-.daily-list-block-price {
-    width: 92px;
-    text-align: end;
+.content-row__description {
+    width: 40rem;
+}
+
+.content-row__method {
+    width: 10.4rem;
+}
+
+.content-row__amount {
+    flex: 1;
+    text-align: right;
 }
 
 /* TagBox */
@@ -102,4 +113,8 @@ body {
 
 .tag {
     font-size: 12px;
+}
+
+.mr-1 {
+    margin-right: 4px;
 }
