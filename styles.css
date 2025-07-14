@@ -397,7 +397,7 @@ button img {
   align-items: center;
   cursor: pointer;
   gap: 4px;
-  margin: 0 10px;
+  margin: 0 0 0 20px;
 }
 .custom-checkbox input[type="checkbox"] {
   display: none;
@@ -505,7 +505,7 @@ table {
 
 .td-amount {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   height: 58px;
   padding: 0 16px;

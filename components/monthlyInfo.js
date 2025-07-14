@@ -5,6 +5,7 @@ import {
 } from "../utils/transaction.js";
 import { setFilteringState } from "../pages.js";
 import { renderTransactionList } from "./transactionsList.js";
+import { formatMoney } from "../utils/format.js";
 
 export function createMonthlyInfo(
   monthlyData,
@@ -33,7 +34,7 @@ export function createMonthlyInfo(
               : ""
           }
         </span>
-        <div>수입 ${monthlyTotalIncome}</div>
+        <div>수입 ${formatMoney(monthlyTotalIncome)}</div>
       </label>
       <label class="custom-checkbox flex-row">
         <input
@@ -50,7 +51,7 @@ export function createMonthlyInfo(
               : ""
           }
         </span>
-        <div>지출 ${monthlyTotalExpense}</div>
+        <div>지출 ${formatMoney(monthlyTotalExpense)}</div>
         </label>
       </div>
     </div>

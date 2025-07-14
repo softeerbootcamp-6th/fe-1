@@ -5,6 +5,7 @@ import {
 } from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { CATEGORY_NAME } from "../constants/categoryName.js";
+import { formatMoney } from "../utils/format.js";
 
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListByYearMonth = getTransactionsByYearMonth(
@@ -45,10 +46,16 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
       const header = `
         <div class="flex-between serif-14">
           <div>${date}</div>
-          <div>
-            ${isIncomeChecked && totalIncome > 0 ? `수입 ${totalIncome} ` : ""}
+          <div> 
             ${
-              isExpenseChecked && totalExpense < 0 ? `지출 ${totalExpense}` : ""
+              isIncomeChecked && totalIncome > 0
+                ? `수입 ${formatMoney(totalIncome)}원`
+                : ""
+            }
+            ${
+              isExpenseChecked && totalExpense < 0
+                ? `지출 ${formatMoney(totalExpense)}원`
+                : ""
             }
           </div>
         </div>
@@ -65,7 +72,7 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
           <td class="td-payment-method light-14">${
             transaction.paymentMethod
           }</td>
-          <td class="td-amount light-14">${transaction.amount}
+          <td class="td-amount light-14">${formatMoney(transaction.amount)}원
             <button 
                 class="delete-btn flex-row semibold-14" 
                 data-id="${transaction.id}"
