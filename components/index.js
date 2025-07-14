@@ -5,5 +5,15 @@ import Modal from "./Modal/Modal.js";
 import Header from "./Header/Header.js";
 import CategoryTag from "./CategoryTag/CategoryTag.js";
 import DailyHistory from "./DailyHistory/DailyHistory.js";
+import Select from "./Select/Select.js";
 
-export { Button, TextInput, CheckBox, Modal, Header, CategoryTag, DailyHistory };
+export {
+  Button,
+  TextInput,
+  CheckBox,
+  Modal,
+  Header,
+  CategoryTag,
+  DailyHistory,
+  Select,
+};

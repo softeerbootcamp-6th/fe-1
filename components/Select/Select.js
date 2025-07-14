@@ -1,0 +1,133 @@
+import Modal from "../Modal/Modal.js";
+
+const Select = async ({
+  id,
+  label,
+  options = [],
+  placeholder = "입력하세요",
+  isEditable = false,
+  onSelect,
+}) => {
+  try {
+    // HTML 템플릿 파일을 fetch로 가져오기
+    const response = await fetch("/components/Select/Select.html");
+    const template = await response.text();
+
+    // 임시 div 생성해서 HTML 파싱
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = template;
+    const selectElement = tempDiv.firstElementChild;
+
+    // 라벨 설정
+    const labelElement = selectElement.querySelector(".select__label");
+    labelElement.textContent = label;
+
+    // 입력 필드 설정
+    const inputElement = selectElement.querySelector(".select-input");
+    inputElement.placeholder = placeholder;
+    inputElement.id = id;
+
+    // 옵션 리스트 동적 생성
+    const selectList = selectElement.querySelector(".select-list");
+
+    options.forEach((option) => {
+      const listItem = document.createElement("li");
+      listItem.className = "select-item font-light-12";
+
+      const selectItemContent = document.createElement("div");
+      selectItemContent.className = "select-item__content";
+
+      const optionLabel = document.createElement("span");
+      optionLabel.textContent = option;
+
+      selectItemContent.appendChild(optionLabel);
+      listItem.appendChild(selectItemContent);
+
+      if (isEditable) {
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "select-item__delete-button";
+        deleteButton.type = "button";
+
+        const deleteButtonIcon = document.createElement("img");
+        deleteButtonIcon.src = "/assets/icons/closed-red.svg";
+        deleteButtonIcon.alt = "delete-item";
+        deleteButton.appendChild(deleteButtonIcon);
+
+        listItem.addEventListener("click", () => {
+          options = options.filter((item) => item !== option);
+          localStorage.setItem("method", JSON.stringify(options));
+        });
+
+        selectItemContent.appendChild(deleteButton);
+      }
+
+      // 옵션 클릭 이벤트
+      listItem.addEventListener("click", () => {
+        const optionText = typeof option === "string" ? option : option.text;
+        inputElement.value = optionText;
+        selectList.classList.remove("select-list--open");
+
+        onSelect(optionText);
+      });
+
+      selectList.appendChild(listItem);
+    });
+
+    if (isEditable) {
+      const listItem = document.createElement("li");
+      listItem.className = "select-item font-light-12";
+
+      const selectItemContent = document.createElement("div");
+      selectItemContent.className = "select-item__content";
+
+      const addButton = document.createElement("button");
+      addButton.className = "select-item__add-button";
+      addButton.textContent = "추가하기";
+      addButton.type = "button";
+
+      listItem.addEventListener("click", () => {
+        const modalContainer = document.getElementById("modal-container");
+        const modal = Modal({
+          className: "modal--add-category",
+          text: "추가하실 결제 수단을 입력해주세요.",
+          placeholder: "카테고리 이름",
+          onConfirm: (value) => {
+            options.push(value);
+            localStorage.setItem("method", JSON.stringify(options));
+          },
+        });
+
+        modalContainer.appendChild(modal);
+        modal.showModal();
+      });
+
+      selectItemContent.appendChild(addButton);
+      listItem.appendChild(selectItemContent);
+
+      selectList.appendChild(listItem);
+    }
+
+    // 셀렉트 토글 이벤트
+    const selectWrapper = selectElement.querySelector(".select-wrapper");
+    selectWrapper.addEventListener("click", () => {
+      selectList.classList.toggle("select-list--open");
+      const selectIcon = selectWrapper.querySelector(".select-icon");
+      selectIcon.classList.toggle("select-icon--open");
+    });
+
+    // 외부 클릭시 닫기
+    // document.addEventListener("click", (e) => {
+    //   if (!selectElement.contains(e.target)) {
+    //     selectList.classList.remove("select-list--open");
+    //     const selectIcon = selectWrapper.querySelector(".select-icon");
+    //     selectIcon.classList.remove("select-icon--open");
+    //   }
+    // });
+
+    return selectElement;
+  } catch (error) {
+    return null;
+  }
+};
+
+export default Select;
