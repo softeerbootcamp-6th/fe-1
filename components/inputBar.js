@@ -1,6 +1,7 @@
 import { addNewTransaction } from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { renderTransactionList } from "./transactionsList.js";
+import { getFilteringState } from "../pages.js";
 
 export function createInputBar() {
   return ` 
@@ -8,13 +9,13 @@ export function createInputBar() {
     class="input-bar flex-row"
     id="inputBarForm"
   >
-    <label class="flex-column">
+    <label class="flex-column input-section">
       <div class="input-label light-12">일자</div>
       <input type="date" name="date" class="date-input semibold-12" required value="${
         new Date().toISOString().split("T")[0]
       }" />
     </label>
-    <label class="flex-column">
+    <label class="flex-column input-section">
       <div class="input-label light-12">금액</div>
       <div class="flex-row semibold-12">
         <button
@@ -27,13 +28,15 @@ export function createInputBar() {
         <input
           type="number"
           name="amount"
-          placeholder="금액을 입력하세요"
+          placeholder="0"
           min="0"
           required
+          class="semibold-12 text-input"
         />
+        <div class="semibold-12">원</div>
       </div>
     </label>
-    <label class="flex-column">
+    <label class="flex-column input-section">
       <div class="input-label light-12">내용</div>
       <input
         type="text"
@@ -41,27 +44,27 @@ export function createInputBar() {
         maxlength="32"
         placeholder="내용을 입력하세요"
         required
-        class="semibold-12"
+        class="semibold-12 text-input"
       />
     </label>
-    <label class="flex-column">
+    <label class="flex-column input-section">
       <div class="input-label light-12">결제수단</div>
       <select
         name="paymentMethod"
         required
-        class="semibold-12"
+        class="semibold-12 text-input"
       >
         <option value="cash">현금</option>
         <option value="card">카드</option>
         <option value="add">추가하기</option>
       </select>
     </label>
-    <label class="flex-column">
+    <label class="flex-column w-full px-20">
       <div class="input-label light-12">분류</div>
       <select
         name="category"
         required
-        class="semibold-12"
+        class="semibold-12 text-input"
       >
         <option value="life">생활</option>
         <option value="food">식비</option>
@@ -77,7 +80,7 @@ export function createInputBar() {
         type="submit"
         class="add-button"
       >
-        추가
+        <img src="../icons/check.svg" alt="check" />
       </button>
     </div>
   </form>
@@ -123,7 +126,7 @@ export function renderInputBar(container) {
 
     form.reset();
     amountToggle.innerHTML = `<img src="../icons/plus.svg" alt="plus" />`;
-
-    renderTransactionList();
+    const { isIncomeChecked, isExpenseChecked } = getFilteringState();
+    renderTransactionList(isIncomeChecked, isExpenseChecked);
   });
 }

@@ -148,13 +148,12 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
   background-color: #fff;
   border: 1px solid #000;
 }
 
 .container {
-  width: 846px;
+  width: 894px;
   margin: 0 auto;
 }
 
@@ -199,6 +198,10 @@ nav a.active {
   background: rgba(255, 255, 255, 1);
 }
 
+#main-container {
+  width: 100%;
+}
+
 .input-bar .flex-column {
   align-items: flex-start;
 }
@@ -207,24 +210,67 @@ nav a.active {
   text-align: left;
 }
 
-.date-input {
+.input-section {
+  width: 100%;
+  padding: 0 20px;
+  border-right: 1px solid #000;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.px-20 {
+  padding: 0 20px;
+}
+
+select {
+  width: 100%;
+}
+
+.add-button {
+  margin: 0 20px 0 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.add-button:hover {
+  background: rgba(0, 0, 0, 1);
+}
+
+.add-button:active {
+  background: rgba(0, 0, 0, 1);
+}
+
+.add-button img {
+  filter: brightness(0) invert(1);
+  width: 25px;
+  height: 25px;
+}
+
+input[type="date"] {
   /* 달력 이모지 숨김 */
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   /* border 제거 */
   border: none;
   outline: none;
+  /* 클릭 가능하도록 설정 */
+  cursor: pointer;
 }
 
-/* Webkit 브라우저에서 달력 이모지 숨김 */
-.date-input::-webkit-calendar-picker-indicator {
-  display: none;
-}
-
-/* Firefox에서 달력 이모지 숨김 */
-.date-input::-moz-calendar-picker-indicator {
-  display: none;
+.text-input {
+  /* border 제거 */
+  border: none;
+  outline: none;
 }
 
 /* 버튼 기본 스타일 초기화 */
