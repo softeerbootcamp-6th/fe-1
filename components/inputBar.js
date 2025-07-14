@@ -54,6 +54,7 @@ export function createInputBar() {
         required
         class="semibold-12 text-input"
       >
+        <option value="" disabled selected hidden>선택하세요</option>
         <option value="cash">현금</option>
         <option value="card">카드</option>
         <option value="add">추가하기</option>

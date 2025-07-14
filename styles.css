@@ -150,7 +150,7 @@ header {
 }
 
 .input-bar {
-  width: 100%;
+  width: 894px;
   height: 112px;
   display: flex;
   justify-content: space-between;
@@ -162,6 +162,9 @@ header {
 .container {
   width: 846px;
   margin: 40px auto 0;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 네비게이션 스타일 */
@@ -241,6 +244,11 @@ nav a.active {
 
 select {
   width: 100%;
+  padding: 0;
+}
+
+select:invalid {
+  color: #777d84;
 }
 
 .add-button {
@@ -342,4 +350,20 @@ button img {
   width: 20px;
   height: 20px;
   display: block;
+}
+
+#transaction-list-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.transaction-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

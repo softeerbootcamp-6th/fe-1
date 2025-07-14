@@ -43,7 +43,7 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
         .reduce((sum, transaction) => sum + transaction.amount, 0);
 
       const header = `
-        <div class="flex-row">
+        <div class="flex-between serif-14">
           <div>${date}</div>
           <div>
             ${isIncomeChecked && totalIncome > 0 ? `수입 ${totalIncome} ` : ""}
@@ -57,7 +57,7 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
       const rows = transactionList
         .map(
           (transaction) => `
-        <tr>
+        <tr class="flex-between">
           <td>${transaction.category}</td>
           <td>${transaction.description}</td>
           <td>${transaction.paymentMethod}</td>
