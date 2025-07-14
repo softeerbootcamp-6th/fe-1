@@ -1,6 +1,7 @@
+@import './reset.css';
 @import './components/header/index.css';
 @import './components/inputbar/index.css';
-@import './reset.css';
+@import './components/dailyList/index.css';
 
 :root {
     --grayscale-50: #ffffff;
@@ -102,5 +103,6 @@
 main {
     transform: translateY(-40px);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
