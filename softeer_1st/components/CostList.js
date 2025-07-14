@@ -44,9 +44,36 @@ export function CostList(year, month, item) {
         });
     console.log(item.items);
     item.items.map((item) => {
-        const datesCard = DatesCard(item)
+        console.log(item);
+        const datesCard = DatesCard(item, ()=>deleteCostItem({year: year, month: month, ...item}));
+
         costItem.appendChild(datesCard);
     });
     container.appendChild(costItem);
     return container;
+}
+function deleteCostItem(item){
+    fetch(`http://localhost:3000/api/data`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(item),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to delete cost item");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Cost item deleted successfully:", data);
+            // 데이터 삭제 후 필요한 작업 수행 (예: UI 업데이트)
+            dateStore.updateDateState();
+        })
+        .catch((error) => {
+            console.error("Error deleting cost item:", error);
+            // 에러 처리 로직 추가 (예: 사용자에게 알림)
+        }
+    );
 }

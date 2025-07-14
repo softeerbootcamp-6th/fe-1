@@ -1,3 +1,5 @@
+import { setLocalStorage } from "../utils/localStorage.js";
+
 const MIN_YEAR = 2024;
 const MAX_YEAR = 2025;
 const MIN_MONTH = 1;
@@ -50,5 +52,6 @@ export const dateStore = {
 
         if (y < MIN_YEAR || y > MAX_YEAR) return; // 범위 밖이면 무시
         this.set(y, m);
+        setLocalStorage("date", { year: this.year, month: this.month });
     },
 };
