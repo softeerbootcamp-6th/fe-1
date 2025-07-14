@@ -3,6 +3,8 @@ import { addEventListener } from "../utils/addEvent.js";
 import { renderComponent } from "../utils/render.js";
 
 export function initTransactionForm() {
+  renderTransactionForm();
+
   addEventListener({
     id: "transaction-form",
     event: "submit",
@@ -19,7 +21,6 @@ export function initTransactionForm() {
       toggleItemType({ btn: e.target });
     },
   });
-  renderTransactionForm();
 }
 
 function addItem({ form }) {
