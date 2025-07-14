@@ -3,7 +3,7 @@ import { dailyData } from '../../store/daily.js';
 import createDaliyList from './dailyList.js';
 
 export default function initalizeDailyList() {
-    const $container = createElement('ol', { class: '' }, '');
+    const $container = createElement('ol', { class: 'daily-list-wrapper' }, '');
 
     dailyData.data.forEach((item) => {
         $container.appendChild(createDaliyList(item));

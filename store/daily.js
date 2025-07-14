@@ -1,3 +1,7 @@
+import createDaily from '../components/dailyList/daily.js';
+import createDaliyList from '../components/dailyList/dailyList.js';
+import { formatDateToKorean } from '../utils.js';
+
 export const dailyData = {
     data: [],
     async init() {
@@ -8,10 +12,7 @@ export const dailyData = {
             const response = await fetch('/data/DailyInfo.json');
             if (!response.ok) throw new Error('데이터 로딩 실패');
             this.data = await response.json();
-        } catch (error) {
-            console.error('fetch error:', error);
-        }
-        console.log(this.data);
+        } catch (error) {}
     },
 
     uploadDailyData(data) {
@@ -24,14 +25,45 @@ export const dailyData = {
             amount: Number(amount.replace(/,/g, '')),
             createAt: new Date().toISOString(),
         };
-        console.log(newItems);
         if (targetDateObj) {
             targetDateObj.items.push(newItems);
         } else {
             this.data = [{ date: date, items: [newItems] }, ...this.data];
         }
-        console.log(this.data);
+        updateDailyView(data);
     },
 };
 
 dailyData.init();
+
+function updateDailyView(data) {
+    const $dailyContainer = document.querySelector('.daily-list-wrapper'); // 여긴 ID 맞게 수정
+
+    const { date } = data;
+    const dateToKorean = formatDateToKorean(date);
+
+    let $dateSection = [...$dailyContainer.children].find(
+        (section) =>
+            section.querySelector('.date-info')?.textContent === dateToKorean,
+    );
+
+    if ($dateSection) {
+        const $newItem = createDaily(data);
+        const $list = $dateSection.querySelector('.daliy-line-wrapper');
+        $list.appendChild($newItem);
+    } else {
+        const listData = {
+            date: data.date,
+            items: [
+                {
+                    amount: data.amount,
+                    category: data.category,
+                    description: data.description,
+                    payment: data.payment,
+                },
+            ],
+        };
+        const $newItemList = createDaliyList(listData);
+        $dailyContainer.appendChild($newItemList);
+    }
+}
