@@ -5,7 +5,12 @@ import { ListTypeFilter } from "./ListTypeFilter.js";
 
 export const List = () => {
   const list = ElementManager.renderElement("div", "list");
+  const moneyTypeFilter = {
+    isExpenseTypeOpen: true,
+    isIncomeTypeOpen: true,
+  };
 
+  // list overview
   const listOverview = ElementManager.renderElement("div", "list-overview");
   const listCounter = ElementManager.renderElement("div", "list-counter");
   listCounter.innerHTML = `
@@ -18,11 +23,12 @@ export const List = () => {
     "div",
     "list-type-container"
   );
-  listTypeFilterWrapper.appendChild(ListTypeFilter("income"));
-  listTypeFilterWrapper.appendChild(ListTypeFilter("expense"));
+  listTypeFilterWrapper.appendChild(ListTypeFilter("income", moneyTypeFilter));
+  listTypeFilterWrapper.appendChild(ListTypeFilter("expense", moneyTypeFilter));
   listOverview.appendChild(listTypeFilterWrapper);
   list.appendChild(listOverview);
 
+  // list wrpper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
   listWrapper.appendChild(DayList(DummyList));
   list.appendChild(listWrapper);
