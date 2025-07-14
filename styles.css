@@ -198,3 +198,58 @@ nav a:hover {
 nav a.active {
   background: rgba(255, 255, 255, 1);
 }
+
+.input-bar .flex-column {
+  align-items: flex-start;
+}
+
+.input-label {
+  text-align: left;
+}
+
+.date-input {
+  /* 달력 이모지 숨김 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* border 제거 */
+  border: none;
+  outline: none;
+}
+
+/* Webkit 브라우저에서 달력 이모지 숨김 */
+.date-input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* Firefox에서 달력 이모지 숨김 */
+.date-input::-moz-calendar-picker-indicator {
+  display: none;
+}
+
+/* 버튼 기본 스타일 초기화 */
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  outline: none;
+}
+
+/* 버튼 내부 이미지 스타일 */
+button img {
+  pointer-events: none;
+  user-select: none;
+}
