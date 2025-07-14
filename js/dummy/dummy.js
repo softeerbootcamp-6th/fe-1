@@ -4,7 +4,7 @@ export const dummyEntries = [
     amount: 50000,
     desc: "월급",
     method: "카드",
-    category: "급여",
+    category: "문화/여가",
     isIncome: true
   },
   {
@@ -12,7 +12,7 @@ export const dummyEntries = [
     amount: 15000,
     desc: "점심",
     method: "현금",
-    category: "식비",
+    category: "용돈",
     isIncome: false
   },
   {
@@ -20,7 +20,7 @@ export const dummyEntries = [
     amount: 30000,
     desc: "영화 관람",
     method: "카드",
-    category: "문화생활",
+    category: "식비",
     isIncome: false
   }
 ];

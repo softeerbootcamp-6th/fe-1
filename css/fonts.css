@@ -2,6 +2,8 @@
 :root {
     --font-family-sans: "Pretendard", -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+
+    --font-family-serif: "ChosunNm", serif;
 }
 
 @font-face {
@@ -12,4 +14,10 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "ChosunNm";
+  src: url("../../assets/fonts/ChosunNm.woff") format("woff");
+  font-weight: 400;
 
+  font-display: swap;
+}

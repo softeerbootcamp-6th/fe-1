@@ -47,9 +47,22 @@ export function initInputForm() {
     // 수입이면 + 기호, 지출이면 - 기호 표시
     const sign = entry.isIncome ? '' : '-';
     const amountClass = entry.isIncome ? 'income-amount' : 'expense-amount';
+
+    const category = {
+      "생활": "--colorchip-90",
+      "식비": "--colorchip-60",
+      "교통": "--colorchip-70",
+      "쇼핑/뷰티": "--colorchip-30",
+      "의료/건강": "--colorchip-50",
+      "문화/여가": "--colorchip-100",
+      미분류: "--colorchip-110",
+      월급: "--colorchip-20",
+      용돈: "--colorchip-40",
+      기타수입: "--colorchip-10"
+    }
     
     item.innerHTML = `
-      <div class="entry-category">${entry.category}</div>
+      <div class="entry-category ${category[entry.category]}">${entry.category}</div>
       <div class="entry-desc">${entry.desc}</div>
       <div class="entry-method">${entry.method}</div>
       <div class="entry-amount ${amountClass}">${sign}${entry.amount.toLocaleString()}원</div>
