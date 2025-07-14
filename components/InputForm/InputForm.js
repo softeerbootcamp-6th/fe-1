@@ -110,6 +110,7 @@ const InputForm = async () => {
       inputData.type = "expenses";
     }
     renderCategorySelect(inputFormElement);
+    inputData.category = "";
     validateInputForm();
   });
 
