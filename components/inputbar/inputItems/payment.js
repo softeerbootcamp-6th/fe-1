@@ -1,7 +1,7 @@
 import { createElement } from '../../../utils.js';
 import formData from '../../../store/formData.js';
 
-export default function () {
+export default function createPaymentInput() {
     const paymentInputInnerHtml = `
             <label for="paymentInput" class="lt-12">결제수단</label>
             <select id="paymentInput" class="sb-12">

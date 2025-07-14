@@ -1,7 +1,7 @@
 import { createElement } from '../../../utils.js';
 import formData from '../../../store/formData.js';
 
-export default function () {
+export default function createDateInput() {
     const dateInputInnerHtml = `
             <label for="dateInput" class="lt-12">일자</label>
             <input id="dateInput" type="date" class="sb-12" />
