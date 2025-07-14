@@ -15,7 +15,7 @@ export const openModal = ({title, content, isDelete, onClick}) => {
         modalFeature.style.color = "var(--nuetral-text-default)";
     }
     modalCancel.addEventListener("click", closeModal);
-    modalFeature.onClick = () => {
+    modalFeature.onclick = () => {
         onClick();
         closeModal();
     };

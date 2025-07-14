@@ -16,14 +16,6 @@
           {
             "date": 12,
             "type": "expense",
-            "category": "교통",
-            "description": "버스교통비 충전",
-            "paymentMethod": "현금",
-            "amount": 10000
-          },
-          {
-            "date": 12,
-            "type": "expense",
             "category": "식비",
             "description": "점심 김치찌개",
             "paymentMethod": "현금",
@@ -62,12 +54,12 @@
             "category": "월급"
           },
           {
-            "date": 5,
-            "amount": 5000,
-            "type": "expense",
-            "description": "커피 구매",
-            "paymentMethod": "현대카드",
-            "category": "생활"
+            "date": 14,
+            "amount": 23131,
+            "type": "income",
+            "description": "입금 테스트",
+            "paymentMethod": "현금",
+            "category": "용돈"
           }
         ]
       },
@@ -627,14 +619,6 @@
             "amount": 2180000
           },
           {
-            "date": 7,
-            "type": "expense",
-            "category": "식비",
-            "description": "라면·맥주 야식",
-            "paymentMethod": "신용카드",
-            "amount": 9800
-          },
-          {
             "date": 19,
             "type": "expense",
             "category": "문화/여가",
@@ -694,6 +678,14 @@
             "description": "고지서 수도요금",
             "paymentMethod": "신용카드",
             "amount": 31000
+          },
+          {
+            "date": 14,
+            "amount": 127000,
+            "type": "expense",
+            "description": "시계 구매",
+            "paymentMethod": "현대카드",
+            "category": "미분류"
           }
         ]
       },
@@ -985,6 +977,14 @@
             "description": "고속버스 예매",
             "paymentMethod": "신용카드",
             "amount": 32000
+          },
+          {
+            "date": 7,
+            "amount": 123123,
+            "type": "expense",
+            "description": "출금 테스트",
+            "paymentMethod": "현금",
+            "category": "생활"
           }
         ]
       },
@@ -1075,6 +1075,14 @@
             "description": "에어컨 필터 청소용품",
             "paymentMethod": "신용카드",
             "amount": 23000
+          },
+          {
+            "date": 14,
+            "amount": 123,
+            "type": "income",
+            "description": "124",
+            "paymentMethod": "현금",
+            "category": "월급"
           }
         ]
       },
@@ -1120,6 +1128,19 @@
             "description": "선글라스 구입",
             "paymentMethod": "신용카드",
             "amount": 54000
+          }
+        ]
+      },
+      {
+        "month": 9,
+        "list": [
+          {
+            "date": 14,
+            "amount": 2100000,
+            "type": "income",
+            "description": "월급",
+            "paymentMethod": "현금",
+            "category": "월급"
           }
         ]
       }

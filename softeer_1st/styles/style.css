@@ -342,7 +342,11 @@ input[type="text"].form-cost-input {
     resize: none;
     width: 100%;
 }
-
+.option-button{
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;;
+}
 .drop-down-wrapper {
     display: none;
 }
@@ -506,4 +510,21 @@ button.form-category {
 }
 .modal-body{
     padding: 32px;
+    width: 384px;
+}
+.modal-body input{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--neutral-surface-default);
+}
+
+.modal-buttons > button {
+    width: 50%;
+    height: 56px;
+    border: 1px solid var(--neutral-border-default);
+}
+.modal-buttons > button:first-child {
+    border-right: none;
 }
