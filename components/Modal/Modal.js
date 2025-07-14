@@ -23,7 +23,9 @@ import { TextInput } from "../index.js";
 
 const Modal = ({
   className = null,
+  type, // add, delete
   text = null,
+  value = "",
   placeholder = null,
   onConfirm = null,
 } = {}) => {
@@ -32,6 +34,9 @@ const Modal = ({
 
   // 백드롭 클릭 시 모달 닫기
   modal.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (e.target === modal) {
       modal.close();
     }
@@ -51,6 +56,8 @@ const Modal = ({
     type: "default",
     state: "enabled",
     placeholder: placeholder,
+    value: value,
+    disabled: type === "delete",
   });
 
   modalContent.append(modalLabel, modalInput);
@@ -70,9 +77,10 @@ const Modal = ({
 
   const confirmButton = document.createElement("button");
   confirmButton.type = "button";
-  confirmButton.className =
-    "modal__button modal__button--confirm font-semibold-16";
-  confirmButton.textContent = "추가";
+  confirmButton.className = `modal__button modal__button--confirm font-semibold-16 ${
+    type === "add" ? "modal__button--add" : "modal__button--delete"
+  }`;
+  confirmButton.textContent = type === "add" ? "추가" : "삭제";
 
   confirmButton.addEventListener("click", () => {
     onConfirm(modalInput.value);
