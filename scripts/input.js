@@ -1,6 +1,7 @@
 // input 바에서 사용하는 드롭다운, 유효성 검증, 글자수 세기 등의 로직을 다루는 파일
 
 import { elements } from "./elements.js";
+import { addRecord } from "./records.js";
 
 let valueSign = "minus"; // or "plus"
 let paymentOptions = ["현금", "신용카드", "추가하기"];
@@ -12,7 +13,6 @@ const categoryOptions = {
 export const initToggleButton = () => {
   const toggleButtonEl = elements.toggleButtonEl();
   toggleButtonEl.addEventListener("click", () => {
-    console.log("Toggle button clicked");
     const currentSign = toggleButtonEl.textContent.trim();
     if (currentSign === "+") {
       toggleButtonEl.textContent = "-";
@@ -56,7 +56,6 @@ export const initDropdown = ({
   function toggleDropdown(e) {
     e.stopPropagation();
     const isOpen = optionsUl.style.display === "block";
-    console.log(isOpen);
     if (isOpen) {
       optionsUl.setAttribute("style", "display: none");
     } else {
@@ -166,7 +165,7 @@ export const getInputValues = () => {
     const payment = elements.paymentCellEl().textContent.trim();
     const category = elements.categoryCellEl().textContent.trim();
 
-    console.log("Input Values:", {
+    addRecord({
       date,
       sign,
       value,
@@ -174,14 +173,5 @@ export const getInputValues = () => {
       payment,
       category,
     });
-
-    return {
-      date,
-      sign,
-      value,
-      description,
-      payment,
-      category,
-    };
   });
 };

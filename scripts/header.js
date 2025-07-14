@@ -1,5 +1,8 @@
+import { records, renderRecords } from "./records.js";
+import { elements } from "./elements.js";
+
 export async function loadHeaderHTML() {
-  const headerEl = document.getElementById("header");
+  const headerEl = elements.headerEl();
   const res = await fetch("./components/header.html");
   const html = await res.text();
   headerEl.innerHTML = html;
@@ -16,7 +19,6 @@ export function initializeHeader() {
 
   let currentYear = yearEl.textContent;
   let currentMonth = monthEl.textContent;
-  console.log("initial value: ", currentYear, currentMonth);
   const monthNames = [
     "",
     "January",
@@ -48,6 +50,7 @@ export function initializeHeader() {
     }
 
     updateDisplay();
+    renderRecords(currentYear, currentMonth, records);
   });
 
   nextBtn.addEventListener("click", () => {
@@ -59,5 +62,6 @@ export function initializeHeader() {
     }
 
     updateDisplay();
+    renderRecords(currentYear, currentMonth, records);
   });
 }
