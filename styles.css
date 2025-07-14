@@ -384,6 +384,7 @@ button:active {
 
 button:disabled {
   opacity: 0.32;
+  cursor: not-allowed;
 }
 
 /* 버튼 내부 이미지 스타일 */

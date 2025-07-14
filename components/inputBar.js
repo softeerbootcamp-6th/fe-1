@@ -89,12 +89,43 @@ export function createInputBar() {
   `;
 }
 
+function validateForm(requiredFields, submitButton) {
+  const isValid = requiredFields.every((field) => {
+    if (field.tagName === "SELECT") {
+      return field.value !== "";
+    }
+    return field.value.trim() !== "";
+  });
+  submitButton.disabled = !isValid;
+  submitButton.classList.toggle("disabled", !isValid);
+}
+
 export function renderInputBar(container) {
   container.innerHTML = createInputBar();
 
   const form = container.querySelector("#inputBarForm");
   const amountToggle = container.querySelector(".amountToggle");
   const amountInput = container.querySelector("input[name='amount']");
+  const submitButton = container.querySelector(".add-button");
+
+  const requiredFields = [
+    form.querySelector("input[name='date']"),
+    form.querySelector("input[name='amount']"),
+    form.querySelector("input[name='content']"),
+    form.querySelector("select[name='paymentMethod']"),
+    form.querySelector("select[name='category']"),
+  ];
+
+  // 모든 필드에 이벤트 리스너 추가
+  requiredFields.forEach((field) => {
+    const eventType = field.tagName === "SELECT" ? "change" : "input";
+    field.addEventListener(eventType, () =>
+      validateForm(requiredFields, submitButton)
+    );
+  });
+
+  // 초기 상태 검사
+  validateForm(requiredFields, submitButton);
 
   if (amountToggle && amountInput) {
     amountToggle.addEventListener("click", () => {
@@ -127,6 +158,11 @@ export function renderInputBar(container) {
     addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
 
     form.reset();
+
+    // 폼 reset 후 다시 검사
+    validateForm(requiredFields, submitButton);
+
+    // 금액 토글 초기화
     amountToggle.innerHTML = `<img src="../icons/plus.svg" alt="plus" />`;
     const { isIncomeChecked, isExpenseChecked } = getFilteringState();
     renderTransactionList(isIncomeChecked, isExpenseChecked);
