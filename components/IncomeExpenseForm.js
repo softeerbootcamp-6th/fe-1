@@ -14,7 +14,7 @@ export function renderIncomeExpenseForm() {
   const getDateContainerHTML = () => {
     return `
         <div class="date-container">
-            <label class="date-label">날짜</label>
+            <label class="date-label light12">날짜</label>
             <input type="date" class="date-input" name="date" value="${formattedDate}">
         </div>
     `;
@@ -23,11 +23,13 @@ export function renderIncomeExpenseForm() {
   const getMoneyContainerHTML = () => {
     return `
         <div class="money-container">
-            <label class="money-label">금액</label>
-            <button class="money-button">
-                <img src="../assets/icons/plus.svg" alt="Add"></img>
-            </button>
-            <input type="string" class="money-input"></input>
+            <label class="money-label light12" for="money-input">금액</label>
+            <div class="money-input-container">
+                <button class="money-button">
+                    <img src="../assets/icons/plus.svg" alt="Add"></img>
+                </button>
+                <input id="money-input" type="string" class="money-input"></input>
+            </div>
         </div>
     `;
   };
@@ -35,9 +37,11 @@ export function renderIncomeExpenseForm() {
   const getDescriptionContainerHTML = () => {
     return `
         <div class="description-container">
-            <label class="description-label">내용</label>
-            <span class="description-length">0/32</span>
-            <input type="text" class="description-input" maxlength="32"></input>
+            <div class="description-label-container">
+                <label class="description-label light12" for="description-input">내용</label>
+                <span class="description-length light12">0/32</span>
+            </div>
+            <input id="description-input" type="text" class="description-input" maxlength="32"></input>
         </div>
     `;
   };
@@ -45,7 +49,7 @@ export function renderIncomeExpenseForm() {
   const getPaymentContainerHTML = () => {
     return `
         <div class="payment-container">
-            <label class="payment-label">결제수단</label>
+            <label class="payment-label light12">결제수단</label>
             <select class="payment-select">
                 ${paymentOptions
                   .map(option => `<option value="${option}">${option}</option>`)
@@ -58,7 +62,7 @@ export function renderIncomeExpenseForm() {
   const getClassContainerHTML = () => {
     return `
         <div class="class-container">
-            <label class="class-label">분류</label>
+            <label class="class-label light12">분류</label>
             <select class="class-select">
                 ${expenseClasses
                   .map(option => `<option value="${option}">${option}</option>`)
@@ -68,12 +72,31 @@ export function renderIncomeExpenseForm() {
         `;
   };
 
+  const getVerticalLineHTML = () => {
+    return `
+        <div class="vertical-line"></div>
+    `;
+  };
+
+  const addButtonHTML = () => {
+    return `
+        <button type="submit" class="add-button">
+            <img src="../assets/icons/add-button.svg" alt="Add"></img>
+        </button>
+    `;
+  };
+
   form.innerHTML = `
     ${getDateContainerHTML()}
+    ${getVerticalLineHTML()}
     ${getMoneyContainerHTML()}
+    ${getVerticalLineHTML()}
     ${getDescriptionContainerHTML()}
+    ${getVerticalLineHTML()}
     ${getPaymentContainerHTML()}
+    ${getVerticalLineHTML()}
     ${getClassContainerHTML()}
+    ${addButtonHTML()}
     `;
 
   return form;
