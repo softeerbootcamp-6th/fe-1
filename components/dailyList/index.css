@@ -1,0 +1,41 @@
+.day-container {
+    margin-top: 40px;
+}
+.daily-line {
+    display: flex;
+    width: 846px;
+    height: 56px;
+    text-align: center;
+    align-items: center;
+}
+
+.daliy-line-wrapper {
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+.category-info {
+    width: 92px;
+    margin: 10px;
+}
+
+.description-info {
+    width: 400px;
+    text-align: left;
+    margin: 10px;
+}
+
+.payment-info {
+    width: 104px;
+    text-align: left;
+    margin: 14px;
+}
+
+.amount-info {
+    width: 186px;
+    text-align: right;
+}
+
+.date-info {
+    margin-bottom: 10px;
+}
