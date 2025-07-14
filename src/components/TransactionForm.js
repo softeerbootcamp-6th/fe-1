@@ -20,6 +20,50 @@ export function initTransactionForm() {
       toggleItemType({ btn: e.target });
     },
   });
+
+  addFormValidationListeners(
+    [
+      "date-input",
+      "amount-input",
+      "desc-input",
+      "method-select",
+      "category-select",
+    ],
+    validateForm
+  );
+}
+
+function validateForm() {
+  const form = document.getElementById("transaction-form");
+  const date = form.querySelector('input[name="date"]').value;
+  const amount = form.querySelector('input[name="amount"]').value;
+  const description = form.querySelector('input[name="description"]').value;
+  const method = form.querySelector('select[name="method"]').value;
+  const category = form.querySelector('select[name="category"]').value;
+  const submitBtn = form.querySelector("#submit-btn");
+
+  if (date && amount && description && method && category) {
+    submitBtn.disabled = false;
+  } else {
+    submitBtn.disabled = true;
+  }
+}
+
+function addFormValidationListeners(ids, validateForm) {
+  ids.forEach((id) => {
+    addEventListener({
+      id,
+      event: "input",
+      onEvent: validateForm,
+    });
+    if (id.endsWith("select")) {
+      addEventListener({
+        id,
+        event: "change",
+        onEvent: validateForm,
+      });
+    }
+  });
 }
 
 function addItem({ form }) {
@@ -163,7 +207,7 @@ function renderTransactionForm() {
 
           <!-- 제출 버튼 -->
           <div class="transaction-form-submit-col">
-            <button type="submit" class="transaction-form-submit-btn">
+            <button type="submit" class="transaction-form-submit-btn" id="submit-btn" disabled>
               <img
                 src="./src/assets/icons/check.svg"
                 class="transaction-button-check"
