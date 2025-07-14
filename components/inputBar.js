@@ -20,7 +20,7 @@ export function createInputBar() {
       <div class="flex-row semibold-12">
         <button
           type="button"
-          class="amountToggle"
+          class="amount-toggle"
           data-sign="+"
         >
           <img src="../icons/plus.svg" alt="plus" />
@@ -104,7 +104,7 @@ export function renderInputBar(container) {
   container.innerHTML = createInputBar();
 
   const form = container.querySelector("#inputBarForm");
-  const amountToggle = container.querySelector(".amountToggle");
+  const amountToggle = container.querySelector(".amount-toggle");
   const amountInput = container.querySelector("input[name='amount']");
   const submitButton = container.querySelector(".add-button");
 
@@ -129,7 +129,6 @@ export function renderInputBar(container) {
 
   if (amountToggle && amountInput) {
     amountToggle.addEventListener("click", () => {
-      console.log("amountToggle", amountToggle.dataset.sign);
       //+ - 변경
       if (amountToggle.dataset.sign === "+") {
         amountToggle.innerHTML = `<img src="../icons/minus.svg" alt="minus" />`;
