@@ -49,3 +49,11 @@
 .modal__button--confirm {
   color: var(--nuetral-text-default);
 }
+
+.modal__button--add {
+  color: var(--nuetral-text-default);
+}
+
+.modal__button--delete {
+  color: var(--danger-text-default);
+}
