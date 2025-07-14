@@ -4,7 +4,7 @@ const incomeExpenseData = {
       date: '2025-08-01',
       income_expense: [
         {
-          id: 1,
+          id: 0,
           type: 'income',
           money: '1000',
           description: '하하하',
@@ -12,7 +12,7 @@ const incomeExpenseData = {
           class: '문화여가',
         },
         {
-          id: 2,
+          id: 1,
           type: 'expense',
           money: '500',
           description: '점심',
@@ -20,7 +20,7 @@ const incomeExpenseData = {
           class: '식비',
         },
         {
-          id: 3,
+          id: 2,
           type: 'income',
           money: '2000',
           description: '월급',
@@ -35,7 +35,7 @@ const incomeExpenseData = {
       date: '2025-07-01',
       income_expense: [
         {
-          id: 1,
+          id: 0,
           type: 'income',
           money: '1500',
           description: '영화',
@@ -43,7 +43,7 @@ const incomeExpenseData = {
           class: '문화여가',
         },
         {
-          id: 2,
+          id: 1,
           type: 'expense',
           money: '300',
           description: '커피',
@@ -51,7 +51,7 @@ const incomeExpenseData = {
           class: '식비',
         },
         {
-          id: 3,
+          id: 2,
           type: 'income',
           money: '2500',
           description: '보너스',
@@ -64,7 +64,7 @@ const incomeExpenseData = {
       date: '2025-07-02',
       income_expense: [
         {
-          id: 4,
+          id: 0,
           type: 'expense',
           money: '800',
           description: '교통비',
@@ -72,7 +72,7 @@ const incomeExpenseData = {
           class: '교통',
         },
         {
-          id: 5,
+          id: 1,
           type: 'income',
           money: '1200',
           description: '프리랜스 수입',
