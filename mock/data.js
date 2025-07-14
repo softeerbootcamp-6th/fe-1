@@ -2763,3 +2763,7 @@ if (!localStorage.getItem("method")) {
 if (!localStorage.getItem("category")) {
   localStorage.setItem("category", JSON.stringify(category));
 }
+
+if (!localStorage.getItem("currentId")) {
+  localStorage.setItem("currentId", 301);
+}
