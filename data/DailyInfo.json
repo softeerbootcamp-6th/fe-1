@@ -3,7 +3,7 @@
         "date": "2025-07-01",
         "items": [
             {
-                "category": "문화/여가",
+                "category": "생활",
                 "description": "넷플릭스 정기 결제",
                 "payment": "현대카드",
                 "amount": -10900,
@@ -15,7 +15,7 @@
         "date": "2025-07-03",
         "items": [
             {
-                "category": "문화/여가",
+                "category": "쇼핑/뷰티",
                 "description": "유튜브 프리미엄",
                 "payment": "삼성카드",
                 "amount": -14500,
@@ -27,7 +27,7 @@
         "date": "2025-07-05",
         "items": [
             {
-                "category": "문화/여가",
+                "category": "식비",
                 "description": "티빙 스트리밍 요금",
                 "payment": "신한카드",
                 "amount": -7900,
@@ -39,7 +39,7 @@
         "date": "2025-07-07",
         "items": [
             {
-                "category": "문화/여가",
+                "category": "의료/건강",
                 "description": "왓챠 월간 구독",
                 "payment": "국민카드",
                 "amount": -9500,
