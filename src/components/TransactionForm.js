@@ -1,6 +1,8 @@
 import { addObservers, setState, state } from "../store.js";
 import { addEventListener } from "../utils/addEvent.js";
 import { renderComponent } from "../utils/render.js";
+import { categories } from "../constants/categories.js";
+
 export function initTransactionForm() {
   renderTransactionForm();
 
@@ -81,20 +83,38 @@ function handleTransactionFormSubmit({ form }) {
 }
 
 function handleTransactionTypeToggle({ btn }) {
-  const isMinus = btn.classList.contains("transaction-type-icon-minus");
-
   const form = btn.closest("form");
   const typeInput = form.querySelector("input[name='type']");
-
+  const categorySelect = form.querySelector("select[name='category']");
+  const isMinus = btn.classList.contains("transaction-type-icon-minus");
+  let newType;
   if (isMinus) {
     btn.classList.remove("transaction-type-icon-minus");
     btn.classList.add("transaction-type-icon-plus");
-    if (typeInput) typeInput.value = "deposit";
+    newType = "deposit";
   } else {
     btn.classList.remove("transaction-type-icon-plus");
     btn.classList.add("transaction-type-icon-minus");
-    if (typeInput) typeInput.value = "withdraw";
+    newType = "withdraw";
   }
+  if (typeInput) typeInput.value = newType;
+
+  if (categorySelect) {
+    categorySelect.innerHTML = createCategoryOptionsInnerHtml(newType, "");
+  }
+}
+
+function createCategoryOptionsInnerHtml(type, selectedCategory) {
+  const options = categories.filter((cat) => cat.type === type);
+  return [
+    '<option value="">선택하세요</option>',
+    ...options.map(
+      (cat) =>
+        `<option value="${cat.name}"${
+          selectedCategory === cat.name ? " selected" : ""
+        }>${cat.name}</option>`
+    ),
+  ].join("");
 }
 
 function createTransactionFormInnerHtml() {
