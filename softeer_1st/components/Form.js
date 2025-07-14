@@ -500,6 +500,7 @@ export function Form() {
         if (!submitButton.disabled) {
             await sendPostRequest(formState)
             dateStore.set(formState.year, formState.month);
+            // location.reload();
         }})
 
     return form;

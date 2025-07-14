@@ -1045,14 +1045,6 @@
             "amount": 2250000
           },
           {
-            "date": 6,
-            "type": "expense",
-            "category": "식비",
-            "description": "점심 냉면",
-            "paymentMethod": "신용카드",
-            "amount": 9000
-          },
-          {
             "date": 12,
             "type": "expense",
             "category": "의료/건강",
@@ -1081,6 +1073,30 @@
             "amount": 123,
             "type": "income",
             "description": "124",
+            "paymentMethod": "현금",
+            "category": "월급"
+          },
+          {
+            "date": 14,
+            "amount": 1111,
+            "type": "income",
+            "description": "dzfsf",
+            "paymentMethod": "현금",
+            "category": "월급"
+          },
+          {
+            "date": 14,
+            "amount": 111,
+            "type": "income",
+            "description": "dsdf",
+            "paymentMethod": "현금",
+            "category": "월급"
+          },
+          {
+            "date": 14,
+            "amount": 111,
+            "type": "income",
+            "description": "입금 테스트",
             "paymentMethod": "현금",
             "category": "월급"
           }

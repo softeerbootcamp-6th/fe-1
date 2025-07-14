@@ -4,6 +4,10 @@ import { createElement } from "../utils/createElement.js";
 import { dateStore } from "../store/dateStore.js";
 export function renderMain() {
     let [year, month] = [dateStore.year, dateStore.month];
+    let showCost = {
+        income: true,
+        expense: true,
+    };
     const section = document.createElement("section");
     const form = Form();
     const mainContainer = createElement("div", {
@@ -21,7 +25,7 @@ export function renderMain() {
                     const eachDateContainer = createElement("div", {
                         className: "each-date-container",
                     });
-                    mainContainer.appendChild(eachDateContainer);
+
                     let totalIncome = 0;
                     let totalExpense = 0;
                     monthData.forEach((item) => {
@@ -36,25 +40,144 @@ export function renderMain() {
                     const stat = createElement("div", {
                         className:
                             "flex justify-between align-center cost-list-stat",
-                        innerHTML: `
-                                    <div class="light-12">전체 내역 ${monthData.length}건</div>
-                                    <div class="flex gap-8 light-12 align-center">
-                                        <span class="flex gap-4 align-center"><img style="width:16px;height:16px;" src="../assets/icons/checkbox.svg" />수입 ${totalIncome.toLocaleString()}</span>
-                                        <span class="flex gap-4 align-center"><img style="width:16px;height:16px;" src="../assets/icons/checkbox.svg" />지출 ${totalExpense.toLocaleString()}</span>
-                                `,
                     });
 
-                    eachDateContainer.appendChild(stat);
-                    monthData.map((item) => {
-                        const costItem = createElement("div", {
-                            className: "cost-item",
-                        });
+                    // 전체 내역
+                    const totalText = createElement("div", {
+                        className: "light-12",
+                        textContent: `전체 내역 ${monthData.length}건`,
+                    });
 
-                        eachDateContainer.appendChild(
-                            CostList(newYear, newMonth, item)
+                    // 수입 컨테이너
+                    const incomeContainer = createElement("span", {
+                        className: "flex gap-4 align-center",
+                    });
+
+                    const incomeButton = createElement("button", {
+                        id: "show-income-check",
+                        className: "flex justify-center align-center",
+                    });
+
+                    const incomeImg = createElement("img", {
+                        src: "../assets/icons/checkbox.svg",
+                        style: { width: "16px", height: "16px" },
+                    });
+
+                    incomeButton.appendChild(incomeImg);
+
+                    const incomeText = document.createTextNode(
+                        `수입 ${totalIncome.toLocaleString()}`
+                    );
+
+                    // 지출 컨테이너
+                    const expenseContainer = createElement("span", {
+                        className: "flex gap-4 align-center",
+                    });
+
+                    const expenseButton = createElement("button", {
+                        id: "show-expense-check",
+                        className: "flex justify-center align-center",
+                    });
+
+                    const expenseImg = createElement("img", {
+                        src: "../assets/icons/checkbox.svg",
+                        style: { width: "16px", height: "16px" },
+                    });
+
+                    expenseButton.appendChild(expenseImg);
+
+                    const expenseText = document.createTextNode(
+                        `지출 ${totalExpense.toLocaleString()}`
+                    );
+
+                    // 수입, 지출 span 조립
+                    incomeContainer.appendChild(incomeButton);
+                    incomeContainer.appendChild(incomeText);
+
+                    expenseContainer.appendChild(expenseButton);
+                    expenseContainer.appendChild(expenseText);
+
+                    incomeButton.addEventListener("click", () => {
+                        showCost.income = !showCost.income;
+                        incomeImg.src = `../assets/icons/${
+                            showCost.income ? "checkbox" : "uncheckbox"
+                        }.svg`;
+                        renderEachDateContainer(
+                            monthData,
+                            showCost,
+                            eachDateContainer
                         );
-                        mainContainer.appendChild(eachDateContainer);
                     });
+                    expenseButton.addEventListener("click", () => {
+                        showCost.expense = !showCost.expense;
+                        expenseImg.src = `../assets/icons/${
+                            showCost.expense ? "checkbox" : "uncheckbox"
+                        }.svg`;
+                        renderEachDateContainer(
+                            monthData,
+                            showCost,
+                            eachDateContainer
+                        );
+                    });
+
+                    // 오른쪽 영역 (수입+지출 묶기)
+                    const rightSide = createElement("div", {
+                        className: "flex gap-8 light-12 align-center",
+                    });
+
+                    rightSide.appendChild(incomeContainer);
+                    rightSide.appendChild(expenseContainer);
+
+                    // stat 최종 조립
+                    stat.appendChild(totalText);
+                    stat.appendChild(rightSide);
+
+                    mainContainer.appendChild(stat);
+                    mainContainer.appendChild(eachDateContainer);
+                    renderEachDateContainer(
+                        monthData,
+                        showCost,
+                        eachDateContainer
+                    );
+
+                    function renderEachDateContainer(
+                        monthData,
+                        showCost,
+                        eachDateContainer
+                    ) {
+                        eachDateContainer.innerHTML = ""; // 초기화
+
+                        monthData.forEach((item) => {
+                            const filteredItems = item.items.filter(
+                                (costItem) => {
+                                    if (
+                                        showCost.income &&
+                                        costItem.type === "income"
+                                    )
+                                        return true;
+                                    if (
+                                        showCost.expense &&
+                                        costItem.type === "expense"
+                                    )
+                                        return true;
+                                    return false;
+                                }
+                            );
+
+                            if (filteredItems.length === 0) return;
+
+                            const costListElement = CostList(
+                                newYear,
+                                newMonth,
+                                {
+                                    date: item.date,
+                                    items: filteredItems,
+                                }
+                            );
+
+                            eachDateContainer.appendChild(costListElement);
+                        });
+                    }
                 })
                 .catch((err) => {
                     console.error(err);
@@ -77,36 +200,41 @@ async function fetchCostList(year, month) {
         headers: {
             "Content-Type": "application/json",
         },
-    }).then((res) =>{
-        if (!res.ok) {
-            throw new Error("데이터 불러오기 실패");
-        }
-        return res.json();
-    }).then((data) =>{
-        const yearData = data.find((item) => item.year === year);
-        if (!yearData) {
-            throw new Error("해당 연도의 데이터가 없습니다.");
-        }
-        const monthData = yearData.months.find((item) => item.month === month);
-        if (!monthData) {
-            throw new Error("해당 월의 데이터가 없습니다.");
-        }
-        const grouped = {};
-        monthData.list.forEach((item) => {
-            const dateKey = `${item.date}`;
-            if (!grouped[dateKey]) {
-                grouped[dateKey] = [];
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("데이터 불러오기 실패");
             }
-            grouped[dateKey].push(item);
+            return res.json();
+        })
+        .then((data) => {
+            const yearData = data.find((item) => item.year === year);
+            if (!yearData) {
+                throw new Error("해당 연도의 데이터가 없습니다.");
+            }
+            const monthData = yearData.months.find(
+                (item) => item.month === month
+            );
+            if (!monthData) {
+                throw new Error("해당 월의 데이터가 없습니다.");
+            }
+            const grouped = {};
+            monthData.list.forEach((item) => {
+                const dateKey = `${item.date}`;
+                if (!grouped[dateKey]) {
+                    grouped[dateKey] = [];
+                }
+                grouped[dateKey].push(item);
+            });
+            const groupedArray = Object.keys(grouped).map((date) => ({
+                date: Number(date),
+                items: grouped[date],
+            }));
+            return groupedArray;
+        })
+        .catch((error) => {
+            console.error("Error fetching cost list:", error);
+            throw error;
         });
-        const groupedArray = Object.keys(grouped).map((date) => ({
-            date: Number(date),
-            items: grouped[date],
-        }));
-        return groupedArray;
-    }).catch((error) => {
-        console.error("Error fetching cost list:", error);
-        throw error;
-    });
     return response;
 }
