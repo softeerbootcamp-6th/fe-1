@@ -1,4 +1,5 @@
 export const elements = {
+  headerEl: () => document.getElementById("header"),
   dateInputEl: () => document.querySelector(".date-input"),
   toggleButtonEl: () => document.querySelector(".toggle-button"),
   valueInputEl: () => document.querySelector(".value-number"),
@@ -9,4 +10,7 @@ export const elements = {
   paymentArrowIconEl: () => document.querySelector(".payment-arrow-icon"),
   submitButtonEl: () => document.querySelector(".submit-button"),
   checkBoxEl: () => document.querySelector(".checkbox"),
+  recordContainerEl: () => document.querySelector(".record-main"),
+  incomeFilterButtonEl: () => document.querySelector(".income-filter"),
+  outcomeFilterButtonEl: () => document.querySelector(".outcome-filter"),
 };
