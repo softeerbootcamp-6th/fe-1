@@ -1,0 +1,74 @@
+[
+    {
+        "date": "2025-07-01",
+        "items": [
+            {
+                "category": "문화/여가",
+                "description": "넷플릭스 정기 결제",
+                "payment": "현대카드",
+                "amount": -10900,
+                "createdAt": "2025-07-01T10:00:00+09:00"
+            }
+        ]
+    },
+    {
+        "date": "2025-07-03",
+        "items": [
+            {
+                "category": "문화/여가",
+                "description": "유튜브 프리미엄",
+                "payment": "삼성카드",
+                "amount": -14500,
+                "createdAt": "2025-07-03T08:15:00+09:00"
+            }
+        ]
+    },
+    {
+        "date": "2025-07-05",
+        "items": [
+            {
+                "category": "문화/여가",
+                "description": "티빙 스트리밍 요금",
+                "payment": "신한카드",
+                "amount": -7900,
+                "createdAt": "2025-07-05T13:45:00+09:00"
+            }
+        ]
+    },
+    {
+        "date": "2025-07-07",
+        "items": [
+            {
+                "category": "문화/여가",
+                "description": "왓챠 월간 구독",
+                "payment": "국민카드",
+                "amount": -9500,
+                "createdAt": "2025-07-07T11:30:00+09:00"
+            }
+        ]
+    },
+    {
+        "date": "2025-07-10",
+        "items": [
+            {
+                "category": "문화/여가",
+                "description": "웨이브 자동결제",
+                "payment": "롯데카드",
+                "amount": -8900,
+                "createdAt": "2025-07-10T16:20:00+09:00"
+            }
+        ]
+    },
+    {
+        "date": "2025-07-12",
+        "items": [
+            {
+                "category": "문화/여가",
+                "description": "디즈니+ 멤버십",
+                "payment": "현대카드",
+                "amount": -9900,
+                "createdAt": "2025-07-12T09:05:00+09:00"
+            }
+        ]
+    }
+]
