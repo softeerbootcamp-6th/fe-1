@@ -26,7 +26,6 @@ export const ListTypeFilter = (
     handler: () => {
       // 필터링 화면 업데이트
       let isActive = false;
-      console.log(type);
       if (type === "income") {
         entireFilter.isIncomeTypeOpen = !entireFilter.isIncomeTypeOpen;
         isActive = entireFilter.isIncomeTypeOpen;

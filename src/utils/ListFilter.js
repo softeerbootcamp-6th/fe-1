@@ -2,7 +2,11 @@ export const ListFilter = {
   groupTransactionsByMonth: (transactions, month) => {
     return transactions
       .filter((transaction) => transaction.date.getMonth() + 1 === month)
-      .sort((a, b) => b.date - a.date);
+      .sort((a, b) => b.date - a.date)
+      .map((item, index) => ({
+        ...item,
+        uid: `uid-${item.date.getTime()}-${index}`,
+      }));
   },
   groupTransactionsByDate: (transactions) => {
     const groupedListByDate = {};
