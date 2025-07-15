@@ -86,12 +86,13 @@ export function renderListItem(listContainer) {
 
   const getListItemHTML = ({ money, description, payment, class_name }) => {
     return `
-
-                <span class="money">${money}원</span>
-                <span class="description">${description}</span>
-                <span class="payment">${payment}</span>
-                <span class="class">${class_name}</span>
-            `;
+      <li class="list-item">
+        <div class="class_name">${class_name}</div>
+        <div class="description">${description}</div>
+        <div class="payment">${payment}</div>
+        <div class="money">${money}원</div>
+      </li>
+      `;
   };
 
   const monthlyInfoContainer = document.createElement('div');
