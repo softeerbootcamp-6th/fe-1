@@ -1,7 +1,6 @@
 import { renderMain } from "./pages/renderMain.js";
 import { renderCalender } from "./pages/renderCalender.js";
 import { renderStats } from "./pages/renderStats.js";
-
 export function router(route) {
     const main = document.getElementById("main");
 

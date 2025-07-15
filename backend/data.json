@@ -235,19 +235,11 @@
         "list": [
           {
             "date": 2,
+            "amount": 2135000,
             "type": "income",
-            "category": "월급",
             "description": "5월 급여",
             "paymentMethod": "현금",
-            "amount": 2135000
-          },
-          {
-            "date": 6,
-            "type": "expense",
-            "category": "식비",
-            "description": "어버이날 케이크",
-            "paymentMethod": "신용카드",
-            "amount": 28000
+            "category": "월급"
           },
           {
             "date": 7,
@@ -288,19 +280,19 @@
         "list": [
           {
             "date": 3,
+            "amount": 2135004,
             "type": "income",
-            "category": "월급",
             "description": "6월 급여",
             "paymentMethod": "현금",
-            "amount": 2135000
+            "category": "월급"
           },
           {
             "date": 4,
+            "amount": 7000,
             "type": "expense",
-            "category": "식비",
             "description": "점심 비빔밥",
             "paymentMethod": "현금",
-            "amount": 7000
+            "category": "식비"
           },
           {
             "date": 11,
@@ -513,20 +505,20 @@
             "amount": 2150000
           },
           {
-            "date": 5,
+            "date": 1,
+            "amount": 8000,
             "type": "expense",
-            "category": "식비",
             "description": "분식 김밥·떡볶이",
             "paymentMethod": "현금",
-            "amount": 8000
+            "category": "식비"
           },
           {
             "date": 8,
+            "amount": 200000,
             "type": "expense",
-            "category": "문화/여가",
             "description": "온라인 게임 결제",
             "paymentMethod": "신용카드",
-            "amount": 19900
+            "category": "문화/여가"
           },
           {
             "date": 16,
@@ -551,6 +543,14 @@
             "description": "정수기 필터 교체",
             "paymentMethod": "신용카드",
             "amount": 35000
+          },
+          {
+            "date": 3,
+            "amount": 111,
+            "type": "income",
+            "description": "입금 테스트",
+            "paymentMethod": "현금",
+            "category": "월급"
           }
         ]
       },
@@ -1030,6 +1030,14 @@
             "description": "지하철 티머니 충전",
             "paymentMethod": "현금",
             "amount": 30000
+          },
+          {
+            "date": 3,
+            "amount": 1999999,
+            "type": "income",
+            "description": "월급 전산 오류",
+            "paymentMethod": "현금",
+            "category": "월급"
           }
         ]
       },
@@ -1099,6 +1107,14 @@
             "description": "입금 테스트",
             "paymentMethod": "현금",
             "category": "월급"
+          },
+          {
+            "date": 15,
+            "amount": 20000000,
+            "type": "income",
+            "description": "월급",
+            "paymentMethod": "현금",
+            "category": "월급"
           }
         ]
       },
@@ -1144,6 +1160,30 @@
             "description": "선글라스 구입",
             "paymentMethod": "신용카드",
             "amount": 54000
+          },
+          {
+            "date": 3,
+            "amount": 1111,
+            "type": "income",
+            "description": "입금 테스트",
+            "paymentMethod": "현금",
+            "category": "월급"
+          },
+          {
+            "date": 3,
+            "amount": 11111,
+            "type": "income",
+            "description": "입금 테스트",
+            "paymentMethod": "현금",
+            "category": "월급"
+          },
+          {
+            "date": 4,
+            "amount": 111,
+            "type": "income",
+            "description": "입금 테스트",
+            "paymentMethod": "현금",
+            "category": "월급"
           }
         ]
       },

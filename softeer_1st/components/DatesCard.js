@@ -30,13 +30,21 @@ export function DatesCard(
         }${amount.toLocaleString()}원</div>
                 `,
     });
+    card.addEventListener('click', () =>{
+        const event = new CustomEvent("edit-event", {
+            detail: {amount, category, date, description, paymentMethod, type},
+        });
+        console.log(event);
+        window.dispatchEvent(event);
+    })
 
     const deletePosition = card.querySelector("#delete-button");
     const deleteButton = createElement("button", {
         className: "delete-button flex align-center gap-4 ml-16",
         innerHTML: `<img src="../assets/icons/delete-btn.svg" alt="삭제"><div class="semibold-12" style="color:var(--danger-text-default)">삭제</div>`,
     });
-    deleteButton.addEventListener("click", async () => {
+    deleteButton.addEventListener("click", async (e) => {
+        e.stopPropagation();
         const isConfirmed = await confirmModal({
             type,
             category,
