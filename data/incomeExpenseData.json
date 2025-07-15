@@ -1,0 +1,85 @@
+{
+  "2025-08": [
+    {
+      "date": "2025-08-01",
+      "income_expense": [
+        {
+          "id": 0,
+          "type": "income",
+          "money": "1000",
+          "description": "하하하",
+          "payment": "현금",
+          "class": "문화여가"
+        },
+        {
+          "id": 1,
+          "type": "expense",
+          "money": "500",
+          "description": "점심",
+          "payment": "카드",
+          "class": "식비"
+        },
+        {
+          "id": 2,
+          "type": "income",
+          "money": "2000",
+          "description": "월급",
+          "payment": "계좌이체",
+          "class": "수입"
+        }
+      ]
+    }
+  ],
+  "2025-07": [
+    {
+      "date": "2025-07-01",
+      "income_expense": [
+        {
+          "id": 0,
+          "type": "income",
+          "money": "1500",
+          "description": "영화",
+          "payment": "현금",
+          "class": "문화여가"
+        },
+        {
+          "id": 1,
+          "type": "expense",
+          "money": "300",
+          "description": "커피",
+          "payment": "카드",
+          "class": "식비"
+        },
+        {
+          "id": 2,
+          "type": "income",
+          "money": "2500",
+          "description": "보너스",
+          "payment": "계좌이체",
+          "class": "수입"
+        }
+      ]
+    },
+    {
+      "date": "2025-07-02",
+      "income_expense": [
+        {
+          "id": 0,
+          "type": "expense",
+          "money": "800",
+          "description": "교통비",
+          "payment": "현금",
+          "class": "교통"
+        },
+        {
+          "id": 1,
+          "type": "income",
+          "money": "1200",
+          "description": "프리랜스 수입",
+          "payment": "계좌이체",
+          "class": "수입"
+        }
+      ]
+    }
+  ]
+}
