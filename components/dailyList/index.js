@@ -13,6 +13,8 @@ export default function initalizeDailyList() {
 export function dailyViewChange(year, month) {
     const $dailyRoot = document.querySelector('#daily-placeholder');
     $dailyRoot.innerHTML = '';
+    dailyData.totalExpense = 0;
+    dailyData.totalIncome = 0;
 
     let monthTotalIncome = 0;
     let monthTotalExpense = 0;
@@ -31,30 +33,59 @@ export function dailyViewChange(year, month) {
                     monthTotalExpense += -item.amount;
                 }
             });
-            $container.appendChild(createDaliyList(list));
+            const $dailyList = createDaliyList(list);
+            if ($dailyList) $container.appendChild($dailyList);
         });
+
     $dailyRoot.innerHTML = `
         <div class="total-header">
             <div class="lt-12">전체 내역    ${totalCount}건 </div>
             <div class="amount-wrapper">
                 <div class="amount-container">    
-                    <div class="check-wrapper"> 
+                    <button id="filter-income" class="check-wrapper amount-btn-active"> 
                         <img width="12" height="12" src="/public/check.svg" /> 
-                    </div>
+                    </button>
                     <span class="lt-12">수입: ${formatAmount(
-                        monthTotalIncome,
+                        dailyData.totalIncome,
                     )}</span>
                 </div>
                 <div class="amount-container">
-                    <div class="check-wrapper"> 
+                    <button id="filter-expense" class="check-wrapper amount-btn-active"> 
                         <img width="12" height="12" src="/public/check.svg" /> 
-                    </div>
+                    </button>
                     <span class="lt-12">지출: ${formatAmount(
-                        monthTotalExpense,
+                        dailyData.totalExpense,
                     )}<span>
                 </div>
             </div>
         </div>`;
     document.querySelector('#daily-placeholder').appendChild($container);
-    $dailyRoot.appendChild($container);
+
+    $dailyRoot.querySelector('#filter-income').addEventListener('click', () => {
+        dailyData.toggleIncomeFilter();
+        dailyViewChange(dateData.year, dateData.month);
+
+        const $income = document.getElementById('filter-income');
+        const $expense = document.getElementById('filter-expense');
+
+        if (dailyData.filteredIncome)
+            $income.classList.remove('amount-btn-active');
+        if (dailyData.filteredExpense)
+            $expense.classList.remove('amount-btn-active');
+    });
+    $dailyRoot
+        .querySelector('#filter-expense')
+        .addEventListener('click', () => {
+            dailyData.toggleExpenseFilter();
+            dailyViewChange(dateData.year, dateData.month);
+
+            const $income = document.getElementById('filter-income');
+            const $expense = document.getElementById('filter-expense');
+
+            console.log($expense);
+            if (dailyData.filteredExpense)
+                $expense.classList.remove('amount-btn-active');
+            if (dailyData.filteredIncome)
+                $income.classList.remove('amount-btn-active');
+        });
 }

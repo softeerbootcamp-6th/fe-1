@@ -54,6 +54,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    width: 846px;
 }
 
 .amount-wrapper {
@@ -68,8 +69,11 @@
     width: 14px;
     border: none;
     border-radius: 100%;
-    background-color: var(--neutral-text-default);
     margin-inline: 5px;
+}
+
+.amount-btn-active {
+    background-color: var(--neutral-text-default);
 }
 
 .check-wrapper img {

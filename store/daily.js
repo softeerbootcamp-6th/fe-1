@@ -1,5 +1,9 @@
 export const dailyData = {
     data: [],
+    filteredIncome: false,
+    filteredExpense: false,
+    totalIncome: 0,
+    totalExpense: 0,
     async init() {
         await this.fetch();
     },
@@ -44,5 +48,13 @@ export const dailyData = {
             const date = new Date(item.date);
             return date.getMonth() + 1 === month && date.getFullYear() === year;
         });
+    },
+
+    toggleIncomeFilter() {
+        this.filteredIncome = !this.filteredIncome;
+    },
+
+    toggleExpenseFilter() {
+        this.filteredExpense = !this.filteredExpense;
     },
 };
