@@ -43,7 +43,7 @@ export function renderIncomeExpenseForm() {
     `;
   };
 
-  const getDescriptionContainerHTML = () => {
+  const getDescriptionContainerHTML = maxDescriptionLength => {
     return `
         <div class="description-container">
             <div class="description-label-container">
@@ -102,7 +102,7 @@ export function renderIncomeExpenseForm() {
     ${getVerticalLineHTML()}
     ${getMoneyContainerHTML()}
     ${getVerticalLineHTML()}
-    ${getDescriptionContainerHTML()}
+    ${getDescriptionContainerHTML(maxDescriptionLength)}
     ${getVerticalLineHTML()}
     ${getPaymentContainerHTML()}
     ${getVerticalLineHTML()}
