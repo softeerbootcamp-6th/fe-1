@@ -9,11 +9,10 @@
   background-color: var(--nuetral-surface-default);
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   width: 894px;
   height: 76px;
-  padding: 16px 24px;
+  padding: 16px 0;
   margin: 0 auto;
   border-style: solid;
   border-width: 0.5px;
@@ -21,20 +20,13 @@
 }
 
 .entire-form > div {
+  box-sizing: content-box;
   position: relative;
   display: flex;
+  padding: 0 24px;
+  height: 44px;
   flex-direction: column;
-}
-
-.entire-form > div:not(:nth-last-child(1)):not(:nth-last-child(2))::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: -24px;
-  width: 24px;
   border-right: 0.5px solid var(--nuetral-border-default);
-  background-color: transparent;
 }
 
 .entire-form > div:last-child {
@@ -89,7 +81,7 @@ input#money {
 .form-content > div {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 24px;
   color: var(--nuetral-text-weak);
 }
 
@@ -116,8 +108,8 @@ button#payment {
 .drop-down {
   position: absolute;
   top: calc(100% + 16px);
-  left: -23.78px;
-  width: calc(100% + 23.78 * 2px);
+  left: 0;
+  width: 100%;
   border-style: solid;
   border-width: 0.5px;
   border-color: var(--nuetral-border-default);
@@ -141,29 +133,25 @@ button#payment {
 }
 
 .form-checker {
-  position: relative;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
-.form-checker::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.form-checker > .img-wrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.32);
+}
+
+.form-checker > .img-wrapper.active {
   background-color: var(--nuetral-text-default);
-  opacity: 0.32;
-}
-
-.form-checker.active::before {
-  opacity: 1;
 }
 
 .form-checker > img {

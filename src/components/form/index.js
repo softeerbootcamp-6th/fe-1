@@ -32,9 +32,13 @@ export const EntireForm = () => {
 
   entireForm.addEventListener("input", () => {
     const isFullFilled = InputValidator.validateFullFilled(input);
+    const formCheckerWrapper = entireForm.querySelector(
+      ".form-checker > .img-wrapper"
+    );
     if (isFullFilled) {
-      const formChecker = entireForm.querySelector(".form-checker");
-      formChecker.classList.add("active");
+      formCheckerWrapper.classList.add("active");
+    } else {
+      formCheckerWrapper.classList.remove("active");
     }
   });
 
