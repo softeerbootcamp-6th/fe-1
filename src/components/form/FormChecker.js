@@ -7,36 +7,24 @@ export const FormChecker = (input) => {
   formChecker.innerHTML = `
     <div class="img-wrapper">
       <img src="./src/assets/check.svg" alt="check icon">
-    </div
+    </div>
     `;
 
-  formChecker.addEventListener("click", () => {
-    const isFullFilled = InputValidator.validateFullFilled(input);
-    if (!isFullFilled) return;
+  EventDispatcher.register({
+    eventType: "click",
+    selector: "form-checker",
+    handler: () => {
+      console.log(input);
+      const isFullFilled = InputValidator.validateFullFilled(input);
+      if (!isFullFilled) return;
 
-    const isFullCorrectType = InputValidator.validateFullCorrectType(input);
-    if (isFullCorrectType) {
-      console.log("ok");
-    } else {
-      console.log("no");
-    }
-    console.log(input);
+      const isFullCorrectType = InputValidator.validateFullCorrectType(input);
+      if (isFullCorrectType) {
+        console.log("ok");
+      } else {
+        console.log("no");
+      }
+    },
   });
-  // EventDispatcher.register({
-  //   eventType: "click",
-  //   selector: "form-checker",
-  //   handler: () => {
-  //     console.log(input);
-  //     const isFullFilled = InputValidator.validateFullFilled(input);
-  //     if (!isFullFilled) return;
-
-  //     const isFullCorrectType = InputValidator.validateFullCorrectType(input);
-  //     if (isFullCorrectType) {
-  //       console.log("ok");
-  //     } else {
-  //       console.log("no");
-  //     }
-  //   },
-  // });
   return formChecker;
 };

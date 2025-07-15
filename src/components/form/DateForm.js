@@ -1,3 +1,4 @@
+import { EventDispatcher } from "../../store/EventBusStore.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 
 export const DateForm = (input) => {
@@ -9,8 +10,12 @@ export const DateForm = (input) => {
   }" class="semibold-12">
   `;
 
-  dateForm.addEventListener("input", (e) => {
-    input.date = new Date(e.target.value);
+  EventDispatcher.register({
+    eventType: "input",
+    selector: "form-date",
+    handler: (e) => {
+      input.date = new Date(e.target.value);
+    },
   });
   return dateForm;
 };
