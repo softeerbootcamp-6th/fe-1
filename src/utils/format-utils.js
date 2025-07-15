@@ -43,6 +43,16 @@ export function setupAmountInputListeners(
   isEditMode,
   editingItemIndex
 ) {
+  // amountInput이 직접 전달되지 않은 경우 DOM에서 찾기
+  if (!amountInput) {
+    amountInput = document.querySelector(".amount-input");
+  }
+
+  if (!amountInput) {
+    console.warn("amountInput element not found");
+    return;
+  }
+
   amountInput.addEventListener("input", function (e) {
     // 수정 모드에서 값 설정 중일 때는 이벤트 처리 안함
     if (isEditMode && editingItemIndex !== -1) return;
@@ -66,6 +76,19 @@ export function setupAmountInputListeners(
 
 // 내용 입력란 글자수 표시 이벤트 리스너 설정
 export function setupContentInputListeners(contentInput, charCountSpan) {
+  // contentInput이 직접 전달되지 않은 경우 DOM에서 찾기
+  if (!contentInput) {
+    contentInput = document.querySelector(".input-cell.content input");
+  }
+  if (!charCountSpan) {
+    charCountSpan = document.querySelector(".input-cell.content .char-count");
+  }
+
+  if (!contentInput || !charCountSpan) {
+    console.warn("contentInput or charCountSpan element not found");
+    return;
+  }
+
   contentInput.addEventListener("input", function () {
     const len = contentInput.value.length;
     charCountSpan.textContent = `${len}/32`;
