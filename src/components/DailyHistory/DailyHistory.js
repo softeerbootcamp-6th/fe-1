@@ -1,25 +1,5 @@
 import { CategoryTag, Button } from "../index.js";
 
-/**
- * DailyHistory 컴포넌트
- *
- * 사용법
- * const dailyHistory = DailyHistory({
- *   date: "2025-07-24",
- *   items: [
- *     {
- *       date: "2025-07-24",
- *       category: "의료/건강",
- *       description: "저녁 약속",
- *       method: "국민카드",
- *       type: "expense",
- *       amount: 381329,
- *     },
- *   ],
- * });
- *
- * document.body.appendChild(dailyHistory);
- */
 const DailyHistory = ({ date = "", items = [] } = {}) => {
   const totalIncome = items.reduce((acc, item) => {
     return acc + (item.type === "income" ? item.amount : 0);
