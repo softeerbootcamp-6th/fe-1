@@ -1,21 +1,24 @@
 // models/TransactionHistory.js
-import { Subject } from '../core/Subject.js';
+import Subject from "../../utils/observers/Subject.js";
 
-export class TransactionHistory extends Subject {
+class TransactionHistory extends Subject {
   constructor() {
     super();
     this.transactions = [];
   }
 
-  loadFromStorage() {
-    this.transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
-    this.notify();
+  initialize(month) {
+    const transactionsData = JSON.parse(
+      localStorage.getItem("transactionsData") || {}
+    );
+    this.transactions = transactionsData[month] || [];
+    this.notify(this.transactions);
   }
 
   addTransaction(tx) {
     this.transactions.push(tx);
     this.save();
-    this.notify();
+    this.notify(this.transactions);
   }
 
   updateTransaction(id, newData) {
@@ -23,7 +26,7 @@ export class TransactionHistory extends Subject {
     if (index !== -1) {
       this.transactions[index] = { ...this.transactions[index], ...newData };
       this.save();
-      this.notify();
+      this.notify(this.transactions);
     }
   }
 
@@ -34,7 +37,7 @@ export class TransactionHistory extends Subject {
   }
 
   save() {
-    localStorage.setItem('transactions', JSON.stringify(this.transactions));
+    localStorage.setItem("transactionsData", JSON.stringify(this.transactions));
   }
 
   getByMonth(month) {
@@ -49,3 +52,6 @@ export class TransactionHistory extends Subject {
     return this.transactions;
   }
 }
+
+const transactionHistory = new TransactionHistory();
+export default transactionHistory;

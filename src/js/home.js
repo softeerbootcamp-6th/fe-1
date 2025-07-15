@@ -1,10 +1,14 @@
+import transactionHistory from "../models/subjects/TransactionHistory.js";
+import { TransactionsHeaderView } from "../models/observers/TransactionsHeaderView.js";
+import { TransactionsInfo } from "../models/observers/TransactionsInfo.js";
+import monthStore from "../stores/MonthStore.js";
+
 import {
   CheckBox,
   CategoryTag,
   DailyHistory,
   Select,
 } from "../components/index.js";
-import { getCurrentMonth } from "../utils/month.js";
 import { initInputForm } from "../controllers/InputFormController.js";
 
 const renderFilter = () => {
@@ -29,7 +33,7 @@ export const renderHistory = () => {
   const isIncomeChecked = document.getElementById("income-checkbox").checked;
   const isExpenseChecked = document.getElementById("expense-checkbox").checked;
 
-  const { year, month } = getCurrentMonth();
+  const { year, month } = monthStore.getMonthInfo();
   const transactionsData = JSON.parse(localStorage.getItem("transactionsData"));
   const currentMonthData = transactionsData[`${year}-${month}`] || [];
 
@@ -37,7 +41,7 @@ export const renderHistory = () => {
     if (isIncomeChecked && item.type === "income") {
       return true;
     }
-    if (isExpenseChecked && item.type === "expenses") {
+    if (isExpenseChecked && item.type === "expense") {
       return true;
     }
     return false;
@@ -78,7 +82,7 @@ export const renderHistory = () => {
     return acc;
   }, 0);
   const totalExpense = currentMonthData.reduce((acc, curr) => {
-    if (curr.type === "expenses") {
+    if (curr.type === "expense") {
       return acc + curr.amount;
     }
     return acc;
@@ -90,10 +94,21 @@ export const renderHistory = () => {
   expenseLabel.textContent = `지출 ${totalExpense.toLocaleString()}원`;
 };
 
+const renderTransactionsHeader = () => {
+  const { year, month } = monthStore.getMonthInfo();
+
+  const transactionsHeaderView = new TransactionsHeaderView();
+  const transactionsInfo = new TransactionsInfo(transactionsHeaderView);
+
+  transactionHistory.subscribe(transactionsInfo);
+  transactionHistory.initialize(`${year}-${month}`);
+};
+
 const init = () => {
+  renderTransactionsHeader();
   initInputForm();
-  renderFilter();
-  renderHistory();
+  // renderFilter();
+  // renderHistory();
 };
 
 init();

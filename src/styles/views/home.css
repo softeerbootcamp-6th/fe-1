@@ -1,37 +1,37 @@
-.history {
+.transactions {
   width: 84.6rem;
   margin-top: 3.4rem;
 }
 
-.history__header {
+.transactions__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.history__header-title {
+.transactions__header-title {
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
 
-.history__header-filter {
+.transactions__header-filter {
   display: flex;
   gap: 1.2rem;
 }
 
-.history__header-filter-item {
+.transactions__header-filter-item {
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-.history__header-filter-item img {
+.transactions__header-filter-item img {
   width: 1.6rem;
   height: 1.6rem;
 }
 
-.history__list {
+.transactions__list {
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
