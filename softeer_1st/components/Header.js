@@ -29,8 +29,7 @@ export function Header() {
     const updateDateDisplay = () => {
         header.querySelector("#date-year").textContent = dateStore.year;
         header.querySelector("#date-month-num").textContent = dateStore.month;
-        header.querySelector("#date-month-en").textContent =
-            dateStore.englishMonth;
+        header.querySelector("#date-month-en").textContent = dateStore.englishMonth;
     };
     updateDateDisplay();
     window.addEventListener("date-change", updateDateDisplay);

@@ -1,5 +1,7 @@
 import { createElement } from "../utils/createElement.js";
 import { DropDown } from "./dropDown.js";
+import { openModal } from "./Modal.js";
+import { dateStore } from "../store/dateStore.js";
 
 export function Form() {
     const today = new Date();
@@ -274,14 +276,14 @@ export function Form() {
             if (type === "payment") {
                 const deleteButton = createElement("button", {
                     className: "delete-button",
-                    innerHTML: `<img src="../assets/icons/closed.svg" alt="삭제">`,
+                    innerHTML: `<img src="../assets/icons/closed-red.svg" alt="삭제">`,
                     type: "button",
                 });
 
-                deleteButton.addEventListener("click", (e) => {
+                deleteButton.addEventListener("click", async (e) => {
                     e.stopPropagation();
-
-                    if (confirm(`${option}을(를) 삭제하시겠습니까?`)) {
+                    const isConfirmed = await confirmModal(option)
+                    if(isConfirmed) {
                         const deleteIndex = paymentMethods.indexOf(option);
                         if (deleteIndex > -1) {
                             paymentMethods.splice(deleteIndex, 1);
@@ -412,8 +414,9 @@ export function Form() {
     }
 
     // 결제수단 추가 모달
-    function openPaymentModal() {
-        const newPaymentMethod = prompt("새 결제수단을 입력하세요:");
+    async function openPaymentModal() {
+        const newPaymentMethod = await addFeatureModal();
+        console.log("New payment method:", newPaymentMethod);
         if (newPaymentMethod && newPaymentMethod.trim()) {
             const trimmedMethod = newPaymentMethod.trim();
 
@@ -492,5 +495,76 @@ export function Form() {
     submitButton.disabled = true;
 
     form.appendChild(submitButton);
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!submitButton.disabled) {
+            await sendPostRequest(formState)
+            dateStore.set(formState.year, formState.month);
+            // location.reload();
+        }})
+
     return form;
+}
+
+function sendPostRequest(formState) {
+    fetch("http://localhost:3000/api/data",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+    }).then((response) => {
+        if (!response.ok) {
+            throw new Error("네트워크 오류: " + response.statusText);
+        }
+        return response.json();
+    }).then((data) => {
+        console.log("성공적으로 제출되었습니다:", data);
+        alert("제출이 완료되었습니다.");
+        // 폼 초기화
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const day = String(today.getDate()).padStart(2, "0");
+        document.querySelector("#date").value = `${year}-${month}-${day}`;
+        document.querySelector("#costInput").value = "";
+        document.querySelector("#description").value = "";
+        document.querySelector("#paymentMethodInput").value = "";
+        document.querySelector("#categoryInput").value = "";
+    }).catch((error) => {
+        console.error("제출 중 오류 발생:", error);
+        alert("제출에 실패했습니다. 다시 시도해주세요.");
+    });
+}
+
+const confirmModal = (message) => {
+    console.log("Confirm modal opened with message:", message);
+    return new Promise((resolve, reject) => {
+        openModal({
+            title: '해당 결제 수단을 삭제하시겠습니까?',
+            content: `<input type="text" placeholder='${message}' id="confirmInput" disabled>`,
+            isDelete: true,
+            onClick: () =>{
+                resolve(true)
+            }
+        })
+    });
+}
+const addFeatureModal = () =>{
+    return new Promise((resolve, reject) => {
+        openModal({
+            title: '추가하실 결제수단을 입력해주세요.',
+            content: `<input type="text" placeholder='현대카드' id="add">`,
+            isDelete: false,
+            onClick: () => {
+                const input = document.getElementById("add");
+                const newPaymentMethod = input.value.trim();
+                if (!newPaymentMethod) {
+                    alert("결제수단을 입력해주세요.");
+                    return;
+                }
+                resolve(newPaymentMethod);
+            }
+        })
+    });
 }
