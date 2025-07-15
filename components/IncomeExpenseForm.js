@@ -1,8 +1,5 @@
 import { store } from '../store/store.js';
-import {
-  renderIncomeExpenseList,
-  renderListItem,
-} from './IncomeExpenseList.js';
+import { renderListItem } from './IncomeExpenseList.js';
 
 export function renderIncomeExpenseForm() {
   const form = document.createElement('form');
@@ -141,21 +138,21 @@ export function renderIncomeExpenseForm() {
     updateClassSelect(incomeClasses, expenseClasses);
   });
 
-  moneyInput.addEventListener('keyup', e => {
-    let moneyValue = Number(e.target.value.replace(/[^0-9]/g, '')); // 숫자가 아닌 것들은 제외
+  moneyInput.addEventListener('keyup', ({ target }) => {
+    let moneyValue = Number(target.value.replace(/[^0-9]/g, '')); // 숫자가 아닌 것들은 제외
     let formattedValue = moneyValue.toLocaleString('ko-KR'); // 세자리마다 콤마
-    e.target.value = formattedValue; // 입력 필드에 포맷된 값 설정
+    target.value = formattedValue; // 입력 필드에 포맷된 값 설정
   });
 
   // 입력 시 기본값 0 제거
-  moneyInput.addEventListener('focus', e => {
-    if (e.target.value === '0') {
-      e.target.value = '';
+  moneyInput.addEventListener('focus', ({ target }) => {
+    if (target.value === '0') {
+      target.value = '';
     }
   });
 
-  descriptionInput.addEventListener('keyup', e => {
-    descriptionLength = e.target.value.length;
+  descriptionInput.addEventListener('keyup', ({ target }) => {
+    descriptionLength = target.value.length;
     const lengthSpan = form.querySelector('.description-length');
     lengthSpan.textContent = `${descriptionLength}/32`;
   });
