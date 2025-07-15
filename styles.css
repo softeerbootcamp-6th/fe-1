@@ -462,7 +462,7 @@ table {
   height: 56px;
   text-align: center;
   vertical-align: middle;
-  background-color: var(--danger-surface-default);
+  background-color: var(--pastel-lavenderPink);
 }
 
 .category-life {
@@ -493,8 +493,13 @@ table {
 .category-etc-income {
   background: var(--colorchip-10);
 }
-.category-etc-expense {
-  background: var(--colorchip-40);
+
+.text-expense {
+  color: var(--brand-text-expense);
+}
+
+.text-income {
+  color: var(--brand-text-income);
 }
 
 .td-description {

@@ -115,7 +115,9 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
           <td class="td-payment-method light-14">${
             transaction.paymentMethod
           }</td>
-          <td class="td-amount light-14">${formatMoney(transaction.amount)}원
+          <td class="td-amount light-14 ${
+            transaction.amount > 0 ? "text-income" : "text-expense"
+          }">${formatMoney(transaction.amount)}원
             <button 
                 class="delete-btn flex-row semibold-14" 
                 data-id="${transaction.id}"
