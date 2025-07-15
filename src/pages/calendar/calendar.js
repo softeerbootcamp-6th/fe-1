@@ -1,11 +1,11 @@
-import { accountBookStore } from "../../store/account-book-store.js";
 import {
   updateHeaderDate,
   formatDateString,
   isDateToday,
-} from "../../utils/dateUtils.js";
-import { formatAmount } from "../../utils/formatUtils.js";
-import { getFilteredData } from "../../utils/dataUtils.js";
+} from "../../utils/date-utils.js";
+import { formatAmount } from "../../utils/format-utils.js";
+import { getFilteredData } from "../../utils/data-utils.js";
+import { getTransactions } from "../../api/transaction.js";
 
 function initCalendar() {
   // DOM 요소들
@@ -20,29 +20,36 @@ function initCalendar() {
     window.currentMonth = new Date().getMonth();
 
   // 달력을 렌더링하는 함수
-  function renderCalendar(year, month) {
-    const firstDay = new Date(year, month, 1);
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - firstDay.getDay()); // 일요일부터 시작
+  async function renderCalendar(year, month) {
+    try {
+      // API에서 거래 내역 가져오기
+      const transactions = await getTransactions();
 
-    // 달력 초기화
-    calendarBody.innerHTML = "";
+      const firstDay = new Date(year, month, 1);
+      const startDate = new Date(firstDay);
+      startDate.setDate(startDate.getDate() - firstDay.getDay()); // 일요일부터 시작
 
-    // 5주 * 7일 = 35개 셀 생성
-    for (let i = 0; i < 35; i++) {
-      const currentDate = new Date(startDate);
-      currentDate.setDate(startDate.getDate() + i);
+      // 달력 초기화
+      calendarBody.innerHTML = "";
 
-      const cell = createCalendarCell(currentDate, year, month);
-      calendarBody.appendChild(cell);
+      // 5주 * 7일 = 35개 셀 생성
+      for (let i = 0; i < 35; i++) {
+        const currentDate = new Date(startDate);
+        currentDate.setDate(startDate.getDate() + i);
+
+        const cell = createCalendarCell(currentDate, year, month, transactions);
+        calendarBody.appendChild(cell);
+      }
+
+      // 요약 정보 업데이트
+      updateSummary(year, month, transactions);
+    } catch (error) {
+      console.error("캘린더 렌더링 실패:", error);
     }
-
-    // 요약 정보 업데이트
-    updateSummary(year, month);
   }
 
   // 개별 달력 셀을 생성하는 함수
-  function createCalendarCell(date, year, month) {
+  function createCalendarCell(date, year, month, transactions) {
     const cell = document.createElement("div");
     cell.className = "calendar-cell";
 
@@ -65,12 +72,12 @@ function initCalendar() {
     dateEl.textContent = date.getDate();
     cell.appendChild(dateEl);
 
-    // 해당 날짜의 거래 내역 가져오기 (utils 함수 활용)
-    const transactions = getTransactionsForDate(date);
+    // 해당 날짜의 거래 내역 가져오기
+    const dailyTransactions = getTransactionsForDate(date, transactions);
 
     // 일일 합계 표시 (거래가 있는 경우에만)
-    if (transactions.length > 0) {
-      const summaryEl = createDailySummary(transactions);
+    if (dailyTransactions.length > 0) {
+      const summaryEl = createDailySummary(dailyTransactions);
       cell.appendChild(summaryEl);
     }
 
@@ -121,16 +128,14 @@ function initCalendar() {
   }
 
   // 특정 날짜의 거래 내역을 가져오는 함수
-  function getTransactionsForDate(date) {
+  function getTransactionsForDate(date, transactions) {
     const dateString = formatDateString(date);
-    const transactions = accountBookStore.getTransactions();
     return transactions.filter((item) => item.date === dateString);
   }
 
   // 월별 요약 정보 업데이트 (utils의 getFilteredData 활용)
-  function updateSummary(year, month) {
+  function updateSummary(year, month, transactions) {
     // getFilteredData 함수 활용
-    const transactions = accountBookStore.getTransactions();
     const monthlyData = getFilteredData(transactions, year, month);
 
     const totalIncome = monthlyData
