@@ -1,0 +1,17 @@
+@import './colors.css';
+
+.monthly-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.check-box-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.daily-info-container {
+  display: flex;
+  flex-direction: row;
+}

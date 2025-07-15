@@ -5,8 +5,6 @@ import { store } from '../store/store.js';
 export function renderIncomeExpenseList() {
   const incomeExpenseListContainer = document.createElement('div');
   incomeExpenseListContainer.className = 'income-expense-list-container';
-  // const form = document.querySelector('form');
-  // const addButton = form.querySelector('.add-button');
 
   // 초기 렌더링
   renderListItem(incomeExpenseListContainer);
@@ -15,10 +13,6 @@ export function renderIncomeExpenseList() {
   dateState.subscribe(() => {
     renderListItem(incomeExpenseListContainer);
   });
-
-  // addButton.addEventListener('click', () => {
-  //   renderListItem(incomeExpenseListContainer);
-  // });
 
   return incomeExpenseListContainer;
 }
@@ -37,20 +31,62 @@ export function renderListItem(listContainer) {
   // 키로 현재 연월 데이터 가져오기
   const currentMonthData = incomeExpenseData[currentKey] || [];
 
+  // TODO: 계산 로직 작성
+  const monthlyNum = 0;
+  const monthlyIncome = 0;
+  const monthlyExpense = 0;
+
   // 기존 내용 지우기 (DOM 조작 방식)
   while (listContainer.firstChild) {
     listContainer.removeChild(listContainer.firstChild);
   }
 
-  const getListItemHTML = ({
-    type,
-    money,
-    description,
-    payment,
-    class_name,
-  }) => {
+  const getMonthlyInfoHTML = (monthlyNum, monthlyIncome, monthlyExpense) => {
     return `
-                <span class="type">${type}</span>
+      <span> 전체내역 ${monthlyNum}건 </span>
+      <div class="check-box-container">
+        <div >
+          <button>
+            <img src="./assets/icons/checkbox.svg" />
+          </button>
+          <span>수입${monthlyIncome}</span>
+        </div>
+        <div>
+          <button>
+            <img src="./assets/icons/checkbox.svg" />
+          </button>
+          <span>지출${monthlyExpense}</span>
+        </div>
+      <div>
+    
+    
+    `;
+  };
+
+  const getDailyInfoHTML = dateString => {
+    const dateObj = new Date(dateString);
+    const month = dateObj.getMonth() + 1;
+    const date = dateObj.getDate();
+    const dayStringList = ['월', '화', '수', '목', '금', '토', '일'];
+    const dayStringIndex = dateObj.getDay();
+
+    const dailyIncome = '';
+    const dailyExpense = '';
+
+    return `
+    <div class="daily-info-container">
+      <span>${month}월 ${date}일 ${dayStringList[dayStringIndex]}요일</span>
+      <div>
+        <span>수입 ${dailyIncome}</span>
+        <span>지출 ${dailyExpense}</span>
+      </div>
+    </div>
+    `;
+  };
+
+  const getListItemHTML = ({ money, description, payment, class_name }) => {
+    return `
+
                 <span class="money">${money}원</span>
                 <span class="description">${description}</span>
                 <span class="payment">${payment}</span>
@@ -58,19 +94,29 @@ export function renderListItem(listContainer) {
             `;
   };
 
+  const monthlyInfoContainer = document.createElement('div');
+  monthlyInfoContainer.className = 'monthly-info-container';
+  monthlyInfoContainer.innerHTML = getMonthlyInfoHTML(
+    monthlyNum,
+    monthlyIncome,
+    monthlyExpense
+  );
+  listContainer.appendChild(monthlyInfoContainer);
+
   // 월데이터 날짜 별로 화면에 뿌리기
   currentMonthData.forEach(dateData => {
-    const dateItem = document.createElement('div');
-    dateItem.className = 'date-item';
-    dateItem.textContent = dateData.date;
+    console.log(dateData);
+    const dailyContainer = document.createElement('div');
+    dailyContainer.className = 'daily-container';
+    dailyContainer.innerHTML = getDailyInfoHTML(dateData.date);
 
     // 지출 내역 추가
     dateData.income_expense.forEach(item => {
       const listItem = document.createElement('div');
-      listItem.className = 'income-expense-item';
+      listItem.className = 'list-item-container';
       listItem.innerHTML = getListItemHTML(item);
-      dateItem.appendChild(listItem);
+      dailyContainer.appendChild(listItem);
     });
-    listContainer.appendChild(dateItem);
+    listContainer.appendChild(dailyContainer);
   });
 }
