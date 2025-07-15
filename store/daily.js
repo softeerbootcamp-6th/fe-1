@@ -32,6 +32,16 @@ export const dailyData = {
         }
         updateDailyView(data);
     },
+
+    getDailyByYearAndMonth(year, month) {
+        console.log(year, month);
+        console.log(this.data);
+        return this.data.filter((item) => {
+            const date = new Date(item.date);
+            console.log(date.getMonth(), date.getFullYear());
+            return date.getMonth() + 1 === month && date.getFullYear() === year;
+        });
+    },
 };
 
 dailyData.init();

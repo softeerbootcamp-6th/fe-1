@@ -1,5 +1,6 @@
 import { createElement } from '../../utils.js';
 import dateData from '../../store/date.js';
+import { dailyViewChange } from '../dailyList/index.js';
 
 export default function createCenterNavigation() {
     const centerNavigationHTML = `
@@ -34,9 +35,11 @@ export default function createCenterNavigation() {
 
     $minusBtn.addEventListener('click', () => {
         dateData.decreaseMonth();
+        dailyViewChange();
     });
     $plusBtn.addEventListener('click', () => {
         dateData.increaseMonth();
+        dailyViewChange();
     });
 
     return $centerNavigation;
