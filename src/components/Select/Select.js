@@ -1,6 +1,8 @@
+import { createElement } from "../../utils/dom.js";
+
 import Modal from "../Modal/Modal.js";
 
-const modalContainer = document.getElementById("modal-container");
+const modalContainer = document.getElementById("modal");
 
 const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
   const listItem = document.createElement("li");
@@ -64,14 +66,9 @@ const Select = async ({
   onChange,
 }) => {
   try {
-    // HTML 템플릿 파일을 fetch로 가져오기
-    const response = await fetch("/src/components/Select/Select.html");
-    const template = await response.text();
-
-    // 임시 div 생성해서 HTML 파싱
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = template;
-    const selectElement = tempDiv.firstElementChild;
+    const selectElement = await createElement(
+      "/src/components/Select/Select.html"
+    );
 
     // 라벨 설정
     const labelElement = selectElement.querySelector(".select__label");

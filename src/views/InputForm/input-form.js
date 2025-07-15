@@ -1,10 +1,9 @@
-const createInputForm = async () => {
-  const response = await fetch("/src/views/InputForm/input-form.html");
-  const template = await response.text();
+import { createElement } from "../../utils/dom.js";
 
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = template;
-  const inputFormElement = tempDiv.firstElementChild;
+const createInputForm = async () => {
+  const inputFormElement = await createElement(
+    "/src/views/InputForm/input-form.html"
+  );
 
   return inputFormElement;
 };
