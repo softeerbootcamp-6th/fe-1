@@ -45,7 +45,7 @@ export function renderIncomeExpenseForm() {
                 <label class="description-label light12" for="description-input">내용</label>
                 <span class="description-length light12">${descriptionLength}/32</span>
             </div>
-            <input id="description-input" type="text" class="description-input" maxlength="32"></input>
+            <input id="description-input" type="text" class="description-input maxlength=32" maxlength="32"></input>
         </div>
     `;
   };
@@ -153,13 +153,6 @@ export function renderIncomeExpenseForm() {
     descriptionLength = e.target.value.length;
     const lengthSpan = form.querySelector('.description-length');
     lengthSpan.textContent = `${descriptionLength}/32`;
-
-    // 32자 이상 입력 시 입력 받지 않음
-    if (descriptionLength > 32) {
-      e.target.value = e.target.value.slice(0, 32);
-      descriptionLength = 32;
-      lengthSpan.textContent = `${descriptionLength}/32`;
-    }
   });
 
   // keyup, select 이벤트 발생 시 유효성 검사
