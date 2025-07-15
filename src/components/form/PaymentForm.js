@@ -21,28 +21,26 @@ export const PaymentForm = (input) => {
     selector: "form-payment",
     handler: (e) => {
       // 값 선택 업데이트+화면에 표시
-      if (e.target.closest(".drop-down-li")) {
+      console.log(e.target);
+      const dropDownLi = e.target.closest(".drop-down-li");
+      if (dropDownLi) {
         const selectedPayment = e.target.innerText;
         input.payment = selectedPayment;
         const paymentTextInput = paymentForm.querySelector("#payment > span");
         paymentTextInput.textContent = selectedPayment;
-
-        const event = new Event("input", {
-          bubbles: true, // 이벤트 버블링을 허용 -> entireForm까지 도달
-          cancelable: false,
-        });
-        paymentTextInput.dispatchEvent(event);
       }
 
       // 값 추가
-      if (e.target.closest(".add-button")) {
+      const addButton = e.target.closest(".add-button");
+      if (addButton) {
         Modal.renderModal("add", (newPayment) => {
           defaultPayment.push(newPayment);
         });
       }
 
       // 값 삭제
-      if (e.target.closest(".delete-button")) {
+      const deleteButton = e.target.closest(".delete-button");
+      if (deleteButton) {
         Modal.renderModal("delete", (isConfirm) => {
           const selectedLi = e.target.closest("li");
           const selectedSpan = selectedLi.querySelector(".drop-down-li");

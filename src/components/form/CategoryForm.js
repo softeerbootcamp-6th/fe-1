@@ -26,18 +26,13 @@ export const CategoryForm = (input) => {
       }.png`;
 
       // 값 업데이트+화면에 표시
-      if (e.target.closest(".drop-down-li")) {
+      const dropDownLi = e.target.closest(".drop-down-li");
+      if (dropDownLi) {
         const selectedCategory = e.target.innerText;
         input.category = selectedCategory;
         const categoryTextInput =
           categoryForm.querySelector("#category > span");
         categoryTextInput.textContent = selectedCategory;
-
-        const event = new Event("input", {
-          bubbles: true, // 이벤트 버블링을 허용 -> 상위 entireForm까지 도달
-          cancelable: false,
-        });
-        categoryTextInput.dispatchEvent(event);
       }
 
       // 드롭다운 화면에 표시/제거
