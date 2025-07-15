@@ -10,6 +10,7 @@ import { CATEGORY_NAME } from "../constants/category.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
 import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
+import { renderCalendar, renderCalendarInfo } from "./calendar.js";
 
 // 클릭된 행 상태 관리
 let selectedRowId = null;
@@ -184,6 +185,17 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           )
         );
         renderTransactionList(isIncomeChecked, isExpenseChecked);
+
+        const calendarContainer = document.querySelector(".calendar-container");
+        if (calendarContainer) {
+          renderCalendar(calendarContainer);
+        }
+        const calendarInfoContainer = document.querySelector(
+          ".calendar-info-container"
+        );
+        if (calendarInfoContainer) {
+          renderCalendarInfo(calendarInfoContainer);
+        }
       });
     });
 
