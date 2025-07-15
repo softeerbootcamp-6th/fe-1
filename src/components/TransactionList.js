@@ -1,20 +1,29 @@
-import { items as DummyItem } from "../constants/items.js";
 import { state, setState, addObservers } from "../store.js";
 import { groupItemsByDate } from "../utils/group.js";
 import { calculateSummary } from "../utils/summary.js";
 import { formatDate } from "../utils/date.js";
+import { renderComponent } from "../utils/render.js";
+import { addEventListener } from "../utils/addEvent.js";
 
-// 상태 변경 감지 및 자동 리렌더링
-addObservers((data) => {
-  if (data.items) {
-    renderTransactionList();
-  }
-});
-
-// 초기 데이터를 상태에 설정 (한 번만 실행)
-if (state.items.length === 0) {
-  const initialItems = DummyItem;
-  setState({ items: initialItems });
+export function initTransactionList() {
+  renderTransactionList();
+  addEventListener({
+    id: "transaction-list",
+    event: "click",
+    onEvent: (e) => {
+      if (e.target.classList.contains("delete-btn")) {
+        const itemElement = e.target.closest(".item");
+        const itemId = parseInt(itemElement.dataset.id);
+        deleteItem(itemId);
+      }
+    },
+  });
+  // 상태 변경 감지 및 자동 리렌더링
+  addObservers((data) => {
+    if (data.items) {
+      renderTransactionList();
+    }
+  });
 }
 
 /* 아이템 삭제 함수 */
@@ -24,7 +33,7 @@ function deleteItem(itemId) {
   setState({ items: updatedItems });
 }
 
-function renderTransactionItem(item) {
+function createTransactionItemInnerHtml(item) {
   const amount = Number(item.amount);
   return `
       <div class="flex-row-between item" data-id="${item.id}">
@@ -41,7 +50,7 @@ function renderTransactionItem(item) {
     `;
 }
 
-function renderDaySection(dateStr, items) {
+function createDaySectionInnerHtml(dateStr, items) {
   const summary = calculateSummary(items);
   const dateTitle = formatDate(dateStr);
   const summaryText =
@@ -53,7 +62,7 @@ function renderDaySection(dateStr, items) {
         }`
       : `지출 ${summary.withdraw.toLocaleString()}원`;
 
-  const itemHTML = items.map(renderTransactionItem).join("");
+  const itemHTML = items.map(createTransactionItemInnerHtml).join("");
 
   return `
       <div class="day-section">
@@ -68,10 +77,7 @@ function renderDaySection(dateStr, items) {
     `;
 }
 
-export function renderTransactionList() {
-  const container = document.getElementById("transaction-list");
-  container.innerHTML = "";
-
+function createDaySectionListInnerHtml() {
   // 상태에서 items 가져오기
   const items = state.items;
 
@@ -80,23 +86,17 @@ export function renderTransactionList() {
     (a, b) => new Date(b) - new Date(a)
   );
 
+  let innerHTML = "";
   sortedDates.forEach((dateStr) => {
-    const html = renderDaySection(dateStr, grouped[dateStr]);
-    container.innerHTML += html;
+    const html = createDaySectionInnerHtml(dateStr, grouped[dateStr]);
+    innerHTML += html;
   });
-  return container;
+  return innerHTML;
 }
 
-function initEventListeners() {
-  const container = document.getElementById("transaction-list");
-
-  container.addEventListener("click", (e) => {
-    if (e.target.classList.contains("delete-btn")) {
-      const itemElement = e.target.closest(".item");
-      const itemId = parseInt(itemElement.dataset.id);
-      deleteItem(itemId);
-    }
+function renderTransactionList() {
+  renderComponent({
+    id: "transaction-list",
+    innerHTML: createDaySectionListInnerHtml(),
   });
 }
-
-initEventListeners(); // 이벤트 리스너 등록

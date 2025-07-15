@@ -1,0 +1,114 @@
+/* transaction form custom layout (namespace: .transaction-form-*) */
+.transaction-form-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 16px 12px 16px 0;
+  border: 1px solid #d3d3d3;
+}
+.transaction-form-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-left: solid 0.5px var(--neutral-text-default);
+  height: 100%;
+  padding: 0 12px;
+  flex: 1;
+}
+
+.transaction-form-col:first-child {
+  border-left: none;
+}
+
+.transaction-form-label {
+  color: #757575;
+}
+
+.transaction-form-date-input {
+  border: none;
+  background: none;
+  color: #222;
+  width: 100%;
+}
+.transaction-form-amount-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.transaction-form-toggle-btn {
+  height: 100%;
+  width: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+}
+
+.transaction-type-icon-minus {
+  background-image: url("/src/assets/icons/minus.svg");
+}
+.transaction-type-icon-plus {
+  background-image: url("/src/assets/icons/plus.svg");
+}
+
+.transaction-form-amount-input {
+  width: 95px;
+  border: none;
+  background: none;
+  text-align: right;
+}
+.transaction-form-unit {
+  color: #757575;
+}
+.transaction-form-desc-group {
+  display: flex;
+  align-items: center;
+}
+.transaction-form-desc-input {
+  border: none;
+  background: none;
+  width: 160px;
+  color: #222;
+}
+.transaction-form-desc-count {
+  color: #bdbdbd;
+  font-size: 14px;
+}
+.transaction-form-select {
+  border: none;
+  background: none;
+  color: #757575;
+  width: 104px;
+}
+.transaction-form-submit-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.transaction-form-submit-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 12px;
+  border: none;
+  background: var(--neutral-text-default);
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transaction-form-submit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+.transaction-form-submit-btn:not(:disabled) {
+  cursor: pointer;
+  opacity: 1;
+}

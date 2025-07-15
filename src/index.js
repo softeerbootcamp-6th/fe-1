@@ -1,11 +1,11 @@
-import { renderTransactionForm } from "./components/TransactionForm.js";
-import { renderHeader } from "./components/Header.js";
-import { renderTransactionList } from "./components/TransactionList.js";
+import { initTransactionForm } from "./components/TransactionForm.js";
+import { initHeader } from "./components/Header.js";
+import { initTransactionList } from "./components/TransactionList.js";
 
-export function createMainLayout() {
-  renderHeader();
-  renderTransactionForm();
-  renderTransactionList();
+function createMainLayout() {
+  initHeader();
+  initTransactionForm();
+  initTransactionList();
 }
 
 createMainLayout();
