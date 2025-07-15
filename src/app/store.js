@@ -6,6 +6,7 @@ export class Store {
         // 구독자들을 저장할 Set    
         this.listeners = new Set();
     }
+
     // 현재 상태를 반환하는 함수
     getState = () => this.state;
     // 구독 함수(함수를 인자로 받아 상태 변경 시 호출)
@@ -20,17 +21,24 @@ export class Store {
         switch (type) {
             // store에 새로운 엔트리를 추가하는 액션
             case 'ENTRY/ADD': {
-                // payload에 있는 데이터를 기반으로 새로운 엔트리를 생성
-                const entry = { ...payload, _id: Date.now() };
+                // payload에 있는 데이터를 기반으로 새로운 엔트리를 생성, ...payload를 통해 얕은 복사를 수행해서 새 객체를 생성
+                const entry = {...payload};
                 // 현재 상태의 entries 배열에 새 엔트리를 추가
-                this.state = { ...this.state, entries: [...this.state.entries, entry] };
+                this.state = {...this.state, entries: [...this.state.entries, entry]};
                 break;
             }
             // store에서 엔트리를 삭제하는 액션
             case 'ENTRY/REMOVE':
                 // payload에 있는 id를 가진 엔트리를 찾아서 삭제
-                this.state = { ...this.state, entries: this.state.entries.filter(e => e._id !== payload.id) };
+                this.state = {...this.state, entries: this.state.entries.filter(e => e.id !== payload.id)};
                 break;
+
+            // store의 날짜를 변경하는 액션
+            case 'DATE/SET':
+                // payload에 있는 연도와 월을 기반으로 상태를 업데이트
+                this.state = {...this.state, year: payload.year, month: payload.month};
+                break;
+
             default:
                 console.warn('[Store] Unknown action:', type);
         }
