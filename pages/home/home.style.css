@@ -1,97 +1,132 @@
-.add-input-form {
+.input-form {
   width: 89.4rem;
   height: 7.6rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   border: 0.05rem solid var(--nuetral-border-default);
   background-color: var(--nuetral-surface-default);
-  padding: 1.6rem 2.4rem;
+  padding: 1.6rem 0;
 }
 
-.add-input {
+.input-form__row {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  padding: 0 2.4rem;
+  border-right: 0.05rem solid var(--nuetral-text-default);
 }
 
-.add-input__divider {
+.input-form__row:last-of-type {
+  border-right: none;
+}
+
+.input-form__divider {
   width: 0.05rem;
   height: 4.4rem;
   background-color: var(--nuetral-border-default);
 }
 
-.add-input label {
+.input-form__row label {
   height: 2.4rem;
 }
 
-.add-input input {
+.input-form__row input {
   width: 100%;
   height: 1.6rem;
-  font-size: 1.4rem;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
   border: none;
   outline: none;
 }
 
-.add-input__date {
-  width: 8.8rem;
+.input-form__date {
+  width: 13.6rem;
+  position: relative;
 }
 
-.add-input__amount {
-  width: 13.4rem;
+.input-form__date-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
-.add-input__amount-wrapper {
+.input-form__amount {
+  width: 18.2rem;
+}
+
+.input-form__amount-wrapper {
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
 
-.add-input__amount-wrapper input {
+.input-form__amount-wrapper input {
   text-align: right;
 }
 
-.add-input__amount-wrapper span {
+.input-form__amount-wrapper span {
   line-height: 1.6rem;
 }
 
-.add-input__icon {
+.input-form__amount-icon {
+  min-width: 1.6rem;
   width: 1.6rem;
   height: 1.6rem;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
 }
 
-.add-input__description {
-  width: 16rem;
+.input-form__amount-icon--minus {
+  background-image: url("/assets/icons/minus.svg");
 }
 
-.add-input__description-wrapper {
+.input-form__amount-icon--plus {
+  background-image: url("/assets/icons/plus.svg");
+}
+
+.input-form__description {
+  width: 20.8rem;
+}
+
+.input-form__method {
+  width: 15.2rem;
+}
+
+.input-form__category {
+  width: 15.2rem;
+}
+
+.input-form__description-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.add-input__description-count {
+.input-form__description-count {
   color: var(--nuetral-text-weak);
 }
 
-.add-input__method {
-  width: 10.4rem;
-}
-
-.add-input__category {
-  width: 10.4rem;
-}
-
-.add-input-form__button {
+.input-form__button {
   background-color: transparent;
   border: none;
   width: 4rem;
   height: 4rem;
   cursor: pointer;
+  padding-right: 2.4rem;
 }
 
-.add-input-form__button img {
+.input-form__button img {
   width: 4rem;
   height: 4rem;
 }
@@ -210,4 +245,94 @@
 
 .daily-list__content-row:hover .content-row__delete-button {
   display: flex;
+}
+
+.select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.select-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+
+.select-input {
+  width: 100%;
+  height: 1.6rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.select-icon {
+  width: 1.6rem;
+  min-width: 1.6rem;
+  height: 1.6rem;
+}
+
+.select-list {
+  display: none;
+  box-sizing: content-box;
+  position: absolute;
+  top: 5.95rem;
+  left: 0;
+  width: 15.2rem;
+  border: 0.05rem solid var(--nuetral-border-default);
+  background-color: var(--nuetral-surface-default);
+}
+
+.select-list--open {
+  display: block;
+}
+
+.select-icon img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.select-icon--open {
+  transform: rotate(180deg);
+}
+
+.select-item {
+  padding: 0 2.4rem;
+  cursor: pointer;
+}
+
+.select-item:hover {
+  background-color: var(--nuetral-surface-point);
+}
+
+.select-item__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 0;
+  border-bottom: 0.05rem solid var(--nuetral-border-default);
+}
+
+.select-item:last-of-type .select-item__content {
+  border-bottom: none;
+}
+
+.select-item__delete-button {
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.select-item__add-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }

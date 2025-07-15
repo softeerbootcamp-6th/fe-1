@@ -3,8 +3,41 @@ import {
   CheckBox,
   CategoryTag,
   DailyHistory,
+  Select,
+  InputForm,
 } from "../../components/index.js";
 import { getCurrentMonth } from "../../utils/month.js";
+
+const renderHeader = () => {
+  const header = Header({
+    selectedNav: "home",
+    onChangeMonth: renderHistory,
+  });
+  document.getElementById("header-container").appendChild(header);
+};
+
+const renderInputForm = async () => {
+  const inputForm = await InputForm();
+  document.getElementById("input-form-container").appendChild(inputForm);
+};
+
+const renderFilter = () => {
+  const filterContainer = document.getElementById("filter-container");
+  const incomeCheckBox = CheckBox({
+    id: "income-checkbox",
+    checked: true,
+    label: "수입 2,113,123",
+    onChange: renderHistory,
+  });
+  const expenseCheckBox = CheckBox({
+    id: "expense-checkbox",
+    checked: true,
+    label: "지출 2,113,123",
+    onChange: renderHistory,
+  });
+
+  filterContainer.append(incomeCheckBox, expenseCheckBox);
+};
 
 const renderHistory = () => {
   const isIncomeChecked = document.getElementById("income-checkbox").checked;
@@ -70,32 +103,7 @@ const renderHistory = () => {
   expenseLabel.textContent = `지출 ${totalExpense.toLocaleString()}원`;
 };
 
-const renderHeader = () => {
-  const header = Header({
-    selectedNav: "home",
-    onChangeMonth: renderHistory,
-  });
-  document.getElementById("header-container").appendChild(header);
-};
-
-const renderFilter = () => {
-  const filterContainer = document.getElementById("filter-container");
-  const incomeCheckBox = CheckBox({
-    id: "income-checkbox",
-    checked: true,
-    label: "수입 2,113,123",
-    onChange: renderHistory,
-  });
-  const expenseCheckBox = CheckBox({
-    id: "expense-checkbox",
-    checked: true,
-    label: "지출 2,113,123",
-    onChange: renderHistory,
-  });
-
-  filterContainer.append(incomeCheckBox, expenseCheckBox);
-};
-
 renderHeader();
+renderInputForm();
 renderFilter();
 renderHistory();

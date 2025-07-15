@@ -23,7 +23,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 0.8rem;
   padding: 3.2rem;
@@ -48,4 +48,12 @@
 
 .modal__button--confirm {
   color: var(--nuetral-text-default);
+}
+
+.modal__button--add {
+  color: var(--nuetral-text-default);
+}
+
+.modal__button--delete {
+  color: var(--danger-text-default);
 }
