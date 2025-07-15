@@ -3,7 +3,9 @@ import {
   getTransactionsByYearMonth,
   groupTransactionsByDate,
   dailyTotalData,
+  monthlyTotalData,
 } from "../utils/transaction.js";
+import { formatMoney } from "../utils/format.js";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -28,17 +30,21 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 
   const createCalendarTotalIncomeAmount =
     dailyTotalIncomeCount > 0
-      ? `<div class="calendar-amount text-income">${dailyTotalIncome}</div>`
+      ? `<div class="calendar-amount text-income">${formatMoney(
+          dailyTotalIncome
+        )}</div>`
       : ``;
 
   const createCalendarTotalExpenseAmount =
     dailyTotalExpenseCount > 0
-      ? `<div class="calendar-amount text-expense">${dailyTotalExpense}</div>`
+      ? `<div class="calendar-amount text-expense">${formatMoney(
+          dailyTotalExpense
+        )}</div>`
       : ``;
 
   const createCalendarTotalAmount =
     dailyTotalCount > 0
-      ? `<div class="calendar-amount">${dailyTotalAmount}</div>`
+      ? `<div class="calendar-amount">${formatMoney(dailyTotalAmount)}</div>`
       : ``;
 
   return `
@@ -51,6 +57,21 @@ function createCalendarCell(day, year, month, transactionListByDate) {
         <div class="calendar-date serif-14">${day}</div>
       </div>
     `;
+}
+
+function createCalendarMonthlyInfo(year, month) {
+  const transactions = getTransactionsByYearMonth(year, month);
+  const { monthlyTotalIncome, monthlyTotalExpense } =
+    monthlyTotalData(transactions);
+  return `
+  <div class="calendar-info flex-between serif-14">
+      <div class="flex-row gap-8">
+          <div>총 수입 ${formatMoney(monthlyTotalIncome)}원</div>
+          <div>총 지출${formatMoney(monthlyTotalExpense)}원</div>
+      </div>
+      <div>총 ${formatMoney(monthlyTotalIncome + monthlyTotalExpense)} 원</div>
+  </div>
+  `;
 }
 
 export function createCalendar(year, month) {
@@ -111,4 +132,11 @@ export function createCalendar(year, month) {
 
 export function renderCalendar(container) {
   container.innerHTML = createCalendar(getCurrentYear(), getCurrentMonth());
+}
+
+export function renderCalendarInfo(container) {
+  container.innerHTML = createCalendarMonthlyInfo(
+    getCurrentYear(),
+    getCurrentMonth()
+  );
 }
