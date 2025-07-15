@@ -59,7 +59,9 @@ export const PaymentForm = (input) => {
       }.png`;
       // 드롭다운 화면에 표시/제거
       if (isPaymentOpen) {
-        paymentForm.appendChild(DropDown("payment", defaultPayment));
+        paymentForm.appendChild(
+          DropDown({ type: "payment", data: defaultPayment })
+        );
       } else {
         const dropDown = paymentForm.querySelector(".drop-down");
         paymentForm.removeChild(dropDown);

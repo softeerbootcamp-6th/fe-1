@@ -43,7 +43,7 @@ export const CategoryForm = (input) => {
       // 드롭다운 화면에 표시/제거
       if (isCategoryOpen) {
         categoryForm.appendChild(
-          DropDown("category", CATEGORY[input.moneyType])
+          DropDown({ type: "category", data: CATEGORY[input.moneyType] })
         );
       } else {
         const dropDown = categoryForm.querySelector(".drop-down");
