@@ -4,7 +4,7 @@ import createInputForm from "../views/InputForm/input-form.js";
 const inputData = {
   id: localStorage.getItem("currentId"),
   date: new Date().toISOString().split("T")[0],
-  type: "expenses", // income, expenses
+  type: "expense", // income, expense
   amount: 0,
   description: "",
   method: "",
@@ -102,7 +102,7 @@ const bindInputFormEvents = async (inputFormElement) => {
     } else {
       inputAmountIcon.classList.remove("input-form__amount-icon--plus");
       inputAmountIcon.classList.add("input-form__amount-icon--minus");
-      inputData.type = "expenses";
+      inputData.type = "expense";
     }
     renderCategorySelect(inputFormElement);
     inputData.category = "";

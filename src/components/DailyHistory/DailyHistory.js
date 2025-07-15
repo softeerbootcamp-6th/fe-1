@@ -12,7 +12,7 @@ import { CategoryTag, Button } from "../index.js";
  *       category: "의료/건강",
  *       description: "저녁 약속",
  *       method: "국민카드",
- *       type: "expenses",
+ *       type: "expense",
  *       amount: 381329,
  *     },
  *   ],
@@ -26,7 +26,7 @@ const DailyHistory = ({ date = "", items = [] } = {}) => {
   }, 0);
 
   const totalExpense = items.reduce((acc, item) => {
-    return acc + (item.type === "expenses" ? item.amount : 0);
+    return acc + (item.type === "expense" ? item.amount : 0);
   }, 0);
 
   const article = document.createElement("article");

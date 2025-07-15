@@ -6,7 +6,7 @@ const items = {
       category: "식비",
       description: "버스 요금",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 9978,
     },
     {
@@ -15,7 +15,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "네일아트",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 164278,
     },
     {
@@ -24,7 +24,7 @@ const items = {
       category: "생활",
       description: "콘서트",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 580196,
     },
     {
@@ -33,7 +33,7 @@ const items = {
       category: "미분류",
       description: "문화비",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 196774,
     },
     {
@@ -42,7 +42,7 @@ const items = {
       category: "교통",
       description: "택시비",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 684478,
     },
     {
@@ -51,7 +51,7 @@ const items = {
       category: "문화/여가",
       description: "치킨 배달",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 160422,
     },
     {
@@ -69,7 +69,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "마트 쇼핑",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 94461,
     },
     {
@@ -78,7 +78,7 @@ const items = {
       category: "미분류",
       description: "월급 지급",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 265438,
     },
     {
@@ -87,7 +87,7 @@ const items = {
       category: "의료/건강",
       description: "월급 지급",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 996431,
     },
     {
@@ -105,7 +105,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "버스 요금",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 710177,
     },
     {
@@ -114,7 +114,7 @@ const items = {
       category: "생활",
       description: "치킨 배달",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 310801,
     },
     {
@@ -141,7 +141,7 @@ const items = {
       category: "의료/건강",
       description: "용돈 받음",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 897738,
     },
     {
@@ -159,7 +159,7 @@ const items = {
       category: "미분류",
       description: "문화비",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 229345,
     },
     {
@@ -177,7 +177,7 @@ const items = {
       category: "의료/건강",
       description: "네일아트",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 639960,
     },
     {
@@ -186,7 +186,7 @@ const items = {
       category: "미분류",
       description: "음악 스트리밍",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 27295,
     },
     {
@@ -195,7 +195,7 @@ const items = {
       category: "교통",
       description: "카페 방문",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 664289,
     },
     {
@@ -213,7 +213,7 @@ const items = {
       category: "생활",
       description: "외식",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 767315,
     },
   ],
@@ -260,7 +260,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "버스 요금",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 631144,
     },
     {
@@ -269,7 +269,7 @@ const items = {
       category: "문화/여가",
       description: "화장품 구매",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 898091,
     },
     {
@@ -278,7 +278,7 @@ const items = {
       category: "교통",
       description: "쇼핑",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 912928,
     },
     {
@@ -287,7 +287,7 @@ const items = {
       category: "의료/건강",
       description: "편의점",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 20013,
     },
     {
@@ -296,7 +296,7 @@ const items = {
       category: "의료/건강",
       description: "병원비",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 970535,
     },
     {
@@ -305,7 +305,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "치킨 배달",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 200614,
     },
     {
@@ -314,7 +314,7 @@ const items = {
       category: "생활",
       description: "콘서트",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 714324,
     },
     {
@@ -323,7 +323,7 @@ const items = {
       category: "교통",
       description: "화장품 구매",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 338667,
     },
   ],
@@ -334,7 +334,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "택시비",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 872125,
     },
     {
@@ -343,7 +343,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "편의점",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 745234,
     },
     {
@@ -352,7 +352,7 @@ const items = {
       category: "생활",
       description: "의사 방문",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 332590,
     },
     {
@@ -361,7 +361,7 @@ const items = {
       category: "교통",
       description: "고기 구입",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 322136,
     },
     {
@@ -379,7 +379,7 @@ const items = {
       category: "문화/여가",
       description: "지하철",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 495023,
     },
     {
@@ -397,7 +397,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "화장품 구매",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 662146,
     },
     {
@@ -406,7 +406,7 @@ const items = {
       category: "생활",
       description: "피부과",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 219716,
     },
     {
@@ -424,7 +424,7 @@ const items = {
       category: "미분류",
       description: "치킨 배달",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 212351,
     },
     {
@@ -433,7 +433,7 @@ const items = {
       category: "문화/여가",
       description: "월급 지급",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 219006,
     },
   ],
@@ -462,7 +462,7 @@ const items = {
       category: "의료/건강",
       description: "점심 식사",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 61797,
     },
     {
@@ -471,7 +471,7 @@ const items = {
       category: "교통",
       description: "부모님 선물",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 310045,
     },
     {
@@ -480,7 +480,7 @@ const items = {
       category: "의료/건강",
       description: "고기 구입",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 515346,
     },
     {
@@ -489,7 +489,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "부모님 선물",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 188973,
     },
     {
@@ -498,7 +498,7 @@ const items = {
       category: "미분류",
       description: "택시비",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 134574,
     },
     {
@@ -516,7 +516,7 @@ const items = {
       category: "의료/건강",
       description: "편의점",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 266391,
     },
     {
@@ -534,7 +534,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "편의점",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 647795,
     },
   ],
@@ -563,7 +563,7 @@ const items = {
       category: "교통",
       description: "고기 구입",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 510478,
     },
     {
@@ -572,7 +572,7 @@ const items = {
       category: "미분류",
       description: "보너스 수령",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 389000,
     },
     {
@@ -581,7 +581,7 @@ const items = {
       category: "생활",
       description: "넷플릭스",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 616173,
     },
     {
@@ -590,7 +590,7 @@ const items = {
       category: "식비",
       description: "택시비",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 154766,
     },
     {
@@ -608,7 +608,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "마트 쇼핑",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 391943,
     },
     {
@@ -617,7 +617,7 @@ const items = {
       category: "교통",
       description: "치킨 배달",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 784898,
     },
     {
@@ -626,7 +626,7 @@ const items = {
       category: "생활",
       description: "택시비",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 909733,
     },
   ],
@@ -646,7 +646,7 @@ const items = {
       category: "문화/여가",
       description: "용돈 받음",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 683291,
     },
     {
@@ -655,7 +655,7 @@ const items = {
       category: "식비",
       description: "기타수입",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 98899,
     },
     {
@@ -664,7 +664,7 @@ const items = {
       category: "문화/여가",
       description: "편의점",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 516328,
     },
     {
@@ -673,7 +673,7 @@ const items = {
       category: "의료/건강",
       description: "콘서트",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 202964,
     },
     {
@@ -682,7 +682,7 @@ const items = {
       category: "생활",
       description: "문화비",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 827505,
     },
     {
@@ -691,7 +691,7 @@ const items = {
       category: "의료/건강",
       description: "요가 수업",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 61655,
     },
     {
@@ -700,7 +700,7 @@ const items = {
       category: "미분류",
       description: "의료 보험료",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 285699,
     },
     {
@@ -727,7 +727,7 @@ const items = {
       category: "교통",
       description: "기타수입",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 908686,
     },
     {
@@ -736,7 +736,7 @@ const items = {
       category: "생활",
       description: "화장품 구매",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 731229,
     },
   ],
@@ -756,7 +756,7 @@ const items = {
       category: "교통",
       description: "지하철",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 382528,
     },
     {
@@ -765,7 +765,7 @@ const items = {
       category: "교통",
       description: "의료 보험료",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 30896,
     },
     {
@@ -774,7 +774,7 @@ const items = {
       category: "생활",
       description: "쇼핑",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 437692,
     },
     {
@@ -783,7 +783,7 @@ const items = {
       category: "미분류",
       description: "병원비",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 781661,
     },
     {
@@ -801,7 +801,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "저녁 약속",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 891760,
     },
     {
@@ -810,7 +810,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "고기 구입",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 762830,
     },
     {
@@ -819,7 +819,7 @@ const items = {
       category: "식비",
       description: "서점",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 148590,
     },
     {
@@ -846,7 +846,7 @@ const items = {
       category: "미분류",
       description: "부모님 선물",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 367908,
     },
     {
@@ -855,7 +855,7 @@ const items = {
       category: "식비",
       description: "영화 관람",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 933612,
     },
     {
@@ -882,7 +882,7 @@ const items = {
       category: "생활",
       description: "넷플릭스",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 113422,
     },
   ],
@@ -893,7 +893,7 @@ const items = {
       category: "식비",
       description: "화장품 구매",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 726110,
     },
     {
@@ -911,7 +911,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "병원비",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 294425,
     },
     {
@@ -920,7 +920,7 @@ const items = {
       category: "미분류",
       description: "저녁 약속",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 363136,
     },
     {
@@ -929,7 +929,7 @@ const items = {
       category: "의료/건강",
       description: "마트 쇼핑",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 638251,
     },
     {
@@ -947,7 +947,7 @@ const items = {
       category: "의료/건강",
       description: "카페 방문",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 823802,
     },
     {
@@ -956,7 +956,7 @@ const items = {
       category: "의료/건강",
       description: "치킨 배달",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 790197,
     },
     {
@@ -965,7 +965,7 @@ const items = {
       category: "미분류",
       description: "치킨 배달",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 400885,
     },
     {
@@ -974,7 +974,7 @@ const items = {
       category: "문화/여가",
       description: "점심 식사",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 498150,
     },
     {
@@ -983,7 +983,7 @@ const items = {
       category: "의료/건강",
       description: "쇼핑",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 509763,
     },
     {
@@ -992,7 +992,7 @@ const items = {
       category: "의료/건강",
       description: "월급 지급",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 429409,
     },
     {
@@ -1001,7 +1001,7 @@ const items = {
       category: "문화/여가",
       description: "저녁 약속",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 465658,
     },
     {
@@ -1019,7 +1019,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "요가 수업",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 978975,
     },
     {
@@ -1028,7 +1028,7 @@ const items = {
       category: "의료/건강",
       description: "카페 방문",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 457597,
     },
     {
@@ -1037,7 +1037,7 @@ const items = {
       category: "의료/건강",
       description: "쇼핑",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 373472,
     },
     {
@@ -1046,7 +1046,7 @@ const items = {
       category: "문화/여가",
       description: "용돈 받음",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 713872,
     },
     {
@@ -1055,7 +1055,7 @@ const items = {
       category: "식비",
       description: "콘서트",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 741482,
     },
     {
@@ -1064,7 +1064,7 @@ const items = {
       category: "문화/여가",
       description: "의료 보험료",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 375949,
     },
   ],
@@ -1084,7 +1084,7 @@ const items = {
       category: "교통",
       description: "월급 지급",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 776369,
     },
     {
@@ -1093,7 +1093,7 @@ const items = {
       category: "미분류",
       description: "요가 수업",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 812069,
     },
     {
@@ -1102,7 +1102,7 @@ const items = {
       category: "교통",
       description: "버스 요금",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 696388,
     },
     {
@@ -1129,7 +1129,7 @@ const items = {
       category: "교통",
       description: "화장품 구매",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 457666,
     },
     {
@@ -1138,7 +1138,7 @@ const items = {
       category: "미분류",
       description: "저녁 약속",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 569306,
     },
     {
@@ -1147,7 +1147,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "카페 방문",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 416340,
     },
     {
@@ -1165,7 +1165,7 @@ const items = {
       category: "의료/건강",
       description: "고기 구입",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 799340,
     },
     {
@@ -1174,7 +1174,7 @@ const items = {
       category: "교통",
       description: "치킨 배달",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 999517,
     },
     {
@@ -1192,7 +1192,7 @@ const items = {
       category: "문화/여가",
       description: "의사 방문",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 449951,
     },
     {
@@ -1201,7 +1201,7 @@ const items = {
       category: "미분류",
       description: "월급 지급",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 851289,
     },
     {
@@ -1210,7 +1210,7 @@ const items = {
       category: "교통",
       description: "부모님 선물",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 547228,
     },
     {
@@ -1219,7 +1219,7 @@ const items = {
       category: "식비",
       description: "넷플릭스",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 947807,
     },
   ],
@@ -1239,7 +1239,7 @@ const items = {
       category: "미분류",
       description: "넷플릭스",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 875281,
     },
     {
@@ -1257,7 +1257,7 @@ const items = {
       category: "식비",
       description: "월급 지급",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 57649,
     },
     {
@@ -1266,7 +1266,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "저녁 약속",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 869932,
     },
     {
@@ -1275,7 +1275,7 @@ const items = {
       category: "문화/여가",
       description: "헬스장 등록",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 193448,
     },
     {
@@ -1284,7 +1284,7 @@ const items = {
       category: "미분류",
       description: "음악 스트리밍",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 624479,
     },
     {
@@ -1293,7 +1293,7 @@ const items = {
       category: "미분류",
       description: "고기 구입",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 324621,
     },
     {
@@ -1302,7 +1302,7 @@ const items = {
       category: "미분류",
       description: "월급 지급",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 308705,
     },
     {
@@ -1338,7 +1338,7 @@ const items = {
       category: "의료/건강",
       description: "버스 요금",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 899383,
     },
     {
@@ -1347,7 +1347,7 @@ const items = {
       category: "식비",
       description: "카페 방문",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 68900,
     },
     {
@@ -1356,7 +1356,7 @@ const items = {
       category: "생활",
       description: "병원비",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 232998,
     },
     {
@@ -1383,7 +1383,7 @@ const items = {
       category: "문화/여가",
       description: "지하철",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 27464,
     },
     {
@@ -1392,7 +1392,7 @@ const items = {
       category: "미분류",
       description: "지하철",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 972699,
     },
   ],
@@ -1403,7 +1403,7 @@ const items = {
       category: "미분류",
       description: "치킨 배달",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 853400,
     },
     {
@@ -1412,7 +1412,7 @@ const items = {
       category: "교통",
       description: "지하철",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 534474,
     },
     {
@@ -1421,7 +1421,7 @@ const items = {
       category: "생활",
       description: "화장품 구매",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 715108,
     },
     {
@@ -1430,7 +1430,7 @@ const items = {
       category: "의료/건강",
       description: "보너스 수령",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 809070,
     },
     {
@@ -1439,7 +1439,7 @@ const items = {
       category: "식비",
       description: "서점",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 236186,
     },
     {
@@ -1448,7 +1448,7 @@ const items = {
       category: "미분류",
       description: "피부과",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 378316,
     },
     {
@@ -1466,7 +1466,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "버스 요금",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 608590,
     },
     {
@@ -1475,7 +1475,7 @@ const items = {
       category: "미분류",
       description: "문화비",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 23889,
     },
     {
@@ -1484,7 +1484,7 @@ const items = {
       category: "생활",
       description: "고기 구입",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 831377,
     },
     {
@@ -1493,7 +1493,7 @@ const items = {
       category: "식비",
       description: "병원비",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 95604,
     },
     {
@@ -1511,7 +1511,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "지하철",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 933808,
     },
     {
@@ -1529,7 +1529,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "화장품 구매",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 389637,
     },
     {
@@ -1538,7 +1538,7 @@ const items = {
       category: "의료/건강",
       description: "마트 쇼핑",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 681556,
     },
     {
@@ -1547,7 +1547,7 @@ const items = {
       category: "생활",
       description: "콘서트",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 810021,
     },
     {
@@ -1556,7 +1556,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "저녁 약속",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 607780,
     },
     {
@@ -1565,7 +1565,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "점심 식사",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 353985,
     },
   ],
@@ -1576,7 +1576,7 @@ const items = {
       category: "문화/여가",
       description: "문화비",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 351467,
     },
     {
@@ -1585,7 +1585,7 @@ const items = {
       category: "문화/여가",
       description: "넷플릭스",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 950487,
     },
     {
@@ -1594,7 +1594,7 @@ const items = {
       category: "의료/건강",
       description: "피부과",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 873718,
     },
     {
@@ -1603,7 +1603,7 @@ const items = {
       category: "미분류",
       description: "고기 구입",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 536764,
     },
     {
@@ -1612,7 +1612,7 @@ const items = {
       category: "문화/여가",
       description: "카페 방문",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 683941,
     },
     {
@@ -1621,7 +1621,7 @@ const items = {
       category: "교통",
       description: "의사 방문",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 833012,
     },
     {
@@ -1648,7 +1648,7 @@ const items = {
       category: "미분류",
       description: "용돈 받음",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 919036,
     },
     {
@@ -1666,7 +1666,7 @@ const items = {
       category: "식비",
       description: "월급 지급",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 794431,
     },
     {
@@ -1675,7 +1675,7 @@ const items = {
       category: "식비",
       description: "치킨 배달",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 685133,
     },
     {
@@ -1704,7 +1704,7 @@ const items = {
       category: "교통",
       description: "요가 수업",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 922323,
     },
     {
@@ -1713,7 +1713,7 @@ const items = {
       category: "의료/건강",
       description: "피부과",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 712156,
     },
     {
@@ -1731,7 +1731,7 @@ const items = {
       category: "교통",
       description: "병원비",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 470688,
     },
     {
@@ -1740,7 +1740,7 @@ const items = {
       category: "식비",
       description: "화장품 구매",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 921036,
     },
     {
@@ -1749,7 +1749,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "택시비",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 955469,
     },
     {
@@ -1785,7 +1785,7 @@ const items = {
       category: "교통",
       description: "요가 수업",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 688183,
     },
     {
@@ -1794,7 +1794,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "마트 쇼핑",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 442719,
     },
     {
@@ -1839,7 +1839,7 @@ const items = {
       category: "생활",
       description: "의료 보험료",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 173282,
     },
     {
@@ -1859,7 +1859,7 @@ const items = {
       category: "문화/여가",
       description: "문화비",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 50479,
     },
     {
@@ -1868,7 +1868,7 @@ const items = {
       category: "의료/건강",
       description: "쇼핑",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 788634,
     },
     {
@@ -1877,7 +1877,7 @@ const items = {
       category: "생활",
       description: "화장품 구매",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 815092,
     },
     {
@@ -1886,7 +1886,7 @@ const items = {
       category: "생활",
       description: "마트 쇼핑",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 552877,
     },
     {
@@ -1913,7 +1913,7 @@ const items = {
       category: "의료/건강",
       description: "부모님 선물",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 831090,
     },
     {
@@ -1922,7 +1922,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "저녁 약속",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 457692,
     },
     {
@@ -1931,7 +1931,7 @@ const items = {
       category: "생활",
       description: "네일아트",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 144558,
     },
     {
@@ -1949,7 +1949,7 @@ const items = {
       category: "미분류",
       description: "화장품 구매",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 896169,
     },
     {
@@ -1958,7 +1958,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "쇼핑",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 440306,
     },
     {
@@ -1967,7 +1967,7 @@ const items = {
       category: "생활",
       description: "카페 방문",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 195594,
     },
     {
@@ -1976,7 +1976,7 @@ const items = {
       category: "의료/건강",
       description: "영화 관람",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 43130,
     },
     {
@@ -1985,7 +1985,7 @@ const items = {
       category: "문화/여가",
       description: "지하철",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 918103,
     },
     {
@@ -2003,7 +2003,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "부모님 선물",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 153004,
     },
     {
@@ -2012,7 +2012,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "택시비",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 299706,
     },
     {
@@ -2021,7 +2021,7 @@ const items = {
       category: "문화/여가",
       description: "기타수입",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 567946,
     },
     {
@@ -2030,7 +2030,7 @@ const items = {
       category: "문화/여가",
       description: "외식",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 829367,
     },
   ],
@@ -2041,7 +2041,7 @@ const items = {
       category: "식비",
       description: "기타수입",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 564218,
     },
     {
@@ -2050,7 +2050,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "영화 관람",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 786493,
     },
     {
@@ -2059,7 +2059,7 @@ const items = {
       category: "의료/건강",
       description: "기타수입",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 610670,
     },
     {
@@ -2077,7 +2077,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "기타수입",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 143923,
     },
     {
@@ -2086,7 +2086,7 @@ const items = {
       category: "식비",
       description: "네일아트",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 6198,
     },
     {
@@ -2104,7 +2104,7 @@ const items = {
       category: "의료/건강",
       description: "치킨 배달",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 872936,
     },
     {
@@ -2113,7 +2113,7 @@ const items = {
       category: "식비",
       description: "마트 쇼핑",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 218899,
     },
     {
@@ -2122,7 +2122,7 @@ const items = {
       category: "교통",
       description: "외식",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 972435,
     },
     {
@@ -2131,7 +2131,7 @@ const items = {
       category: "생활",
       description: "네일아트",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 677099,
     },
     {
@@ -2158,7 +2158,7 @@ const items = {
       category: "식비",
       description: "치킨 배달",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 570889,
     },
   ],
@@ -2169,7 +2169,7 @@ const items = {
       category: "미분류",
       description: "지하철",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 150201,
     },
     {
@@ -2187,7 +2187,7 @@ const items = {
       category: "의료/건강",
       description: "헬스장 등록",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 928459,
     },
     {
@@ -2205,7 +2205,7 @@ const items = {
       category: "식비",
       description: "카페 방문",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 161426,
     },
     {
@@ -2252,7 +2252,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "고기 구입",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 623993,
     },
     {
@@ -2261,7 +2261,7 @@ const items = {
       category: "문화/여가",
       description: "편의점",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 993709,
     },
     {
@@ -2288,7 +2288,7 @@ const items = {
       category: "문화/여가",
       description: "문화비",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 243149,
     },
     {
@@ -2297,7 +2297,7 @@ const items = {
       category: "교통",
       description: "화장품 구매",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 439448,
     },
     {
@@ -2306,7 +2306,7 @@ const items = {
       category: "문화/여가",
       description: "치킨 배달",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 67997,
     },
     {
@@ -2315,7 +2315,7 @@ const items = {
       category: "의료/건강",
       description: "택시비",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 861850,
     },
     {
@@ -2324,7 +2324,7 @@ const items = {
       category: "문화/여가",
       description: "보너스 수령",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 40043,
     },
     {
@@ -2333,7 +2333,7 @@ const items = {
       category: "생활",
       description: "점심 식사",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 460444,
     },
     {
@@ -2342,7 +2342,7 @@ const items = {
       category: "의료/건강",
       description: "지하철",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 420127,
     },
     {
@@ -2351,7 +2351,7 @@ const items = {
       category: "교통",
       description: "피부과",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 562257,
     },
     {
@@ -2360,7 +2360,7 @@ const items = {
       category: "문화/여가",
       description: "편의점",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 718943,
     },
     {
@@ -2369,7 +2369,7 @@ const items = {
       category: "생활",
       description: "택시비",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 96887,
     },
     {
@@ -2378,7 +2378,7 @@ const items = {
       category: "생활",
       description: "치킨 배달",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 934250,
     },
     {
@@ -2396,7 +2396,7 @@ const items = {
       category: "생활",
       description: "네일아트",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 738838,
     },
     {
@@ -2405,7 +2405,7 @@ const items = {
       category: "문화/여가",
       description: "쇼핑",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 980264,
     },
     {
@@ -2414,7 +2414,7 @@ const items = {
       category: "문화/여가",
       description: "외식",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 925185,
     },
     {
@@ -2423,7 +2423,7 @@ const items = {
       category: "문화/여가",
       description: "마트 쇼핑",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 748908,
     },
     {
@@ -2432,7 +2432,7 @@ const items = {
       category: "교통",
       description: "편의점",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 607465,
     },
     {
@@ -2441,7 +2441,7 @@ const items = {
       category: "미분류",
       description: "영화 관람",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 653181,
     },
   ],
@@ -2470,7 +2470,7 @@ const items = {
       category: "의료/건강",
       description: "피부과",
       method: "신한카드",
-      type: "expenses",
+      type: "expense",
       amount: 664387,
     },
     {
@@ -2488,7 +2488,7 @@ const items = {
       category: "미분류",
       description: "문화비",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 514013,
     },
     {
@@ -2497,7 +2497,7 @@ const items = {
       category: "미분류",
       description: "서점",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 835825,
     },
     {
@@ -2515,7 +2515,7 @@ const items = {
       category: "식비",
       description: "넷플릭스",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 756507,
     },
     {
@@ -2524,7 +2524,7 @@ const items = {
       category: "문화/여가",
       description: "화장품 구매",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 454693,
     },
     {
@@ -2533,7 +2533,7 @@ const items = {
       category: "문화/여가",
       description: "음악 스트리밍",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 33360,
     },
     {
@@ -2542,7 +2542,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "영화 관람",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 933899,
     },
     {
@@ -2551,7 +2551,7 @@ const items = {
       category: "식비",
       description: "화장품 구매",
       method: "카카오페이",
-      type: "expenses",
+      type: "expense",
       amount: 942870,
     },
     {
@@ -2571,7 +2571,7 @@ const items = {
       category: "의료/건강",
       description: "저녁 약속",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 381329,
     },
     {
@@ -2589,7 +2589,7 @@ const items = {
       category: "의료/건강",
       description: "화장품 구매",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 283399,
     },
     {
@@ -2598,7 +2598,7 @@ const items = {
       category: "식비",
       description: "용돈 받음",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 316024,
     },
     {
@@ -2634,7 +2634,7 @@ const items = {
       category: "미분류",
       description: "피부과",
       method: "토스",
-      type: "expenses",
+      type: "expense",
       amount: 296995,
     },
     {
@@ -2652,7 +2652,7 @@ const items = {
       category: "생활",
       description: "피부과",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 35796,
     },
     {
@@ -2661,7 +2661,7 @@ const items = {
       category: "식비",
       description: "부모님 선물",
       method: "현대카드",
-      type: "expenses",
+      type: "expense",
       amount: 152101,
     },
     {
@@ -2670,7 +2670,7 @@ const items = {
       category: "의료/건강",
       description: "저녁 약속",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 301451,
     },
     {
@@ -2679,7 +2679,7 @@ const items = {
       category: "문화/여가",
       description: "쇼핑",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 707314,
     },
     {
@@ -2688,7 +2688,7 @@ const items = {
       category: "생활",
       description: "화장품 구매",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 959063,
     },
     {
@@ -2697,7 +2697,7 @@ const items = {
       category: "미분류",
       description: "요가 수업",
       method: "삼성페이",
-      type: "expenses",
+      type: "expense",
       amount: 920683,
     },
     {
@@ -2715,7 +2715,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "보너스 수령",
       method: "국민카드",
-      type: "expenses",
+      type: "expense",
       amount: 922668,
     },
     {
@@ -2724,7 +2724,7 @@ const items = {
       category: "미분류",
       description: "부모님 선물",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 167054,
     },
     {
@@ -2733,7 +2733,7 @@ const items = {
       category: "쇼핑/뷰티",
       description: "음악 스트리밍",
       method: "현금",
-      type: "expenses",
+      type: "expense",
       amount: 843194,
     },
   ],
@@ -2742,7 +2742,7 @@ const items = {
 const method = ["현금", "카드"];
 const category = {
   income: ["월급", "용돈", "기타수입"],
-  expenses: [
+  expense: [
     "생활",
     "식비",
     "교통",
