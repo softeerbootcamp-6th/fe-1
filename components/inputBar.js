@@ -43,8 +43,8 @@ function getFormElements(form) {
 function updateAmountToggleIcon(amountToggle, isPositive) {
   const icon = isPositive ? "plus.svg" : "minus.svg";
   const sign = isPositive ? "+" : "-";
-  amountToggle.src = `../icons/${icon}`;
-  amountToggle.alt = sign;
+  amountToggle.querySelector("img").src = `../icons/${icon}`;
+  amountToggle.querySelector("img").alt = sign;
   amountToggle.dataset.sign = sign;
 }
 
