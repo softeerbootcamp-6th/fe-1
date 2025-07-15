@@ -4,7 +4,7 @@ import { NumberManager } from "../../utils/NumberManager.js";
 import { ListItem } from "./ListItem.js";
 
 export const DateList = (date, data) => {
-  const splitDate = date.split("-");
+  const [year, month, day] = date.split("-");
   const dateList = ElementManager.renderElement("div", "list-date");
   const dateOverview = ElementManager.renderElement("div", [
     "date-overview",
@@ -14,7 +14,7 @@ export const DateList = (date, data) => {
   const totalMoney = NumberManager.calculateTotalMoney(data);
   dateOverview.innerHTML = `
   <div class="date">
-    <span>${splitDate[1]}월 ${splitDate[2]}일</span>
+    <span>${month}월 ${day}일</span>
     <span>${DateManager.renderDay(date)}요일</span>
   </div>
   <div class="money-counter">
