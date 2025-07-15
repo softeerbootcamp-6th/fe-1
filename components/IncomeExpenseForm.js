@@ -1,4 +1,8 @@
 import { store } from '../store/store.js';
+import {
+  renderIncomeExpenseList,
+  renderListItem,
+} from './IncomeExpenseList.js';
 
 export function renderIncomeExpenseForm() {
   const form = document.createElement('form');
@@ -182,6 +186,12 @@ export function renderIncomeExpenseForm() {
 
   addButton.addEventListener('click', e => {
     e.preventDefault();
+    const incomeExpenseListContainer = document.querySelector(
+      '.income-expense-list-container'
+    );
+    console.log(incomeExpenseListContainer);
+    console.log(incomeExpenseListContainer.firstChild);
+
     handleSubmit(
       e,
       dateInput,
@@ -197,6 +207,7 @@ export function renderIncomeExpenseForm() {
       paymentSelect,
       classSelect
     );
+    renderListItem(incomeExpenseListContainer);
   });
 
   const updateClassSelect = (incomeClasses, expenseClasses) => {

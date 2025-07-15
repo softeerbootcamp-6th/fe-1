@@ -18,29 +18,31 @@ import { store } from '../store/store.js';
 // }
 
 export function renderIncomeExpenseList() {
-  const incomeExpenseList = document.createElement('div');
-  incomeExpenseList.className = 'income-expense-list';
+  console.log('list');
+  const incomeExpenseListContainer = document.createElement('div');
+  incomeExpenseListContainer.className = 'income-expense-list-container';
   // const form = document.querySelector('form');
   // const addButton = form.querySelector('.add-button');
 
   // 초기 렌더링
-  renderList(incomeExpenseList);
+  renderListItem(incomeExpenseListContainer);
 
   // dateState 변경 시 재렌더링
   dateState.subscribe(() => {
-    renderList(incomeExpenseList);
+    renderListItem(incomeExpenseListContainer);
   });
 
   // addButton.addEventListener('click', () => {
-  //   renderList(incomeExpenseList);
+  //   renderListItem(incomeExpenseListContainer);
   // });
 
-  return incomeExpenseList;
+  return incomeExpenseListContainer;
 }
 
-function renderList(listContainer) {
+export function renderListItem(listContainer) {
   // 데이터 로드
   const incomeExpenseData = store.incomeExpenseData;
+  console.log(incomeExpenseData);
 
   // 현재 연월 가져오기
   const currentYear = dateState.getYear();
@@ -51,9 +53,11 @@ function renderList(listContainer) {
 
   // 키로 현재 연월 데이터 가져오기
   const currentMonthData = incomeExpenseData[currentKey] || [];
-
+  console.log(currentMonthData);
+  console.log(listContainer.firstChild);
   // 기존 내용 지우기 (DOM 조작 방식)
   while (listContainer.firstChild) {
+    console.log('del');
     listContainer.removeChild(listContainer.firstChild);
   }
 
@@ -76,7 +80,7 @@ function renderList(listContainer) {
             `;
       dateItem.appendChild(incomeExpenseItem);
     });
-
+    console.log('append');
     listContainer.appendChild(dateItem);
   });
 }
