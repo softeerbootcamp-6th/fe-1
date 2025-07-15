@@ -25,7 +25,7 @@ export const store = {
     const currentKey = `${currentYear}-${currentMonth}`;
     let dataID = 0;
 
-    const monthData = incomeExpenseData[currentKey];
+    const monthData = this.incomeExpenseData[currentKey];
 
     if (monthData) {
       // 해당 일 데이터 가져오기
@@ -47,7 +47,7 @@ export const store = {
       }
       // month 데이터 비어있을 때
     } else {
-      incomeExpenseData[currentKey] = [
+      this.incomeExpenseData[currentKey] = [
         { date: dateInputValue, income_expense: [newIncomeExpense] },
       ];
     }
