@@ -17,7 +17,7 @@ export const CategoryForm = (input) => {
   EventDispatcher.register({
     eventType: "click",
     selector: "form-category",
-    handler: (e) => {
+    handler: ({ target }) => {
       // 이미지 업데이트
       const categoryImg = categoryForm.querySelector("#category > img");
       isCategoryOpen = !isCategoryOpen;
@@ -26,9 +26,9 @@ export const CategoryForm = (input) => {
       }.png`;
 
       // 값 업데이트+화면에 표시
-      const dropDownLi = e.target.closest(".drop-down-li");
+      const dropDownLi = target.closest(".drop-down-li");
       if (dropDownLi) {
-        const selectedCategory = e.target.innerText;
+        const selectedCategory = target.innerText;
         input.category = selectedCategory;
         const categoryTextInput =
           categoryForm.querySelector("#category > span");

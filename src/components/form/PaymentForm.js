@@ -19,19 +19,18 @@ export const PaymentForm = (input) => {
   EventDispatcher.register({
     eventType: "click",
     selector: "form-payment",
-    handler: (e) => {
+    handler: ({ target }) => {
       // 값 선택 업데이트+화면에 표시
-      console.log(e.target);
-      const dropDownLi = e.target.closest(".drop-down-li");
+      const dropDownLi = target.closest(".drop-down-li");
       if (dropDownLi) {
-        const selectedPayment = e.target.innerText;
+        const selectedPayment = target.innerText;
         input.payment = selectedPayment;
         const paymentTextInput = paymentForm.querySelector("#payment > span");
         paymentTextInput.textContent = selectedPayment;
       }
 
       // 값 추가
-      const addButton = e.target.closest(".add-button");
+      const addButton = target.closest(".add-button");
       if (addButton) {
         Modal.renderModal("add", (newPayment) => {
           defaultPayment.push(newPayment);
@@ -39,10 +38,10 @@ export const PaymentForm = (input) => {
       }
 
       // 값 삭제
-      const deleteButton = e.target.closest(".delete-button");
+      const deleteButton = target.closest(".delete-button");
       if (deleteButton) {
         Modal.renderModal("delete", (isConfirm) => {
-          const selectedLi = e.target.closest("li");
+          const selectedLi = target.closest("li");
           const selectedSpan = selectedLi.querySelector(".drop-down-li");
           defaultPayment = defaultPayment.filter(
             (item) => item !== selectedSpan.textContent
