@@ -10,8 +10,8 @@
 }
 
 .daliy-line-wrapper {
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-top: 1px solid var(--grayscale-400);
+    border-bottom: 1px solid var(--grayscale-400);
 }
 
 .category-info {

@@ -38,8 +38,8 @@ export default function createDaliyList(dailyInfo) {
     });
 
     let amountHtml = '';
-    amountHtml += totalIncome != 0 ? `<div>수입 ${totalIncome}<div>` : '';
-    amountHtml += totalExpense != 0 ? `<div>지출 ${totalExpense}<div>` : '';
+    amountHtml += totalIncome != 0 ? `<div>수입 ${totalIncome}</div>` : '';
+    amountHtml += totalExpense != 0 ? `<div>지출 ${totalExpense}</div>` : '';
 
     const $dailyAmount = createElement(
         'div',
