@@ -44,8 +44,8 @@ header {
 .month-name {
     color: var(--neutral-text-default);
 }
-
-.month-control-button:hover {
+.prev-month-button:hover,
+.next-month-button:hover {
     border-radius: 8px;
     background-color: #00000018;
 }
