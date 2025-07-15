@@ -1,0 +1,269 @@
+.form {
+    display: flex;
+    padding: 18px 24px;
+    background-color: #ffffff;
+    border: 1px solid var(--neutral-border-default);
+    position: relative;
+    top: -40px;
+    width: 897px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.form > .form-components {
+    border-left: 1px solid var(--neutral-border-default);
+    padding: 0px 23.78px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+.form > .form-components:first-child {
+    border-left: none;
+    padding-left: 0px;
+}
+.form-cost {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 134px;
+}
+input[type="date"].form-date {
+    position: relative;
+    cursor: pointer;
+    border: none;
+    width: 88px;
+    padding: 0px;
+}
+input[type="date"].form-date::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+input[type="text"].form-cost-input {
+    border: none;
+    font-size: 14px;
+    line-height: 16px;
+    width: 88px;
+    outline: none;
+    text-align: right;
+    margin-right: 8px;
+}
+.form-cost-sign {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.form-cost-sign img {
+    width: 16px;
+    height: 16px;
+}
+.form-description {
+    width: 160px;
+}
+.form-description-length {
+    color: var(--neutral-text-weak);
+}
+.form-description-input {
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+}
+.option-button {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+.drop-down-wrapper {
+    display: none;
+}
+.drop-down-wrapper.open {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 62px;
+    background-color: #ffffff;
+    border: 1px solid var(--neutral-border-default);
+    z-index: 10;
+}
+.drop-down-container {
+    position: relative;
+}
+.drop-down-wrapper .drop-down-element {
+    padding: 16px 0px;
+    margin: 0px 24px;
+    border-top: 1px solid var(--neutral-border-default);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.drop-down-wrapper .drop-down-element:first-child {
+    border-top: none;
+}
+.form-payment-method {
+    width: 104px;
+}
+.form-payment-method-text {
+    border: none;
+    outline: none;
+    resize: none;
+    width: 80%;
+    cursor: pointer;
+}
+.form-payment-method-text::placeholder {
+    color: var(--neutral-text-weak);
+}
+.form-payment-method-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--danger-text-default);
+    cursor: pointer;
+}
+
+.form-category-method-text::placeholder {
+    color: var(--neutral-text-weak);
+}
+.form-category-icon {
+    width: 16px;
+    height: 16px;
+
+    cursor: pointer;
+}
+.delete-button {
+    height: 24px;
+}
+.delete-button img {
+    color: var(--danger-text-default);
+}
+.form-category-text {
+    border: none;
+    outline: none;
+    resize: none;
+    width: 80%;
+    cursor: pointer;
+}
+button.form-category {
+    width: 104px;
+}
+.form-submit-button {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background-color: var(--neutral-text-default);
+}
+.form-submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.32;
+}
+.form-submit-button:hover {
+    opacity: 0.8;
+}
+.form-submit-button:active {
+    opacity: 0.64;
+}
+.cost-list-item {
+    margin: 40px 0px;
+}
+.cost-item-list {
+    border-top: 1px solid var(--neutral-border-default);
+    border-bottom: 1px solid var(--neutral-border-default);
+}
+.dates-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+.dates-card:hover {
+    background-color: var(--neutral-surface-point);
+}
+.dates-card > div:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 92px;
+    height: 56px;
+}
+.dates-card > div:nth-child(2) {
+    width: 400px;
+}
+.dates-card > div:nth-child(3) {
+    width: 104px;
+}
+.dates-card > div:nth-child(4) {
+    width: 186px;
+    text-align: right;
+}
+.expense {
+    color: var(--brand-text-expense);
+}
+.income {
+    color: var(--brand-text-income);
+}
+/* <div id="modal" class="modal hidden">
+            <div id="modal-title" class="modal-title"></div>
+            <div id="modal-content" class="modal-content"></div>
+            <div class="flex" class="modal-buttons">
+                <button id="modal-cancel">취소</button>
+                <button id="modal-feature">추가</button>
+            </div>
+        </div> */
+
+.modal.hidden {
+    display: none;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modal-center {
+    position: relative;
+    background: white;
+    z-index: 10000;
+}
+.modal-body {
+    padding: 32px;
+    width: 384px;
+}
+.modal-body input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--neutral-surface-default);
+}
+
+.modal-buttons > button {
+    width: 50%;
+    height: 56px;
+    border: 1px solid var(--neutral-border-default);
+}
+.modal-buttons > button:first-child {
+    border-right: none;
+}

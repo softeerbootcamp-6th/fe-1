@@ -24,15 +24,36 @@ app.use(express.json());
 const DB_FILE = "./data.json";
 
 // 데이터 전체 조회 API
-app.get("/api/data", async (req, res) => {
-    try {
-        const data = await fs.readFile(DB_FILE, "utf-8");
-        res.json(JSON.parse(data));
-    } catch (error) {
-        console.error("Error reading data:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+app.get("/api/data/", async (req, res) => {
+    const {year, month} = req.query;
+    if(year && month){
+        try {
+            const data = JSON.parse(await fs.readFile(DB_FILE, "utf-8"));
+            const yearData = data.find((item) => item.year === parseInt(year));
+            if (!yearData) return res.status(404).send("Year not found");
+
+            const monthData = yearData.months.find(
+                (item) => item.month === parseInt(month)
+            );
+            if (!monthData) return res.status(404).send("Month not found");
+
+            res.json(monthData.list);
+        } catch (error) {
+            console.error("Error reading data:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+    else{
+        try {
+            const data = await fs.readFile(DB_FILE, "utf-8");
+            res.json(JSON.parse(data));
+        } catch (error) {
+            console.error("Error reading data:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
     }
 });
+
 
 // 데이터 추가 API
 app.post("/api/data", async (req, res) => {

@@ -1,0 +1,27 @@
+section.calender-page {
+    position: relative;
+    top: -40px;
+    width: 100%;
+}
+.calender {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 48px repeat(auto-fill, 120px);
+}
+.calender > div {
+    outline: 1px solid var(--neutral-border-default);
+    background-color: var(--neutral-surface-default);
+}
+.calender-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.calender-cell {
+    position: relative;
+}
+.calender-cell > .calender-date {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
