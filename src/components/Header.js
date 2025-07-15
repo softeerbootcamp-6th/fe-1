@@ -6,6 +6,7 @@ import { parseYMD, formatYMD } from "../utils/date.js";
 export function initHeader() {
   renderHeader();
   addHeaderCenterEventDelegation();
+  addHeaderMenuNavigation();
   addObservers(onHeaderStateChange);
 }
 
@@ -47,7 +48,6 @@ function handleMonthChange(direction) {
       year++;
     }
   }
-  // 일자는 1일로 고정(월 이동 시)
   setState({ curDate: formatYMD(year, month, day) });
 }
 
@@ -65,7 +65,33 @@ function createHeaderCenterInnerHtml() {
   `;
 }
 
+const ROUTE_BUTTONS = [
+  { label: "메인", icon: "src/assets/icons/doc.svg", page: "" },
+  { label: "캘린더", icon: "src/assets/icons/calendar.svg", page: "calendar" },
+  { label: "차트", icon: "src/assets/icons/chart.svg", page: "chart" },
+];
+
+function getCurrentPageName() {
+  const hash = location.hash.replace("#", "");
+  if (hash === "calendar") return "캘린더";
+  if (hash === "chart") return "차트";
+  return "메인";
+}
+
 function renderHeader() {
+  const currentPage = getCurrentPageName();
+  const menuButtonsHtml = ROUTE_BUTTONS.map((btn) => {
+    const isActive = currentPage === btn.label;
+    const className =
+      "header-menu-icon" + (isActive ? " header-menu-icon-active" : "");
+    return `
+      <li>
+        <button class="${className}" data-page="${btn.label}">
+          <img src="${btn.icon}"/>
+        </button>
+      </li>
+    `;
+  }).join("");
   renderComponent({
     id: "header",
     className: "header-container",
@@ -78,23 +104,24 @@ function renderHeader() {
         </div>
         <div class="header-right">
           <ul class="header-menu">
-            <li>
-              <button class="header-menu-icon header-menu-icon-active" data-index="0">
-                <img src="src/assets/icons/doc.svg"/>
-              </button>
-            </li>
-            <li>
-              <button class="header-menu-icon" data-index="1">
-                <img src="src/assets/icons/calendar.svg"/>
-              </button>
-            </li>
-            <li>
-              <button class="header-menu-icon" data-index="2">
-                <img src="src/assets/icons/chart.svg"/>
-              </button>
-            </li>
+            ${menuButtonsHtml}
           </ul>
         </div>
     `,
   });
 }
+
+function handleRouteButton(e) {
+  const btn = e.target.closest(".header-menu-icon");
+  if (!btn) return;
+  const page = btn.getAttribute("data-page");
+  if (page === "메인") location.hash = "";
+  else if (page === "캘린더") location.hash = "calendar";
+  else if (page === "차트") location.hash = "chart";
+}
+
+function addHeaderMenuNavigation() {
+  document.addEventListener("click", handleRouteButton);
+}
+
+window.addEventListener("hashchange", renderHeader);

@@ -19,3 +19,5 @@ function renderContentLayout() {
 
 initHeader();
 renderContentLayout();
+
+window.addEventListener("hashchange", renderContentLayout);
