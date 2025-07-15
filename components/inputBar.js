@@ -1,7 +1,82 @@
-import { addNewTransaction } from "../utils/transaction.js";
+import {
+  addNewTransaction,
+  updateTransaction,
+  getTransactionById,
+} from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { renderTransactionList } from "./transactionsList.js";
 import { getFilteringState } from "../pages.js";
+
+// 수정 모드 상태 관리
+let isEditMode = false;
+let editingTransactionId = null;
+
+// 폼 필드 이름 상수
+const FORM_FIELDS = {
+  DATE: "date",
+  AMOUNT: "amount",
+  CONTENT: "content",
+  PAYMENT_METHOD: "paymentMethod",
+  CATEGORY: "category",
+};
+
+// 폼 요소들을 가져오는 함수
+function getFormElements(form) {
+  return {
+    dateInput: form.querySelector(`input[name='${FORM_FIELDS.DATE}']`),
+    amountInput: form.querySelector(`input[name='${FORM_FIELDS.AMOUNT}']`),
+    contentInput: form.querySelector(`input[name='${FORM_FIELDS.CONTENT}']`),
+    paymentMethodSelect: form.querySelector(
+      `select[name='${FORM_FIELDS.PAYMENT_METHOD}']`
+    ),
+    categorySelect: form.querySelector(
+      `select[name='${FORM_FIELDS.CATEGORY}']`
+    ),
+    amountToggle: form.querySelector(".amount-toggle"),
+    submitButton: form.querySelector("#submitButton"),
+  };
+}
+
+// 금액 토글 아이콘 변경 함수
+function updateAmountToggleIcon(amountToggle, isPositive) {
+  const icon = isPositive ? "plus.svg" : "minus.svg";
+  const sign = isPositive ? "+" : "-";
+  amountToggle.src = `../icons/${icon}`;
+  amountToggle.alt = sign;
+  amountToggle.dataset.sign = sign;
+}
+
+// 폼 초기화 함수
+function resetForm(form, elements) {
+  form.reset();
+  updateAmountToggleIcon(elements.amountToggle, true);
+  validateForm(getRequiredFields(elements), elements.submitButton);
+}
+
+// 필수 필드 배열 생성 함수
+function getRequiredFields(elements) {
+  return [
+    elements.dateInput,
+    elements.amountInput,
+    elements.contentInput,
+    elements.paymentMethodSelect,
+    elements.categorySelect,
+  ];
+}
+
+// 폼 데이터 처리 함수
+function processFormData(formData, amountToggle) {
+  const data = Object.fromEntries(formData.entries());
+
+  // amountToggle 상태에 따라 금액 부호 결정
+  if (amountToggle && amountToggle.dataset.sign === "-") {
+    data.amount = -Math.abs(parseInt(data.amount));
+  } else {
+    data.amount = Math.abs(parseInt(data.amount));
+  }
+
+  return data;
+}
 
 export function createInputBar() {
   return ` 
@@ -81,12 +156,48 @@ export function createInputBar() {
       <button
         type="submit"
         class="add-button"
+        id="submitButton"
       >
         <img src="../icons/check.svg" alt="check" />
       </button>
     </div>
   </form>
   `;
+}
+
+// 폼을 거래내역 데이터로 채우는 함수
+export function fillFormWithTransaction(transaction) {
+  const form = document.getElementById("inputBarForm");
+  if (!form || !transaction) return;
+
+  const elements = getFormElements(form);
+
+  // 폼 필드에 데이터 설정
+  elements.dateInput.value = transaction.date;
+  elements.amountInput.value = Math.abs(transaction.amount);
+  elements.contentInput.value = transaction.description;
+  elements.paymentMethodSelect.value = transaction.paymentMethod;
+  elements.categorySelect.value = transaction.category;
+
+  // 금액 토글 설정
+  updateAmountToggleIcon(elements.amountToggle, transaction.amount > 0);
+
+  // 수정 모드로 설정
+  isEditMode = true;
+  editingTransactionId = transaction.id;
+
+  // 버튼 텍스트 변경
+  elements.submitButton.innerHTML = `<img src="../icons/check.svg" alt="check" />`;
+  elements.submitButton.title = "수정 완료";
+
+  // 유효성 검사 실행
+  validateForm(getRequiredFields(elements), elements.submitButton);
+}
+
+// 수정 모드 초기화 함수
+export function resetEditMode() {
+  isEditMode = false;
+  editingTransactionId = null;
 }
 
 function validateForm(requiredFields, submitButton) {
@@ -104,65 +215,53 @@ export function renderInputBar(container) {
   container.innerHTML = createInputBar();
 
   const form = container.querySelector("#inputBarForm");
-  const amountToggle = container.querySelector(".amount-toggle");
-  const amountInput = container.querySelector("input[name='amount']");
-  const submitButton = container.querySelector(".add-button");
-
-  const requiredFields = [
-    form.querySelector("input[name='date']"),
-    form.querySelector("input[name='amount']"),
-    form.querySelector("input[name='content']"),
-    form.querySelector("select[name='paymentMethod']"),
-    form.querySelector("select[name='category']"),
-  ];
+  const elements = getFormElements(form);
+  const requiredFields = getRequiredFields(elements);
 
   // 모든 필드에 이벤트 리스너 추가
   requiredFields.forEach((field) => {
     const eventType = field.tagName === "SELECT" ? "change" : "input";
     field.addEventListener(eventType, () =>
-      validateForm(requiredFields, submitButton)
+      validateForm(requiredFields, elements.submitButton)
     );
   });
 
   // 초기 상태 검사
-  validateForm(requiredFields, submitButton);
+  validateForm(requiredFields, elements.submitButton);
 
-  if (amountToggle && amountInput) {
-    amountToggle.addEventListener("click", () => {
-      //+ - 변경
-      if (amountToggle.dataset.sign === "+") {
-        amountToggle.innerHTML = `<img src="../icons/minus.svg" alt="minus" />`;
-        amountToggle.dataset.sign = "-";
-      } else {
-        amountToggle.innerHTML = `<img src="../icons/plus.svg" alt="plus" />`;
-        amountToggle.dataset.sign = "+";
-      }
+  // 금액 토글 이벤트 리스너
+  if (elements.amountToggle) {
+    elements.amountToggle.addEventListener("click", () => {
+      const isCurrentlyPositive = elements.amountToggle.dataset.sign === "+";
+      updateAmountToggleIcon(elements.amountToggle, !isCurrentlyPositive);
     });
   }
 
+  // 폼 제출 이벤트 리스너
   form.addEventListener("submit", (e) => {
-    e.preventDefault(); // 페이지 새로고침 방지
+    e.preventDefault();
 
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const data = processFormData(formData, elements.amountToggle);
 
-    // amountToggle 상태에 따라 금액 부호 결정
-    if (amountToggle && amountToggle.dataset.sign === "-") {
-      data.amount = -Math.abs(parseInt(data.amount));
+    if (isEditMode && editingTransactionId) {
+      // 수정 모드: 기존 거래내역 수정
+      updateTransaction(
+        getCurrentYear(),
+        getCurrentMonth(),
+        editingTransactionId,
+        data
+      );
+      resetEditMode();
     } else {
-      data.amount = Math.abs(parseInt(data.amount));
+      // 추가 모드: 새로운 거래내역 추가
+      addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
     }
 
-    // 새로운 거래내역 추가
-    addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
+    // 폼 초기화
+    resetForm(form, elements);
 
-    form.reset();
-
-    // 폼 reset 후 다시 검사
-    validateForm(requiredFields, submitButton);
-
-    // 금액 토글 초기화
-    amountToggle.innerHTML = `<img src="../icons/plus.svg" alt="plus" />`;
+    // 거래내역 목록 업데이트
     const { isIncomeChecked, isExpenseChecked } = getFilteringState();
     renderTransactionList(isIncomeChecked, isExpenseChecked);
   });

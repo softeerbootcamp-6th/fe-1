@@ -1,5 +1,39 @@
 export const transactionsData = {
   2025: {
+    1: [
+      {
+        id: 12,
+        date: "2025-01-15",
+        category: "식비",
+        description: "점심 식사",
+        paymentMethod: "현금",
+        amount: -12000,
+      },
+      {
+        id: 13,
+        date: "2025-01-14",
+        category: "교통",
+        description: "지하철 교통비",
+        paymentMethod: "카드",
+        amount: -1350,
+      },
+      {
+        id: 14,
+        date: "2025-01-13",
+        category: "쇼핑/뷰티",
+        description: "화장품 구매",
+        paymentMethod: "카드",
+        amount: -45000,
+      },
+      {
+        id: 15,
+        date: "2025-01-12",
+        category: "월급",
+        description: "1월 급여",
+        paymentMethod: "현금",
+        amount: 2500000,
+      },
+    ],
     7: [
       {
         id: 1,
@@ -19,22 +53,6 @@ export const transactionsData = {
       },
       {
         id: 3,
-        date: "2025-07-09",
-        category: "식비",
-        description: "두유 4개",
-        paymentMethod: "현대카드",
-        amount: -19140,
-      },
-      {
-        id: 4,
-        date: "2025-07-09",
-        category: "생활",
-        description: "7월 월세",
-        paymentMethod: "현대카드",
-        amount: -500000,
-      },
-      {
-        id: 5,
         date: "2025-07-13",
         category: "식비",
         description: "잔치국수와 김밥",
@@ -42,12 +60,28 @@ export const transactionsData = {
         amount: -10000,
       },
       {
-        id: 6,
+        id: 4,
         date: "2025-07-13",
         category: "월급",
         description: "7월 급여",
         paymentMethod: "현금",
         amount: 2010580,
+      },
+      {
+        id: 5,
+        date: "2025-07-09",
+        category: "식비",
+        description: "두유 4개",
+        paymentMethod: "현대카드",
+        amount: -19140,
+      },
+      {
+        id: 6,
+        date: "2025-07-09",
+        category: "생활",
+        description: "7월 월세",
+        paymentMethod: "현대카드",
+        amount: -500000,
       },
     ],
     6: [

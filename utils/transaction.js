@@ -55,6 +55,40 @@ export function deleteTransaction(year, month, id) {
   }
 }
 
+// 거래내역 수정
+export function updateTransaction(year, month, id, formData) {
+  const index = transactionsData[year][month].findIndex(
+    (transaction) => transaction.id === id
+  );
+  if (index !== -1) {
+    transactionsData[year][month][index] = {
+      ...transactionsData[year][month][index],
+      date: formData.date,
+      amount: parseInt(formData.amount),
+      description: formData.content,
+      paymentMethod: formData.paymentMethod,
+      category: formData.category,
+    };
+
+    // 날짜순으로 정렬
+    transactionsData[year][month].sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
+
+    return transactionsData[year][month][index];
+  } else {
+    alert(`거래내역 ID ${id} 수정에 실패했습니다.`);
+    return null;
+  }
+}
+
+// 특정 ID의 거래내역 조회
+export function getTransactionById(year, month, id) {
+  return transactionsData[year][month].find(
+    (transaction) => transaction.id === id
+  );
+}
+
 // 월별 수입 건수, 총합, 지출 건수, 총합, 총 건수 계산
 export function monthlyTotalData(transactions) {
   const monthlyTotalIncomeTransactions = transactions.filter(

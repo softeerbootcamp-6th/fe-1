@@ -546,10 +546,15 @@ table {
   height: 12px;
 }
 
-tr:hover .delete-btn {
+.transaction-row:hover .delete-btn {
   display: flex;
 }
 
-tr:hover {
+.transaction-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.transaction-row:hover {
   background-color: var(--nuetral-surface-point);
 }

@@ -2,10 +2,12 @@ import {
   getTransactionsByYearMonth,
   groupTransactionsByDate,
   deleteTransaction,
+  getTransactionById,
 } from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { CATEGORY_NAME } from "../constants/categoryName.js";
 import { formatMoney } from "../utils/format.js";
+import { fillFormWithTransaction } from "./inputBar.js";
 
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListByYearMonth = getTransactionsByYearMonth(
@@ -64,7 +66,7 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
       const rows = transactionList
         .map(
           (transaction) => `
-        <tr>
+        <tr class="transaction-row" data-id="${transaction.id}">
           <td class="td-category light-12 category-${
             CATEGORY_NAME[transaction.category]
           }">${transaction.category}</td>
@@ -116,11 +118,35 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
 
     // 삭제 버튼 이벤트 리스너 추가
     transactionListContainer.querySelectorAll(".delete-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation(); // 행 클릭 이벤트 방지
         const id = Number(btn.dataset.id);
         deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
         renderTransactionList(isIncomeChecked, isExpenseChecked);
       });
     });
+
+    // 거래내역 행 클릭 이벤트 리스너 추가
+    transactionListContainer
+      .querySelectorAll(".transaction-row")
+      .forEach((row) => {
+        row.addEventListener("click", (e) => {
+          // 삭제 버튼 클릭 시에는 행 클릭 이벤트 실행하지 않음
+          if (e.target.closest(".delete-btn")) {
+            return;
+          }
+
+          const id = Number(row.dataset.id);
+          const transaction = getTransactionById(
+            getCurrentYear(),
+            getCurrentMonth(),
+            id
+          );
+
+          if (transaction) {
+            fillFormWithTransaction(transaction);
+          }
+        });
+      });
   }
 }
