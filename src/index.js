@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     createLayout();
     Router.setupRouter();
     document.addEventListener("click", (e) => EventDispatcher.dispatch(e));
+    document.addEventListener("input", (e) => EventDispatcher.dispatch(e));
   } catch (error) {
     console.error("Error setting up layout:", error);
   }
