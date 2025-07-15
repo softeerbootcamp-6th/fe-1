@@ -1,11 +1,16 @@
+import { ElementManager } from "../../utils/ElementManager.js";
+
 export const DateForm = (input) => {
-  const dateForm = document.createElement("div");
-  dateForm.classList.add("date-form");
+  const dateForm = ElementManager.renderElement("div", "form-date");
   dateForm.innerHTML = `
-      <label for="date" class="light-12">일자</label>
-      <input type="date" id="date" name="date" value="${
-        input.date.toISOString().split("T")[0]
-      }" class="semibold-12">
+  <label for="date" class="light-12">일자</label>
+  <input type="date" id="date" name="date" value="${
+    input.date.toISOString().split("T")[0]
+  }" class="semibold-12">
   `;
+
+  dateForm.addEventListener("input", (e) => {
+    input.date = new Date(e.target.value);
+  });
   return dateForm;
 };

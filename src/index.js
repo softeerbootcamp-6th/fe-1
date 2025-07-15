@@ -1,10 +1,10 @@
 import { createLayout } from "./pages/Layout.js";
-import { renderRouter } from "./router.js";
+import { Router } from "./utils/router.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   try {
     createLayout();
-    renderRouter();
+    Router.setupRouter();
   } catch (error) {
     console.error("Error setting up layout:", error);
   }

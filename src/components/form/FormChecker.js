@@ -1,12 +1,23 @@
+import { ElementManager } from "../../utils/ElementManager.js";
+import { InputValidator } from "../../utils/InputValidator.js";
+
 export const FormChecker = (input) => {
-  const formChecker = document.createElement("div");
-  formChecker.classList.add("form-checker");
+  const formChecker = ElementManager.renderElement("div", "form-checker");
   formChecker.innerHTML = `
-      <img style="width:40px" src="./src/assets/check.png" alt="check icon">
+      <img src="./src/assets/check.svg" alt="check icon">
     `;
 
   formChecker.addEventListener("click", () => {
-    console.log("입력값:", input);
+    const isFullFilled = InputValidator.validateFullFilled(input);
+    if (!isFullFilled) return;
+
+    const isFullCorrectType = InputValidator.validateFullCorrectType(input);
+    if (isFullCorrectType) {
+      console.log("ok");
+    } else {
+      console.log("no");
+    }
+    console.log(input);
   });
   return formChecker;
 };

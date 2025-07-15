@@ -4,17 +4,18 @@ import { ContentForm } from "./ContentForm.js";
 import { PaymentForm } from "./PaymentForm.js";
 import { CategoryForm } from "./CategoryForm.js";
 import { FormChecker } from "./FormChecker.js";
+import { ElementManager } from "../../utils/ElementManager.js";
+import { InputValidator } from "../../utils/InputValidator.js";
 
 export const EntireForm = () => {
-  const entireForm = document.createElement("div");
-  entireForm.classList.add("entire-form");
+  const entireForm = ElementManager.renderElement("div", "entire-form");
   const input = {
     date: new Date("2023-08-01"),
     moneyType: "expense",
     money: "",
     content: "",
     payment: "",
-    category: "용돈",
+    category: "",
   };
 
   const formList = [
@@ -29,13 +30,11 @@ export const EntireForm = () => {
   });
   entireForm.appendChild(FormChecker(input));
 
-  entireForm.addEventListener("input", (e) => {
-    const target = e.target;
-    if (!target.name) return;
-    if (target.name === "date") {
-      input.date = new Date(target.value);
-    } else {
-      input[target.name] = target.value;
+  entireForm.addEventListener("input", () => {
+    const isFullFilled = InputValidator.validateFullFilled(input);
+    if (isFullFilled) {
+      const formChecker = entireForm.querySelector(".form-checker");
+      formChecker.classList.add("active");
     }
   });
 

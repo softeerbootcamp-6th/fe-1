@@ -1,17 +1,19 @@
+import { ElementManager } from "../utils/ElementManager.js";
+
 export const renderHeader = (currentDate) => {
-  const header = document.createElement("header");
-  header.id = "header";
+  const header = ElementManager.renderElementId("header", "header");
+  const headerContainer = ElementManager.renderElement(
+    "div",
+    "header-container"
+  );
 
   // logo
-  const logo = document.createElement("p");
-  logo.classList.add("logo");
-  logo.classList.add("serif-24");
+  const logo = ElementManager.renderElement("p", ["logo", "serif-24"]);
   logo.textContent = "Wise Wallet";
-  header.appendChild(logo);
+  headerContainer.appendChild(logo);
 
   // date
-  const date = document.createElement("div");
-  date.classList.add("date");
+  const date = ElementManager.renderElement("div", "date");
   const year = currentDate.year;
   const month = currentDate.month;
   const monthEng = currentDate.monthEng;
@@ -28,26 +30,23 @@ export const renderHeader = (currentDate) => {
       <img src="./src/assets/chevron-right.png" alt="right arrow" />
     </div>
   `;
-  header.appendChild(date);
+  headerContainer.appendChild(date);
 
   // navigation
-  const nav = document.createElement("ul");
-  nav.classList.add("nav");
+  const nav = ElementManager.renderElement("nav", "nav");
   const navItems = ["doc", "calendar", "chart"];
   navItems.forEach((item, idx) => {
-    const li = document.createElement("li");
-    li.classList.add("nav-item");
-    li.dataset.hash = "#" + item;
-    li.innerHTML = `
-    <a class="nav" href="#${item}">
-      <img src="./src/assets/${item}.png" alt="${item} icon" />
-    </a>
+    const navItem = ElementManager.renderElement("a", "nav-item");
+    navItem.dataset.path = item;
+    navItem.href = item;
+    navItem.innerHTML = `<img src="./src/assets/${item}.png" alt="${item} icon" />
     `;
-    if (idx === 0) li.classList.add("active");
-    li.dataset.item = item;
-    nav.appendChild(li);
+    if (idx === 0) navItem.classList.add("active");
+    navItem.dataset.item = item;
+    nav.appendChild(navItem);
   });
 
-  header.appendChild(nav);
+  headerContainer.appendChild(nav);
+  header.appendChild(headerContainer);
   return header;
 };
