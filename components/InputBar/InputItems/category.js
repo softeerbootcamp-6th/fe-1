@@ -75,6 +75,10 @@ const createCategory = () => {
         toggle(currentDropdownOptions);
     });
 
+    document.addEventListener('incomeModeChanged', (event) => {
+        updateCategories(event.detail.isIncomeMode);
+    });
+
     return categoryItem;
 };
 
