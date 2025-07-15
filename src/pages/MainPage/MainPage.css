@@ -41,6 +41,11 @@
     font-size: 12px;
 }
 
+.text-align-right {
+    text-align: right;
+}
+
+
 .border-line {
     background-color: #000000;
     width: 0.5px;
