@@ -3,23 +3,23 @@
   --grayscale-50: #ffffff;
   --grayscale-100: #f8fcfd;
   --grayscale-200: #f1f4f8;
-  --grayscale-300: #777D84;
+  --grayscale-300: #777d84;
   --grayscale-400: #000000;
 
-  --pastel-almondFrost: #A28B78;
-  --pastel-porsche: #E39D5D;
-  --pastel-chenin: #D7CA6B;
-  --pastel-caper: #AACD7E;
-  --pastel-cruise: #BCDFD3;
-  --pastel-onahau: #C5E0EB;
-  --pastel-glacier: #D7D8FB;
-  --pastel-seagull: #7982CA;
-  --pastel-jordyBlue: #73A4DD;
-  --pastel-perano: #A7B9E9;
-  --pastel-perfume: #D4D6E1;
-  --pastel-lavenderPink: #F0B0D3;
-  --pastel-amaranth: #E9638A;
-  --pastel-chestnut: #C04B46;
+  --pastel-almondFrost: #a28b78;
+  --pastel-porsche: #e39d5d;
+  --pastel-chenin: #d7ca6b;
+  --pastel-caper: #aacd7e;
+  --pastel-cruise: #bcdfd3;
+  --pastel-onahau: #c5e0eb;
+  --pastel-glacier: #d7d8fb;
+  --pastel-seagull: #7982ca;
+  --pastel-jordyBlue: #73a4dd;
+  --pastel-perano: #a7b9e9;
+  --pastel-perfume: #d4d6e1;
+  --pastel-lavenderPink: #f0b0d3;
+  --pastel-amaranth: #e9638a;
+  --pastel-chestnut: #c04b46;
 
   /* ========== Color Tokens ========== */
   --neutral-surface-weak: var(--grayscale-100);
