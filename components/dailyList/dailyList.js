@@ -29,7 +29,6 @@ export default function createDaliyList(dailyInfo) {
 
     dailyInfo.items.forEach((info) => {
         $dailyListWrapper.appendChild(createDaily(info));
-        console.log(info);
         if (info.amount > 0) {
             totalIncome += info.amount;
         } else {
