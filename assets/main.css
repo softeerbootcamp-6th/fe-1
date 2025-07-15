@@ -107,9 +107,115 @@
   width: 104px;
 }
 
-.record-container {
+.records-container {
   display: flex;
   flex-direction: column;
   width: 850px;
-  border: 0.5px solid var(--neutral-border-default);
+  gap: 40px;
+}
+
+.total-amount {
+  display: flex;
+  align-items: center;
+}
+.total-count {
+  margin-right: 8px;
+}
+.total-income {
+  margin-left: auto;
+  margin-right: 12px;
+}
+.total-outcome {
+  margin-right: 0;
+}
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid var(--neutral-border-default);
+}
+.record-main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.record-container > div:last-child {
+  border-bottom: 0.5px solid var(--neutral-border-default);
+}
+
+.records-container > button {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+.record-item {
+  display: flex;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-item > div {
+  display: flex;
+  margin-right: 16px;
+}
+
+.category {
+  width: 92px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--pastel-perfume);
+}
+.description {
+  flex: 1;
+}
+
+.payment {
+  width: 104px;
+}
+.amount {
+  width: 180px;
+  justify-content: flex-end;
+}
+
+.amount.minus {
+  color: var(--brand-text-expense);
+}
+
+.amount.plus {
+  color: var(--brand-text-income);
+}
+
+.record-item .category.생활 {
+  background-color: var(--colorchip-90);
+}
+
+.record-item .category.식비 {
+  background-color: var(--colorchip-60);
+}
+
+.record-item .category.교통 {
+  background-color: var(--colorchip-70);
+}
+
+.record-item .category.쇼핑\/뷰티 {
+  background-color: var(--colorchip-30);
+}
+
+.record-item .category.의료\/건강 {
+  background-color: var(--colorchip-50);
+}
+
+.record-item .category.문화\/여가 {
+  background-color: var(--pastel-perfume);
+}
+
+.record-item .category.미분류 {
+  background-color: var(--pastel-lavenderPink);
 }
