@@ -1,5 +1,5 @@
-// 월 이름 설정
-const monthNames = [
+// 월 이름 설정(재사용)
+export const monthNames = [
   "January",
   "February",
   "March",
@@ -15,7 +15,7 @@ const monthNames = [
 ];
 
 // 현재 탭 상태
-let currentTab = "list";
+let currentTab = "LIST_VIEW";
 
 // CSS 동적 로드 함수
 function loadCSS(cssPath) {
@@ -69,34 +69,43 @@ export async function switchTab(tabName) {
 
   try {
     switch (tabName) {
-      case "list":
+      case "LIST_VIEW":
         // 메인 페이지 렌더링 함수 호출
         if (typeof renderMain === "function") {
           bodyContainer.innerHTML = renderMain();
-          await loadCSS("src/pages/main/main.css");
-          await loadScript("src/pages/main/main.js");
+          // 병렬 로드
+          await Promise.all([
+            loadCSS("src/pages/main/main.css"),
+            loadScript("src/pages/main/main.js"),
+          ]);
           if (typeof window.initMain === "function") {
             window.initMain();
           }
         }
         break;
-      case "calendar":
+      case "CALENDAR_VIEW":
         // 달력 페이지 렌더링 함수 호출
         if (typeof renderCalendar === "function") {
           bodyContainer.innerHTML = renderCalendar();
-          await loadCSS("src/pages/calendar/calendar.css");
-          await loadScript("src/pages/calendar/calendar.js");
+          // 병렬 로드
+          await Promise.all([
+            loadCSS("src/pages/calendar/calendar.css"),
+            loadScript("src/pages/calendar/calendar.js"),
+          ]);
           if (typeof window.initCalendar === "function") {
             window.initCalendar();
           }
         }
         break;
-      case "stats":
+      case "STATISTIC_VIEW":
         // 통계 페이지 렌더링 함수 호출
         if (typeof renderStatistic === "function") {
           bodyContainer.innerHTML = renderStatistic();
-          await loadCSS("src/pages/statistic/statistic.css");
-          await loadScript("src/pages/statistic/statistic.js");
+          // 병렬 로드
+          await Promise.all([
+            loadCSS("src/pages/statistic/statistic.css"),
+            loadScript("src/pages/statistic/statistic.js"),
+          ]);
           if (typeof window.initStatistic === "function") {
             window.initStatistic();
           }
