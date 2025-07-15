@@ -2,6 +2,7 @@ import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import {
   getTransactionsByYearMonth,
   groupTransactionsByDate,
+  dailyTotalData,
 } from "../utils/transaction.js";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
@@ -16,29 +17,35 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 
   const transactions = transactionListByDate[key] || [];
 
-  const totalAmount = transactions.reduce((sum, t) => sum + t.amount, 0);
+  const {
+    dailyTotalIncome,
+    dailyTotalExpense,
+    dailyTotalIncomeCount,
+    dailyTotalExpenseCount,
+    dailyTotalAmount,
+    dailyTotalCount,
+  } = dailyTotalData(transactions);
 
-  const createCalendarAmount =
-    transactions.length > 0
-      ? transactions
-          .map(
-            (transaction) =>
-              `<div class="calendar-amount ${
-                transaction.amount > 0 ? "text-income" : "text-expense"
-              }">${transaction.amount ?? ""}</div>`
-          )
-          .join("")
+  const createCalendarTotalIncomeAmount =
+    dailyTotalIncomeCount > 0
+      ? `<div class="calendar-amount text-income">${dailyTotalIncome}</div>`
+      : ``;
+
+  const createCalendarTotalExpenseAmount =
+    dailyTotalExpenseCount > 0
+      ? `<div class="calendar-amount text-expense">${dailyTotalExpense}</div>`
       : ``;
 
   const createCalendarTotalAmount =
-    transactions.length > 0
-      ? `<div class="calendar-amount">${totalAmount}</div>`
+    dailyTotalCount > 0
+      ? `<div class="calendar-amount">${dailyTotalAmount}</div>`
       : ``;
 
   return `
       <div class="calendar-cell" data-date="${day}">
         <div class="calendar-cell-details light-14">
-            ${createCalendarAmount}
+            ${createCalendarTotalIncomeAmount}
+            ${createCalendarTotalExpenseAmount}
             ${createCalendarTotalAmount}
         </div>
         <div class="calendar-date serif-14">${day}</div>

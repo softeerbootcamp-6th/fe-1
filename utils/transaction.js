@@ -118,3 +118,36 @@ export function monthlyTotalData(transactions) {
     monthlyTotalExpenseCount,
   };
 }
+
+export function dailyTotalData(transactions) {
+  const dailyTotalIncomeTransactions = transactions.filter(
+    (transaction) => transaction.amount > 0
+  );
+  const dailyTotalExpenseTransactions = transactions.filter(
+    (transaction) => transaction.amount < 0
+  );
+  const dailyTotalIncome = dailyTotalIncomeTransactions.reduce(
+    (sum, transaction) => sum + transaction.amount,
+    0
+  );
+  const dailyTotalExpense = dailyTotalExpenseTransactions.reduce(
+    (sum, transaction) => sum + transaction.amount,
+    0
+  );
+  const dailyTotalCount =
+    dailyTotalIncomeTransactions.length + dailyTotalExpenseTransactions.length;
+
+  const dailyTotalIncomeCount = dailyTotalIncomeTransactions.length;
+
+  const dailyTotalExpenseCount = dailyTotalExpenseTransactions.length;
+
+  const dailyTotalAmount = dailyTotalIncome + dailyTotalExpense;
+  return {
+    dailyTotalIncome,
+    dailyTotalExpense,
+    dailyTotalCount,
+    dailyTotalIncomeCount,
+    dailyTotalExpenseCount,
+    dailyTotalAmount,
+  };
+}
