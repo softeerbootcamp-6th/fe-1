@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# 환경 변수 파일
+.env
+.env.local
+
+# MacOS 시스템 파일
+.DS_Store
+
+# 로그 파일
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VSCode 설정 (개인 설정 무시)
+.vscode/
+
+# build 결과물
+dist/
+build/
+
+# 백엔드 서버 db 파일 (원하면 제외)
+backend/db.json
