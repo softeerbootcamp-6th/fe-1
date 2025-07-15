@@ -59,7 +59,9 @@ export function renderMain() {
                     });
 
                     const incomeImg = createElement("img", {
-                        src: "../assets/icons/checkbox.svg",
+                        src: `../assets/icons/${
+                            showCost.income ? "checkbox" : "uncheckbox"
+                        }.svg`,
                         style: { width: "16px", height: "16px" },
                     });
 
@@ -80,7 +82,9 @@ export function renderMain() {
                     });
 
                     const expenseImg = createElement("img", {
-                        src: "../assets/icons/checkbox.svg",
+                        src: `../assets/icons/${
+                            showCost.expense ? "checkbox" : "uncheckbox"
+                        }.svg`,
                         style: { width: "16px", height: "16px" },
                     });
 

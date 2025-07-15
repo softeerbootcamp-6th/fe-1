@@ -288,19 +288,19 @@
         "list": [
           {
             "date": 3,
+            "amount": 2135003,
             "type": "income",
-            "category": "월급",
             "description": "6월 급여",
             "paymentMethod": "현금",
-            "amount": 2135000
+            "category": "월급"
           },
           {
             "date": 4,
+            "amount": 7000,
             "type": "expense",
-            "category": "식비",
             "description": "점심 비빔밥",
             "paymentMethod": "현금",
-            "amount": 7000
+            "category": "식비"
           },
           {
             "date": 11,
@@ -1030,6 +1030,14 @@
             "description": "지하철 티머니 충전",
             "paymentMethod": "현금",
             "amount": 30000
+          },
+          {
+            "date": 3,
+            "amount": 1999999,
+            "type": "income",
+            "description": "월급 전산 오류",
+            "paymentMethod": "현금",
+            "category": "월급"
           }
         ]
       },
@@ -1097,6 +1105,14 @@
             "amount": 111,
             "type": "income",
             "description": "입금 테스트",
+            "paymentMethod": "현금",
+            "category": "월급"
+          },
+          {
+            "date": 15,
+            "amount": 20000000,
+            "type": "income",
+            "description": "월급",
             "paymentMethod": "현금",
             "category": "월급"
           }
