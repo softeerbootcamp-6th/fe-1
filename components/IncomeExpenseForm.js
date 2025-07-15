@@ -273,7 +273,7 @@ export function renderIncomeExpenseForm() {
     const newIncomeExpense = {
       id: 0,
       type: isIncome ? 'income' : 'expense',
-      money: moneyInputValue,
+      money: isIncome ? Number(moneyInputValue) : -Number(moneyInputValue),
       description: descriptionInputValue,
       payment: paymentSelectValue,
       class: classSelectValue,
