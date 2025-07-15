@@ -1,4 +1,8 @@
-import { createElement, formatDateToKorean } from '../../utils.js';
+import {
+    createElement,
+    formatAmount,
+    formatDateToKorean,
+} from '../../utils.js';
 import createDaily from './daily.js';
 
 export default function createDaliyList(dailyInfo) {
@@ -37,8 +41,14 @@ export default function createDaliyList(dailyInfo) {
     });
 
     let amountHtml = '';
-    amountHtml += totalIncome != 0 ? `<div>수입 ${totalIncome}</div>` : '';
-    amountHtml += totalExpense != 0 ? `<div>지출 ${totalExpense}</div>` : '';
+    amountHtml +=
+        totalIncome != 0 ? `<div>수입 ${formatAmount(totalIncome)}</div>` : '';
+    amountHtml +=
+        totalExpense != 0
+            ? `<div class="amount-line">지출 ${formatAmount(
+                  totalExpense,
+              )}</div>`
+            : '';
 
     const $dailyAmount = createElement(
         'div',

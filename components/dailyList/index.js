@@ -1,4 +1,4 @@
-import { createElement } from '../../utils.js';
+import { createElement, formatAmount } from '../../utils.js';
 import { dailyData } from '../../store/daily.js';
 import createDaliyList from './dailyList.js';
 import dateData from '../../store/date.js';
@@ -41,13 +41,17 @@ export function dailyViewChange(year, month) {
                     <div class="check-wrapper"> 
                         <img width="12" height="12" src="/public/check.svg" /> 
                     </div>
-                    <span class="lt-12">수입: ${monthTotalIncome}</span>
+                    <span class="lt-12">수입: ${formatAmount(
+                        monthTotalIncome,
+                    )}</span>
                 </div>
                 <div class="amount-container">
                     <div class="check-wrapper"> 
                         <img width="12" height="12" src="/public/check.svg" /> 
                     </div>
-                    <span class="lt-12">지출: ${monthTotalExpense}<span>
+                    <span class="lt-12">지출: ${formatAmount(
+                        monthTotalExpense,
+                    )}<span>
                 </div>
             </div>
         </div>`;

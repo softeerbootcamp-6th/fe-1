@@ -81,3 +81,15 @@
     justify-content: center;
     align-items: center;
 }
+
+.text-red {
+    color: var(--brand-text-expense);
+}
+
+.text-blue {
+    color: var(--brand-text-income);
+}
+
+.amount-line {
+    margin-left: 10px;
+}
