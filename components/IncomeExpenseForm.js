@@ -1,4 +1,18 @@
-import incomeExpenseData from '../data/incomeExpenseData.json' with {type: 'json'};
+import { store } from '../store/store.js';
+// let incomeExpenseData = {};
+
+// // data 불러오기
+// function loadIncomeExpenseData() {
+//   fetch('./data/incomeExpenseData.json')
+//     .then(response => response.json())
+//     .then(data => {
+//       incomeExpenseData = data;
+//     })
+//     .catch(error => {
+//       console.error('데이터 로딩 실패:', error);
+//       incomeExpenseData = {};
+//     });
+// }
 
 export function renderIncomeExpenseForm() {
   const form = document.createElement('form');
@@ -179,7 +193,17 @@ export function renderIncomeExpenseForm() {
     }
   );
 
-  addButton.addEventListener('click', e => {});
+  addButton.addEventListener('click', e => {
+    e.preventDefault();
+    handleSubmit(
+      e,
+      dateInput,
+      moneyInput,
+      descriptionInput,
+      paymentSelect,
+      classSelect
+    );
+  });
 
   const updateClassSelect = (incomeClasses, expenseClasses) => {
     classSelect.innerHTML = `<option value="" selected disabled hidden>선택해주세요</option>
@@ -241,37 +265,49 @@ export function renderIncomeExpenseForm() {
     const paymentSelectValue = paymentSelect.value;
     const classSelectValue = classSelect.value;
 
-    // 해당 월에 데이터 있는지 확인
-    const currentYear = dateInputValue.split('-')[0];
-    const currentMonth = dateInputValue.split('-')[1];
-    const currentKey = `${currentYear}-${currentMonth}`;
-    let dataID = 0;
-
-    const monthData = incomeExpenseData[currentKey];
-    if (monthData) {
-      // 해당 일 데이터 가져오기
-      const dateData = monthData.find(data => data.date === dateInputValue);
-      if (dateData) {
-        // 해당 날짜 데이터 length를 사용하여 ID 생성
-        dataID = dateData.income_expense[dateData.income_expense.length];
-        // dateData에 새로운 지출/수입 추가
-      }
-    }
-
-    // 새로운 데이터 객체 생성
-    const newData = {
-      date: dateInputValue,
-      income_expense: [
-        {
-          id: dataID,
-          type: isIncome ? 'income' : 'expense',
-          money: moneyInputValue,
-          description: descriptionInputValue,
-          payment: paymentSelectValue,
-          class: classSelectValue,
-        },
-      ],
+    const newIncomeExpense = {
+      id: 0,
+      type: isIncome ? 'income' : 'expense',
+      money: moneyInputValue,
+      description: descriptionInputValue,
+      payment: paymentSelectValue,
+      class: classSelectValue,
     };
+
+    store.updateIncomeExpenseData(dateInputValue, newIncomeExpense);
+
+    // // 해당 월에 데이터 있는지 확인
+    // const currentYear = dateInputValue.split('-')[0];
+    // const currentMonth = dateInputValue.split('-')[1];
+    // const currentKey = `${currentYear}-${currentMonth}`;
+    // let dataID = 0;
+
+    // const monthData = incomeExpenseData[currentKey];
+
+    // if (monthData) {
+    //   // 해당 일 데이터 가져오기
+    //   const dateData = monthData.find(data => data.date === dateInputValue);
+    //   if (dateData) {
+    //     // 해당 날짜 데이터 length를 사용하여 ID 생성
+    //     dataID = dateData.income_expense[dateData.income_expense.length];
+    //     newIncomeExpense.id = dataID;
+
+    //     // dateData에 새로운 지출/수입 추가
+    //     dateData.income_expense.push(newIncomeExpense);
+
+    //     // date 데이터 비어있을 때
+    //   } else {
+    //     monthData.push({
+    //       date: dateInputValue,
+    //       income_expense: [newIncomeExpense],
+    //     });
+    //   }
+    //   // month 데이터 비어있을 때
+    // } else {
+    //   incomeExpenseData[currentKey] = [
+    //     { date: dateInputValue, income_expense: [newIncomeExpense] },
+    //   ];
+    // }
   };
 
   return form;

@@ -1,41 +1,47 @@
 // 1. month가 바뀔 때마다 다른 지출 내역 보여주기
 import dateState from '../states/DateState.js';
+import { store } from '../store/store.js';
 
-let incomeExpenseData = {};
+// let incomeExpenseData = {};
 
-// incomeExpenseData 불러 오기
-function loadIncomeExpenseData() {
-  fetch('./data/incomeExpenseData.json')
-    .then(response => response.json())
-    .then(data => {
-      incomeExpenseData = data;
-    })
-    .catch(error => {
-      console.error('데이터 로딩 실패:', error);
-      incomeExpenseData = {};
-    });
-}
+// // incomeExpenseData 불러 오기
+// function loadIncomeExpenseData() {
+//   fetch('./data/incomeExpenseData.json')
+//     .then(response => response.json())
+//     .then(data => {
+//       incomeExpenseData = data;
+//     })
+//     .catch(error => {
+//       console.error('데이터 로딩 실패:', error);
+//       incomeExpenseData = {};
+//     });
+// }
 
 export function renderIncomeExpenseList() {
   const incomeExpenseList = document.createElement('div');
   incomeExpenseList.className = 'income-expense-list';
-
-  // 데이터 로드
-  loadIncomeExpenseData();
+  // const form = document.querySelector('form');
+  // const addButton = form.querySelector('.add-button');
 
   // 초기 렌더링
   renderList(incomeExpenseList);
 
   // dateState 변경 시 재렌더링
   dateState.subscribe(() => {
-    loadIncomeExpenseData();
     renderList(incomeExpenseList);
   });
+
+  // addButton.addEventListener('click', () => {
+  //   renderList(incomeExpenseList);
+  // });
 
   return incomeExpenseList;
 }
 
 function renderList(listContainer) {
+  // 데이터 로드
+  const incomeExpenseData = store.incomeExpenseData;
+
   // 현재 연월 가져오기
   const currentYear = dateState.getYear();
   const currentMonth = dateState.getMonth();
