@@ -10,7 +10,7 @@ class TransactionState extends Subject {
     };
   }
 
-  initialize(month) {
+  loadMonthData(month) {
     const transactionsData = JSON.parse(
       localStorage.getItem("transactionsData") || {}
     );

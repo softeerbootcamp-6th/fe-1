@@ -3,6 +3,7 @@ import transactionState from "../models/subjects/TransactionState.js";
 import { TransactionsView } from "../views/Transactions/TransactionsView.js";
 import { TransactionsInfo } from "../models/observers/TransactionsInfo.js";
 import { initInputForm } from "../controllers/InputFormController.js";
+import { MonthObserver } from "../models/observers/MonthObserver.js";
 
 const toggleFilter = (type) => {
   const filterState = transactionState.getFilterState();
@@ -12,13 +13,15 @@ const toggleFilter = (type) => {
 
 const renderTransactionsHeader = () => {
   const { year, month } = monthStore.getMonthInfo();
+  const monthObserver = new MonthObserver();
+  monthStore.subscribe(monthObserver);
 
   // Observer들 초기화
   const transactionsView = new TransactionsView();
   const transactionsInfo = new TransactionsInfo(transactionsView);
 
   transactionState.subscribe(transactionsInfo);
-  transactionState.initialize(`${year}-${month}`);
+  transactionState.loadMonthData(`${year}-${month}`);
 
   const $transactions = document.querySelector(".transactions");
   $transactions.addEventListener("click", (e) => {
