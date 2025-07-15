@@ -112,18 +112,19 @@ export function createCalendar(year, month) {
 
   const calendarBody = `
     <div class="calendar-body">
-      ${weeks
-        .map(
-          (week) =>
-            `<div class="calendar-row">
-              ${week
-                .map((day) =>
-                  createCalendarCell(day, year, month, transactionListByDate)
-                )
-                .join("")}
-            </div>`
-        )
-        .join("")}
+      ${weeks.reduce(
+        (acc, week) =>
+          acc +
+          `<div class="calendar-row">
+            ${week.reduce(
+              (weekAcc, day) =>
+                weekAcc +
+                createCalendarCell(day, year, month, transactionListByDate),
+              ""
+            )}
+          </div>`,
+        ""
+      )}
     </div>
   `;
 
