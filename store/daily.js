@@ -13,7 +13,6 @@ export const dailyData = {
 
     uploadDailyData(data) {
         const { amount, category, date, description, payment } = data;
-        const targetDateObj = this.data.find((item) => item.date === date);
         const newItems = {
             category,
             description,
@@ -21,10 +20,20 @@ export const dailyData = {
             amount: Number(amount.replace(/,/g, '')),
             createAt: new Date().toISOString(),
         };
+
+        const targetDateObj = this.data.find((item) => item.date === date);
         if (targetDateObj) {
             targetDateObj.items.push(newItems);
         } else {
-            this.data = [{ date: date, items: [newItems] }, ...this.data];
+            const newGroup = { date, items: [newItems] };
+            const index = this.data.findIndex(
+                (item) => new Date(date) < new Date(item.date),
+            );
+            if (index === -1) {
+                this.data.push(newGroup);
+            } else {
+                this.data.splice(index, 0, newGroup);
+            }
         }
     },
 
