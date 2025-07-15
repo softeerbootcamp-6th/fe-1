@@ -7,10 +7,11 @@ import {
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { CATEGORY_NAME } from "../constants/categoryName.js";
 import { formatMoney } from "../utils/format.js";
-import { fillFormWithTransaction } from "./inputBar.js";
+import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
 
 // 클릭된 행 상태 관리
 let selectedRowId = null;
+let isExternalClickHandlerRegistered = false;
 
 // 선택된 행의 스타일을 업데이트하는 함수
 function updateSelectedRowStyle(selectedRowId) {
@@ -23,6 +24,28 @@ function updateSelectedRowStyle(selectedRowId) {
       row.classList.remove("selected");
     }
   });
+}
+
+// 외부 클릭 이벤트 핸들러
+function handleExternalClick(e) {
+  // 거래내역 행이나 inputBar 영역을 클릭한 경우는 제외
+  if (
+    !e.target.closest(".transaction-row") &&
+    !e.target.closest(".input-bar") &&
+    !e.target.closest("#transaction-list-container")
+  ) {
+    selectedRowId = null;
+    updateSelectedRowStyle(null);
+    cancelEditMode();
+  }
+}
+
+// 외부 클릭 이벤트 리스너 등록
+function registerExternalClickHandler() {
+  if (!isExternalClickHandlerRegistered) {
+    document.addEventListener("click", handleExternalClick);
+    isExternalClickHandlerRegistered = true;
+  }
 }
 
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
@@ -162,6 +185,14 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           );
 
           if (transaction) {
+            // 같은 행을 다시 클릭한 경우 수정 모드 해제
+            if (selectedRowId === id) {
+              selectedRowId = null;
+              updateSelectedRowStyle(null);
+              cancelEditMode();
+              return;
+            }
+
             // 선택된 행 업데이트
             selectedRowId = id;
             updateSelectedRowStyle(selectedRowId);
@@ -169,5 +200,8 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           }
         });
       });
+
+    // 외부 클릭 시 수정 모드 해제
+    registerExternalClickHandler();
   }
 }

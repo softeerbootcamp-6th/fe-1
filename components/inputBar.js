@@ -204,6 +204,20 @@ export function resetEditMode() {
   selectedRows.forEach((row) => row.classList.remove("selected"));
 }
 
+// 수정 모드 해제 함수 (폼 초기화 포함)
+export function cancelEditMode() {
+  const form = document.getElementById("inputBarForm");
+  if (form) {
+    const elements = getFormElements(form);
+
+    // 폼 초기화
+    resetForm(form, elements);
+
+    // 수정 모드 상태 초기화
+    resetEditMode();
+  }
+}
+
 function validateForm(requiredFields, submitButton) {
   const isValid = requiredFields.every((field) => {
     if (field.tagName === "SELECT") {
