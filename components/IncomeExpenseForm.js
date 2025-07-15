@@ -273,7 +273,7 @@ export function renderIncomeExpenseForm() {
       money: isIncome ? Number(moneyInputValue) : -Number(moneyInputValue),
       description: descriptionInputValue,
       payment: paymentSelectValue,
-      class: classSelectValue,
+      class_name: classSelectValue,
     };
 
     store.updateIncomeExpenseData(dateInputValue, newIncomeExpense);

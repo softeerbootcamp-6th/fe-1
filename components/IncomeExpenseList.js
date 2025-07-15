@@ -2,23 +2,7 @@
 import dateState from '../states/DateState.js';
 import { store } from '../store/store.js';
 
-// let incomeExpenseData = {};
-
-// // incomeExpenseData 불러 오기
-// function loadIncomeExpenseData() {
-//   fetch('./data/incomeExpenseData.json')
-//     .then(response => response.json())
-//     .then(data => {
-//       incomeExpenseData = data;
-//     })
-//     .catch(error => {
-//       console.error('데이터 로딩 실패:', error);
-//       incomeExpenseData = {};
-//     });
-// }
-
 export function renderIncomeExpenseList() {
-  console.log('list');
   const incomeExpenseListContainer = document.createElement('div');
   incomeExpenseListContainer.className = 'income-expense-list-container';
   // const form = document.querySelector('form');
@@ -42,7 +26,6 @@ export function renderIncomeExpenseList() {
 export function renderListItem(listContainer) {
   // 데이터 로드
   const incomeExpenseData = store.incomeExpenseData;
-  console.log(incomeExpenseData);
 
   // 현재 연월 가져오기
   const currentYear = dateState.getYear();
@@ -53,13 +36,27 @@ export function renderListItem(listContainer) {
 
   // 키로 현재 연월 데이터 가져오기
   const currentMonthData = incomeExpenseData[currentKey] || [];
-  console.log(currentMonthData);
-  console.log(listContainer.firstChild);
+
   // 기존 내용 지우기 (DOM 조작 방식)
   while (listContainer.firstChild) {
-    console.log('del');
     listContainer.removeChild(listContainer.firstChild);
   }
+
+  const getListItemHTML = ({
+    type,
+    money,
+    description,
+    payment,
+    class_name,
+  }) => {
+    return `
+                <span class="type">${type}</span>
+                <span class="money">${money}원</span>
+                <span class="description">${description}</span>
+                <span class="payment">${payment}</span>
+                <span class="class">${class_name}</span>
+            `;
+  };
 
   // 월데이터 날짜 별로 화면에 뿌리기
   currentMonthData.forEach(dateData => {
@@ -69,18 +66,11 @@ export function renderListItem(listContainer) {
 
     // 지출 내역 추가
     dateData.income_expense.forEach(item => {
-      const incomeExpenseItem = document.createElement('div');
-      incomeExpenseItem.className = 'income-expense-item';
-      incomeExpenseItem.innerHTML = `
-                <span class="type">${item.type}</span>
-                <span class="money">${item.money}원</span>
-                <span class="description">${item.description}</span>
-                <span class="payment">${item.payment}</span>
-                <span class="class">${item.class}</span>
-            `;
-      dateItem.appendChild(incomeExpenseItem);
+      const listItem = document.createElement('div');
+      listItem.className = 'income-expense-item';
+      listItem.innerHTML = getListItemHTML(item);
+      dateItem.appendChild(listItem);
     });
-    console.log('append');
     listContainer.appendChild(dateItem);
   });
 }
