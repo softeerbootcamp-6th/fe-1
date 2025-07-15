@@ -1,6 +1,7 @@
 // 필터링 기능 구현
 import { sharedState } from "../state/state.js";
 import { updateTotalAmounts } from "./totalAmount.js";
+import { updateDateSectionTotals } from "./entry.js";
 
 export function initFilterButtons() {
   const toggleIncome = document.getElementById("total-income");
@@ -50,9 +51,16 @@ function applyFilters() {
   });
   
   // 날짜 섹션에 표시할 항목이 없는 경우 섹션 자체도 숨김
+  // 그리고 각 날짜 섹션의 수입/지출 총액 업데이트
   dateSections.forEach(section => {
     const visibleEntries = section.querySelectorAll(".entry-row:not(.hidden-income):not(.hidden-expense)");
     section.classList.toggle("hidden", visibleEntries.length === 0);
+    
+    // 해당 날짜의 수입/지출 총액 업데이트
+    const date = section.getAttribute("data-date");
+    if (date) {
+      updateDateSectionTotals(date);
+    }
   });
   
   // 총액 업데이트

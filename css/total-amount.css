@@ -85,6 +85,11 @@
   display: none !important;
 }
 
+/* 일반적인 숨김 처리 클래스 */
+.hidden {
+  display: none !important;
+}
+
 /* hover 시 스타일 변경 */
 .entry-row:hover {
   background-color: #f0f0f0;

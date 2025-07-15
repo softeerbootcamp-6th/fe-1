@@ -4,7 +4,7 @@ import { sharedState } from "../state/state.js";
 import { renderCategoryOptions } from "./categoryRender.js";
 import { updateDataToServer, saveEntriesToServer, loadEntriesFromServer } from "../api/api.js";
 import { clearWebPage, currentMonth, currentYear } from "./header.js";
-import { getDateFromServer } from "./entry.js";
+import { getDateFromServer, updateDateSectionTotals } from "./entry.js";
 
 export function initInputForm() {
   let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
@@ -189,5 +189,7 @@ export async function addEntryToDOM(entry) {
     entryItems.appendChild(item);
     const yearMonth = dateObj.getFullYear() + '-' + String(dateObj.getMonth() + 1).padStart(2, '0');
     saveEntriesToServer(yearMonth, entry);
-
+    
+    // 해당 날짜의 수입/지출 총액 업데이트
+    updateDateSectionTotals(entry.date);
   }
