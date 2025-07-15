@@ -268,3 +268,29 @@ button#payment {
   flex-grow: 1;
   text-align: right;
 }
+
+.list-item .delete-button {
+  display: none;
+}
+
+.list-item:hover .delete-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+}
+
+.list-item .delete-button .img-wrapper {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--danger-surface-default);
+}
+
+.list-item .delete-button span {
+  color: var(--danger-text-default);
+}

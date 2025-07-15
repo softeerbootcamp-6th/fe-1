@@ -9,7 +9,12 @@ export const ListItem = (item) => {
   <span class="money">${item.moneyType === "expense" ? "-" : ""}${
     item.money
   }원</span>
-  </div>
+  <button class="delete-button">
+    <div class="img-wrapper">
+      <img width="8px" height="8px" src="./src/assets/closed_white.svg" alt="closed icon"/>
+    </div>
+    <span class="semibold-12">삭제</span>
+  </button>
   `;
   return listItem;
 };
