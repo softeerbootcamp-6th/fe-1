@@ -24,10 +24,19 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    transition: background-color 0.3s ease;
 }
 .nav-btn.active {
     background-color: #ffffff;
+    transition: none;
 }
+.nav-btn.active:hover{
+    background-color: #ffffff;
+}
+.nav-btn:hover {
+    background-color: rgba(74, 127, 186, 0.8);
+}
+
 .nav-btn img {
     width: 24px;
     height: 24px;

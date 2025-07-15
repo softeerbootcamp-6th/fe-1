@@ -21,6 +21,10 @@ section.calender-page {
 .calender-cell {
     position: relative;
     padding: 8px;
+    transition: background-color 0.3s ease;
+}
+.calender-cell:hover{
+    background-color: var(--neutral-surface-point);
 }
 .calender-cell.disabled{
     background-color: #c8c8c8;
