@@ -1,4 +1,4 @@
-export const createElement = async (path) => {
+export const createHTML = async (path) => {
   const response = await fetch(path);
   const template = await response.text();
 

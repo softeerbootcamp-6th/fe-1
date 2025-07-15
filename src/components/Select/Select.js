@@ -1,4 +1,4 @@
-import { createElement } from "../../utils/dom.js";
+import { createHTML } from "../../utils/dom.js";
 
 import Modal from "../Modal/Modal.js";
 
@@ -66,7 +66,7 @@ const Select = async ({
   onChange,
 }) => {
   try {
-    const selectElement = await createElement(
+    const selectElement = await createHTML(
       "/src/components/Select/Select.html"
     );
 
