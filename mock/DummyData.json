@@ -1,0 +1,80 @@
+[
+    {
+        "dailyListId": 1,
+        "date": "2024-08-01",
+        "totalIncome": 120000,
+        "totalExpenses": 24000,
+        "list": [
+            {
+                "blcokId": 1,
+                "date": "2024-08-01",
+                "category": "월급",
+                "description": "프리랜서 프로젝트",
+                "method": "이체",
+                "type": "income",
+                "amount": "-120000"
+            },
+            {
+                "blcokId": 2,
+                "date": "2024-08-01",
+                "category": "식비",
+                "description": "점심 김밥",
+                "method": "국민카드",
+                "type": "expenses",
+                "amount": "-8000"
+            },
+            {
+                "blcokId": 3,
+                "date": "2024-08-01",
+                "category": "교통",
+                "description": "버스 요금",
+                "method": "티머니",
+                "type": "expenses",
+                "amount": "-16000"
+            }
+        ]
+    },
+    {
+        "dailyListId": 2,
+        "date": "2024-08-02",
+        "totalIncome": 50000,
+        "totalExpenses": 0,
+        "list": [
+            {
+                "blcokId": 4,
+                "date": "2024-08-02",
+                "category": "용돈",
+                "description": "부모님 용돈",
+                "method": "현금",
+                "type": "income",
+                "amount": "-50000"
+            }
+        ]
+    },
+    {
+        "dailyListId": 3,
+        "date": "2024-08-03",
+        "totalIncome": 0,
+        "totalExpenses": 31500,
+        "list": [
+            {
+                "blcokId": 5,
+                "date": "2024-08-03",
+                "category": "쇼핑/뷰티",
+                "description": "마스크팩 구매",
+                "method": "카카오페이",
+                "type": "expenses",
+                "amount": "-12000"
+            },
+            {
+                "blcokId": 6,
+                "date": "2024-08-03",
+                "category": "문화/건강",
+                "description": "넷플릭스 정기결제",
+                "method": "신한카드",
+                "type": "expenses",
+                "amount": "-19500"
+            }
+        ]
+    }
+]
