@@ -31,8 +31,9 @@ export const store = {
       // 해당 일 데이터 가져오기
       const dateData = monthData.find(data => data.date === dateInputValue);
       if (dateData) {
-        // 해당 날짜 데이터 length를 사용하여 ID 생성
-        dataID = dateData.income_expense[dateData.income_expense.length];
+        // ID 생성 (해당 날짜 데이터의 max ID + 1)
+        dataID =
+          dateData.income_expense[dateData.income_expense.length - 1].id + 1;
         newIncomeExpense.id = dataID;
 
         // dateData에 새로운 지출/수입 추가
