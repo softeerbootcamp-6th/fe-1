@@ -1,4 +1,4 @@
-import incomeExpenseData from '../data/incomeExpenseData.js';
+import incomeExpenseData from '../data/incomeExpenseData.json' with {type: 'json'};
 
 export function renderIncomeExpenseForm() {
   const form = document.createElement('form');

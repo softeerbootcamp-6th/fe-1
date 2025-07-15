@@ -1,16 +1,34 @@
 // 1. month가 바뀔 때마다 다른 지출 내역 보여주기
 import dateState from '../states/DateState.js';
-import incomeExpenseData from '../data/incomeExpenseData.js';
+
+let incomeExpenseData = {};
+
+// incomeExpenseData 불러 오기
+function loadIncomeExpenseData() {
+  fetch('./data/incomeExpenseData.json')
+    .then(response => response.json())
+    .then(data => {
+      incomeExpenseData = data;
+    })
+    .catch(error => {
+      console.error('데이터 로딩 실패:', error);
+      incomeExpenseData = {};
+    });
+}
 
 export function renderIncomeExpenseList() {
   const incomeExpenseList = document.createElement('div');
   incomeExpenseList.className = 'income-expense-list';
+
+  // 데이터 로드
+  loadIncomeExpenseData();
 
   // 초기 렌더링
   renderList(incomeExpenseList);
 
   // dateState 변경 시 재렌더링
   dateState.subscribe(() => {
+    loadIncomeExpenseData();
     renderList(incomeExpenseList);
   });
 
