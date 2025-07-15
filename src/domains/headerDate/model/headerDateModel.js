@@ -1,10 +1,11 @@
-export class CalendarModel {
-    // CalendarModel: 월별 달력 모델
+export class HeaderDateModel {
+    // HeaderDate: 월별 달력 모델
     constructor(base = new Date()) {
         // 현재 날짜를 기준으로 연도와 월을 설정
         this.year = base.getFullYear();
         this.month = base.getMonth() + 1;
     }
+
     // 월을 이동하는 함수
     shift(d) {
         this.month += d;
@@ -17,14 +18,16 @@ export class CalendarModel {
             this.year++;
         }
     }
+
     // 연도와 월을 설정하는 함수
     set(y, m) {
         this.year = y;
         this.month = m;
     }
+
     // 현재 연도와 월을 반환하는 함수
     get() {
-        return { year: this.year, month: this.month };
+        return {year: this.year, month: this.month};
     }
 }
 
