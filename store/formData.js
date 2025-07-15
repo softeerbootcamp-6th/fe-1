@@ -11,7 +11,6 @@ const formData = {
     isValidListeners: new Set(),
 
     setSign(value) {
-        console.log(value);
         this.sign = value;
     },
 
