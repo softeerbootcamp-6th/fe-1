@@ -24,7 +24,7 @@ app.use(express.json());
 const DB_FILE = "./data.json";
 
 // 데이터 전체 조회 API
-app.get("/api/data/", async (req, res) => {
+app.get("/api/data", async (req, res) => {
     const {year, month} = req.query;
     if(year && month){
         try {

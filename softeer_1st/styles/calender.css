@@ -6,7 +6,8 @@ section.calender-page {
 .calender {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 48px repeat(auto-fill, 120px);
+    grid-template-rows: 48px;
+    grid-auto-rows: 120px;
 }
 .calender > div {
     outline: 1px solid var(--neutral-border-default);
@@ -19,9 +20,19 @@ section.calender-page {
 }
 .calender-cell {
     position: relative;
+    padding: 8px;
+}
+.calender-cell.disabled{
+    background-color: #c8c8c8;
+}
+.calender-cell.today{
+    background-color: var(--neutral-surface-point);
 }
 .calender-cell > .calender-date {
     position: absolute;
     bottom: 8px;
     right: 8px;
+}
+.calender-stats{
+    margin-top: 24px;
 }
