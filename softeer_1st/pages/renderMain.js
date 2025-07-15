@@ -199,7 +199,7 @@ export function renderMain() {
 }
 
 async function fetchCostList(year, month) {
-    const response = fetch("http://localhost:3000/api/data", {
+    const response = fetch(`http://localhost:3000/api/data?year=${year}&month=${month}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -212,18 +212,8 @@ async function fetchCostList(year, month) {
             return res.json();
         })
         .then((data) => {
-            const yearData = data.find((item) => item.year === year);
-            if (!yearData) {
-                throw new Error("해당 연도의 데이터가 없습니다.");
-            }
-            const monthData = yearData.months.find(
-                (item) => item.month === month
-            );
-            if (!monthData) {
-                throw new Error("해당 월의 데이터가 없습니다.");
-            }
             const grouped = {};
-            monthData.list.forEach((item) => {
+            data.forEach((item) => {
                 const dateKey = `${item.date}`;
                 if (!grouped[dateKey]) {
                     grouped[dateKey] = [];
