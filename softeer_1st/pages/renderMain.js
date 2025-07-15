@@ -2,6 +2,7 @@ import { Form } from "../components/Form.js";
 import { CostList } from "../components/CostList.js";
 import { createElement } from "../utils/createElement.js";
 import { dateStore } from "../store/dateStore.js";
+import { getMonthData } from "../api/api.js";
 export function renderMain() {
     let [year, month] = [dateStore.year, dateStore.month];
     let showCost = {
@@ -20,7 +21,22 @@ export function renderMain() {
             : { year, month };
         mainContainer.innerHTML = ""; // Clear previous content
         try {
-            fetchCostList(newYear, newMonth)
+            getMonthData(newYear, newMonth)
+                .then((data) => {
+                    const grouped = {};
+                    data.forEach((item) => {
+                        const dateKey = `${item.date}`;
+                        if (!grouped[dateKey]) {
+                            grouped[dateKey] = [];
+                        }
+                        grouped[dateKey].push(item);
+                    });
+                    const groupedArray = Object.keys(grouped).map((date) => ({
+                        date: Number(date),
+                        items: grouped[date],
+                    }));
+                    return groupedArray;
+                })
                 .then((monthData) => {
                     const eachDateContainer = createElement("div", {
                         className: "each-date-container",
@@ -198,37 +214,3 @@ export function renderMain() {
     return section;
 }
 
-async function fetchCostList(year, month) {
-    const response = fetch(`http://localhost:3000/api/data?year=${year}&month=${month}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error("데이터 불러오기 실패");
-            }
-            return res.json();
-        })
-        .then((data) => {
-            const grouped = {};
-            data.forEach((item) => {
-                const dateKey = `${item.date}`;
-                if (!grouped[dateKey]) {
-                    grouped[dateKey] = [];
-                }
-                grouped[dateKey].push(item);
-            });
-            const groupedArray = Object.keys(grouped).map((date) => ({
-                date: Number(date),
-                items: grouped[date],
-            }));
-            return groupedArray;
-        })
-        .catch((error) => {
-            console.error("Error fetching cost list:", error);
-            throw error;
-        });
-    return response;
-}

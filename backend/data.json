@@ -235,19 +235,11 @@
         "list": [
           {
             "date": 2,
+            "amount": 2135000,
             "type": "income",
-            "category": "월급",
             "description": "5월 급여",
             "paymentMethod": "현금",
-            "amount": 2135000
-          },
-          {
-            "date": 6,
-            "type": "expense",
-            "category": "식비",
-            "description": "어버이날 케이크",
-            "paymentMethod": "신용카드",
-            "amount": 28000
+            "category": "월급"
           },
           {
             "date": 7,

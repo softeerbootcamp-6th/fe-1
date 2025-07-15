@@ -1,6 +1,7 @@
 import { createElement } from "../utils/createElement.js";
 import { dateStore } from "../store/dateStore.js";
 import { CalenderDate } from "../components/CalenderDate.js";
+import { getMonthData } from "../api/api.js";
 export function renderCalender() {
     const today = new Date();
     const todayYear = today.getFullYear();
@@ -45,7 +46,7 @@ export function renderCalender() {
             });
             calender.appendChild(emptyCell);
         });
-        const monthData = await fetchCalenderData(year, month);
+        const monthData = await getMonthData(year, month);
         console.log(monthData);
         const [totalIncome, totalExpense] = monthData.reduce(
             (acc, item) => {
@@ -107,16 +108,6 @@ export function renderCalender() {
                 calender.appendChild(emptyCell);
             });
         }
-    }
-    function fetchCalenderData(year, month) {
-        return fetch(
-            `http://localhost:3000/api/data?year=${year}&month=${month}`
-        )
-            .then((response) => response.json())
-            .catch((error) => {
-                console.error("Error fetching calendar data:", error);
-                return [];
-            });
     }
     return section;
 }

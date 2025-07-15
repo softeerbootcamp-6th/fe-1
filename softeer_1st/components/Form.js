@@ -2,6 +2,7 @@ import { createElement } from "../utils/createElement.js";
 import { DropDown } from "./dropDown.js";
 import { openModal } from "./Modal.js";
 import { dateStore } from "../store/dateStore.js";
+import { postMonthData, putMonthData } from "../api/api.js";
 
 export function Form() {
     const today = new Date();
@@ -35,7 +36,8 @@ export function Form() {
         console.log("Form availability checked:", isValid);
     }
     function catchEditEvent(e) {
-        const {date, amount, type, description, paymentMethod, category } = e.detail;
+        const { date, amount, type, description, paymentMethod, category } =
+            e.detail;
         const Eventyear = dateStore.year;
         const Eventmonth = dateStore.month;
         formState.year = Eventyear;
@@ -57,10 +59,13 @@ export function Form() {
             paymentMethod,
             category,
         };
-        document.querySelector("#date").value = `${Eventyear}-${String(Eventmonth).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
+        document.querySelector("#date").value = `${Eventyear}-${String(
+            Eventmonth
+        ).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
         document.querySelector("#costInput").value = amount.toLocaleString();
         document.querySelector("#description").value = description || "";
-        document.querySelector("#paymentMethodInput").value = paymentMethod || "";
+        document.querySelector("#paymentMethodInput").value =
+            paymentMethod || "";
         document.querySelector("#categoryInput").value = category || "";
         isIncome = type === "income";
         updateType(isIncome);
@@ -99,14 +104,19 @@ export function Form() {
         className: "form-date semibold-12",
         type: "date",
     });
-    
+
     dateInput.value = `${year}-${month}-${day}`;
     dateInput.addEventListener("change", function (e) {
         const selectedDate = new Date(e.target.value);
         formState.year = selectedDate.getFullYear();
         formState.month = selectedDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
         formState.date = selectedDate.getDate();
-        console.log("Selected date:", formState.year, formState.month, formState.date);
+        console.log(
+            "Selected date:",
+            formState.year,
+            formState.month,
+            formState.date
+        );
         checkAvailability();
     });
 
@@ -182,7 +192,7 @@ export function Form() {
         isIncome = !isIncome;
         updateType(isIncome);
     });
-    function updateType(isIncome){
+    function updateType(isIncome) {
         formState.type = isIncome ? "income" : "expense";
         costSign.innerHTML = `<img style="width:16px;height:16px" src="../assets/icons/${
             isIncome ? "plus" : "minus"
@@ -319,8 +329,8 @@ export function Form() {
 
                 deleteButton.addEventListener("click", async (e) => {
                     e.stopPropagation();
-                    const isConfirmed = await confirmModal(option)
-                    if(isConfirmed) {
+                    const isConfirmed = await confirmModal(option);
+                    if (isConfirmed) {
                         const deleteIndex = paymentMethods.indexOf(option);
                         if (deleteIndex > -1) {
                             paymentMethods.splice(deleteIndex, 1);
@@ -525,7 +535,7 @@ export function Form() {
     });
     const submitButton = createElement("button", {
         className: "form-submit-button semibold-12",
-        id: 'submitButton',
+        id: "submitButton",
         type: "submit",
         innerHTML: `<img src="../assets/icons/check-white.svg" alt="제출">`,
     });
@@ -535,7 +545,7 @@ export function Form() {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (!submitButton.disabled) {
-            await sendRequest(formState)
+            await sendRequest(formState);
             dateStore.set(formState.year, formState.month);
             //input 초기화
             document.querySelector("#date").value = `${year}-${month}-${day}`;
@@ -554,31 +564,29 @@ export function Form() {
             formState.isEdit = false;
             formState.originalData = null;
             isIncome = true;
-
-        }})
+        }
+    });
 
     return form;
 }
-
-
 
 const confirmModal = (message) => {
     console.log("Confirm modal opened with message:", message);
     return new Promise((resolve, reject) => {
         openModal({
-            title: '해당 결제 수단을 삭제하시겠습니까?',
+            title: "해당 결제 수단을 삭제하시겠습니까?",
             content: `<input type="text" placeholder='${message}' id="confirmInput" disabled>`,
             isDelete: true,
-            onClick: () =>{
-                resolve(true)
-            }
-        })
+            onClick: () => {
+                resolve(true);
+            },
+        });
     });
-}
-const addFeatureModal = () =>{
+};
+const addFeatureModal = () => {
     return new Promise((resolve, reject) => {
         openModal({
-            title: '추가하실 결제수단을 입력해주세요.',
+            title: "추가하실 결제수단을 입력해주세요.",
             content: `<input type="text" placeholder='현대카드' id="add">`,
             isDelete: false,
             onClick: () => {
@@ -589,48 +597,53 @@ const addFeatureModal = () =>{
                     return;
                 }
                 resolve(newPaymentMethod);
-            }
-        })
+            },
+        });
     });
-}
+};
 
 function sendRequest(formState) {
-    const url = 'http://localhost:3000/api/data'
-    const method = formState.isEdit ? 'PUT' : 'POST';
-    const body = formState.isEdit ? JSON.stringify({
-        year: formState.year,
-        month: formState.month,
-        date: formState.date,
-        amount: formState.amount,
-        type: formState.type,
-        description: formState.description,
-        paymentMethod: formState.paymentMethod,
-        category: formState.category,
-        originalData: formState.originalData,
-    }) : JSON.stringify({
-        year: formState.year,
-        month: formState.month,
-        date: formState.date,
-        amount: formState.amount,
-        type: formState.type,
-        description: formState.description,
-        paymentMethod: formState.paymentMethod,
-        category: formState.category,
-    });
-
-    return fetch(url, {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: body
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Response data:", data);
-        return data;
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
+    const body = formState.isEdit
+        ? {
+              year: formState.year,
+              month: formState.month,
+              date: formState.date,
+              amount: formState.amount,
+              type: formState.type,
+              description: formState.description,
+              paymentMethod: formState.paymentMethod,
+              category: formState.category,
+              originalData: formState.originalData,
+          }
+        : {
+              year: formState.year,
+              month: formState.month,
+              date: formState.date,
+              amount: formState.amount,
+              type: formState.type,
+              description: formState.description,
+              paymentMethod: formState.paymentMethod,
+              category: formState.category,
+          };
+    if (formState.isEdit) {
+        return putMonthData(body)
+            .then(() => {
+                alert("내역이 수정되었습니다.");
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error updating data:", error);
+                alert("내역 수정에 실패했습니다. 다시 시도해주세요.");
+            });
+    } else {
+        return postMonthData(body)
+            .then(() => {
+                alert("내역이 추가되었습니다.");
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error posting data:", error);
+                alert("내역 추가에 실패했습니다. 다시 시도해주세요.");
+            });
+    }
 }
