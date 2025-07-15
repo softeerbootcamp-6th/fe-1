@@ -4,11 +4,55 @@
     align-items: center;
     font-size: 1.5rem;
     color: #333;
-    margin : 20px 400px;
+    width : 846px;
+    margin : 16px auto;
 }
 
 .total-amount-value {
     display: flex;
     justify-content: space-between;
+    /* width: 195px; */
+}
+
+.entry-amount-section {
+    display: flex;
+}
+
+.delete-btn {
+  display: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  /* position: absolute; */
+  /* right: 12px; */
+}
+
+/* hover 시 스타일 변경 */
+.entry-row:hover {
+  background-color: #f0f0f0;
+}
+
+.entry-row:hover .delete-btn {
+  display: block;
+}
+
+.delete-icon-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.total-income{
+    display: flex;
+    align-items: center;
+}
+
+.entry-amount-delete {
+    display: flex;
+    justify-content: space-between;
     
+    align-items: center;
+    width: 180px;
 }

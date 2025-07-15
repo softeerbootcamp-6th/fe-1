@@ -1,9 +1,11 @@
 window.addEventListener("DOMContentLoaded", async () => {
-  async function loadComponent(id, path) {
+  
+    async function loadComponent(id, path) {
     const res = await fetch(path);
     const html = await res.text();
     document.getElementById(id).innerHTML = html;
   }
+
   console.log("Loading components...");
   await loadComponent("header-container", "../components/header.html");
   await loadComponent("input-form-container", "../components/input-form.html");

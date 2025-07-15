@@ -30,5 +30,5 @@ export const sharedState = {
 
 
 
-
+  entries: [] // 서버에서 가져온 항목들을 저장할 배열
 }

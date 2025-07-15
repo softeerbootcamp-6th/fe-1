@@ -1,6 +1,6 @@
 .input-form {
   position: relative; /* 또는 absolute도 가능 */
-  top: -30px;          /* 헤더를 위로 겹쳐서 올라가게 */
+  top: -40px;          /* 헤더를 위로 겹쳐서 올라가게 */
   margin: 0 auto;
   padding: 10px;
   background: #fff;
@@ -173,11 +173,28 @@
   padding: 6px;
   height: 38px;
 }
-.total-income{
-    display: flex;
-    
-}
+
 
 .total-size{
     font-size: 14px;
+}
+
+.month-selector {
+    width: 232px;
+    height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.month-control {
+    display: flex;
+    align-items: center;
+    justify-content : space-between;
+    width: 100%;
+    gap:16px;
+    font-size:1.8rem;
+    font-weight:bold;
 }

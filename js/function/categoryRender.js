@@ -22,3 +22,4 @@ export function renderCategoryOptions() {
       categoryPanel.appendChild(div);
     });
   }
+

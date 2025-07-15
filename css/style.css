@@ -5,15 +5,20 @@
 }
 body {
   margin: 0;
-  font-family: var(--font-family-sans );
-  font-size: 16px; /* 1rem = 16px */
+  font-family: var(--font-family-serif, "ChosunNm");
+  font-size: 14px; /* 1rem = 16px */
   min-height: 100%;
   width: 100%;
+  
 }
 
-
+/* .entry-list{
+  align-content: center;
+} */
 .entry-date-section{
-  margin : 20px 400px;
+  margin : 16px auto;
+  width: 846px;
+  /* align-content: center; */
 }
 
 .entry-group {
@@ -41,7 +46,7 @@ body {
   border-right: none;
   align-items: center;
   height: 56px;
-
+  font-size: 14px;
 }
 
 .entry-category {
@@ -57,11 +62,14 @@ body {
   display: flex;               /* flexbox 사용 */
   justify-content: center;     /* 가로 중앙 정렬 */
   align-items: center;         /* 세로 중앙 정렬 */
+  font-size:12px;
 }
 
 .entry-desc {
-  flex: 3;
+  flex: 1;
   padding: 0 12px;
+  width: 400px;
+  text-align: left; 
 }
 
 .entry-method {
@@ -76,11 +84,42 @@ body {
   padding-right: 12px;
   font-weight: bold;
   color: #d23a3a;
+  padding-left: 24px;
 }
 
 /* 예시용 카테고리 색상 (선택적으로 추가 가능) */
-.entry-category.생활 {
-  background-color: #aabbee;
+.--colorchip-90{
+  background-color: #7a9be9;
+}
+.--colorchip-10{
+  background-color: #a28b73;
+}
+.--colorchip-20{
+  background-color: #e3d5d1;
+}
+.--colorchip-30{
+  background-color: #d7ca6b;
+}
+.--colorchip-40{
+  background-color: #aacd7e;
+}
+.--colorchip-50{
+  background-color: #c0dfd3;
+}
+.--colorchip-60{
+  background-color: #c5e0eb;
+}
+.--colorchip-70{
+  background-color: #7d87bf;
+}
+.--colorchip-80{
+  background-color: #79b2ca;
+}
+.--colorchip-100{
+  background-color: #b0a6e1;
+}
+.--colorchip-110{
+  background-color: #f0b6d3;
 }
 
 .entry-category.교통 {
@@ -104,13 +143,17 @@ body {
 }
 
 .entry-items .entry-row:first-child {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #000000;
 }
 
 .entry-items .entry-row:last-child {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #000;
 }
 
 .entry-list {
   margin: 30px 0;
+}
+
+.entry-sort{
+  padding: 16px 0;
 }
