@@ -7,28 +7,39 @@ export function initHeader() {
 function renderHeader() {
   renderComponent({
     id: "header",
-    className: "flex-row-between",
+    className: "header-container",
     innerHTML: `
-        <h1>Wise Wallet</h1>
-        <div class="flex-column-between">
-            <p>2023</p>
-            <div class="flex-row-center header-calendar-bar">
-                <a href="#"><</a>
-                <p>8</p>
-                <a href="#">></a>
-            </div>
-            <p>August</p>
+        <div class="header-left">
+          <span class="header-title font-serif-48">Wise Wallet</span>
         </div>
-        <ul class="flex-row-center">
+        <div class="header-center">
+          <div class="header-year font-light-14">2023</div>
+          <div class="header-calendar-bar">
+            <button class="header-arrow header-arrow-left"></button>
+            <span class="header-month font-serif-48">8</span>
+            <button class="header-arrow header-arrow-right"></button>
+          </div>
+          <div class="header-month-label font-light-14">August</div>
+        </div>
+        <div class="header-right">
+          <ul class="header-menu">
             <li>
-            <a href="#">main</a>
+              <button class="header-menu-icon header-menu-icon-active" data-index="0">
+              <img src="src/assets/icons/doc.svg"/>
+              </button>
             </li>
             <li>
-                <a href="#">calendar</a>
+              <button class="header-menu-icon" data-index="1">
+              <img src="src/assets/icons/calendar.svg"/>
+
+              </button>
             </li>
             <li>
-                <a href="#">graph</a> 
+              <button class="header-menu-icon" data-index="2">
+              <img src="src/assets/icons/chart.svg"/>
+              </button>
             </li>
+          </ul>
         </div>
     `,
   });
