@@ -26,7 +26,7 @@ export const CategoryForm = (input) => {
       }.png`;
 
       // 값 업데이트+화면에 표시
-      if (e.target.closest("li")) {
+      if (e.target.closest(".drop-down-li")) {
         const selectedCategory = e.target.innerText;
         input.category = selectedCategory;
         const categoryTextInput =
