@@ -9,6 +9,22 @@ import { CATEGORY_NAME } from "../constants/categoryName.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction } from "./inputBar.js";
 
+// 클릭된 행 상태 관리
+let selectedRowId = null;
+
+// 선택된 행의 스타일을 업데이트하는 함수
+function updateSelectedRowStyle(selectedRowId) {
+  const allRows = document.querySelectorAll(".transaction-row");
+  allRows.forEach((row) => {
+    const rowId = Number(row.dataset.id);
+    if (rowId === selectedRowId) {
+      row.classList.add("selected");
+    } else {
+      row.classList.remove("selected");
+    }
+  });
+}
+
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListByYearMonth = getTransactionsByYearMonth(
     getCurrentYear(),
@@ -122,6 +138,8 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
         e.stopPropagation(); // 행 클릭 이벤트 방지
         const id = Number(btn.dataset.id);
         deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
+        // 삭제 후 선택 상태 초기화
+        selectedRowId = null;
         renderTransactionList(isIncomeChecked, isExpenseChecked);
       });
     });
@@ -144,6 +162,9 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           );
 
           if (transaction) {
+            // 선택된 행 업데이트
+            selectedRowId = id;
+            updateSelectedRowStyle(selectedRowId);
             fillFormWithTransaction(transaction);
           }
         });

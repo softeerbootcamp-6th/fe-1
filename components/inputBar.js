@@ -198,6 +198,10 @@ export function fillFormWithTransaction(transaction) {
 export function resetEditMode() {
   isEditMode = false;
   editingTransactionId = null;
+
+  // 선택된 행 스타일 초기화
+  const selectedRows = document.querySelectorAll(".transaction-row.selected");
+  selectedRows.forEach((row) => row.classList.remove("selected"));
 }
 
 function validateForm(requiredFields, submitButton) {
@@ -256,6 +260,11 @@ export function renderInputBar(container) {
     } else {
       // 추가 모드: 새로운 거래내역 추가
       addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
+      // 새로운 거래내역 추가 시 선택 상태 초기화
+      const selectedRows = document.querySelectorAll(
+        ".transaction-row.selected"
+      );
+      selectedRows.forEach((row) => row.classList.remove("selected"));
     }
 
     // 폼 초기화

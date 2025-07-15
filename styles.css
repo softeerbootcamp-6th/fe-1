@@ -558,3 +558,11 @@ table {
 .transaction-row:hover {
   background-color: var(--nuetral-surface-point);
 }
+
+.transaction-row.selected {
+  background-color: var(--nuetral-surface-point);
+}
+
+.transaction-row.selected .delete-btn {
+  display: flex;
+}
