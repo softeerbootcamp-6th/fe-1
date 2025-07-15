@@ -34,8 +34,6 @@ export function initViewSwitcher() {
                 }
                 break;
             case 'stats':
-                ledgerView.classList.add('active-view');
-                break;
                 statsView.classList.add('active-view');
                 // 통계 뷰가 처음 활성화될 때 초기화
                 if (!sharedState.statsInitialized) {

@@ -52,17 +52,18 @@
             <!-- 통계 뷰 -->
             <div id="stats-view" class="view">
                 <div class="stats-container">
-                    <div class="stats-header">
-                        <h2>월별 통계</h2>
-                    </div>
                     <div class="stats-charts">
-                        <div class="chart-container">
-                            <h3>카테고리별 지출</h3>
-                            <div id="category-chart" class="chart"></div>
+                        <div class="donut-chart-wrapper">
+                            <div id="category-chart" class="chart">
+                                <div id="donut-chart" class="donut-chart"></div>
+                            </div>
                         </div>
-                        <div class="chart-container">
-                            <h3>일별 지출 추이</h3>
-                            <div id="daily-chart" class="chart"></div>
+                        <div class="expense-summary-wrapper">
+                            <div class="expense-header">
+                                <h3>이번달 지출내역</h3>
+                                <div id="month-total-expense" class="month-total-expense">0원</div>
+                            </div>
+                            <div id="expense-list" class="expense-list"></div>
                         </div>
                     </div>
                 </div>
