@@ -106,7 +106,7 @@ export function createCalendar(year, month) {
 
   const calendarHeader = `
     <div class="calendar-header light-12">
-        ${WEEKDAYS.map((day) => `<div>${day}</div>`).join("")}
+        ${WEEKDAYS.reduce((acc, day) => acc + `<div>${day}</div>`, "")}
     </div>
     `;
 

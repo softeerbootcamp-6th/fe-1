@@ -51,6 +51,31 @@ function registerExternalClickHandler() {
   }
 }
 
+function createTransactionRow(transaction) {
+  return `
+    <tr class="transaction-row" data-id="${transaction.id}">
+      <td class="td-category light-12 category-${
+        CATEGORY_NAME[transaction.category] || CATEGORY_NAME["미분류"]
+      }">${transaction.category}</td>
+      <td class="td-description light-14">${transaction.description}</td>
+      <td class="td-payment-method light-14">${transaction.paymentMethod}</td>
+      <td class="td-amount light-14 ${
+        transaction.amount > 0 ? "text-income" : "text-expense"
+      }">
+        ${formatMoney(transaction.amount)}원
+        <button 
+          class="delete-btn flex-row semibold-14" 
+          data-id="${transaction.id}">
+          <div class="delete-btn-icon">
+            <img src="../icons/closed.svg" alt="delete" />
+          </div>
+          <div>삭제</div>
+        </button>
+      </td>
+    </tr>
+  `;
+}
+
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListByYearMonth = getTransactionsByYearMonth(
     getCurrentYear(),
@@ -105,34 +130,10 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
         </div>
       `;
 
-      const rows = transactionList
-        .map(
-          (transaction) => `
-        <tr class="transaction-row" data-id="${transaction.id}">
-          <td class="td-category light-12 category-${
-            CATEGORY_NAME[transaction.category] || CATEGORY_NAME["미분류"]
-          }">${transaction.category}</td>
-          <td class="td-description light-14">${transaction.description}</td>
-          <td class="td-payment-method light-14">${
-            transaction.paymentMethod
-          }</td>
-          <td class="td-amount light-14 ${
-            transaction.amount > 0 ? "text-income" : "text-expense"
-          }">${formatMoney(transaction.amount)}원
-            <button 
-                class="delete-btn flex-row semibold-14" 
-                data-id="${transaction.id}"
-                >
-                <div class="delete-btn-icon">
-                  <img src="../icons/closed.svg" alt="delete" />
-                </div>
-                <div>삭제</div>
-            </button>
-          </td>
-        </tr> 
-      `
-        )
-        .join("");
+      const rows = transactionList.reduce((acc, transaction) => {
+        const row = createTransactionRow(transaction);
+        return acc + row;
+      }, "");
 
       return `
         ${header}

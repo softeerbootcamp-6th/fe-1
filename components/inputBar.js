@@ -335,5 +335,16 @@ export function renderInputBar(container) {
       )
     );
     renderTransactionList(isIncomeChecked, isExpenseChecked);
+
+    const calendarContainer = document.querySelector(".calendar-container");
+    if (calendarContainer) {
+      renderCalendar(calendarContainer);
+    }
+    const calendarInfoContainer = document.querySelector(
+      ".calendar-info-container"
+    );
+    if (calendarInfoContainer) {
+      renderCalendarInfo(calendarInfoContainer);
+    }
   });
 }
