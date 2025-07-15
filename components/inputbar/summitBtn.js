@@ -1,7 +1,8 @@
 import { createElement } from '../../utils.js';
 import formData from '../../store/formData.js';
+import { dailyData } from '../../store/daily.js';
 
-export default function () {
+export default function createSummitButton() {
     const summitBtnInnerHtml = `
             <button class="add-button" disabled>
                 <img
@@ -23,7 +24,7 @@ export default function () {
     const $btn = $summitBtn.firstElementChild;
     $btn.addEventListener('click', () => {
         if (!formData.isValid) return;
-        // 제출 로직 작성 예정
+        dailyData.uploadDailyData(formData);
     });
 
     formData.subscribeIsValid((isValid) => {

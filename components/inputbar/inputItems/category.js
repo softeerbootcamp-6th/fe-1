@@ -1,13 +1,13 @@
 import { createElement } from '../../../utils.js';
 import formData from '../../../store/formData.js';
 
-export default function () {
+export default function createCategoryInput() {
     const categoryInputInnerHtml = `
             <label for="categoryInput" class="lt-12">분류</label>
             <select id="categoryInput">
-                <option>dfasdf</option>
-                <option>ffe312</option>
-                <option>fasess</option>
+                <option>생활</option>
+                <option>식비</option>
+                <option>문화/여가</option>
             </select>
         `;
 

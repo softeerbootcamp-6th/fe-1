@@ -1,0 +1,51 @@
+.day-container {
+    margin-top: 40px;
+}
+.daily-line {
+    display: flex;
+    width: 846px;
+    height: 56px;
+    text-align: center;
+    align-items: center;
+}
+
+.daliy-line-wrapper {
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+.category-info {
+    width: 92px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.description-info {
+    width: 400px;
+    text-align: left;
+    margin-right: 15px;
+}
+
+.payment-info {
+    width: 104px;
+    text-align: left;
+    margin-inline: 15px;
+}
+
+.amount-info {
+    width: 186px;
+    text-align: right;
+}
+
+.date-info {
+    margin-bottom: 10px;
+}
+
+.daily-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
