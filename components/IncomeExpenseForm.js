@@ -45,7 +45,7 @@ export function renderIncomeExpenseForm() {
                 <label class="description-label light12" for="description-input">내용</label>
                 <span class="description-length light12">${descriptionLength}/32</span>
             </div>
-            <input id="description-input" type="text" class="description-input maxlength=32" maxlength="32"></input>
+            <input id="description-input" type="text" class="description-input" maxlength="32"></input>
         </div>
     `;
   };
