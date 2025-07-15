@@ -8,21 +8,62 @@
         <link rel="stylesheet" href="css/input-form.css" />
         <link rel="stylesheet" href="css/total-amount.css" />
         <link rel="stylesheet" href="css/delete-modal.css" />
+        <link rel="stylesheet" href="css/views.css" />
+        <link rel="stylesheet" href="css/charts.css" />
     </head>
     <body>
         <!-- 헤더부분입니다 -->
         <div id="header-container"></div>
-        <!-- 입력 폼 부분입니다 -->
-        <div id="input-form-container"></div>
+        
+        <!-- 메인 콘텐츠 영역 -->
+        <main>
+            <!-- 가계부 뷰 (기본 뷰) -->
+            <div id="ledger-view" class="view active-view">
+                <!-- 입력 폼 부분입니다 -->
+                <div id="input-form-container"></div>
 
-        <div class="total-amount">
-            <div class="total-amount-text" id="total-amount-text">전체 내역</div>
-            <div class="total-amount-value" id="total-amount-value">
-                <div id="total-income" class="filter-item active" data-type="income">수입</div>
-                <div id="total-expense" class="filter-item active" data-type="expense">지출</div>
+                <div class="total-amount">
+                    <div class="total-amount-text" id="total-amount-text">전체 내역</div>
+                    <div class="total-amount-value" id="total-amount-value">
+                        <div id="total-income" class="filter-item active" data-type="income">수입</div>
+                        <div id="total-expense" class="filter-item active" data-type="expense">지출</div>
+                    </div>
+                </div>
+
+                <section class="entry-list" id="entry-list"></section>
             </div>
-        </div>
 
+            <!-- 캘린더 뷰 -->
+            <div id="calendar-view" class="view">
+                <div class="calendar-container">
+                    <!-- <div class="calendar-header">
+                        <h2>월별 캘린더</h2>
+                    </div> -->
+                    <div id="calendar-grid" class="calendar-grid"></div>
+                </div>
+            </div>
+
+            <!-- 통계 뷰 -->
+            <div id="stats-view" class="view">
+                <div class="stats-container">
+                    <div class="stats-header">
+                        <h2>월별 통계</h2>
+                    </div>
+                    <div class="stats-charts">
+                        <div class="chart-container">
+                            <h3>카테고리별 지출</h3>
+                            <div id="category-chart" class="chart"></div>
+                        </div>
+                        <div class="chart-container">
+                            <h3>일별 지출 추이</h3>
+                            <div id="daily-chart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 삭제 모달 -->
         <div id="delete-modal" class="delete-modal delete-hidden">
             <div class="delete-modal-content">
                 <h3>삭제하시겠습니까?</h3>
@@ -30,9 +71,6 @@
                 <button id="cancel-delete" class="cancel-delete">취소</button>
             </div>
         </div>
-
-        <section class="entry-list" id="entry-list">
-        </section>
 
 
         

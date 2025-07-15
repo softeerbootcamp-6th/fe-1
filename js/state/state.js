@@ -37,5 +37,10 @@ export const sharedState = {
 
 
 
-  entries: [] // 서버에서 가져온 항목들을 저장할 배열
+  entries: [], // 서버에서 가져온 항목들을 저장할 배열
+
+  // 뷰 관련 상태
+  activeView: 'ledger', // 현재 활성화된 뷰 (ledger, calendar, stats)
+  calendarInitialized: false, // 캘린더 뷰 초기화 여부
+  statsInitialized: false, // 통계 뷰 초기화 여부
 }
