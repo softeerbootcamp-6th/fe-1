@@ -44,12 +44,12 @@ export function addNewTransaction(year, month, formData) {
 
 //기존 거래 내역 삭제
 export function deleteTransaction(year, month, id) {
+  alert(`거래내역 ID ${id}을 삭제하시겠습니까?`);
   const index = transactionsData[year][month].findIndex(
     (transaction) => transaction.id === id
   );
   if (index !== -1) {
     transactionsData[year][month].splice(index, 1);
-    alert(`거래내역 ID ${id}가 삭제되었습니다.`);
   } else {
     alert(`거래내역 ID ${id} 삭제에 실패했습니다.`);
   }

@@ -1,11 +1,8 @@
-import {
-  addNewTransaction,
-  updateTransaction,
-  getTransactionById,
-} from "../utils/transaction.js";
+import { addNewTransaction, updateTransaction } from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { renderTransactionList } from "./transactionsList.js";
 import { getFilteringState } from "../pages.js";
+import { renderMonthlyInfo } from "./monthlyInfo.js";
 
 // 수정 모드 상태 관리
 let isEditMode = false;
@@ -170,28 +167,35 @@ export function fillFormWithTransaction(transaction) {
   const form = document.getElementById("inputBarForm");
   if (!form || !transaction) return;
 
-  const elements = getFormElements(form);
+  const {
+    dateInput,
+    amountInput,
+    contentInput,
+    paymentMethodSelect,
+    categorySelect,
+    amountToggle,
+    submitButton,
+  } = getFormElements(form);
 
   // 폼 필드에 데이터 설정
-  elements.dateInput.value = transaction.date;
-  elements.amountInput.value = Math.abs(transaction.amount);
-  elements.contentInput.value = transaction.description;
-  elements.paymentMethodSelect.value = transaction.paymentMethod;
-  elements.categorySelect.value = transaction.category;
+  dateInput.value = transaction.date;
+  amountInput.value = Math.abs(transaction.amount);
+  contentInput.value = transaction.description;
+  paymentMethodSelect.value = transaction.paymentMethod;
+  categorySelect.value = transaction.category;
 
   // 금액 토글 설정
-  updateAmountToggleIcon(elements.amountToggle, transaction.amount > 0);
+  updateAmountToggleIcon(amountToggle, transaction.amount > 0);
 
   // 수정 모드로 설정
   isEditMode = true;
   editingTransactionId = transaction.id;
 
-  // 버튼 텍스트 변경
-  elements.submitButton.innerHTML = `<img src="../icons/check.svg" alt="check" />`;
-  elements.submitButton.title = "수정 완료";
-
   // 유효성 검사 실행
-  validateForm(getRequiredFields(elements), elements.submitButton);
+  validateForm(
+    [dateInput, amountInput, contentInput, paymentMethodSelect, categorySelect],
+    submitButton
+  );
 }
 
 // 수정 모드 초기화 함수
@@ -286,6 +290,11 @@ export function renderInputBar(container) {
 
     // 거래내역 목록 업데이트
     const { isIncomeChecked, isExpenseChecked } = getFilteringState();
+    renderMonthlyInfo(
+      document.querySelector("#monthly-info-container"),
+      isIncomeChecked,
+      isExpenseChecked
+    );
     renderTransactionList(isIncomeChecked, isExpenseChecked);
   });
 }
