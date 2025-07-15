@@ -19,30 +19,17 @@ class Router {
   }
 
   // 공통 헤더 렌더링
-  renderHeader(selectedNav = "home") {
+  async renderHeader(selectedNav = "home") {
     const headerContainer = document.getElementById("header-container");
     if (headerContainer) {
       // 기존 헤더 제거
       headerContainer.innerHTML = "";
 
       // 새 헤더 생성
-      const header = Header({
+      const header = await Header({
         selectedNav: selectedNav,
-        onChangeMonth: this.handleMonthChange.bind(this),
       });
-
       headerContainer.appendChild(header);
-    }
-  }
-
-  // 월 변경 핸들러 (홈 페이지에서만 필요)
-  handleMonthChange() {
-    if (
-      this.currentRoute === "/" &&
-      this.currentModule &&
-      this.currentModule.renderHistory
-    ) {
-      this.currentModule.renderHistory();
     }
   }
 
