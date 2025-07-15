@@ -190,6 +190,13 @@ export function renderIncomeExpenseForm() {
       paymentSelect,
       classSelect
     );
+    formInit(
+      dateInput,
+      moneyInput,
+      descriptionInput,
+      paymentSelect,
+      classSelect
+    );
   });
 
   const updateClassSelect = (incomeClasses, expenseClasses) => {
@@ -262,6 +269,20 @@ export function renderIncomeExpenseForm() {
     };
 
     store.updateIncomeExpenseData(dateInputValue, newIncomeExpense);
+  };
+
+  const formInit = (
+    dateInput,
+    moneyInput,
+    descriptionInput,
+    paymentSelect,
+    classSelect
+  ) => {
+    dateInput.value = formattedDate;
+    moneyInput.value = '';
+    descriptionInput.value = '';
+    paymentSelect.value = '';
+    classSelect.value = '';
   };
 
   return form;
