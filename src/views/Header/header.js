@@ -4,8 +4,9 @@ import monthStore from "../../stores/MonthStore.js";
 const Header = async ({
   selectedNav = "home", // 'home', 'calendar', 'chart'
 } = {}) => {
-  const header = await createHTML("/src/components/Header/Header.html");
+  const header = await createHTML("/src/views/Header/header.html");
 
+  // 🔹 월 정보
   const $year = header.querySelector(".header__year");
   const $month = header.querySelector(".header__month");
   const $monthText = header.querySelector(".header__month-name");
@@ -33,6 +34,7 @@ const Header = async ({
     monthStore.goToNextMonth();
   });
 
+  // 🔹 네비게이션
   const $headerNav = header.querySelector(".header__nav");
   const $headerNavItems = $headerNav.querySelectorAll(".header__nav-item");
 

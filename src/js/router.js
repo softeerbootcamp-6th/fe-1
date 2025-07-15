@@ -1,4 +1,4 @@
-import { Header } from "../components/index.js";
+import Header from "../views/Header/Header.js";
 
 class Router {
   constructor() {
