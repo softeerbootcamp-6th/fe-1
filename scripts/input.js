@@ -1,5 +1,5 @@
 // input 바에서 사용하는 드롭다운, 유효성 검증, 글자수 세기 등의 로직을 다루는 파일
-
+import { addRecordsToServer } from "../api/recordsApi.js";
 import { elements } from "./elements.js";
 import { addRecord } from "./records.js";
 
@@ -164,14 +164,26 @@ export const getInputValues = () => {
     const description = elements.descInputEl().value;
     const payment = elements.paymentCellEl().textContent.trim();
     const category = elements.categoryCellEl().textContent.trim();
+    const amount = sign + value;
 
-    addRecord({
+    const itemId = Date.now().toString() + Math.random().toString().slice(2, 5);
+    const recordId = Date.now().toString();
+
+    const formInput = {
+      recordId,
       date,
-      sign,
-      value,
-      description,
-      payment,
-      category,
-    });
+      item: {
+        id: itemId,
+        category,
+        description,
+        payment,
+        amount,
+      },
+    };
+    // API 호출
+    addRecordsToServer(formInput);
+
+    // 로컬 store와 화면 렌더링
+    addRecord(formInput);
   });
 };

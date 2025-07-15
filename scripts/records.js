@@ -1,56 +1,18 @@
 // 입력받은 정보를 토대로 삽입 / 수정 / 삭제 기능을 담당하는 함수들을 다루는 파일
 import { elements } from "./elements.js";
+import { store } from "./store.js";
 
-export const records = [
-  {
-    date: "2025-08-14",
-    items: [
-      {
-        category: "문화/여가",
-        description: "스트리밍 서비스 정기 결제",
-        payment: "현대카드",
-        amount: -10900,
-      },
-      {
-        category: "교통",
-        description: "후불 교통비 결제",
-        payment: "현대카드",
-        amount: -45340,
-      },
-    ],
-  },
-  {
-    date: "2025-08-13",
-    items: [
-      {
-        category: "미분류",
-        description: "온라인 세미나 신청",
-        payment: "현대카드",
-        amount: -10000,
-      },
-    ],
-  },
-  {
-    date: "2025-08-10",
-    items: [
-      {
-        category: "식비",
-        description: "잔치국수와 김밥",
-        payment: "현대카드",
-        amount: -9500,
-      },
-      {
-        category: "월급",
-        description: "8월 급여",
-        payment: "현금",
-        amount: 2010580,
-      },
-    ],
-  },
-];
+// 상단 토글 버튼 상태를 위한 변수
+let incomeVisible = true;
+let outcomeVisible = true;
 
 // records 배열의 각 날짜별로 section을 만드는 함수
-export const renderRecords = (currentYear, currentMonth, records) => {
+export const renderRecords = (
+  currentYear,
+  currentMonth,
+  records,
+  filter = { income: true, outcome: true }
+) => {
   // 이전 렌더링 초기화
   const recordContainerEl = elements.recordContainerEl();
   recordContainerEl.innerHTML = "";
@@ -61,11 +23,58 @@ export const renderRecords = (currentYear, currentMonth, records) => {
     //"YYYY-MM-DD" 에서 YYYY와 MM 추출 후 헤더의 날짜와 비교해서 같은 값만 호출
     let year = date.split("-")[0];
     let month = date.split("-")[1];
-    const items = record.items;
     if (Number(currentYear) === Number(year) && Number(currentMonth) === Number(month)) {
-      renderRecordByDate({ date, items });
+      const filteredItems = record.items.filter((item) => {
+        if (item.amount < 0 && filter.outcome) return true;
+        if (item.amount >= 0 && filter.income) return true;
+        return false;
+      });
+      if (filteredItems.length > 0) {
+        renderRecordByDate({ date, items: filteredItems });
+      }
     }
   });
+};
+
+// 상단 총 내역 건수와 지출/수입 금액의 합을 렌더링
+export const renderRecordHeader = (currentYear, currentMonth, records) => {
+  let totalIncome = 0;
+  let totalOutcome = 0;
+  let itemCount = 0;
+
+  records.forEach((record) => {
+    const [year, month] = record.date.split("-");
+    if (Number(year) === Number(currentYear) && Number(month) === Number(currentMonth)) {
+      record.items.forEach((item) => {
+        if (item.amount < 0) {
+          totalOutcome += Math.abs(item.amount);
+        } else {
+          totalIncome += item.amount;
+        }
+        itemCount += 1;
+      });
+    }
+  });
+  const totalAmountEl = elements.totalAmountEl();
+  totalAmountEl.innerHTML = `
+      <p class="font-light-12 total-count">전체 내역</p>
+      <p class="font-light-12 count">${itemCount}건</p>
+
+      <div class="font-light-12 total-income">
+        <button class="income-filter">
+          <img src="../assets/icons/checkbox.svg" alt="checkbox" />
+        </button>
+        <p>수입 ${formatWithComma(totalIncome)}원</p>
+      </div>
+
+      <div class="font-light-12 total-outcome">
+        <button class="outcome-filter">
+          <img src="../assets/icons/checkbox.svg" alt="checkbox" />
+        </button>
+        <p>지출 ${formatWithComma(totalOutcome)}원</p>
+      </div>`;
+
+  initVisibleButton();
 };
 
 // 날짜와 데이터를 받아와서 섹션을 렌더링
@@ -103,10 +112,11 @@ export const generateRecordHTML = (items) => {
     }
     itemsHTML += `
       <div class="record-item">
-        <div class="category ${item.category}">${item.category}</div>
+        <div class="category ${item.category.replace(/\s+/g, "")}">${item.category}</div>
         <div class="description">${item.description}</div>
         <div class="payment">${item.payment}</div>
         <div class="amount ${sign}">${formatWithComma(item.amount)}</div>
+        
       </div>`;
   });
   return itemsHTML;
@@ -146,26 +156,19 @@ export const getTotalAmount = (items) => {
   return { income, outcome };
 };
 
-export const addRecord = ({ date, sign, value, description, payment, category }) => {
-  // 부호 처리
-  let amount = sign + value;
-
+export const addRecord = ({ recordId, date, item }) => {
   // record에 추가하려는 날짜에 대한 정보가 이미 있나 확인
-  const foundRecord = records.find((record) => record.date === date);
+  const foundRecord = store.getRecords().find((record) => record.date === date);
 
   if (foundRecord) {
-    // 이미 있는 날짜 처리
-    foundRecord.items.push({
-      category,
-      description,
-      payment,
-      amount,
-    });
+    // 이미 있는 날짜라면 해당 날짜의 items 배열에 추가
+    foundRecord.items.push(item);
   } else {
-    // 없는 날짜라면 record에 날짜 포함 객체 생성
-    records.push({
+    // 없는 날짜라면 record에 날짜 포함한 새 객체 생성
+    store.addRecord({
+      id: recordId,
       date,
-      items: [{ category, description, payment, amount }],
+      items: [item],
     });
   }
 
@@ -173,22 +176,66 @@ export const addRecord = ({ date, sign, value, description, payment, category })
   const headerEl = elements.headerEl();
   const yearEl = headerEl.querySelector(".year");
   const monthEl = headerEl.querySelector(".month");
-  renderRecords(yearEl.textContent, monthEl.textContent, records);
+  renderRecords(yearEl.textContent, monthEl.textContent, store.getRecords(), {
+    income: true,
+    outcome: true,
+  });
 };
 
 // 전체 내역 수입 지출 필터링
-const toggleRecordVisibility = (type, isChecked) => {
+const toggleRecordVisibility = (type) => {
   // type = "income" | "outcome"
-  const visibleButtonEl = "";
-  if (type === income) {
-    visibleButtonEl = elements.incomeFilterButtonEl();
-  } else {
-    visibleButtonEl = elements.outcomeFilterButtonEl();
-  }
 
-  if (isChecked) {
-    // check 상태였다면 토글 후 필터링
-    isChecked = false;
-    // 필터링을 어케함 ???
+  const headerEl = elements.headerEl();
+  const yearEl = headerEl.querySelector(".year");
+  const monthEl = headerEl.querySelector(".month");
+  const totalDiv =
+    type === "income" ? elements.incomeFilterButtonEl() : elements.outcomeFilterButtonEl();
+
+  // 체크박스 상태를 변경하고 렌더링 함수를 호출
+  switch (type) {
+    case "income":
+      if (incomeVisible) {
+        incomeVisible = false;
+        totalDiv.innerHTML = `
+          <img src="../assets/icons/uncheckbox.svg" alt="checkbox"/>
+        `;
+      } else {
+        incomeVisible = true;
+        totalDiv.innerHTML = `
+          <img src="../assets/icons/checkbox.svg" alt="checkbox"/>
+        `;
+      }
+      break;
+    case "outcome":
+      if (outcomeVisible) {
+        outcomeVisible = false;
+        totalDiv.innerHTML = `
+          <img src="../assets/icons/uncheckbox.svg" alt="checkbox"/>
+        `;
+      } else {
+        outcomeVisible = true;
+        totalDiv.innerHTML = `
+          <img src="../assets/icons/checkbox.svg" alt="checkbox"/>
+          `;
+      }
+      break;
   }
+  renderRecords(yearEl.textContent, monthEl.textContent, store.getRecords(), {
+    income: incomeVisible,
+    outcome: outcomeVisible,
+  });
 };
+
+export function initVisibleButton() {
+  const incomeButtonEl = elements.incomeFilterDivEl();
+  const outcomeButtonEl = elements.outcomeFilterDivEl();
+
+  incomeButtonEl.addEventListener("click", (e) => {
+    toggleRecordVisibility("income");
+  });
+
+  outcomeButtonEl.addEventListener("click", (e) => {
+    toggleRecordVisibility("outcome");
+  });
+}
