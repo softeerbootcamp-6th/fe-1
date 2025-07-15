@@ -8,6 +8,7 @@ export function renderIncomeExpenseForm() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
   let isIncome = true; // true: 수입, false: 지출
+  const maxDescriptionLength = 32;
   let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
   const incomeClasses = ['용돈', '월급'];
@@ -43,7 +44,7 @@ export function renderIncomeExpenseForm() {
         <div class="description-container">
             <div class="description-label-container">
                 <label class="description-label light12" for="description-input">내용</label>
-                <span class="description-length light12">${descriptionLength}/32</span>
+                <span class="description-length light12">${descriptionLength}/${maxDescriptionLength}</span>
             </div>
             <input id="description-input" type="text" class="description-input" maxlength="32"></input>
         </div>
