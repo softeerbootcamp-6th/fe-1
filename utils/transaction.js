@@ -23,7 +23,7 @@ export function groupTransactionsByDate(transactions) {
 // 새로운 거래내역 추가
 export function addNewTransaction(year, month, formData) {
   const newTransaction = {
-    id: transactionsData.length + 1,
+    id: new Date().getTime() + Math.random(),
     date: formData.date,
     amount: parseInt(formData.amount),
     description: formData.content,

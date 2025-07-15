@@ -9,6 +9,7 @@ import {
   monthlyTotalData,
 } from "./utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "./utils/currentDate.js";
+import { renderCalendar } from "./components/calendar.js";
 
 let isIncomeChecked = true;
 let isExpenseChecked = true;
@@ -34,8 +35,8 @@ export function createMainPage() {
 
 export function createCalendarPage() {
   return `
-    <div class="calendar-page">
-      <h2>캘린더</h2>
+    <div class="container">
+      <div class="calendar-container"></div>
     </div>
   `;
 }
@@ -87,6 +88,11 @@ export function renderCalendarPage() {
   const mainContainer = document.getElementById("main-container");
   if (mainContainer) {
     mainContainer.innerHTML = createCalendarPage();
+  }
+
+  const calendarContainer = mainContainer.querySelector(".calendar-container");
+  if (calendarContainer) {
+    renderCalendar(calendarContainer);
   }
 }
 
