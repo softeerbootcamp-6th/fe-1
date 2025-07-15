@@ -10,25 +10,18 @@ export function getFilteredData(dummyData, currentYear, currentMonth) {
 }
 
 // 아이템 삭제 함수
-export function deleteItemFromData(dummyData, itemIndex) {
+export function deleteItemFromData(itemId) {
   if (confirm("정말 삭제하시겠습니까?")) {
-    dummyData.splice(itemIndex, 1);
-    return true;
+    const result = window.accountBookStore.deleteTransaction(itemId);
+    return result !== null;
   }
   return false;
 }
 
 // 삭제 함수 (전역 함수용)
-export function deleteItem(itemIndex) {
-  if (deleteItemFromData(window.dummyData, itemIndex)) {
-    window.renderHistoryList(
-      window.dummyData,
-      window.currentYear,
-      window.currentMonth,
-      window.historyList,
-      window.enterEditMode,
-      window.deleteItem
-    );
+export function deleteItem(itemId) {
+  if (deleteItemFromData(itemId)) {
+    // Store 변경 감지로 자동 업데이트됨
     window.cancelEditMode();
   }
 }
@@ -53,15 +46,19 @@ export function processAmountSign(amount, currentToggleType) {
   return amountNum;
 }
 
-// 새 아이템 생성 (객체 반환)
+// 새 아이템 생성 (Store에 추가)
 export function createNewItem(date, amount, content, method, category) {
-  return {
+  const newItem = {
     date,
     amount,
     content,
     method,
     category,
   };
+
+  window.accountBookStore.addTransaction(newItem);
+  // Store 변경 감지로 자동 업데이트됨
+  return newItem;
 }
 
 // 월 변경 처리 함수
@@ -72,8 +69,11 @@ export function onMonthChanged(year, month) {
   // 헤더와 입력 폼 동기화
   window.updateHeaderDate(year, month);
   window.updateInputDate(year, month, window.dateInput);
+
+  // 최신 데이터로 렌더링
+  const currentData = window.accountBookStore.getTransactions();
   window.renderHistoryList(
-    window.dummyData,
+    currentData,
     year,
     month,
     window.historyList,
@@ -82,8 +82,33 @@ export function onMonthChanged(year, month) {
   );
 
   // 캘린더 업데이트
-  window.initCalendar();
+  if (window.initCalendar) {
+    window.initCalendar();
+  }
 
   // 통계 업데이트
-  window.updateStatistics(year, month);
+  if (window.updateStatistics) {
+    window.updateStatistics(year, month);
+  }
+
+  if (window.initStatistic) {
+    window.initStatistic();
+  }
+}
+
+// 카테고리별 월별 지출금액 반환 함수(Chart 에서 data로 사용할 예정)
+// return: { '2025-01': 12345, '2025-02': 67890, ... }
+export function getMonthlyExpenseByCategory(data, category) {
+  const result = {};
+  data.forEach((item) => {
+    if (item.category === category && item.amount < 0) {
+      const date = new Date(item.date);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const key = `${year}-${month}`;
+      if (!result[key]) result[key] = 0;
+      result[key] += Math.abs(item.amount);
+    }
+  });
+  return result;
 }

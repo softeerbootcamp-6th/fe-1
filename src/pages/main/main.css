@@ -190,6 +190,15 @@
   transition: all 0.2s ease;
 }
 
+.date-input {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.date-input::-webkit-calendar-picker-indicator {
+  opacity: 0; /* 달력 아이콘 숨기기 (크롬) */
+}
+
 .dropdown-selected:hover {
   border-color: #999;
 }

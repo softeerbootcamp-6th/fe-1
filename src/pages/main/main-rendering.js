@@ -6,7 +6,9 @@ function renderMain() {
             <div class="input-cell date">
             <span>일자</span>
             <div class="input-cell-content-wrapper">
-                <input type="date" class="date-input" />
+            <button class="date-btn" onClick="document.getElementById('dateInput').showPicker()">
+              <input type="date" class="date-input" id="dateInput" />
+            </button>
             </div>
             </div>
             <div class="input-cell amount">
