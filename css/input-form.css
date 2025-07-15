@@ -1,6 +1,6 @@
 .input-form {
   position: relative; /* 또는 absolute도 가능 */
-  top: -40px;          /* 헤더를 위로 겹쳐서 올라가게 */
+  top: -42px;          /* 헤더를 위로 겹쳐서 올라가게 */
   margin: 0 auto;
   padding: 10px;
   background: #fff;
@@ -94,7 +94,7 @@
 /* 드롭다운 목록 */
 .dropdown-panel {
   position: absolute;
-  top: 56px;
+  top: 52px;
   left: -22px;
   width: 140%;
   background: white;

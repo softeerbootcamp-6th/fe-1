@@ -5,6 +5,10 @@ export const sharedState = {
   selectedMethod: null,
   selectedCategory: null,
 
+  // 필터링 상태
+  showIncome: true, // 수입 내역 표시 여부
+  showExpense: true, // 지출 내역 표시 여부
+  
   entryId: null, // 현재 수정 중인 항목의 ID
   //결제 금액 요소
   amount : document.getElementById("amount"),

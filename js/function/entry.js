@@ -9,6 +9,7 @@ export function deleteEntries() {
     // 삭제 버튼 또는 내부 요소 클릭 시
     const deleteBtn = e.target.closest(".delete-btn");
     if (!deleteBtn) {
+        //수정
         const entryRow = e.target.closest(".entry-row");
         
         if(!entryRow) return;
@@ -19,7 +20,9 @@ export function deleteEntries() {
         const toggleSign = document.getElementById("toggle-sign");
         if (entry.isIncome) {
             toggleSign.textContent = "+";
+            toggleSign.classList.toggle("minus", !entry.isIncome);
             sharedState.isIncome = true;
+            renderCategoryOptions();
             
         } else {
             toggleSign.textContent = "-";
