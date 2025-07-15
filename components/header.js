@@ -11,12 +11,16 @@ export function createHeader() {
   const headerTemplate = `  
     <header>
       <h1 class="logo serif-24"><a href="/">Wise Wallet</a></h1>
-      <div class="flex-column">
+      <div class="flex-column month-year">
         <div class="currentYear light-14">${getCurrentYear()}</div>
-        <div class="flex-row">
-          <button class="prevMonth light-14"><</button>
+        <div class="flex-between">
+          <button class="prevMonth light-14">
+            <img src="../icons/chevron-left.svg" alt="left" />
+          </button>
           <div class="currentMonth serif-48">${getCurrentMonth()}</div>
-          <button class="nextMonth light-14">></button>
+          <button class="nextMonth light-14">
+            <img src="../icons/chevron-right.svg" alt="right" />
+          </button>
         </div>
         <div class="currentMonthName light-14">${getCurrentMonthName()}</div>
       </div>

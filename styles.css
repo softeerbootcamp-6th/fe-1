@@ -13,7 +13,67 @@
   font-style: normal;
 }
 
-/* Fonts */
+/* Color System */
+:root {
+  /* Grayscale */
+  --grayscale-50: #ffffff;
+  --grayscale-100: #fbfcfd;
+  --grayscale-200: #f1f4f8;
+  --grayscale-300: #777d84;
+  --grayscale-400: #000000;
+
+  /* Pastel Colors */
+  --pastel-almondFrost: #a28878;
+  --pastel-porsche: #e39d5d;
+  --pastel-chenin: #d7ca6b;
+  --pastel-caper: #aacd7e;
+  --pastel-cruise: #bcdfd3;
+  --pastel-onahau: #c5e0eb;
+  --pastel-glacier: #7db7bf;
+  --pastel-seagull: #79b2ca;
+  --pastel-jordyBlue: #73a4d0;
+  --pastel-perano: #a7b9e9;
+  --pastel-perfume: #bda6e1;
+  --pastel-lavenderPink: #f0b0d3;
+  --pastel-amaranth: #e93b5a;
+  --pastel-chestnut: #c04646;
+
+  /* Tokens - nuetral */
+  --nuetral-surface-weak: var(--grayscale-100);
+  --nuetral-surface-default: var(--grayscale-50);
+  --nuetral-surface-point: var(--grayscale-200);
+  --nuetral-text-weak: var(--grayscale-300);
+  --nuetral-text-default: var(--grayscale-400);
+  --nuetral-text-rev-default: var(--grayscale-50);
+  --nuetral-border-default: var(--grayscale-400);
+
+  /* Tokens - Brand */
+  --brand-surface-default: var(--grayscale-50);
+  --brand-text-income: var(--pastel-seagull);
+  --brand-text-expense: var(--pastel-chestnut);
+
+  /* Tokens - Danger */
+  --danger-surface-default: var(--pastel-amaranth);
+  --danger-text-default: var(--pastel-amaranth);
+  --danger-text-rev-default: var(--grayscale-50);
+  --danger-border-default: var(--pastel-amaranth);
+
+  /* Tokens - Color Chips */
+  --colorchip-10: var(--pastel-almondFrost);
+  --colorchip-20: var(--pastel-porsche);
+  --colorchip-30: var(--pastel-chenin);
+  --colorchip-40: var(--pastel-caper);
+  --colorchip-50: var(--pastel-cruise);
+  --colorchip-60: var(--pastel-onahau);
+  --colorchip-70: var(--pastel-glacier);
+  --colorchip-80: var(--pastel-jordyBlue);
+  --colorchip-90: var(--pastel-perano);
+  --colorchip-100: var(--pastel-perfume);
+  --colorchip-110: var(--pastel-lavenderPink);
+  --colorchip-120: var(--pastel-chestnut);
+}
+
+/* Font System */
 
 /* Serif (조선일보명조) */
 .serif-48 {
@@ -122,11 +182,11 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  background: #73a4d0;
+  background: var(--colorchip-80);
   height: 216px;
   width: 100%;
   z-index: -1;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid var(--nuetral-border-default);
 }
 
 /* 정렬 방식 */
@@ -142,20 +202,29 @@ header {
   align-items: center;
 }
 
-.input-bar {
+.flex-between {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-bar {
+  width: 894px;
   height: 112px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  background-color: #fff;
-  border: 1px solid #000;
+  background-color: var(--nuetral-surface-default);
+  border: 1px solid var(--nuetral-border-default);
 }
 
 .container {
   width: 846px;
-  margin: 0 auto;
+  margin: 40px auto 0;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 네비게이션 스타일 */
@@ -177,7 +246,7 @@ a {
 }
 
 .logo > a {
-  color: #000;
+  color: var(--nuetral-text-default);
 }
 
 nav a {
@@ -192,9 +261,295 @@ nav a {
 }
 
 nav a:hover {
-  background: rgba(255, 255, 255, 1);
+  background: var(--nuetral-surface-default);
 }
 
 nav a.active {
-  background: rgba(255, 255, 255, 1);
+  background: var(--nuetral-surface-default);
+}
+
+.month-year {
+  width: 232px;
+  height: 112px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#main-container {
+  width: 100%;
+}
+
+.amount-toggle {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px 0 0;
+}
+
+.input-bar .flex-column {
+  align-items: flex-start;
+}
+
+.input-label {
+  text-align: left;
+}
+
+.input-section {
+  width: 100%;
+  padding: 0 20px;
+  border-right: 1px solid var(--nuetral-border-default);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.px-20 {
+  padding: 0 20px;
+}
+
+select {
+  width: 100%;
+  padding: 0;
+}
+
+select:invalid {
+  color: var(--nuetral-text-weak);
+}
+
+.add-button {
+  margin: 0 20px 0 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: var(--nuetral-text-default);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.add-button:hover {
+  background: var(--nuetral-text-default);
+}
+
+.add-button:active {
+  background: var(--nuetral-text-default);
+}
+
+.add-button img {
+  filter: brightness(0) invert(1);
+  width: 25px;
+  height: 25px;
+}
+
+input[type="date"] {
+  /* 달력 이모지 숨김 */
+  appearance: none;
+  /* border 제거 */
+  border: none;
+  outline: none;
+  /* 클릭 가능하도록 설정 */
+  cursor: pointer;
+}
+
+.text-input {
+  /* border 제거 */
+  border: none;
+  outline: none;
+}
+
+/* 버튼 기본 스타일 초기화 */
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  outline: none;
+  opacity: 0.8;
+}
+
+button:active {
+  opacity: 0.64;
+}
+
+button:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+/* 버튼 내부 이미지 스타일 */
+button img {
+  pointer-events: none;
+  user-select: none;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 4px;
+  margin: 0 0 0 20px;
+}
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  border: 1px solid var(--nuetral-border-default);
+  object-fit: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-icon img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+#transaction-list-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.transaction-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.tbody-border {
+  border-top: 1px solid var(--nuetral-border-default);
+  border-bottom: 1px solid var(--nuetral-border-default);
+}
+
+.td-category {
+  width: 92px;
+  height: 56px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: var(--danger-surface-default);
+}
+
+.category-life {
+  background: var(--colorchip-90);
+}
+.category-shopping {
+  background: var(--colorchip-30);
+}
+.category-health {
+  background: var(--colorchip-50);
+}
+.category-food {
+  background: var(--colorchip-60);
+}
+.category-transportation {
+  background: var(--colorchip-70);
+}
+.category-entertainment {
+  background: var(--pastel-perfume);
+}
+.category-etc {
+  background: var(--pastel-lavenderPink);
+}
+
+.category-salary {
+  background: var(--colorchip-20);
+}
+.category-etc-income {
+  background: var(--colorchip-10);
+}
+.category-etc-expense {
+  background: var(--colorchip-40);
+}
+
+.td-description {
+  width: 400px;
+  height: 56px;
+  padding: 0 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.td-payment-method {
+  width: 104px;
+  height: 56px;
+  padding: 0 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.td-amount {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 58px;
+  padding: 0 16px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.delete-btn {
+  display: none;
+  color: var(--danger-text-default);
+}
+
+.delete-btn-icon {
+  margin: 0 6px;
+  color: var(--nuetral-surface-default);
+  background-color: var(--danger-surface-default);
+  border-radius: 100%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-btn-icon img {
+  filter: brightness(0) invert(1);
+  width: 12px;
+  height: 12px;
+}
+
+tr:hover .delete-btn {
+  display: flex;
+}
+
+tr:hover {
+  background-color: var(--nuetral-surface-point);
 }
