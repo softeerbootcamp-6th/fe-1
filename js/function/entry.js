@@ -18,23 +18,43 @@ export function deleteEntries() {
 
     if (!id) return;
 
-    // DOM에서 삭제
-    entryRow.remove();
-    if( entrySection.querySelectorAll(".entry-row").length === 0) {
-      // entry-row가 하나도 없으면 entry-date-section도 삭제
-      entrySection.remove();
-    }
-    // 배열에서 삭제
-    sharedState.entries = sharedState.entries.filter(entry => entry.id !== id);
-    const date = entrySection.getAttribute("data-date");
-    const yearMonth = date.split("-").slice(0, 2).join("-");
-    deleteEntry(yearMonth,id);
-    // // 서버에 저장
-    // saveEntriesToServer(sharedState.entries)
-    //   .then(() => console.log("Entry deleted and saved"))
-    //   .catch(err => console.error("Failed to save after delete:", err));
 
-    // updateTotalAmounts();
+    const deleteModal = document.querySelector(".delete-modal");
+    deleteModal.classList.remove("delete-hidden");
+
+    const confirmDeleteBtn = document.querySelector(".confirm-delete");
+    const cancelDeleteBtn = document.querySelector(".cancel-delete");
+    confirmDeleteBtn.addEventListener("click", () => {
+      // 삭제 확인 버튼 클릭 시
+      // DOM에서 삭제
+      entryRow.remove();
+      if( entrySection.querySelectorAll(".entry-row").length === 0) {
+      // entry-row가 하나도 없으면 entry-date-section도 삭제
+        entrySection.remove();
+      }
+      // 배열에서 삭제
+      sharedState.entries = sharedState.entries.filter(entry => entry.id !== id);
+      const date = entrySection.getAttribute("data-date");
+        const yearMonth = date.split("-").slice(0, 2).join("-");
+      deleteEntry(yearMonth,id);
+      deleteModal.classList.add("delete-hidden");
+      
+    });
+    cancelDeleteBtn.addEventListener("click", () => {
+      // 삭제 취소 버튼 클릭 시
+      deleteModal.classList.add("delete-hidden");
+    });
+    // DOM에서 삭제
+    // entryRow.remove();
+    // if( entrySection.querySelectorAll(".entry-row").length === 0) {
+    //   // entry-row가 하나도 없으면 entry-date-section도 삭제
+    //   entrySection.remove();
+    // }
+    // // 배열에서 삭제
+    // sharedState.entries = sharedState.entries.filter(entry => entry.id !== id);
+    // const date = entrySection.getAttribute("data-date");
+    // const yearMonth = date.split("-").slice(0, 2).join("-");
+    // deleteEntry(yearMonth,id);
   });
 }
 

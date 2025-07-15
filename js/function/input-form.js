@@ -11,6 +11,15 @@ export function initInputForm() {
   let selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
   let isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
 
+  // 날짜 입력 필드에 오늘 날짜 설정
+  // const dateInput = document.getElementById("date");
+  // const today = new Date();
+  // const year = today.getFullYear();
+  // const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 2자리로 포맷
+  // const day = String(today.getDate()).padStart(2, '0'); // 날짜를 2자리로 포맷
+  // const formattedDate = `${year}-${month}-${day}`;
+  // dateInput.value = formattedDate;
+
   const addBtn = document.getElementById("add-btn");
 
   const display = document.getElementById("dropdown-display");
