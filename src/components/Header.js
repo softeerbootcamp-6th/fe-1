@@ -1,4 +1,4 @@
-import { renderHeader } from "./HeaderView.js";
+import { renderHeader } from "./headerView.js";
 import { addObservers, state } from "../store.js";
 import { addHeaderEvents } from "../controllers/headerController.js";
 

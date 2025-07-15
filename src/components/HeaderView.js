@@ -1,4 +1,5 @@
 import { monthNames } from "../constants/months.js";
+import { state } from "../store.js";
 import { parseYMD } from "../utils/date.js";
 import { renderComponent } from "../utils/render.js";
 
@@ -27,7 +28,8 @@ function createHeaderLeft() {
   `;
 }
 
-function createHeaderCenter(curDate) {
+function createHeaderCenter() {
+  const curDate = state.curDate;
   const { year, month } = parseYMD(curDate);
   return `
     <div class="header-center">
@@ -44,11 +46,9 @@ function createHeaderCenter(curDate) {
     `;
 }
 
-function createHeaderRight(nowNav) {
-  const currentPage = getCurrentPageName();
-
+function createHeaderRight() {
   const menuButtonsHtml = ROUTE_BUTTONS.map((btn) => {
-    const isActive = currentPage === btn.label;
+    const isActive = state.navBarState === btn.label;
     const className =
       "header-menu-icon" + (isActive ? " header-menu-icon-active" : "");
     return `
@@ -72,7 +72,7 @@ function createHeaderRight(nowNav) {
 export function renderHeader(state) {
   let innerHTML = "";
   innerHTML += createHeaderLeft();
-  innerHTML += createHeaderCenter(state.curDate);
+  innerHTML += createHeaderCenter();
   innerHTML += createHeaderRight();
 
   renderComponent({

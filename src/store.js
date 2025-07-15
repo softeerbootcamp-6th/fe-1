@@ -20,6 +20,7 @@ const state = new Proxy(
   {
     items: DummyItems, // transaction list
     curDate: getDateYMD(new Date()),
+    navBarState: "메인",
   },
   {
     set: (target, prop, value) => {
