@@ -49,3 +49,35 @@
     justify-content: space-between;
     font-size: 14px;
 }
+
+.total-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.amount-wrapper {
+    display: flex;
+}
+
+.check-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14px;
+    width: 14px;
+    border: none;
+    border-radius: 100%;
+    background-color: var(--neutral-text-default);
+    margin-inline: 5px;
+}
+
+.check-wrapper img {
+    filter: invert(1);
+}
+
+.amount-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
