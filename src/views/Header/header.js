@@ -1,0 +1,61 @@
+import { createHTML } from "../../utils/dom.js";
+import monthStore from "../../stores/MonthStore.js";
+
+const Header = async ({
+  selectedNav = "home", // 'home', 'calendar', 'chart'
+} = {}) => {
+  const header = await createHTML("/src/views/Header/header.html");
+
+  // 🔹 월 정보
+  const $year = header.querySelector(".header__year");
+  const $month = header.querySelector(".header__month");
+  const $monthText = header.querySelector(".header__month-name");
+
+  const $prevBtn = header.querySelector(".month-button--prev");
+  const $nextBtn = header.querySelector(".month-button--next");
+
+  const renderMonth = (monthInfo) => {
+    $year.textContent = `${monthInfo.year}`;
+    $month.textContent = `${monthInfo.month}`;
+    $monthText.textContent = `${monthInfo.monthText}`;
+  };
+
+  renderMonth(monthStore.getMonthInfo());
+
+  monthStore.subscribe({
+    update: renderMonth,
+  });
+
+  $prevBtn.addEventListener("click", () => {
+    monthStore.goToPreviousMonth();
+  });
+
+  $nextBtn.addEventListener("click", () => {
+    monthStore.goToNextMonth();
+  });
+
+  // 🔹 네비게이션
+  const $headerNav = header.querySelector(".header__nav");
+  const $headerNavItems = $headerNav.querySelectorAll(".header__nav-item");
+
+  $headerNavItems.forEach((item) => {
+    if (item.dataset.id === selectedNav) {
+      item.classList.add("header__nav-item--selected");
+    }
+  });
+
+  $headerNav.addEventListener("click", (e) => {
+    e.preventDefault();
+    const target = e.target.closest("li");
+    if (target) {
+      const { id } = target.dataset;
+      if (window.router) {
+        window.router.navigate(`/${id === "home" ? "" : id}`);
+      }
+    }
+  });
+
+  return header;
+};
+
+export default Header;
