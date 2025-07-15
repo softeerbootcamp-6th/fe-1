@@ -1,8 +1,13 @@
-import { addNewTransaction, updateTransaction } from "../utils/transaction.js";
+import {
+  addNewTransaction,
+  updateTransaction,
+  monthlyTotalData,
+  getTransactionsByYearMonth,
+} from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { renderTransactionList } from "./transactionsList.js";
 import { getFilteringState } from "../pages.js";
-import { renderMonthlyInfo } from "./monthlyInfo.js";
+import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
 
 // 수정 모드 상태 관리
 let isEditMode = false;
@@ -290,10 +295,17 @@ export function renderInputBar(container) {
 
     // 거래내역 목록 업데이트
     const { isIncomeChecked, isExpenseChecked } = getFilteringState();
-    renderMonthlyInfo(
-      document.querySelector("#monthly-info-container"),
+    const monthlyInfoContainer = document.querySelector(
+      "#monthly-info-container"
+    );
+    renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
+    renderTotalCount(
+      monthlyInfoContainer,
       isIncomeChecked,
-      isExpenseChecked
+      isExpenseChecked,
+      monthlyTotalData(
+        getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+      )
     );
     renderTransactionList(isIncomeChecked, isExpenseChecked);
   });

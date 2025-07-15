@@ -1,6 +1,14 @@
-import { renderMonthlyInfo } from "./components/monthlyInfo.js";
+import {
+  renderMonthlyInfo,
+  renderTotalCount,
+} from "./components/monthlyInfo.js";
 import { renderInputBar } from "./components/inputBar.js";
 import { renderTransactionList } from "./components/transactionsList.js";
+import {
+  getTransactionsByYearMonth,
+  monthlyTotalData,
+} from "./utils/transaction.js";
+import { getCurrentYear, getCurrentMonth } from "./utils/currentDate.js";
 
 let isIncomeChecked = true;
 let isExpenseChecked = true;
@@ -62,6 +70,14 @@ export function renderMainPage() {
   );
   if (monthlyInfoContainer) {
     renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
+    renderTotalCount(
+      monthlyInfoContainer,
+      isIncomeChecked,
+      isExpenseChecked,
+      monthlyTotalData(
+        getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+      )
+    );
   }
 
   renderTransactionList(isIncomeChecked, isExpenseChecked);

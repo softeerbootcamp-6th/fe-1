@@ -7,6 +7,47 @@ import { setFilteringState } from "../pages.js";
 import { renderTransactionList } from "./transactionsList.js";
 import { formatMoney } from "../utils/format.js";
 
+// totalCount 텍스트를 생성하는 함수
+function createTotalCountText(isIncomeChecked, isExpenseChecked, monthlyData) {
+  const {
+    monthlyTotalCount,
+    monthlyTotalIncomeCount,
+    monthlyTotalExpenseCount,
+  } = monthlyData;
+
+  if (isIncomeChecked && !isExpenseChecked) {
+    // 수입만 체크된 경우: 수입 내역
+    return `<div class="totalCount">수입 내역 ${monthlyTotalIncomeCount}건</div>`;
+  }
+  if (!isIncomeChecked && isExpenseChecked) {
+    // 지출만 체크된 경우: 지출 내역
+    return `<div class="totalCount">지출 내역 ${monthlyTotalExpenseCount}건</div>`;
+  }
+  if (isIncomeChecked && isExpenseChecked) {
+    // 둘 다 체크된 경우: 전체 내역
+    return `<div class="totalCount">전체 내역 ${monthlyTotalCount}건</div>`;
+  }
+  // 둘 다 체크 해제된 경우: 전체 내역 0건
+  return `<div class="totalCount">전체 내역 0건</div>`;
+}
+
+// totalCount를 렌더링하는 함수
+export function renderTotalCount(
+  container,
+  isIncomeChecked,
+  isExpenseChecked,
+  monthlyData
+) {
+  const totalCountElement = container.querySelector(".totalCount");
+  if (totalCountElement) {
+    totalCountElement.innerHTML = createTotalCountText(
+      isIncomeChecked,
+      isExpenseChecked,
+      monthlyData
+    );
+  }
+}
+
 export function createMonthlyInfo(
   monthlyData,
   isIncomeChecked,
@@ -17,7 +58,7 @@ export function createMonthlyInfo(
 
   const monthlyInfoTemplate = `
     <div class="flex-between light-12">
-      <div class="totalCount">전체 내역 ${monthlyTotalCount}건</div>
+      <div class="totalCount"></div>
       <div class="flex-row">
       <label class="custom-checkbox flex-row">
         <input
@@ -86,15 +127,8 @@ function setupMonthlyInfoEventListeners(container, monthlyData) {
   const expenseIcon = container
     .querySelector("input[name='expense']")
     .parentElement.querySelector(".checkbox-icon");
-  const totalCountElement = container.querySelector(".totalCount");
 
-  if (incomeCheckbox && expenseCheckbox && totalCountElement) {
-    const {
-      monthlyTotalCount,
-      monthlyTotalIncomeCount,
-      monthlyTotalExpenseCount,
-    } = monthlyData;
-
+  if (incomeCheckbox && expenseCheckbox) {
     function updateCheckbox() {
       const isIncomeChecked = incomeCheckbox.checked;
       const isExpenseChecked = expenseCheckbox.checked;
@@ -111,20 +145,13 @@ function setupMonthlyInfoEventListeners(container, monthlyData) {
       setFilteringState(isIncomeChecked, isExpenseChecked);
       renderTransactionList(isIncomeChecked, isExpenseChecked);
 
-      // 체크박스 따라 내역 변경되지 않는 문제 수정 필요
-      if (isIncomeChecked && !isExpenseChecked) {
-        // 수입만 체크된 경우: 수입 내역
-        totalCountElement.textContent = `수입 내역 ${monthlyTotalIncomeCount}건`;
-      } else if (!isIncomeChecked && isExpenseChecked) {
-        // 지출만 체크된 경우: 지출 내역
-        totalCountElement.textContent = `지출 내역 ${monthlyTotalExpenseCount}건`;
-      } else if (isIncomeChecked && isExpenseChecked) {
-        // 둘 다 체크된 경우: 수입 내역 + 지출 내역
-        totalCountElement.textContent = `전체 내역 ${monthlyTotalCount}건`;
-      } else {
-        // 둘 다 체크 해제된 경우: 전체 내역
-        totalCountElement.textContent = `전체 내역 0건`;
-      }
+      // totalCount 업데이트
+      renderTotalCount(
+        container,
+        isIncomeChecked,
+        isExpenseChecked,
+        monthlyData
+      );
     }
 
     // 수입 체크박스 이벤트

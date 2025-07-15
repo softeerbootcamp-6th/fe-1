@@ -3,12 +3,13 @@ import {
   groupTransactionsByDate,
   deleteTransaction,
   getTransactionById,
+  monthlyTotalData,
 } from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { CATEGORY_NAME } from "../constants/categoryName.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
-import { renderMonthlyInfo } from "./monthlyInfo.js";
+import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
 
 // 클릭된 행 상태 관리
 let selectedRowId = null;
@@ -164,11 +165,21 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
         deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
         // 삭제 후 선택 상태 초기화
         selectedRowId = null;
-        //왜 안될까...
+        const monthlyInfoContainer = document.querySelector(
+          "#monthly-info-container"
+        );
         renderMonthlyInfo(
-          document.getElementById("monthly-info-container"),
+          monthlyInfoContainer,
           isIncomeChecked,
           isExpenseChecked
+        );
+        renderTotalCount(
+          monthlyInfoContainer,
+          isIncomeChecked,
+          isExpenseChecked,
+          monthlyTotalData(
+            getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+          )
         );
         renderTransactionList(isIncomeChecked, isExpenseChecked);
       });
