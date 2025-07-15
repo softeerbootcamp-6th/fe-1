@@ -16,7 +16,7 @@ const MONTH_NAMES = [
   "december",
 ];
 
-export class MonthStore extends Subject {
+class MonthStore extends Subject {
   constructor() {
     super();
     this.currentDate = new Date();
@@ -57,3 +57,6 @@ export class MonthStore extends Subject {
     this.notify(this.getMonthInfo());
   }
 }
+
+const monthStore = new MonthStore();
+export default monthStore;
