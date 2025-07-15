@@ -6,6 +6,7 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
+  align-items: center;
 }
 
 header {
@@ -35,4 +36,13 @@ header {
   justify-content: space-between;
   background-color: var(--neutral-surface-default);
   border: 0.0313rem solid var(--neutral-border-default);
+}
+
+.income-expense-list-container {
+  width: 52.875rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 4.375rem;
 }
