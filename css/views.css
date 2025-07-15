@@ -21,6 +21,34 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 캘린더 총액 표시 스타일 */
+.calendar-total-amount {
+    position: relative;
+    top: -32px; 
+    width: 846px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    margin: 10px auto; /* 상하 20px, 좌우 auto로 가운데 정렬 */
+}
+
+.calendar-total-amount-value {
+    display: flex;
+    gap: 20px;
+}
+
+/* 캘린더 뷰에서는 filter-item이 클릭 불가능하도록 설정 */
+#calendar-total-income, #calendar-total-expense {
+    cursor: default;
+    user-select: none;
+}
+
+.calendar-total-amount-text {
+    font-weight: bold;
+}
+
 .calendar-header {
     text-align: center;
 }

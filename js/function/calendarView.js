@@ -4,6 +4,11 @@ import { currentMonth, currentYear } from './header.js';
 
 export function initCalendarView() {
     renderCalendar(currentYear, currentMonth);
+    
+    // 캘린더 초기화 후 총액도 업데이트
+    import('./calendarTotalAmount.js').then(module => {
+        module.updateCalendarTotalAmount();
+    });
 }
 
 // 캘린더 그리기
@@ -95,4 +100,9 @@ function renderCalendar(year, month) {
 // 캘린더 업데이트 함수 - 헤더의 월 변경시 호출
 export function updateCalendarView(year, month) {
     renderCalendar(year, month);
+    
+    // 캘린더 뷰 업데이트 후 총액도 업데이트
+    import('./calendarTotalAmount.js').then(module => {
+        module.updateCalendarTotalAmount();
+    });
 }

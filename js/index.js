@@ -8,6 +8,7 @@ import { initViewSwitcher } from "./function/viewSwitcher.js";
 import { updateCalendarView } from "./function/calendarView.js";
 import { updateStatsView } from "./function/statsView.js";
 import { sharedState } from "./state/state.js";
+import { updateCalendarTotalAmount } from './function/calendarTotalAmount.js';
 
 // 헤더 초기화 (월 선택 기능)
 initCalendar({
@@ -30,3 +31,6 @@ initFilterButtons(); // 필터링 기능 초기화
 
 // 뷰 전환 기능 초기화
 initViewSwitcher();
+
+// Initialize calendar totals
+updateCalendarTotalAmount();

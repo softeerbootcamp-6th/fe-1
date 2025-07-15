@@ -84,6 +84,11 @@ export function deleteEntries() {
       
       // 전체 합계 업데이트
       updateTotalAmounts();
+      
+      // 캘린더 뷰 총액 업데이트
+      import('./calendarTotalAmount.js').then(module => {
+        module.updateCalendarTotalAmount();
+      });
     });
       cancelDeleteBtn.addEventListener("click", () => {
       // 삭제 취소 버튼 클릭 시

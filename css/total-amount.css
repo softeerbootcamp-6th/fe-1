@@ -30,6 +30,10 @@
     opacity: 0.5;
 }
 
+.hidden-income, .hidden-expense {
+    display: none !important;
+}
+
 .checkbox-image {
     margin-right: 8px;
     width: 16px;

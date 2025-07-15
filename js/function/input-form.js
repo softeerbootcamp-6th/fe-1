@@ -54,6 +54,11 @@ export function initInputForm() {
     entries.push(entry);
     addEntryToDOM(entry);
     updateTotalAmounts();
+    
+    // 캘린더 뷰 총액 업데이트
+    import('./calendarTotalAmount.js').then(module => {
+      module.updateCalendarTotalAmount();
+    });
 
     document.getElementById("date").value = "";
     document.getElementById("amount").value = "";
@@ -80,6 +85,11 @@ export function initInputForm() {
       sharedState.entries.push(entry);
     });
     updateTotalAmounts();
+    
+    // 캘린더 뷰 총액 업데이트
+    import('./calendarTotalAmount.js').then(module => {
+      module.updateCalendarTotalAmount();
+    });
   }
   const currentDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
   loadDummyEntries(currentDate);

@@ -36,11 +36,17 @@
             <!-- 캘린더 뷰 -->
             <div id="calendar-view" class="view">
                 <div class="calendar-container">
-                    <!-- <div class="calendar-header">
-                        <h2>월별 캘린더</h2>
-                    </div> -->
                     <div id="calendar-grid" class="calendar-grid"></div>
                 </div>
+                <div class="calendar-total-amount">
+                    <div class="calendar-total-amount-value" id="calendar-total-amount-value">
+                        <div id="calendar-total-income" class="filter-item active" data-type="income">수입: 0원</div>
+                        <div id="calendar-total-expense" class="filter-item active" data-type="expense">지출: 0원</div>
+                    </div>
+                    <div class="calendar-total-amount-text" id="calendar-total-amount-text">총합: 0원</div>
+                </div>
+                
+                
             </div>
 
             <!-- 통계 뷰 -->
