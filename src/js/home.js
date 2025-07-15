@@ -1,114 +1,38 @@
-import transactionHistory from "../models/subjects/TransactionHistory.js";
-import { TransactionsHeaderView } from "../models/observers/TransactionsHeaderView.js";
-import { TransactionsInfo } from "../models/observers/TransactionsInfo.js";
 import monthStore from "../stores/MonthStore.js";
-
-import {
-  CheckBox,
-  CategoryTag,
-  DailyHistory,
-  Select,
-} from "../components/index.js";
+import transactionState from "../models/subjects/TransactionState.js";
+import { TransactionsView } from "../views/Transactions/TransactionsView.js";
+import { TransactionsInfo } from "../models/observers/TransactionsInfo.js";
 import { initInputForm } from "../controllers/InputFormController.js";
 
-const renderFilter = () => {
-  const filterContainer = document.getElementById("filter-container");
-  const incomeCheckBox = CheckBox({
-    id: "income-checkbox",
-    checked: true,
-    label: "수입 2,113,123",
-    onChange: renderHistory,
-  });
-  const expenseCheckBox = CheckBox({
-    id: "expense-checkbox",
-    checked: true,
-    label: "지출 2,113,123",
-    onChange: renderHistory,
-  });
-
-  filterContainer.append(incomeCheckBox, expenseCheckBox);
-};
-
-export const renderHistory = () => {
-  const isIncomeChecked = document.getElementById("income-checkbox").checked;
-  const isExpenseChecked = document.getElementById("expense-checkbox").checked;
-
-  const { year, month } = monthStore.getMonthInfo();
-  const transactionsData = JSON.parse(localStorage.getItem("transactionsData"));
-  const currentMonthData = transactionsData[`${year}-${month}`] || [];
-
-  const filteredData = currentMonthData.filter((item) => {
-    if (isIncomeChecked && item.type === "income") {
-      return true;
-    }
-    if (isExpenseChecked && item.type === "expense") {
-      return true;
-    }
-    return false;
-  });
-
-  const dailyGroupedData = filteredData.reduce((acc, curr) => {
-    const date = curr.date.split("-")[2];
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push(curr);
-    return acc;
-  }, {});
-
-  const sortedDailyGroupedData = Object.keys(dailyGroupedData)
-    .sort((a, b) => Number(b) - Number(a))
-    .map((date) => ({
-      date,
-      transactions: dailyGroupedData[date],
-    }));
-
-  const historyCount = document.querySelector(".history__header-count");
-  historyCount.textContent = `${sortedDailyGroupedData.length}건`;
-  const historyList = document.querySelector(".history__list");
-  historyList.innerHTML = "";
-  sortedDailyGroupedData.map((item) => {
-    const historyItem = DailyHistory({
-      date: `${year}-${month}-${item.date}`,
-      items: item.transactions,
-    });
-    historyList.appendChild(historyItem);
-  });
-
-  const totalIncome = currentMonthData.reduce((acc, curr) => {
-    if (curr.type === "income") {
-      return acc + curr.amount;
-    }
-    return acc;
-  }, 0);
-  const totalExpense = currentMonthData.reduce((acc, curr) => {
-    if (curr.type === "expense") {
-      return acc + curr.amount;
-    }
-    return acc;
-  }, 0);
-
-  const incomeLabel = document.querySelector(".income-checkbox-label");
-  incomeLabel.textContent = `수입 ${totalIncome.toLocaleString()}원`;
-  const expenseLabel = document.querySelector(".expense-checkbox-label");
-  expenseLabel.textContent = `지출 ${totalExpense.toLocaleString()}원`;
+const toggleFilter = (type) => {
+  const filterState = transactionState.getFilterState();
+  filterState[type] = !filterState[type];
+  transactionState.setFilterState(filterState);
 };
 
 const renderTransactionsHeader = () => {
   const { year, month } = monthStore.getMonthInfo();
 
-  const transactionsHeaderView = new TransactionsHeaderView();
-  const transactionsInfo = new TransactionsInfo(transactionsHeaderView);
+  // Observer들 초기화
+  const transactionsView = new TransactionsView();
+  const transactionsInfo = new TransactionsInfo(transactionsView);
 
-  transactionHistory.subscribe(transactionsInfo);
-  transactionHistory.initialize(`${year}-${month}`);
+  transactionState.subscribe(transactionsInfo);
+  transactionState.initialize(`${year}-${month}`);
+
+  const $transactions = document.querySelector(".transactions");
+  $transactions.addEventListener("click", (e) => {
+    const checkboxContainer = e.target.closest(".checkbox-container");
+    if (checkboxContainer) {
+      const type = checkboxContainer.dataset.type;
+      toggleFilter(type);
+    }
+  });
 };
 
 const init = () => {
   renderTransactionsHeader();
   initInputForm();
-  // renderFilter();
-  // renderHistory();
 };
 
 init();

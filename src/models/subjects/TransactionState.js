@@ -1,10 +1,13 @@
-// models/TransactionHistory.js
 import Subject from "../../utils/observers/Subject.js";
 
-class TransactionHistory extends Subject {
+class TransactionState extends Subject {
   constructor() {
     super();
     this.transactions = [];
+    this.filterState = {
+      filterIncome: true,
+      filterExpense: true,
+    };
   }
 
   initialize(month) {
@@ -12,13 +15,19 @@ class TransactionHistory extends Subject {
       localStorage.getItem("transactionsData") || {}
     );
     this.transactions = transactionsData[month] || [];
-    this.notify(this.transactions);
+    this.notify({
+      transactions: this.transactions,
+      filterState: this.filterState,
+    });
   }
 
   addTransaction(tx) {
     this.transactions.push(tx);
     this.save();
-    this.notify(this.transactions);
+    this.notify({
+      transactions: this.transactions,
+      filterState: this.filterState,
+    });
   }
 
   updateTransaction(id, newData) {
@@ -26,14 +35,20 @@ class TransactionHistory extends Subject {
     if (index !== -1) {
       this.transactions[index] = { ...this.transactions[index], ...newData };
       this.save();
-      this.notify(this.transactions);
+      this.notify({
+        transactions: this.transactions,
+        filterState: this.filterState,
+      });
     }
   }
 
   deleteTransaction(id) {
     this.transactions = this.transactions.filter((t) => t.id !== id);
     this.save();
-    this.notify();
+    this.notify({
+      transactions: this.transactions,
+      filterState: this.filterState,
+    });
   }
 
   save() {
@@ -51,7 +66,19 @@ class TransactionHistory extends Subject {
   getAll() {
     return this.transactions;
   }
+
+  getFilterState() {
+    return this.filterState;
+  }
+
+  setFilterState(state) {
+    this.filterState = state;
+    this.notify({
+      transactions: this.transactions,
+      filterState: this.filterState,
+    });
+  }
 }
 
-const transactionHistory = new TransactionHistory();
-export default transactionHistory;
+const transactionState = new TransactionState();
+export default transactionState;
