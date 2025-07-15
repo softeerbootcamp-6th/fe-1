@@ -60,7 +60,7 @@ export function createMonthlyInfo(
     <div class="flex-between light-12">
       <div class="totalCount"></div>
       <div class="flex-row">
-      <label class="custom-checkbox flex-row">
+      <label class="custom-checkbox income-checkbox-label flex-row">
         <input
           type="checkbox"
           name="income"
@@ -77,7 +77,7 @@ export function createMonthlyInfo(
         </span>
         <div>수입 ${formatMoney(monthlyTotalIncome)}</div>
       </label>
-      <label class="custom-checkbox flex-row">
+      <label class="custom-checkbox expense-checkbox-label flex-row">
         <input
           type="checkbox"
           name="expense"
@@ -119,14 +119,19 @@ export function renderMonthlyInfo(
 }
 
 function setupMonthlyInfoEventListeners(container, monthlyData) {
-  const incomeCheckbox = container.querySelector("input[name='income']");
-  const expenseCheckbox = container.querySelector("input[name='expense']");
-  const incomeIcon = container
-    .querySelector("input[name='income']")
-    .parentElement.querySelector(".checkbox-icon");
-  const expenseIcon = container
-    .querySelector("input[name='expense']")
-    .parentElement.querySelector(".checkbox-icon");
+  const incomeCheckboxLabel = container.querySelector(".income-checkbox-label");
+  const expenseCheckboxLabel = container.querySelector(
+    ".expense-checkbox-label"
+  );
+  const incomeIcon = incomeCheckboxLabel.querySelector(".checkbox-icon");
+  const expenseIcon = expenseCheckboxLabel.querySelector(".checkbox-icon");
+
+  const incomeCheckbox = incomeCheckboxLabel.querySelector(
+    "input[name='income']"
+  );
+  const expenseCheckbox = expenseCheckboxLabel.querySelector(
+    "input[name='expense']"
+  );
 
   if (incomeCheckbox && expenseCheckbox) {
     function updateCheckbox() {
