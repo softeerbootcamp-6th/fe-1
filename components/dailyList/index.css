@@ -10,8 +10,8 @@
 }
 
 .daliy-line-wrapper {
-    border-top: 1px solid #000000;
-    border-bottom: 1px solid #000000;
+    border-top: 1px solid var(--grayscale-400);
+    border-bottom: 1px solid var(--grayscale-400);
 }
 
 .category-info {
@@ -48,4 +48,52 @@
     display: flex;
     justify-content: space-between;
     font-size: 14px;
+}
+
+.total-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 846px;
+}
+
+.amount-wrapper {
+    display: flex;
+}
+
+.check-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 14px;
+    width: 14px;
+    border: none;
+    border-radius: 100%;
+    margin-inline: 5px;
+}
+
+.amount-btn-active {
+    background-color: var(--neutral-text-default);
+}
+
+.check-wrapper img {
+    filter: invert(1);
+}
+
+.amount-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-red {
+    color: var(--brand-text-expense);
+}
+
+.text-blue {
+    color: var(--brand-text-income);
+}
+
+.amount-line {
+    margin-left: 10px;
 }
