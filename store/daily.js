@@ -12,12 +12,14 @@ export const dailyData = {
     },
 
     uploadDailyData(data) {
-        const { amount, category, date, description, payment } = data;
+        const { amount, category, date, description, payment, sign } = data;
+        let numberAmount = Number(amount.replace(/,/g, ''));
+        if (!sign) numberAmount *= -1;
         const newItems = {
             category,
             description,
             payment,
-            amount: Number(amount.replace(/,/g, '')),
+            amount: numberAmount,
             createAt: new Date().toISOString(),
         };
 
