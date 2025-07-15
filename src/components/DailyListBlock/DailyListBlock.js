@@ -1,4 +1,5 @@
 import TagBox from "../TagBox/TagBox.js";
+import { formatAmount } from "../../utils/format.js";
 
 function DailyListBlock({ data }) {
     const handleBlockClick = () => {
@@ -17,12 +18,12 @@ function DailyListBlock({ data }) {
                 ${TagBox({ value: data.category }).element}
                 <span class="content-row__info">${data.description}</span>
                 <span class="content-row__method">${data.method}</span>
-                <span class="content-row__amount">${data.amount}</span>
+                <span class="content-row__amount">${formatAmount(data.amount)}원</span>
             </div>
         `
         ,
         init: () => {
-            console.log('블록 파라미터:', data);
+            // console.log('블록 파라미터:', data);
         }
     };
 
