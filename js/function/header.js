@@ -20,22 +20,7 @@ export function initCalendar({ onUpdate }) {
     // onUpdate(currentYear, currentMonth);
   }
 
-  async function clearWebPage(currentMonth, currentYear) {
-    const entryList = document.getElementById("entry-list");
-    entryList.innerHTML = ""; // 기존 항목들을 모두 제거
-    sharedState.entries = []; // sharedState의 entries 배열 초기화
-    const currentDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
-    // 서버에서 해당 월의 항목들을 불러오는
-    const serverData = await loadEntriesFromServer(currentDate);
-    console.log("Server data:", serverData);
-    
-    serverData.forEach(entry => {
-      getDateFromServer(entry);
-      sharedState.entries.push(entry); // sharedState에 항목 추가
-    }
-    );
-    
-  }
+ 
 
   document.getElementById("prev-month").addEventListener("click", () => {
     currentMonth--;
@@ -59,3 +44,19 @@ export function initCalendar({ onUpdate }) {
 
   updateCalendar(); // 초기 렌더링
 }
+
+export async function clearWebPage(currentMonth, currentYear) {
+    const entryList = document.getElementById("entry-list");
+    entryList.innerHTML = ""; // 기존 항목들을 모두 제거
+    sharedState.entries = []; // sharedState의 entries 배열 초기화
+    const currentDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
+    // 서버에서 해당 월의 항목들을 불러오는
+    const serverData = await loadEntriesFromServer(currentDate);
+    console.log("Server data:", serverData);
+    
+    serverData.forEach(entry => {
+      getDateFromServer(entry);
+      sharedState.entries.push(entry); // sharedState에 항목 추가
+    }
+    );
+  }

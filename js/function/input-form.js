@@ -2,23 +2,14 @@
 import { updateTotalAmounts } from "./totalAmount.js";
 import { sharedState } from "../state/state.js";
 import { renderCategoryOptions } from "./categoryRender.js";
-import { saveEntriesToServer, loadEntriesFromServer } from "../api/api.js";
-import { currentMonth, currentYear } from "./header.js";
+import { updateDataToServer, saveEntriesToServer, loadEntriesFromServer } from "../api/api.js";
+import { clearWebPage, currentMonth, currentYear } from "./header.js";
 import { getDateFromServer } from "./entry.js";
 
 export function initInputForm() {
   let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
   let selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
   let isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
-
-  // 날짜 입력 필드에 오늘 날짜 설정
-  // const dateInput = document.getElementById("date");
-  // const today = new Date();
-  // const year = today.getFullYear();
-  // const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더하고 2자리로 포맷
-  // const day = String(today.getDate()).padStart(2, '0'); // 날짜를 2자리로 포맷
-  // const formattedDate = `${year}-${month}-${day}`;
-  // dateInput.value = formattedDate;
 
   const addBtn = document.getElementById("add-btn");
 
@@ -27,74 +18,14 @@ export function initInputForm() {
 
   const entries = sharedState.entries; // 서버에서 가져온 항목들을 저장할 배열
 
-  // function addEntryToDOM(entry) {
-  //   const entryList = document.getElementById("entry-list");
-
-  //   const dateObj = new Date(entry.date);
-  //   const month = dateObj.getMonth() + 1;
-  //   const day = dateObj.getDate();
-  //   const weekday = ['일', '월', '화', '수', '목', '금', '토'][dateObj.getDay()];
-  //   const dateLabel = `${month}월 ${day}일 ${weekday}요일`;
-
-  //   let dateSection = entryList.querySelector(`[data-date="${entry.date}"]`);
-  //   if (!dateSection) {
-  //     dateSection = document.createElement("div");
-  //     dateSection.className = "entry-date-section";
-  //     dateSection.setAttribute("data-date", entry.date);
-  //     dateSection.innerHTML = `
-  //       <div class="entry-sort">
-  //         <div>${dateLabel}</div>
-  //         <div class="entry-amount-section">
-  //           <div>수입</div>
-  //           ${entry.amount}
-  //           <div>지출</div>
-  //           ${entry.amount}
-  //         </div>
-  //       </div>
-  //       <div class="entry-items"></div>
-  //     `;
-  //     entryList.insertBefore(dateSection, entryList.firstChild);
-  //   }
-
-  //   const entryItems = dateSection.querySelector(".entry-items");
-  //   const item = document.createElement("div");
-  //   item.className = "entry-row";
-    
-  //   // 수입이면 + 기호, 지출이면 - 기호 표시
-  //   const sign = entry.isIncome ? '' : '-';
-  //   const amountClass = entry.isIncome ? 'income-amount' : 'expense-amount';
-
-  //   const category = {
-  //     "생활": "--colorchip-90",
-  //     "식비": "--colorchip-60",
-  //     "교통": "--colorchip-70",
-  //     "쇼핑/뷰티": "--colorchip-30",
-  //     "의료/건강": "--colorchip-50",
-  //     "문화/여가": "--colorchip-100",
-  //     미분류: "--colorchip-110",
-  //     월급: "--colorchip-20",
-  //     용돈: "--colorchip-40",
-  //     기타수입: "--colorchip-10"
-  //   }
-
-  //   item.setAttribute("data-id", entry.id);
-    
-  //   item.innerHTML = `
-  //     <div class="entry-category ${category[entry.category]}">${entry.category}</div>
-  //     <div class="entry-desc">${entry.desc}</div>
-  //     <div class="entry-method">${entry.method}</div>
-  //     <div class="entry-amount ${amountClass}">${sign}${entry.amount.toLocaleString()}원</div>
-  //     <div class="delete-btn">
-  //       <div class="delete-icon-wrapper">
-  //       <img src="../../assets/icons/delete-botton.svg" alt="삭제" class="delete-icon"></img>
-  //       삭제
-  //       </div>
-  //     </div>
-  //   `;
-  //   entryItems.appendChild(item);
-  // }
 
   addBtn.addEventListener("click", () => {
+    let id = null;
+    if(sharedState.entryId){
+      id = sharedState.entryId; // 수정 중인 항목의 ID를 가져옴
+      sharedState.entryId = null; // 수정 후 ID 초기화
+    }
+    
     const date = document.getElementById("date").value;
     const rawAmount = document.getElementById("amount").value.replace(/,/g, "");
     const amount = Number(rawAmount);
@@ -108,14 +39,17 @@ export function initInputForm() {
       alert("모든 항목을 정확히 입력해주세요!");
       return;
     }
-
+    if(id === null) {
+      id = Date.now() + amount; // 수정 중이 아닐 때 ID 생성
+    }
     const entry = { 
       date, 
       amount, 
       desc, 
       method: selectedMethod, 
       category: selectedCategory,
-      isIncome: isIncome // 수입/지출 여부 저장
+      isIncome: isIncome, // 수입/지출 여부 저장
+      id: id
     };
     entries.push(entry);
     addEntryToDOM(entry);
@@ -155,11 +89,30 @@ export function initInputForm() {
   renderCategoryOptions();
 }
 
-
+function isExistingEntry(entry){
+  // 이미 존재하는 항목인지 확인하는 함수
+  return sharedState.entries.some(existingEntry => existingEntry.id === entry.id);
+}
 
 
 //// 항목을 DOM에 추가하는 함수
 export async function addEntryToDOM(entry) {
+  if (isExistingEntry(entry)) {
+    // 이미 존재하는 항목이면 업데이트만 수행
+    const existingItem = document.querySelector(`.entry-row[data-id="${entry.id}"]`);
+    console.log("Existing item:", existingItem);
+    if (existingItem) {
+      existingItem.querySelector(".entry-category").textContent = entry.category;
+      //카테고리 색상 업데이트
+
+      const date = new Date(entry.date);
+      const yearMonth = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
+      updateDataToServer(yearMonth, entry);
+      location.reload(); // 페이지 새로고침
+      return;
+    }
+  }
+
     const entryList = document.getElementById("entry-list");
 
     const dateObj = new Date(entry.date);
@@ -214,6 +167,8 @@ export async function addEntryToDOM(entry) {
       용돈: "--colorchip-40",
       기타수입: "--colorchip-10"
     }
+
+    
 
     item.setAttribute("data-id", entry.id);
     

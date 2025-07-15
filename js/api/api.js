@@ -22,3 +22,11 @@ export async function deleteEntry(month, id) {
     headers: { 'Content-Type': 'application/json' }
   });
 }
+
+export async function updateDataToServer(month, entry) {
+  await fetch(`http://localhost:3000/api/entry/${month}/${entry.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(entry)
+  });
+}

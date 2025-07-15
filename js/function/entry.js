@@ -1,5 +1,6 @@
 import { deleteEntry } from "../api/api.js";
 import { sharedState } from "../state/state.js";
+import { renderCategoryOptions } from "./categoryRender.js";
 
 export function deleteEntries() {
 
@@ -7,7 +8,42 @@ export function deleteEntries() {
   document.getElementById("entry-list").addEventListener("click", (e) => {
     // 삭제 버튼 또는 내부 요소 클릭 시
     const deleteBtn = e.target.closest(".delete-btn");
-    if (!deleteBtn) return;
+    if (!deleteBtn) {
+        const entryRow = e.target.closest(".entry-row");
+        
+        if(!entryRow) return;
+        const id = Number(entryRow.dataset.id);
+        const entry = sharedState.entries.find(entry => entry.id === id);
+
+
+        const toggleSign = document.getElementById("toggle-sign");
+        if (entry.isIncome) {
+            toggleSign.textContent = "+";
+            sharedState.isIncome = true;
+            
+        } else {
+            toggleSign.textContent = "-";
+            toggleSign.classList.toggle("minus", !entry.isIncome);
+            sharedState.isIncome = false;
+            renderCategoryOptions();
+        }
+
+        // 결제수단 표시
+        document.getElementById("dropdown-display").textContent = entry.method;
+        sharedState.selectedMethod = entry.method;
+
+        // 카테고리 표시
+        document.getElementById("category-display").textContent = entry.category;
+        sharedState.selectedCategory = entry.category;
+
+        document.getElementById("date").value = entry.date;
+        document.getElementById("amount").value = entry.amount.toLocaleString();
+        document.getElementById("desc").value = entry.desc;
+
+        sharedState.entryId = entry.id; // sharedState에 entryId 저장
+        
+        return;
+    }
 
     const entrySection = deleteBtn.closest(".entry-date-section");
     if (!entrySection) return;
@@ -40,21 +76,10 @@ export function deleteEntries() {
       deleteModal.classList.add("delete-hidden");
       
     });
-    cancelDeleteBtn.addEventListener("click", () => {
+      cancelDeleteBtn.addEventListener("click", () => {
       // 삭제 취소 버튼 클릭 시
       deleteModal.classList.add("delete-hidden");
     });
-    // DOM에서 삭제
-    // entryRow.remove();
-    // if( entrySection.querySelectorAll(".entry-row").length === 0) {
-    //   // entry-row가 하나도 없으면 entry-date-section도 삭제
-    //   entrySection.remove();
-    // }
-    // // 배열에서 삭제
-    // sharedState.entries = sharedState.entries.filter(entry => entry.id !== id);
-    // const date = entrySection.getAttribute("data-date");
-    // const yearMonth = date.split("-").slice(0, 2).join("-");
-    // deleteEntry(yearMonth,id);
   });
 }
 
