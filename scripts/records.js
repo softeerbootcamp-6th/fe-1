@@ -87,7 +87,7 @@ export const renderRecordByDate = ({ date, items }) => {
         <div class="record-date">${formattedDate}</div>
         <div class="record-amount">${incomeContent}  ${outcomeContent}</div>
       </div> ${recordsHTML}
-    <div>
+    </div>
   `;
 };
 
