@@ -1,7 +1,3 @@
-import createDaily from '../components/dailyList/daily.js';
-import createDaliyList from '../components/dailyList/dailyList.js';
-import { formatDateToKorean } from '../utils.js';
-
 export const dailyData = {
     data: [],
     async init() {
@@ -39,37 +35,3 @@ export const dailyData = {
         });
     },
 };
-
-dailyData.init();
-
-function updateDailyView(data) {
-    const $dailyContainer = document.querySelector('.daily-list-wrapper'); // 여긴 ID 맞게 수정
-
-    const { date } = data;
-    const dateToKorean = formatDateToKorean(date);
-
-    let $dateSection = [...$dailyContainer.children].find(
-        (section) =>
-            section.querySelector('.date-info')?.textContent === dateToKorean,
-    );
-
-    if ($dateSection) {
-        const $newItem = createDaily(data);
-        const $list = $dateSection.querySelector('.daliy-line-wrapper');
-        $list.appendChild($newItem);
-    } else {
-        const listData = {
-            date: data.date,
-            items: [
-                {
-                    amount: data.amount,
-                    category: data.category,
-                    description: data.description,
-                    payment: data.payment,
-                },
-            ],
-        };
-        const $newItemList = createDaliyList(listData);
-        $dailyContainer.appendChild($newItemList);
-    }
-}
