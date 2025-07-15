@@ -1,0 +1,105 @@
+.header-container {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  height: 112px;
+}
+
+.header-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 2rem;
+  font-family: serif;
+  font-weight: 400;
+}
+
+.header-center {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-year {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.header-calendar-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-arrow {
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 16px;
+  padding: 0 8px;
+  background-size: contain;
+}
+
+.header-arrow-left {
+  background-image: url("../assets/icons/chevron-left.svg");
+}
+.header-arrow-right {
+  background-image: url("../assets/icons/chevron-right.svg");
+}
+.header-month {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 0 8px;
+  line-height: 1;
+}
+
+.header-month-label {
+  font-size: 1.1rem;
+  margin-top: 2px;
+}
+
+.header-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  background-size: contain;
+}
+
+.header-menu-item-active .header-menu-icon,
+.header-menu-icon-active {
+  background: var(--neutral-surface-default);
+}

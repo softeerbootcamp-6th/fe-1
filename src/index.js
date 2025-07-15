@@ -1,11 +1,23 @@
-import { initTransactionForm } from "./components/TransactionForm.js";
 import { initHeader } from "./components/Header.js";
-import { initTransactionList } from "./components/TransactionList.js";
+import { createMainLayout } from "./pages/main.js";
+import { createCalendarPage } from "./pages/calendar.js";
+import { createChartPage } from "./pages/chart.js";
 
-function createMainLayout() {
-  initHeader();
-  initTransactionForm();
-  initTransactionList();
+function renderContentLayout() {
+  const hash = location.hash.replace("#", "");
+  const main = document.getElementById("main");
+
+  const pageMap = {
+    calendar: createCalendarPage,
+    chart: createChartPage,
+    "": createMainLayout, // 기본 경로
+  };
+
+  const renderPage = pageMap[hash] || createMainLayout;
+  renderPage(main);
 }
 
-createMainLayout();
+initHeader();
+renderContentLayout();
+
+window.addEventListener("hashchange", renderContentLayout);
