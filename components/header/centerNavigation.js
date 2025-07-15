@@ -35,11 +35,11 @@ export default function createCenterNavigation() {
 
     $minusBtn.addEventListener('click', () => {
         dateData.decreaseMonth();
-        dailyViewChange();
+        dailyViewChange(dateData.year, dateData.month);
     });
     $plusBtn.addEventListener('click', () => {
         dateData.increaseMonth();
-        dailyViewChange();
+        dailyViewChange(dateData.year, dateData.month);
     });
 
     return $centerNavigation;

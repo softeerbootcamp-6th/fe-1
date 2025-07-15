@@ -30,7 +30,6 @@ export const dailyData = {
         } else {
             this.data = [{ date: date, items: [newItems] }, ...this.data];
         }
-        updateDailyView(data);
     },
 
     getDailyByYearAndMonth(year, month) {

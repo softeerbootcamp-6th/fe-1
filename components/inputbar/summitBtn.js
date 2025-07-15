@@ -1,6 +1,8 @@
 import { createElement } from '../../utils.js';
 import formData from '../../store/formData.js';
 import { dailyData } from '../../store/daily.js';
+import dateData from '../../store/date.js';
+import { dailyViewChange } from '../dailyList/index.js';
 
 export default function createSummitButton() {
     const summitBtnInnerHtml = `
@@ -25,6 +27,11 @@ export default function createSummitButton() {
     $btn.addEventListener('click', () => {
         if (!formData.isValid) return;
         dailyData.uploadDailyData(formData);
+        const { year: nowYear, month: nowMonth } = dateData;
+        const [year, month] = formData.date.split('-');
+
+        if (nowYear == year && month == nowMonth)
+            dailyViewChange(nowYear, nowMonth);
     });
 
     formData.subscribeIsValid((isValid) => {
