@@ -1,7 +1,11 @@
 export const ListFilter = {
-  groupTransactionsByMonth: (transactions, month) => {
+  groupTransactionsByMonth: (transactions, date) => {
     return transactions
-      .filter((transaction) => transaction.date.getMonth() + 1 === month)
+      .filter(
+        (transaction) =>
+          transaction.date.getMonth() + 1 === date.month &&
+          transaction.date.getFullYear() === date.year
+      )
       .sort((a, b) => b.date - a.date)
       .map((item) => ({
         ...item,

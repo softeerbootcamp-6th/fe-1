@@ -22,7 +22,10 @@ export const FormChecker = () => {
         formStore.data
       );
       if (isFullCorrectType) {
-        listStore.dispatch("addListItem", formStore.data);
+        listStore.dispatch("addListItem", {
+          ...formStore.data,
+          date: new Date(formStore.data.date),
+        });
       } else {
         console.log("no");
       }

@@ -13,7 +13,7 @@ export const DateForm = (input) => {
 
   formStore.subscribe((newData) => {
     const dateInput = dateForm.querySelector("#date");
-    dateInput.value = newData.date.toISOString().slice(0, 10);
+    dateInput.value = new Date(newData.date).toISOString().slice(0, 10);
   });
   return dateForm;
 };

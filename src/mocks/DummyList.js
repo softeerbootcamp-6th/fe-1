@@ -175,4 +175,12 @@ export const DummyList = [
     payment: "신용카드",
     category: "문화/여가",
   },
+  {
+    date: new Date("2025-07-17T20:00:00"),
+    moneyType: "expense",
+    money: 18000,
+    content: "음악 스트리밍 구독",
+    payment: "신용카드",
+    category: "문화/여가",
+  },
 ];

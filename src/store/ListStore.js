@@ -1,5 +1,6 @@
 import { DummyList } from "../mocks/DummyList.js";
 import { ListFilter } from "../utils/ListFilter.js";
+import { dateStore } from "./DateStore.js";
 import { Store } from "./store.js";
 
 class ListStore extends Store {
@@ -46,6 +47,8 @@ class ListStore extends Store {
   }
 }
 
-//month에 전역적으로 관리하는 값 전달 필요
-const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, 8);
+const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, {
+  year: dateStore.data.year,
+  month: dateStore.data.month,
+});
 export const listStore = new ListStore(groupedListByMonth);
