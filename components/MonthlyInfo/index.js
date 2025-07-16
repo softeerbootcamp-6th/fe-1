@@ -1,5 +1,5 @@
 import createDailyList from '../DailyInfo/List/index.js';
-import { monthlyInfoDummyData } from '../../lib/datas/monthlyInfoDummyData.js';
+import paymentDataStore from '../../store/paymentData.js';
 
 export default function createMonthlyInfo() {
     const monthlyInfo = document.createElement('div');
@@ -45,7 +45,7 @@ export default function createMonthlyInfo() {
         '.daily-list-container'
     );
 
-    monthlyInfoDummyData.map((data) => {
+    paymentDataStore.paymentData.map((data) => {
         const dailyList = createDailyList(data);
         dailyListContainer.appendChild(dailyList);
     });
