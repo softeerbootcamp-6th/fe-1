@@ -33,6 +33,33 @@ export class Store {
                 this.state = {...this.state, entries: this.state.entries.filter(e => e.id !== payload.id)};
                 break;
 
+            // store에서 엔트리를 업데이트하는 액션
+            case 'ENTRY/UPDATE': {
+                // 깊은 복사를 사용한 항목 업데이트
+                const updatedEntries = this.state.entries.map(entry => {
+                    if (entry.id !== payload.id) return entry;
+                    // JSON 직렬화/역직렬화를 통한 깊은 복사
+                    return JSON.parse(JSON.stringify(payload));
+                });
+
+                // 상태 업데이트
+                this.state = {...this.state, entries: updatedEntries};
+                break;
+            }
+
+            // store에서 엔트리를 선택하는 액션
+            case 'ENTRY/SELECT':
+                const entry = {...payload};
+                // 선택된 엔트리를 상태에 저장
+                this.state = {...this.state, selectedEntry: entry};
+                break;
+
+            // store에서 선택된 엔트리를 초기화하는 액션
+            case 'ENTRY/SELECT/CLEAR':
+                // 선택된 엔트리를 null로 초기화
+                this.state = {...this.state, selectedEntry: null};
+                break;
+
             // store의 날짜를 변경하는 액션
             case 'DATE/SET':
                 // payload에 있는 연도와 월을 기반으로 상태를 업데이트
