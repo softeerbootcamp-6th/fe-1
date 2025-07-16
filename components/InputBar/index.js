@@ -1,5 +1,6 @@
-import { extractNumbersOnly } from '../../lib/utils.js';
+import { extractNumbersOnly, getUUID } from '../../lib/utils.js';
 import formStore from '../../store/form.js';
+import paymentDataStore from '../../store/paymentData.js';
 
 export default function createInputBar(formItemsConfig) {
     if (!formItemsConfig) {
@@ -64,6 +65,7 @@ function handleFormSubmit(event) {
         return;
     }
 
+    paymentDataStore.addPaymentData(formData);
     resetForm(event.target);
 }
 
@@ -74,11 +76,14 @@ function collectFormData(form) {
     const amount = isIncomeMode ? formAmount : -formAmount;
 
     return {
-        date: formData.get('date') || new Date().toISOString().split('T')[0],
-        amount: amount,
+        id: getUUID(),
+        category: formData.get('category') || '',
         description: formData.get('description') || '',
         paymentMethod: formData.get('paymentMethod') || '',
-        category: formData.get('category') || '',
+        amount: amount,
+        paidAt: formData.get('date') || new Date().toISOString().split('T')[0],
+        createdAt:
+            formData.get('date') || new Date().toISOString().split('T')[0],
     };
 }
 
