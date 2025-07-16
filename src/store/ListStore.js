@@ -12,6 +12,7 @@ class ListStore extends Store {
     switch (type) {
       case "addListItem":
         this.data.push(newItem);
+        this.data = this.data.sort((a, b) => b.date - a.date);
         break;
       case "removeListItemByUID":
         this.data = this.data.filter((partData) => partData.uid !== newItem);
