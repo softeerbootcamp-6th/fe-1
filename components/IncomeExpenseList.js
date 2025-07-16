@@ -1,5 +1,5 @@
 // 1. month가 바뀔 때마다 다른 지출 내역 보여주기
-import {getYear, getMonth, subscribe} from '../store/dateStore.js';
+import { getYear, getMonth, subscribe } from '../store/dateStore.js';
 import { store } from '../store/store.js';
 
 export function renderIncomeExpenseList() {
@@ -106,7 +106,6 @@ export function renderListItem(listContainer) {
 
   // 월데이터 날짜 별로 화면에 뿌리기
   currentMonthData.forEach(dateData => {
-    console.log(dateData);
     const dailyContainer = document.createElement('div');
     dailyContainer.className = 'daily-container';
     dailyContainer.innerHTML = getDailyInfoHTML(dateData.date);

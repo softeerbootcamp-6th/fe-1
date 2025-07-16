@@ -186,8 +186,6 @@ export function renderIncomeExpenseForm() {
     const incomeExpenseListContainer = document.querySelector(
       '.income-expense-list-container'
     );
-    console.log(incomeExpenseListContainer);
-    console.log(incomeExpenseListContainer.firstChild);
 
     handleSubmit(
       e,
