@@ -45,10 +45,29 @@ export default function createMonthlyInfo() {
         '.daily-list-container'
     );
 
-    paymentDataStore.paymentData.map((data) => {
+    const groupedData = groupByDate(paymentDataStore.paymentData);
+
+    groupedData.map((data) => {
         const dailyList = createDailyList(data);
         dailyListContainer.appendChild(dailyList);
     });
 
     return monthlyInfo;
+}
+
+function groupByDate(data) {
+    const grouped = {};
+    data.forEach((item) => {
+        const date = item.paidAt.split('T')[0];
+        if (!grouped[date]) {
+            grouped[date] = {
+                date: date,
+                records: [],
+            };
+        }
+        grouped[date].records.push(item);
+    });
+    return Object.values(grouped).sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+    );
 }

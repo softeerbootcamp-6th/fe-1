@@ -1,7 +1,8 @@
 import { formatNumberWithCommas } from '../../../lib/utils.js';
 import { categoryConfig } from './categoryConfig.js';
+import paymentDataStore from '../../../store/paymentData.js';
 
-function createDetailListItem({ category, description, payment, value }) {
+function createDetailListItem({ id, category, description, payment, value }) {
     const categoryLabel = categoryConfig[category].text || '미분류';
     const categoryColor = categoryConfig[category].color;
     const isIncome = value > 0 ? 'income-value' : 'expense-value';
@@ -23,15 +24,11 @@ function createDetailListItem({ category, description, payment, value }) {
         </button>
     `;
 
-    function deleteItemElement() {
-        itemElement.remove();
-    }
-
     function init() {
         const deleteButtonElement = itemElement.querySelector('.delete-button');
         deleteButtonElement.addEventListener('click', () => {
-            // 여기에다가 Modal 띄우는거 구현하기
-            deleteItemElement();
+            paymentDataStore.deletePaymentData(id);
+            itemElement.remove();
         });
     }
 
