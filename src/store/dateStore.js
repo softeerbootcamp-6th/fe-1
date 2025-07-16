@@ -17,6 +17,7 @@ const changeMonth = (offset) => {
         month = 12;
         year -= 1;
     }
+    console.log(`New Date: ${year} - ${month}`);
 };
 
 const increaseMonth = () => {
