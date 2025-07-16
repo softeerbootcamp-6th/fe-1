@@ -2,8 +2,6 @@ import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
-import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
-import { renderCalendar, renderCalendarInfo } from "./calendar.js";
 import { dateStore, transactionStore } from "../store/index.js";
 
 // 클릭된 행 상태 관리
@@ -167,36 +165,13 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
       btn.addEventListener("click", (e) => {
         e.stopPropagation(); // 행 클릭 이벤트 방지
         const id = Number(btn.dataset.id);
-        deleteTransaction(dateStore.getYear(), dateStore.getMonth(), id);
+        transactionStore.deleteTransaction(
+          dateStore.getYear(),
+          dateStore.getMonth(),
+          id
+        );
         // 삭제 후 선택 상태 초기화
         selectedRowId = null;
-        const monthlyInfoContainer = document.querySelector(
-          "#monthly-info-container"
-        );
-        renderMonthlyInfo(
-          monthlyInfoContainer,
-          isIncomeChecked,
-          isExpenseChecked
-        );
-        renderTotalCount(
-          monthlyInfoContainer,
-          isIncomeChecked,
-          isExpenseChecked,
-          totalIncomeData,
-          totalExpenseData
-        );
-        renderTransactionList(isIncomeChecked, isExpenseChecked);
-
-        const calendarContainer = document.querySelector(".calendar-container");
-        if (calendarContainer) {
-          renderCalendar(calendarContainer);
-        }
-        const calendarInfoContainer = document.querySelector(
-          ".calendar-info-container"
-        );
-        if (calendarInfoContainer) {
-          renderCalendarInfo(calendarInfoContainer);
-        }
       });
     });
 

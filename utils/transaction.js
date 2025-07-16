@@ -9,6 +9,7 @@ export function totalIncomeData(transactions) {
   const totalIncomeCount = totalIncomeTransactions.length;
 
   return {
+    totalIncomeTransactions,
     totalIncomeAmount,
     totalIncomeCount,
   };
@@ -24,6 +25,7 @@ export function totalExpenseData(transactions) {
   );
   const totalExpenseCount = totalExpenseTransactions.length;
   return {
+    totalExpenseTransactions,
     totalExpenseAmount,
     totalExpenseCount,
   };

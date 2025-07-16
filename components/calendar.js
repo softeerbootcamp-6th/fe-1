@@ -33,8 +33,10 @@ function createCalendarCell(day, year, month, transactionListByDate) {
       : ``;
 
   const createCalendarTotalAmount =
-    dailyTotalCount > 0
-      ? `<div class="calendar-amount">${formatMoney(dailyTotalAmount)}</div>`
+    totalIncomeAmount + totalExpenseAmount > 0
+      ? `<div class="calendar-amount">${formatMoney(
+          totalIncomeAmount + totalExpenseAmount
+        )}</div>`
       : ``;
 
   return `

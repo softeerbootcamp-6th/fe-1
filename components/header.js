@@ -2,9 +2,12 @@ import { dateStore } from "../store/index.js";
 import { render } from "../utils/routes.js";
 
 export function initHeader(container) {
-  subscribeHeader(container);
   setupDateEventListeners(container);
   updateNavigationActive();
+
+  dateStore.subscribe(() => {
+    updateDateInfo(container);
+  });
 }
 
 export function setupDateEventListeners(container) {
@@ -94,12 +97,5 @@ export function updateNavigationActive() {
     } else {
       link.classList.remove("active");
     }
-  });
-}
-
-export function subscribeHeader(container) {
-  dateStore.subscribe(() => {
-    updateDateInfo(container);
-    render();
   });
 }
