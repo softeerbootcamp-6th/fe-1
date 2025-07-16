@@ -7,9 +7,14 @@ const paymentDataStore = {
 
     deletePaymentData(id) {
         this.paymentData = this.paymentData.filter((data) => data.id !== id);
+        this.notifyPaymentDataDeleted();
     },
 
     notifyPaymentDataAdded(paymentData) {},
+
+    notifyPaymentDataDeleted() {
+        document.dispatchEvent(new CustomEvent('paymentDataDeleted'));
+    },
 };
 
 export default paymentDataStore;

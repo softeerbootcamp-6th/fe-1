@@ -9,7 +9,7 @@ export default function createMonthlyInfo() {
             <div class="monthly-info">
                 <div class="item-counter">
                     <span class="light-12">전체 내역</span>
-                    <span class="light-12">13건</span>
+                    <span class="light-12">${paymentDataStore.paymentData.length}건</span>
                 </div>
                 <div class="checkbox-buttons">
                     <div class="checkbox-button-container">
@@ -44,29 +44,44 @@ export default function createMonthlyInfo() {
     const dailyListContainer = monthlyInfo.querySelector(
         '.daily-list-container'
     );
+    const itemCounterElement = monthlyInfo.querySelector(
+        '.item-counter span:last-child'
+    );
 
-    const groupedData = groupByDate(paymentDataStore.paymentData);
+    const renderDailyLists = () => {
+        dailyListContainer.innerHTML = '';
 
-    groupedData.map((data) => {
-        const dailyList = createDailyList(data);
-        dailyListContainer.appendChild(dailyList);
-    });
+        const groupedData = groupByDate(paymentDataStore.paymentData);
+        groupedData.forEach((data) => {
+            const dailyList = createDailyList(data);
+            dailyListContainer.appendChild(dailyList);
+        });
+
+        itemCounterElement.textContent = `${paymentDataStore.paymentData.length}건`;
+    };
+
+    renderDailyLists();
+
+    document.addEventListener('paymentDataDeleted', renderDailyLists);
 
     return monthlyInfo;
 }
 
 function groupByDate(data) {
-    const grouped = {};
-    data.forEach((item) => {
+    const grouped = data.reduce((acc, item) => {
         const date = item.paidAt.split('T')[0];
-        if (!grouped[date]) {
-            grouped[date] = {
+
+        if (!acc[date]) {
+            acc[date] = {
                 date: date,
                 records: [],
             };
         }
-        grouped[date].records.push(item);
-    });
+
+        acc[date].records.push(item);
+        return acc;
+    }, {});
+
     return Object.values(grouped).sort(
         (a, b) => new Date(b.date) - new Date(a.date)
     );
