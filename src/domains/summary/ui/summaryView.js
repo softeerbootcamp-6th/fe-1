@@ -1,55 +1,170 @@
-import { calcTotals } from '../util/totalCalc.js';
-import { dayGroupHTML, entryHTML } from './summaryTemplate.js';
+import {calcTotals} from '../util/totalCalc.js';
+import {dayGroupHTML, entryHTML} from './summaryTemplate.js';
+import {DeleteDummyData} from "../../../shared/data/dummyData.js";
 
-export const initSummaryView = ({ summaryEl, store }) => {
-    // date를 기준으로 그룹 내의 가장 마지막 element를 반환
-    const ensureGroup = (date) => {
-        // summaryEl에서 해당 날짜의 그룹(article Tag)이 있는지 확인
-        let g = summaryEl.querySelector(`[data-date="${date}"]`);
-        if (!g) {
-            // 해당 날짜의 그룹이 없으면 새로 생성, beforeend를 사용하여 summaryEl의 마지막에 추가
-            // beforeend: Just inside the element, after its last child.
-            summaryEl.insertAdjacentHTML('beforeend', dayGroupHTML(date));
-            g = summaryEl.lastElementChild;
-        }
-        return g;
+// 날짜별 그룹 엘리먼트 찾기 또는 생성
+const ensureGroup = ({summaryEl, date}) => {
+    let group = summaryEl.querySelector(`[data-date="${date}"]`);
+    if (!group) {
+        summaryEl.insertAdjacentHTML('beforeend', dayGroupHTML(date));
+        group = summaryEl.lastElementChild;
+    }
+    return group;
+};
+
+// 날짜 내림차순 정렬
+const sortByDateDesc = (a, b) => new Date(b.date) - new Date(a.date);
+
+// 수입/지출 요약 텍스트 생성
+const formatSummaryText = ({calcResult}) => {
+    return `수입 ${calcResult.inc.toLocaleString('ko-KR')}원   지출 ${calcResult.exp.toLocaleString('ko-KR')}원`;
+};
+
+// 선택된 연월에 해당하는 항목만 필터링
+const filterEntriesByYearMonth = ({entries, year, month}) => {
+    const yearMonth = `${year}-${String(month).padStart(2, '0')}`;
+    return entries.filter(entry => entry.date.startsWith(yearMonth));
+};
+
+// 모든 날짜 그룹 제거
+const clearDayGroups = ({summaryEl}) => {
+    summaryEl.querySelectorAll('article.day-group').forEach(group => group.remove());
+};
+
+// 항목 하나를 DOM에 렌더링하는 함수
+const renderSingleEntry = ({group, entry}) => {
+    const entriesContainer = group.querySelector('.entries');
+
+    // 고유 키 생성 (원래 entryHTML에서 생성된다고 가정)
+    const uniqueKey = crypto.randomUUID();
+
+    // HTML 생성 전에 고유 키 설정
+    const html = entryHTML({entry, entryKey: uniqueKey});
+    entriesContainer.insertAdjacentHTML('beforeend', html);
+
+    // 방금 추가된 요소 반환
+    return {
+        key: uniqueKey,
+        id: entry.id,
+        element: entriesContainer.lastElementChild
     };
+};
 
-    //
-    const render = (state) => {
-        // 기존의 모든 날짜 그룹(html에 하드코딩된 것들)을 제거
-        summaryEl.querySelectorAll('article.day-group').forEach(e => e.remove());
-        // 최신날짜 순으로 정렬
-        state.entries.sort((a, b) =>
-            new Date(b.date) - new Date(a.date)).forEach(ent => {
-                // 해당 날짜의 그룹의 가장 마지막 element를 가져옴
-                const g = ensureGroup(ent.date);
-                // 해당 날짜의 그룹에 새 항목(li)을 추가
-                g.querySelector('.entries').insertAdjacentHTML('beforeend', entryHTML(ent));
-            });
+// 항목 목록을 DOM에 렌더링
+const renderEntries = ({summaryEl, entries}) => {
+    const renderedItems = [];
 
-        // summaryEl의 모든 day-group(article Tag) 요소를 가져옴
-        [...summaryEl.querySelectorAll('article.day-group')].forEach(g => {
-            // 각 그룹의 날짜를 기준으로 총합을 계산
-            const date = g.dataset.date;
-            const allInGroup = calcTotals(state.entries.filter(e => e.date === date));
-            g.querySelector('.day-total').textContent = `수입 ${allInGroup.inc.toLocaleString('ko-KR')}원   지출 ${allInGroup.exp.toLocaleString('ko-KR')}원`;
-        });
-
-        // 그룹 별이 아닌 전체 요약의 총합을 계산
-        const all = calcTotals(state.entries);
-        summaryEl.querySelector('.total.count').textContent = `전체 내역 ${all.count}건`;
-        summaryEl.querySelector('.total.income-spend').textContent = `수입 ${all.inc.toLocaleString('ko-KR')}원   지출 ${all.exp.toLocaleString('ko-KR')}원`;
-    };
-
-    // 삭제 버튼 클릭 시 ***** 아직 미완성 *****
-    summaryEl.addEventListener('click', e => {
-        // closest를 사용하여 클릭한 요소의 상위 요소 중에서 '.delete-btn' 클래스를 가진 요소를 찾음
-        const btn = e.target.closest('.delete-btn');
-        // 버튼이 존재하면 해당 항목을 아이디를 이용해 store에서 제거, id를 어떻게 가져올지 아직 미정
+    entries.forEach(entry => {
+        const group = ensureGroup({summaryEl, date: entry.date});
+        const renderedItem = renderSingleEntry({group, entry});
+        renderedItems.push(renderedItem);
     });
 
-    // store의 상태가 변경될 때마다 render 함수를 호출하여 UI를 업데이트
-    store.subscribe(render);
-    render(store.getState());
+    return renderedItems;
+};
+
+// 키-ID 매핑 관리 함수
+const updateEntryKeyMap = ({renderedElements, entryKeyMap}) => {
+    renderedElements.forEach(item => {
+        entryKeyMap.set(item.key, item.id);
+    });
+};
+
+// 날짜별 합계 업데이트
+const updateDayTotals = ({summaryEl, entries}) => {
+    [...summaryEl.querySelectorAll('article.day-group')].forEach(group => {
+        const dateEntries = entries.filter(entry => entry.date === group.dataset.date);
+        const total = calcTotals(dateEntries);
+        group.querySelector('.day-total').textContent = formatSummaryText({calcResult: total});
+    });
+};
+
+// 전체 합계 업데이트
+const updateTotalSummary = ({summaryEl, entries}) => {
+    const totals = calcTotals(entries);
+    summaryEl.querySelector('.total.count').textContent = `전체 내역 ${totals.count}건`;
+    summaryEl.querySelector('.total.income-spend').textContent = formatSummaryText({calcResult: totals});
+};
+
+export const initSummaryView = ({summaryEl, summaryStore, dateStore}) => {
+    // 현재 선택된 연월 상태
+    let currentYear = null;
+    let currentMonth = null;
+
+    // 항목 키와 ID의 매핑을 저장하는 객체
+    const entryKeyMap = new Map();
+
+    // 현재 필터링 상태로 UI 렌더링
+    const renderView = () => {
+        // 기존 id와 키 매핑 초기화
+        entryKeyMap.clear();
+
+        const allEntries = summaryStore.getState().entries || [];
+        const filteredEntries = filterEntriesByYearMonth({entries: allEntries, year: currentYear, month: currentMonth});
+        const sortedEntries = [...filteredEntries].sort(sortByDateDesc);
+
+        // 기존의 하드코딩된 날짜 그룹 제거
+        clearDayGroups({summaryEl});
+
+        // 날짜별 그룹 생성 및 항목 렌더링
+        const renderedElements = renderEntries({summaryEl, entries: sortedEntries});
+        // 항목 요소와 ID 매핑 업데이트
+        updateEntryKeyMap({renderedElements, entryKeyMap});
+        // 날짜별 합계 업데이트
+        updateDayTotals({summaryEl, entries: filteredEntries});
+        // 전체 합계 업데이트
+        updateTotalSummary({summaryEl, entries: filteredEntries});
+    };
+
+    // 항목 삭제 처리
+    const handleEntryDelete = (e) => {
+        const deleteButton = e.target.closest('.delete-btn');
+        if (!deleteButton) return;
+
+        const entryItem = deleteButton.closest('.entry');
+
+        if (!entryItem || !entryItem.dataset.entryKey) return;
+
+        // 키-ID 맵에서 실제 ID 조회
+        const entryKey = entryItem.dataset.entryKey;
+        const entryId = entryKeyMap.get(entryKey);
+
+        if (!entryId) return;
+
+        DeleteDummyData(entryId).then(() => {
+                // 성공적으로 삭제된 후 상태 업데이트
+                summaryStore.dispatch('ENTRY/REMOVE', {id: entryId});
+            }
+        ).catch(
+            (error) => {
+                console.error('Error deleting entry:', error);
+            }
+        )
+    };
+
+    // dateStore 상태 변경 처리
+    const handleDateChange = (state) => {
+        if (state.year !== currentYear || state.month !== currentMonth) {
+            currentYear = state.year;
+            currentMonth = state.month;
+            renderView();
+        }
+    };
+
+    // 이벤트 리스너 등록
+    summaryEl.addEventListener('click', handleEntryDelete);
+
+    // Store 구독
+    summaryStore.subscribe(renderView);
+    dateStore.subscribe(handleDateChange);
+
+    // 초기 상태 설정
+    const dateState = dateStore.getState();
+    if (dateState && dateState.year && dateState.month) {
+        currentYear = dateState.year;
+        currentMonth = dateState.month;
+    }
+
+    // 초기 렌더링
+    renderView();
 };

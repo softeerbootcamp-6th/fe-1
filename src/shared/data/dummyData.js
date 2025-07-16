@@ -23,3 +23,14 @@ export const PostDummyData = (data) =>
         });
 
 // 더미데이터를 서버에 PUT이나 PATCH 요청으로 수정하는 함수, DELETE 요청으로 삭제하는 함수 구현 예정
+
+
+// 더미데이터를 서버에 DELETE 요청으로 삭제하는 함수
+export const DeleteDummyData = (id) =>
+    fetch(`${DUMMY_DATA_URL}/${id}`, {
+        method: 'DELETE',
+    })
+        .then(res => (res.ok ? res.json() : Promise.reject(res)))
+        .catch(err => {
+            return Promise.reject(err);
+        });
