@@ -1,7 +1,7 @@
 import { createElement } from '../../utils.js';
 import dateData from '../../store/date.js';
 import { dailyViewChange } from '../dailyList/index.js';
-import { dateViewChange } from '../../view/dateView.js';
+import { dateViewChange } from '../../viewHandler/dateView.js';
 
 export default function createCenterNavigation() {
     const centerNavigationHTML = `

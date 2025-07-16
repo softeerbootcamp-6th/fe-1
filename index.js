@@ -3,7 +3,7 @@ import initializeHeader from './components/header/index.js';
 import initalizeInputBox from './components/inputbar/index.js';
 import { dailyData } from './store/daily.js';
 import dateData from './store/date.js';
-import { dateViewChange } from './view/dateView.js';
+import { dateViewChange } from './viewHandler/dateView.js';
 
 await dailyData.init();
 initializeHeader();
