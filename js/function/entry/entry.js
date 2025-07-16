@@ -1,7 +1,7 @@
-import { deleteEntry } from "../api/api.js";
-import { sharedState } from "../state/state.js";
-import { renderCategoryOptions } from "./categoryRender.js";
-import { updateTotalAmounts } from "./totalAmount.js";
+import { deleteEntry } from "../../api/api.js";
+import { sharedState } from "../../state/state.js";
+import { renderCategoryOptions } from "../categoryRender.js";
+import { updateTotalAmounts } from "../totalAmount.js";
 
 export function deleteEntries() {
 
@@ -86,7 +86,7 @@ export function deleteEntries() {
       updateTotalAmounts();
       
       // 캘린더 뷰 총액 업데이트
-      import('./calendarTotalAmount.js').then(module => {
+      import('../calendarTotalAmount.js').then(module => {
         module.updateCalendarTotalAmount();
       });
     });

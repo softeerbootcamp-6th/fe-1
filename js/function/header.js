@@ -1,11 +1,11 @@
 import { sharedState } from "../state/state.js";
 import { loadEntriesFromServer } from "../api/api.js";
-import { getDateFromServer } from "./entry.js";
+import { getDateFromServer } from "./entry/entry.js";
 
 export let currentMonth = Date.now() ? new Date().getMonth() + 1 : 1; // 현재 월 (1~12)
 export let currentYear = Date.now() ? new Date().getFullYear() : 2023; // 현재 연도
 
-export function initCalendar({ onUpdate }) {
+export function initCalendar() {
   const yearEl = document.getElementById("year");
   const monthEl = document.getElementById("month");
   const monthLabelEl = document.getElementById("month-label");
@@ -17,7 +17,6 @@ export function initCalendar({ onUpdate }) {
     yearEl.textContent = currentYear;
     monthEl.textContent = currentMonth;
     monthLabelEl.textContent = monthNames[currentMonth];
-    // onUpdate(currentYear, currentMonth);
   }
 
  
@@ -57,6 +56,5 @@ export async function clearWebPage(currentMonth, currentYear) {
     serverData.forEach(entry => {
       getDateFromServer(entry);
       sharedState.entries.push(entry); // sharedState에 항목 추가
-    }
-    );
+    });
   }

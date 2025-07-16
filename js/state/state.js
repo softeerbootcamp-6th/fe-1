@@ -45,3 +45,10 @@ export const sharedState = {
   calendarInitialized: false, // 캘린더 뷰 초기화 여부
   statsInitialized: false, // 통계 뷰 초기화 여부
 }
+
+
+import { DateStore } from "./store.js"
+export const dateStore = new DateStore({
+  year: new Date().getFullYear(),
+  month: new Date().getMonth() + 1, // 월은 0부터
+});

@@ -4,7 +4,7 @@ import { sharedState } from "../state/state.js";
 import { renderCategoryOptions } from "./categoryRender.js";
 import { updateDataToServer, saveEntriesToServer, loadEntriesFromServer } from "../api/api.js";
 import { clearWebPage, currentMonth, currentYear } from "./header.js";
-import { getDateFromServer, updateDateSectionTotals } from "./entry.js";
+import { getDateFromServer, updateDateSectionTotals } from "./entry/entry.js";
 
 export function initInputForm() {
   let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
