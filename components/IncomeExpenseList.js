@@ -117,10 +117,29 @@ export function renderListItem(listContainer) {
     moneySpan.classList.add("money", "light14", moneyColorMap[type]);
     moneySpan.textContent = `${money}원`;
 
+    // hover 시 deleteDiv 보여짐
+    const deleteDiv = document.createElement("div");
+    deleteDiv.className = "delete";
+    deleteDiv.style.display = "none";
+    deleteDiv.innerHTML = `
+    <div class="delete-icon"><img src='../assets/icons/delete-icon.svg'/></div>
+    <span class="delete-text semibold12">삭제</span>
+    `;
+
     li.appendChild(tagSpan);
     li.appendChild(descriptionSpan);
     li.appendChild(paymentSpan);
     li.appendChild(moneySpan);
+    li.appendChild(deleteDiv);
+
+    // hover 이벤트 추가
+    li.addEventListener("mouseenter", () => {
+      deleteDiv.style.display = "block";
+    });
+
+    li.addEventListener("mouseleave", () => {
+      deleteDiv.style.display = "none";
+    });
 
     return li;
   };

@@ -1,4 +1,4 @@
-@import './colors.css';
+@import "./colors.css";
 
 .monthly-info-container {
   display: flex;
@@ -102,7 +102,7 @@
 }
 
 .money {
-  width: 11.625rem;
+  width: 8.0625rem;
   display: flex;
   align-items: center;
   justify-content: end;
@@ -115,4 +115,26 @@
 
 .money-expense {
   color: var(--brand-text-expense);
+}
+
+.delete {
+  width: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.delete-icon {
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-text {
+  width: 1.32rem;
+  color: var(--danger-text-default);
 }
