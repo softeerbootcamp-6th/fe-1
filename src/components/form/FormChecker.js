@@ -2,8 +2,9 @@ import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { InputValidator } from "../../utils/InputValidator.js";
 import { listStore } from "../../store/ListStore.js";
+import { formStore } from "../../store/FormStore.js";
 
-export const FormChecker = (input) => {
+export const FormChecker = () => {
   const formChecker = ElementManager.renderElement("div", "form-checker");
   formChecker.innerHTML = `
     <div class="img-wrapper">
@@ -15,12 +16,13 @@ export const FormChecker = (input) => {
     eventType: "click",
     selector: "form-checker",
     handler: () => {
-      const isFullFilled = InputValidator.validateFullFilled(input);
+      const isFullFilled = InputValidator.validateFullFilled(formStore.data);
       if (!isFullFilled) return;
-
-      const isFullCorrectType = InputValidator.validateFullCorrectType(input);
+      const isFullCorrectType = InputValidator.validateFullCorrectType(
+        formStore.data
+      );
       if (isFullCorrectType) {
-        listStore.dispatch("addListItem", input);
+        listStore.dispatch("addListItem", formStore.data);
       } else {
         console.log("no");
       }

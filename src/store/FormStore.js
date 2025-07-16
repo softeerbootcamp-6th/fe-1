@@ -35,7 +35,6 @@ class FormStore extends Store {
         };
         break;
     }
-
     this.notify();
   }
 }

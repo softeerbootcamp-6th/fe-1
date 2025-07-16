@@ -2,31 +2,37 @@ import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { Modal } from "../modal/index.js";
 import { DropDown } from "./DropDown.js";
+import { formStore } from "../../store/FormStore.js";
 
 let defaultPayment = ["현금", "신용카드"];
-export const PaymentForm = (input) => {
+export const PaymentForm = () => {
   let isPaymentOpen = false;
   const paymentForm = ElementManager.renderElement("div", "form-payment");
   paymentForm.innerHTML = `
   <label for="payment" class="light-12">결제수단</label>
-  <button id="payment">
-    <span class="semibold-12">${input.payment}</span>
+  <button class="payment-button">
+    <input type="text" id="payment" name="payment" placeholder="선택하세요" value="${formStore.data.payment}" readonly class="semibold-12" />
     <img width="16px" src="./src/assets/chevron-down.png" alt="arrow"/>
   </button>
   `;
 
-  const paymentImg = paymentForm.querySelector("#payment > img");
+  const paymentTextInput = paymentForm.querySelector("#payment");
+  const paymentImg = paymentForm.querySelector(".payment-button > img");
+
+  formStore.subscribe((newData) => {
+    paymentTextInput.value = newData.payment;
+  });
+
   EventDispatcher.register({
     eventType: "click",
     selector: "form-payment",
     handler: ({ target }) => {
       // 값 선택 업데이트+화면에 표시
       const dropDownLi = target.closest(".drop-down-li");
+
       if (dropDownLi) {
         const selectedPayment = target.innerText;
-        input.payment = selectedPayment;
-        const paymentTextInput = paymentForm.querySelector("#payment > span");
-        paymentTextInput.textContent = selectedPayment;
+        formStore.dispatch("update", { payment: selectedPayment });
       }
 
       // 값 추가
@@ -49,12 +55,12 @@ export const PaymentForm = (input) => {
         });
       }
 
-      // 이미지 업데이트
+      // 드롭다운 열기/닫기
       isPaymentOpen = !isPaymentOpen;
       paymentImg.src = `./src/assets/chevron-${
         isPaymentOpen ? "up" : "down"
       }.png`;
-      // 드롭다운 화면에 표시/제거
+
       if (isPaymentOpen) {
         paymentForm.appendChild(
           DropDown({ type: "payment", data: defaultPayment })

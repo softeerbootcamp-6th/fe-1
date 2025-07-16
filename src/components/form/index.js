@@ -23,30 +23,31 @@ export const EntireForm = () => {
     formList.forEach((Form) => {
       entireForm.appendChild(Form(formStore.data));
     });
-    entireForm.appendChild(FormChecker(formStore.data));
+    entireForm.appendChild(FormChecker());
   };
 
   renderFormElement();
-  formStore.subscribe(renderFormElement);
+
+  formStore.subscribe((newData) => {
+    console.log(newData);
+    const isFullFilled = InputValidator.validateFullFilled(newData);
+    const formCheckerWrapper = entireForm.querySelector(
+      ".form-checker > .img-wrapper"
+    );
+    if (isFullFilled) {
+      formCheckerWrapper.classList.add("active");
+    } else {
+      formCheckerWrapper.classList.remove("active");
+    }
+  });
 
   EventDispatcher.register({
     eventType: "input",
     selector: "entire-form",
-    handler: () => {
-      console.log("inputßß");
-      //! 현재 각 input의 입력을 실시간으로 인식하지 못하는 문제 -> 실시간 활성화되지 않는 문제 발생
-      // money: money 내부에 input handelr 존재해서 중복되어 인식X
-      // category, payment: span에 반영해서 input 태그로 변경하여 value 제시 필요
-      const isFullFilled = InputValidator.validateFullFilled(formStore.data);
-      const formCheckerWrapper = entireForm.querySelector(
-        ".form-checker > .img-wrapper"
-      );
-
-      if (isFullFilled) {
-        formCheckerWrapper.classList.add("active");
-      } else {
-        formCheckerWrapper.classList.remove("active");
-      }
+    handler: ({ target }) => {
+      const targetName = target.name;
+      const targetValue = target.value;
+      formStore.dispatch("update", { [targetName]: targetValue });
     },
   });
   return entireForm;
