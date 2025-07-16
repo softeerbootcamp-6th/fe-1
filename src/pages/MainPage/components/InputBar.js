@@ -1,4 +1,5 @@
 import DropDown from '../../../components/DropDown/DropDown.js';
+import { formatAmount } from '../../../utils/format.js';
 
 const pluscCategoryList = [
     '월급', '용돈', '기타 수입'
@@ -13,7 +14,7 @@ function InputBar(onSubmitCallback) {
     let isPlus = false;
 
     const updateCategoryOptions = () => {
-        const categorySelect = document.getElementById('category-select');
+        const { categorySelect } = getInputElements();
         if (categorySelect) {
             const categoryList = isPlus ? pluscCategoryList : minusCategoryList;
             categorySelect.innerHTML = `
@@ -22,6 +23,9 @@ function InputBar(onSubmitCallback) {
                 `<option value="${category}">${category}</option>`
             ).join('')}
             `;
+
+            categorySelect.value = ''; // 선택된 값 초기화
+            validateInputs();
         }
     };
 
@@ -39,16 +43,19 @@ function InputBar(onSubmitCallback) {
         updateCategoryOptions();
     };
 
-
+    const getInputElements = () => {
+        return {
+            dateInput: document.getElementById('date-select'),
+            amountInput: document.querySelector('.amount-field'),
+            contentInput: document.querySelector('.content-field'),
+            paymentSelect: document.getElementById('payment-field'),
+            categorySelect: document.getElementById('category-select'),
+            checkButton: document.getElementById('submit-btn')
+        };
+    };
 
     const validateInputs = () => {
-        const dateInput = document.getElementById('date-select');
-        const amountInput = document.querySelector('.amount-field');
-        const contentInput = document.querySelector('.content-field');
-        const paymentSelect = document.getElementById('payment-field');
-        const categorySelect = document.getElementById('category-select');
-        const checkButton = document.getElementById('submit-btn');
-
+        const { dateInput, amountInput, contentInput, paymentSelect, categorySelect, checkButton } = getInputElements();
 
         const isValid = dateInput.value.trim() !== '' &&
             !isNaN(parseFloat(amountInput.value)) &&
@@ -76,11 +83,7 @@ function InputBar(onSubmitCallback) {
     };
 
     const handleSubmit = () => {
-        const dateInput = document.getElementById('date-select');
-        const amountInput = document.querySelector('.amount-field');
-        const contentInput = document.querySelector('.content-field');
-        const paymentSelect = document.getElementById('payment-field');
-        const categorySelect = document.getElementById('category-select');
+        const { dateInput, amountInput, contentInput, paymentSelect, categorySelect } = getInputElements();
 
         const formData = {
             date: dateInput.value,
@@ -94,6 +97,32 @@ function InputBar(onSubmitCallback) {
         // MainPage로 formData 전달
         if (onSubmitCallback) {
             onSubmitCallback(formData);
+        }
+    };
+
+    const formatAmountField = () => {
+        const { amountInput } = getInputElements();
+
+        // 리스너 달고
+        amountInput.addEventListener('input', () => {
+            amountInput.value = amountInput.value.replace(/[^0-9]/g, ''); // 숫자만 허용
+            const rawValue = amountInput.value.replace(/,/g, '');
+            if (!isNaN(rawValue)) {
+                amountInput.value = formatAmount(rawValue);
+            }
+        });
+
+    };
+
+    const updateContentCount = () => {
+        const { contentInput } = getInputElements();
+        const countTextElement = document.querySelector('.input-count-text');
+
+        if (contentInput && countTextElement) {
+            contentInput.addEventListener('input', () => {
+                const currentLength = contentInput.value.length;
+                countTextElement.textContent = `${currentLength}/32`;
+            });
         }
     };
 
@@ -111,15 +140,15 @@ function InputBar(onSubmitCallback) {
                         <button class="icon-button sign-button" id="plus-minus-btn">
                             <img src="assets/icons/minus.svg" alt="minus icon">
                         </button>
-                        <input type="text" class="amount-field" placeholder="0">
+                        <input type="text" class="amount-field text-align-right" placeholder="0">
                         <span>원</span>
                     </div>
                 </div>
                 <div class="border-line"></div>
                 <div class="flex-column">
-                    <div class="inline-block">    
+                    <div class="flex-row">    
                         <label>내용</label>
-                        <span class="input-count-text">글자수 /32</span>
+                        <span class="input-count-text">0/32</span>
                     </div>
                     <input maxlength='32' type="text" class="content-field" placeholder="입력하세요">
                 </div>
@@ -166,6 +195,12 @@ function InputBar(onSubmitCallback) {
 
             // 초기 체크 버튼 상태 설정
             validateInputs();
+
+            // Apply formatting to amount-field
+            formatAmountField();
+
+            // Update content count dynamically
+            updateContentCount();
 
             const checkButton = document.getElementById('submit-btn');
             if (checkButton) {

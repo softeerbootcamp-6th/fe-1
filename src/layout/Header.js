@@ -1,10 +1,13 @@
 import dateStore from "../../store/dateStore.js";
+import incomeExpenseStore from "../../store/incomeExpenseStore.js";
+import MainPage from "../pages/MainPage/MainPage.js";
 
 function Header() {
     const updateDateText = () => {
         const { year, month } = dateStore.getCurrentDate();
         document.getElementById("year-text").textContent = `${year}`;
         document.getElementById("month-text").textContent = `${month}`;
+
 
         const monthNames = [
             "January", "February", "March", "April", "May", "June",
@@ -13,6 +16,15 @@ function Header() {
 
         document.querySelector(".date-container span:last-child").textContent = monthNames[month - 1];
     };
+
+    // 현재 날짜에 해당하는 수입/지출 데이터 가져오기
+    const updateDailyListContainer = () => {
+        incomeExpenseStore.getCurrentIncomeExpenseList();
+
+        const mainPage = MainPage();
+        mainPage.init();
+    };
+
 
     return {
         element: `
@@ -49,8 +61,6 @@ function Header() {
             </header>
         `,
         init: () => {
-
-
             // 초기 날짜 표시
             updateDateText();
 
@@ -58,11 +68,13 @@ function Header() {
             document.getElementById("prev-month").addEventListener("click", () => {
                 dateStore.decreaseMonth();
                 updateDateText();
+                updateDailyListContainer();
             });
 
             document.getElementById("next-month").addEventListener("click", () => {
                 dateStore.increaseMonth();
                 updateDateText();
+                updateDailyListContainer();
             });
         }
     }

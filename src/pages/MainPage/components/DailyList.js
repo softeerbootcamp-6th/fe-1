@@ -14,7 +14,7 @@ function DailyList({ data }) {
                     </div>
                 </div>
                 <div class="daily-list-content">
-                    ${list.map(item => {
+                ${list && list.length > 0 && list.map(item => {
             const dailyListBlock = DailyListBlock({ data: item });
             return dailyListBlock.element;
         }).join('')}
@@ -23,6 +23,8 @@ function DailyList({ data }) {
         `
         ,
         init: () => {
+            if (!list || list.length === 0) return;
+
             list.forEach(item => {
                 const dailyListBlock = DailyListBlock({ data: item });
                 if (dailyListBlock.init) {
