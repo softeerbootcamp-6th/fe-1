@@ -7,10 +7,6 @@ import { listStore } from "../../store/ListStore.js";
 
 export const List = () => {
   const list = ElementManager.renderElement("div", "list");
-  const moneyTypeFilter = {
-    isExpenseTypeOpen: true,
-    isIncomeTypeOpen: true,
-  };
 
   // setup list wrpper
   const renderListWrapper = (data) => {
@@ -41,12 +37,8 @@ export const List = () => {
     "list-type-container"
   );
   const { income, expense } = NumberManager.calculateTotalMoney(listStore.data);
-  listTypeFilterWrapper.appendChild(
-    ListTypeFilter("income", income, moneyTypeFilter)
-  );
-  listTypeFilterWrapper.appendChild(
-    ListTypeFilter("expense", expense, moneyTypeFilter)
-  );
+  listTypeFilterWrapper.appendChild(ListTypeFilter("income", income));
+  listTypeFilterWrapper.appendChild(ListTypeFilter("expense", expense));
   listOverview.appendChild(listTypeFilterWrapper);
   list.appendChild(listOverview);
 

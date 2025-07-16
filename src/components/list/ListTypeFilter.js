@@ -1,10 +1,9 @@
 import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
-import { ListFilter } from "../../utils/ListFilter.js";
 import { NumberManager } from "../../utils/NumberManager.js";
 import { listStore } from "../../store/ListStore.js";
 
-export const ListTypeFilter = (type, totalMoney, entireFilter) => {
+export const ListTypeFilter = (type, totalMoney) => {
   const listTypeFilter = ElementManager.renderElement(
     "div",
     `list-type-${type}`

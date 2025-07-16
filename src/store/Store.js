@@ -1,6 +1,6 @@
 export class Store {
-  constructor(initData = []) {
-    this.data = [...initData];
+  constructor(initData) {
+    this.data = initData;
     this.subscribers = [];
   }
 
