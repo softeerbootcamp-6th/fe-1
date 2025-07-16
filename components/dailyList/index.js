@@ -82,10 +82,23 @@ export function dailyViewChange(year, month) {
             const $income = document.getElementById('filter-income');
             const $expense = document.getElementById('filter-expense');
 
-            console.log($expense);
             if (dailyData.filteredExpense)
                 $expense.classList.remove('amount-btn-active');
             if (dailyData.filteredIncome)
                 $income.classList.remove('amount-btn-active');
         });
+
+    $container.addEventListener('click', (e) => {
+        const $dailyLine = e.target.closest('.daily-line');
+        if ($dailyLine) {
+            const $deleteBtn = e.target.closest('.daily-delete-btn');
+            if ($deleteBtn) {
+                const seletedId = $dailyLine.getAttribute('id');
+                dailyData.removeDailyData(seletedId);
+                dailyViewChange(dateData.year, dateData.month);
+            } else {
+                console.log('라인 클릭쓰');
+            }
+        }
+    });
 }

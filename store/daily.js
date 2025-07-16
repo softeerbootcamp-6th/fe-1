@@ -47,6 +47,19 @@ export const dailyData = {
         }
     },
 
+    removeDailyData(id) {
+        this.data = this.data.reduce((acc, day) => {
+            const filteredItems = day.items.filter((item) => item.id !== id);
+            if (filteredItems.length > 0) {
+                acc.push({
+                    ...day,
+                    items: filteredItems,
+                });
+            }
+            return acc;
+        }, []);
+    },
+
     getDailyByYearAndMonth(year, month) {
         return this.data.filter((item) => {
             const date = new Date(item.date);
