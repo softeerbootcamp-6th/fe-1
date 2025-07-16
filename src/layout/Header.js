@@ -1,5 +1,5 @@
-import dateStore from "../../store/dateStore.js";
-import incomeExpenseStore from "../../store/incomeExpenseStore.js";
+import dateStore from "../store/dateStore.js";
+import incomeExpenseStore from "../store/incomeExpenseStore.js";
 import MainPage from "../pages/MainPage/MainPage.js";
 
 function Header() {
