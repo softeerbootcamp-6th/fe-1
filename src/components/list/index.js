@@ -4,6 +4,7 @@ import { NumberManager } from "../../utils/NumberManager.js";
 import { ListFilter } from "../../utils/ListFilter.js";
 import { DateList } from "./DateList.js";
 import { ListTypeFilter } from "./ListTypeFilter.js";
+import { listStore } from "../../store/ListStore.js";
 
 export const List = () => {
   const list = ElementManager.renderElement("div", "list");
@@ -11,6 +12,7 @@ export const List = () => {
     isExpenseTypeOpen: true,
     isIncomeTypeOpen: true,
   };
+
   const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, 8);
   const groupedListByMoneyType = ListFilter.groupTransactionsByMoneyType(
     groupedListByMonth,
@@ -66,5 +68,10 @@ export const List = () => {
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
   list.appendChild(listWrapper);
   renderListWrapper(groupedListByMoneyType);
+
+  // rerender using dispatcher
+  listStore.subscribe(() => {
+    console.log("mememe");
+  });
   return list;
 };

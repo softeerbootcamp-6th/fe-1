@@ -6,7 +6,7 @@ import { CategoryForm } from "./CategoryForm.js";
 import { FormChecker } from "./FormChecker.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { InputValidator } from "../../utils/InputValidator.js";
-import { EventDispatcher } from "../../store/EventBusStore.js";
+import { EventDispatcher } from "../../utils/EventDispatcher.js";
 
 export const EntireForm = () => {
   const entireForm = ElementManager.renderElement("div", "entire-form");
@@ -35,10 +35,12 @@ export const EntireForm = () => {
     eventType: "input",
     selector: "entire-form",
     handler: () => {
+      //현재 각 input의 입력을 실시간으로 인식하지 못하는 문제 -> 실시간 활성화되지 않는 문제 발생
       const isFullFilled = InputValidator.validateFullFilled(input);
       const formCheckerWrapper = entireForm.querySelector(
         ".form-checker > .img-wrapper"
       );
+
       if (isFullFilled) {
         formCheckerWrapper.classList.add("active");
       } else {

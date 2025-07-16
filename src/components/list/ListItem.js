@@ -1,4 +1,4 @@
-import { EventDispatcher } from "../../store/EventBusStore.js";
+import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 
 export const ListItem = (item) => {
@@ -25,6 +25,10 @@ export const ListItem = (item) => {
     handler: (e) => {
       const listItem = e.target.closest(".list-item");
       const uid = listItem.dataset.uid;
+      //data update
+
+      //dom update
+      listItem.remove();
     },
   });
   return listItem;

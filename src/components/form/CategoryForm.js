@@ -1,5 +1,5 @@
 import { CATEGORY } from "../../constants/category.js";
-import { EventDispatcher } from "../../store/EventBusStore.js";
+import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { DropDown } from "./DropDown.js";
 

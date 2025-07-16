@@ -1,4 +1,4 @@
-import { EventDispatcher } from "../../store/EventBusStore.js";
+import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { ListFilter } from "../../utils/ListFilter.js";
 import { NumberManager } from "../../utils/NumberManager.js";

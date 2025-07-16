@@ -1,4 +1,4 @@
-import { EventDispatcher } from "../../store/EventBusStore.js";
+import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { Modal } from "../modal/index.js";
 import { DropDown } from "./DropDown.js";
