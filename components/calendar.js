@@ -1,7 +1,6 @@
 import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
-import { transactionStore } from "../store/index.js";
 import { formatMoney } from "../utils/format.js";
-import { dateStore } from "../store/index.js";
+import { dateStore, transactionStore } from "../store/index.js";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
