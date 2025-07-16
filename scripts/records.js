@@ -93,8 +93,8 @@ export const renderRecordByDate = ({ date, items }) => {
   recordContainerEl.innerHTML += `
     <div class="record-container">
       <div class="record-header">
-        <div class="record-date">${formattedDate}</div>
-        <div class="record-amount">${incomeContent}  ${outcomeContent}</div>
+        <div class="record-date font-serif-14">${formattedDate}</div>
+        <div class="record-amount font-serif-14">${incomeContent}  ${outcomeContent}</div>
       </div> ${recordsHTML}
     </div>
   `;
@@ -112,10 +112,12 @@ export const generateRecordHTML = (items) => {
     }
     itemsHTML += `
       <div class="record-item">
-        <div class="category ${item.category.replace(/\s+/g, "")}">${item.category}</div>
-        <div class="description">${item.description}</div>
-        <div class="payment">${item.payment}</div>
-        <div class="amount ${sign}">${formatWithComma(item.amount)}</div>
+        <div class="category font-light-12 ${item.category.replace(/\s+/g, "")}">${
+      item.category
+    }</div>
+        <div class="description font-light-14">${item.description}</div>
+        <div class="payment font-light-14">${item.payment}</div>
+        <div class="amount font-light-14 ${sign}">${formatWithComma(item.amount)}</div>
         
       </div>`;
   });
