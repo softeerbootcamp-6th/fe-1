@@ -85,14 +85,31 @@ export function renderListItem(listContainer) {
   };
 
   const getListItemHTML = ({ money, description, payment, class_name }) => {
-    return `
-      <li class="list-item">
-        <div class="class_name">${class_name}</div>
-        <div class="description">${description}</div>
-        <div class="payment">${payment}</div>
-        <div class="money">${money}원</div>
-      </li>
-      `;
+    const li = document.createElement('li');
+    li.className = 'list-item';
+
+    const classNameDiv = document.createElement('div');
+    classNameDiv.className = 'class_name';
+    classNameDiv.textContent = class_name;
+
+    const descriptionDiv = document.createElement('div');
+    descriptionDiv.className = 'description';
+    descriptionDiv.textContent = description;
+
+    const paymentDiv = document.createElement('div');
+    paymentDiv.className = 'payment';
+    paymentDiv.textContent = payment;
+
+    const moneyDiv = document.createElement('div');
+    moneyDiv.className = 'money';
+    moneyDiv.textContent = money;
+
+    li.appendChild(classNameDiv);
+    li.appendChild(descriptionDiv);
+    li.appendChild(paymentDiv);
+    li.appendChild(moneyDiv);
+
+    return li;
   };
 
   const monthlyInfoContainer = document.createElement('div');
@@ -114,7 +131,7 @@ export function renderListItem(listContainer) {
     const listItem = document.createElement('div');
     listItem.className = 'list-item-container';
     dateData.income_expense.forEach(item => {
-      listItem.innerHTML += getListItemHTML(item);
+      listItem.appendChild(getListItemHTML(item));
       dailyContainer.appendChild(listItem);
     });
     listContainer.appendChild(dailyContainer);
