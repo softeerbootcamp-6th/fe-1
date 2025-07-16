@@ -5,7 +5,7 @@ export const ListFilter = {
       .sort((a, b) => b.date - a.date)
       .map((item, index) => ({
         ...item,
-        uid: `uid-${item.date.getTime()}-${index}`,
+        uid: crypto.randomUUID(),
       }));
   },
   groupTransactionsByDate: (transactions) => {

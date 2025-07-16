@@ -16,7 +16,10 @@ class ListStore extends Store {
   dispatch(type, newItem) {
     switch (type) {
       case "addListItem":
-        this.originData.push(newItem);
+        this.originData.push({
+          ...newItem,
+          uid: crypto.randomUUID(),
+        });
         this.originData = this.originData.sort((a, b) => b.date - a.date);
         this.data = [...this.originData];
         break;
