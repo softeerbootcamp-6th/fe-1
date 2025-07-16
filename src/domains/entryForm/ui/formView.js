@@ -2,7 +2,7 @@ import {expenseCategories, incomeCategories} from '../../../shared/constants/cat
 import {addCommaFormatter} from '../util/commaFormatter.js';
 import {bindValidation} from '../util/formValidator.js';
 import {showModal} from '../../../shared/components/modal.js';
-import {PostDummyData} from '../../../shared/data/dummyData.js';
+import {PostDummyData, PuTDummyData} from '../../../shared/data/dummyData.js';
 
 // 금액의 부호를 확인하는 함수
 const isExpense = (els) => els.signBtn.textContent === '-';
@@ -37,12 +37,12 @@ const selectFormElements = (formEl) => {
 };
 
 // 데이터 생성
-const generateData = (els) => {
+// 데이터 생성 - 기존 ID 유지 가능하도록 수정
+const generateData = (els, existingId = null) => {
     return {
-        id: crypto.randomUUID(),
+        id: existingId || crypto.randomUUID(), // 기존 ID가 있으면 사용, 없으면 새로 생성
         date: els.date.value,
         sign: isExpense(els) ? '-' : '+',
-        // +를 통해 숫자로 변환, replace로 콤마 제거
         amount: +els.amtInp.value.replace(/,/g, ''),
         memo: els.memoInp.value.trim(),
         category: {
@@ -81,7 +81,28 @@ const handleAddNewMethod = (methodSelect, newMethod) => {
     opt.selected = true;
 };
 
-export const initFormView = ({formEl, summaryStore}) => {
+// 폼에 선택한 엔트리가 있다면 해당 엔트리의 데이터를 폼에 채우는 함수
+const fillFormWithSelectedEntryState = ({formEl, selectedEntryState}) => {
+    const selectedEntry = selectedEntryState.selectedEntry;
+    if (!selectedEntry) return;
+
+    const els = selectFormElements(formEl);
+    els.date.value = selectedEntry.date;
+    els.signBtn.textContent = selectedEntry.sign;
+    // 카테고리 옵션을 부호에 따라 채움
+    fillCats(els);
+
+    els.amtInp.value = selectedEntry.amount.toLocaleString('ko-KR');
+    els.memoInp.value = selectedEntry.memo;
+    els.methSel.value = selectedEntry.method.value;
+    els.catSel.value = selectedEntry.category.value;
+
+    // 폼 요소가 입력될 때 유효성 검사를 수행하고, 유효한 경우에만 제출 버튼을 활성화
+    bindValidation([els.date, els.amtInp, els.memoInp, els.methSel, els.catSel], els.submit);
+}
+
+
+export const initFormView = ({formEl, summaryStore, selectedEntryStore}) => {
     // 폼 요소에서 필요한 요소들을 선택
     const els = selectFormElements(formEl);
 
@@ -96,6 +117,10 @@ export const initFormView = ({formEl, summaryStore}) => {
 
     // 폼 요소가 입력될 때 유효성 검사를 수행하고, 유효한 경우에만 제출 버튼을 활성화
     bindValidation([els.date, els.amtInp, els.memoInp, els.methSel, els.catSel], els.submit);
+
+    selectedEntryStore.subscribe((state) => {
+        fillFormWithSelectedEntryState({formEl, selectedEntryState: state})
+    });
 
     // 부호 버튼 클릭 시 부호를 토글하고 카테고리 옵션을 다시 채움
     els.signBtn.addEventListener('click', () => {
@@ -118,8 +143,22 @@ export const initFormView = ({formEl, summaryStore}) => {
     formEl.addEventListener('submit', e => {
         e.preventDefault();
 
-        // 폼 데이터를 data 객체로 구성
-        const data = generateData(els);
+        // 선택된 엔트리가 있다면 PUT 요청을 통해 업데이트
+        const selectedEntry = selectedEntryStore.getState().selectedEntry;
+        const data = generateData(els, selectedEntry.id);
+        if (selectedEntry) {
+            // 선택된 엔트리가 있다면 PUT 요청으로 업데이트
+            PuTDummyData(selectedEntry.id, data).then(() => {
+                // store에 선택된 항목을 업데이트
+                selectedEntryStore.dispatch('ENTRY/SELECT/CLEAR', data);
+                resetForm(els);
+                summaryStore.dispatch('ENTRY/UPDATE', data);
+            }).catch(err => {
+                console.error('Error updating entry:', err);
+            });
+            return;
+        }
+
 
         // 서버에 데이터를 전송하고, 성공적으로 추가되면 상태를 업데이트
         PostDummyData(data).then(() => {
@@ -130,4 +169,5 @@ export const initFormView = ({formEl, summaryStore}) => {
             console.error('Error adding entry:', err);
         });
     });
+
 };
