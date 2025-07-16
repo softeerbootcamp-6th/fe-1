@@ -1,6 +1,7 @@
 import { formatNumberWithCommas } from '../../../lib/utils.js';
 import { categoryConfig } from './categoryConfig.js';
 import paymentDataStore from '../../../store/paymentData.js';
+import createModal from '../../Modal/index.js';
 
 function createDetailListItem({
     id,
@@ -30,15 +31,34 @@ function createDetailListItem({
         </button>
     `;
 
-    function init() {
-        const deleteButtonElement = itemElement.querySelector('.delete-button');
-        deleteButtonElement.addEventListener('click', () => {
+    const modal = createModal({
+        okText: '삭제',
+        onOk: () => {
             paymentDataStore.deletePaymentData(id);
             itemElement.remove();
-        });
-    }
+        },
+        okTextColor: 'var(--danger-text-default)',
+        content: `
+            <span class="light-16">해당 내역을 삭제하시겠습니까?</span>
+            <span class="light-12">
+                · 카테고리: ${isIncome ? '수입' : '지출'} / ${categoryLabel}
+            </span>
+            <span class="light-12">
+                · 내용: ${description}
+            </span>
+            <span class="light-12">
+                · 결제 수단: ${paymentMethod}
+            </span>
+            <span class="light-12">
+                · 금액: ${formatNumberWithCommas(amount)}원
+            </span>
+        `,
+    });
 
-    init();
+    const deleteButtonElement = itemElement.querySelector('.delete-button');
+    deleteButtonElement.addEventListener('click', () => {
+        modal.open();
+    });
 
     return itemElement;
 }
