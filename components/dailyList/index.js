@@ -2,6 +2,8 @@ import { createElement, formatAmount } from '../../utils.js';
 import { dailyData } from '../../store/daily.js';
 import createDaliyList from './dailyList.js';
 import dateData from '../../store/date.js';
+import formData from '../../store/formData.js';
+import { bindInputValue } from '../../viewHandler/inputView.js';
 
 export default function initalizeDailyList() {
     const today = new Date().toISOString().split('T')[0];
@@ -82,10 +84,44 @@ export function dailyViewChange(year, month) {
             const $income = document.getElementById('filter-income');
             const $expense = document.getElementById('filter-expense');
 
-            console.log($expense);
             if (dailyData.filteredExpense)
                 $expense.classList.remove('amount-btn-active');
             if (dailyData.filteredIncome)
                 $income.classList.remove('amount-btn-active');
         });
+
+    $container.addEventListener('click', (e) => {
+        const $dailyLine = e.target.closest('.daily-line');
+
+        if (!$dailyLine) return;
+
+        const $deleteBtn = e.target.closest('.daily-delete-btn');
+        const seletedId = $dailyLine.getAttribute('id');
+
+        if ($deleteBtn) {
+            dailyData.removeDailyData(seletedId);
+            dailyViewChange(dateData.year, dateData.month);
+            return;
+        }
+
+        if ($dailyLine.classList.contains('selected')) {
+            $dailyLine.classList.remove('selected');
+            formData.init();
+            bindInputValue(formData);
+            return;
+        }
+
+        $dailyLine.classList.add('selected');
+
+        const { date, items } = dailyData.findDailyDataById(seletedId);
+
+        if (items.amount > 0) {
+            items.sign = true;
+        } else {
+            items.sign = false;
+        }
+
+        formData.setFormData(date, items);
+        bindInputValue(formData);
+    });
 }
