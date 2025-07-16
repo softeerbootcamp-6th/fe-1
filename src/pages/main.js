@@ -4,7 +4,7 @@ import { initTransactionList } from "../components/TransactionList.js";
 export function createMainLayout() {
   const main = document.getElementById("main");
   main.innerHTML = `
-    <div id="transaction-form"></div>
+    <form id="transaction-form"></form>
     <div id="transaction-list"></div>
   `;
   initTransactionForm();
