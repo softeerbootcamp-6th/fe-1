@@ -2,8 +2,6 @@ import { sharedState } from "../state/state.js";
 import { renderCategoryOptions } from "../function/categoryRender.js";
 
 export function initListener() {
-    const entries = [];
-
     let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
     let selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
     let isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
@@ -128,36 +126,4 @@ export function initListener() {
       }
     });
   
-    // addBtn.addEventListener("click", () => {
-    //   const date = document.getElementById("date").value;
-    //   const rawAmount = document.getElementById("amount").value.replace(/,/g, "");
-    //   const amount = Number(rawAmount);
-    //   const desc = document.getElementById("desc").value;
-  
-    //   if (!date || !amount || !desc) {
-    //     alert("모든 항목을 정확히 입력해주세요!");
-    //     return;
-    //   }
-  
-    //   const entry = { 
-    //     date, 
-    //     amount, 
-    //     desc, 
-    //     method: selectedMethod, 
-    //     category: selectedCategory,
-    //     isIncome: isIncome // 수입/지출 여부 저장
-    //   };
-    //   entries.push(entry);
-    //   addEntryToDOM(entry);
-    //   updateTotalAmounts();
-  
-    //   document.getElementById("date").value = "";
-    //   document.getElementById("amount").value = "";
-    //   document.getElementById("desc").value = "";
-    //   document.getElementById("amount").placeholder = "0";
-    //   selectedMethod = null;
-    //   selectedCategory = null;
-    //   display.textContent = "선택하세요";
-    //   categoryDisplay.textContent = "선택하세요";
-    // });
 }

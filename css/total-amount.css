@@ -11,7 +11,33 @@
 .total-amount-value {
     display: flex;
     justify-content: space-between;
-    /* width: 195px; */
+    gap: 20px;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+}
+
+.filter-item.active {
+    opacity: 1;
+}
+
+.filter-item:not(.active) {
+    opacity: 0.5;
+}
+
+.hidden-income, .hidden-expense {
+    display: none !important;
+}
+
+.checkbox-image {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
 }
 
 .entry-amount-section {
@@ -26,6 +52,46 @@
   cursor: pointer;
   /* position: absolute; */
   /* right: 12px; */
+}
+
+/* 필터 버튼 스타일 */
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background-color: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.filter-btn:focus {
+  outline: none;
+}
+
+/* 숨김 처리를 위한 클래스 */
+.hidden-income {
+  display: none !important;
+}
+
+.hidden-expense {
+  display: none !important;
+}
+
+/* 일반적인 숨김 처리 클래스 */
+.hidden {
+  display: none !important;
 }
 
 /* hover 시 스타일 변경 */

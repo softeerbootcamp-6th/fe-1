@@ -7,31 +7,77 @@
         <link rel="stylesheet" href="css/header.css" />
         <link rel="stylesheet" href="css/input-form.css" />
         <link rel="stylesheet" href="css/total-amount.css" />
+        <link rel="stylesheet" href="css/delete-modal.css" />
+        <link rel="stylesheet" href="css/views.css" />
+        <link rel="stylesheet" href="css/charts.css" />
     </head>
     <body>
         <!-- 헤더부분입니다 -->
         <div id="header-container"></div>
-        <!-- 입력 폼 부분입니다 -->
-        <div id="input-form-container"></div>
+        
+        <!-- 메인 콘텐츠 영역 -->
+        <main>
+            <!-- 가계부 뷰 (기본 뷰) -->
+            <div id="ledger-view" class="view active-view">
+                <!-- 입력 폼 부분입니다 -->
+                <div id="input-form-container"></div>
 
-        <div class="total-amount">
-            <div class="total-amount-text" id="total-amount-text">전체 내역</div>
-            <div class="total-amount-value" id="total-amount-value">
-                <div id="total-income">수입</div>
-                <div id="total-expense">지출</div>
+                <div class="total-amount">
+                    <div class="total-amount-text" id="total-amount-text">전체 내역</div>
+                    <div class="total-amount-value" id="total-amount-value">
+                        <div id="total-income" class="filter-item active" data-type="income">수입</div>
+                        <div id="total-expense" class="filter-item active" data-type="expense">지출</div>
+                    </div>
+                </div>
+
+                <section class="entry-list" id="entry-list"></section>
             </div>
-        </div>
 
-        <!-- <div id="delete-modal" class="delete-modal delete-hidden">
+            <!-- 캘린더 뷰 -->
+            <div id="calendar-view" class="view">
+                <div class="calendar-container">
+                    <div id="calendar-grid" class="calendar-grid"></div>
+                </div>
+                <div class="calendar-total-amount">
+                    <div class="calendar-total-amount-value" id="calendar-total-amount-value">
+                        <div id="calendar-total-income" class="filter-item active" data-type="income">수입: 0원</div>
+                        <div id="calendar-total-expense" class="filter-item active" data-type="expense">지출: 0원</div>
+                    </div>
+                    <div class="calendar-total-amount-text" id="calendar-total-amount-text">총합: 0원</div>
+                </div>
+                
+                
+            </div>
+
+            <!-- 통계 뷰 -->
+            <div id="stats-view" class="view">
+                <div class="stats-container">
+                    <div class="stats-charts">
+                        <div class="donut-chart-wrapper">
+                            <div id="category-chart" class="chart">
+                                <div id="donut-chart" class="donut-chart"></div>
+                            </div>
+                        </div>
+                        <div class="expense-summary-wrapper">
+                            <div class="expense-header">
+                                <h3>이번달 지출내역</h3>
+                                <div id="month-total-expense" class="month-total-expense">0원</div>
+                            </div>
+                            <div id="expense-list" class="expense-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 삭제 모달 -->
+        <div id="delete-modal" class="delete-modal delete-hidden">
             <div class="delete-modal-content">
                 <h3>삭제하시겠습니까?</h3>
                 <button id="confirm-delete" class="confirm-delete">삭제</button>
                 <button id="cancel-delete" class="cancel-delete">취소</button>
             </div>
-        </div> -->
-
-        <section class="entry-list" id="entry-list">
-        </section>
+        </div>
 
 
         
