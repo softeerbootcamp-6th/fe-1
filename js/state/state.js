@@ -22,7 +22,6 @@ export const sharedState = {
   //결제수단 드롭박스 요소
   dropdownDisplay: document.getElementById("dropdown-display"),
   dropdownPanel: document.getElementById("dropdown-panel"),
-  dropdownAddBtn: document.getElementById("dropdown-add"),
 
   //모달 요소
   modal: document.getElementById("modal"),

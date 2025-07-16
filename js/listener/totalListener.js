@@ -3,6 +3,7 @@ import { initCategoryListener } from "./category.js";
 import { initDescriptionListener } from "./description.js";
 import { initAmountListener } from "./amount.js";
 import { initToggleSignListener } from "./toggleSign.js";
+import { createModal } from '../../components/modal.js';
 
 //리스너 등록
 function initTotalListener() {
@@ -21,7 +22,7 @@ export function initListener() {
 
     const display = sharedState.dropdownDisplay; // sharedState에서 dropdownDisplay 요소를 가져옴
     const panel = sharedState.dropdownPanel; // sharedState에서 dropdownPanel 요소를 가져옴
-    const dropAddBtn = sharedState.dropdownAddBtn; // sharedState에서 dropdownAddBtn
+    const dropAddBtn = document.getElementById("dropdown-add"); // sharedState에서 dropdownAddBtn
 
     const modal = sharedState.modal; // sharedState에서 modal 요소를 가져옴
     const confirmAdd = sharedState.confirmAdd; // sharedState에서 confirmAdd 요소를 가져
@@ -36,19 +37,28 @@ export function initListener() {
   
     //결제수단 추가 버튼 클릭 시 모달 열기
     dropAddBtn.addEventListener("click", () => {
-      modal.classList.remove("hidden");
-      newMethodInput.value = "";
+      createModal({
+          title: "결제수단 추가",
+          confirmText: "추가하기",
+          cancelText: "취소",
+          onConfirm: () => addNewMethod(),
+          onCancel: () => console.log("결제수단 추가 취소"),
+          children: `
+            <input type="text" id="new-method" placeholder="예: 우리카드" />
+          `,
+      });
+      // newMethodInput.value = "";
       panel.classList.add("hidden");
     });
-  
+
     //모달 닫기 버튼 클릭 시 모달 닫기
     cancelAdd.addEventListener("click", () => {
       modal.classList.add("hidden");
     });
   
     //새 결제수단 추가
-    confirmAdd.addEventListener("click", () => {
-      const newMethod = newMethodInput.value.trim();
+    function addNewMethod() {
+      const newMethod = document.getElementById("new-method").value.trim();
       if (!newMethod) {
         alert("결제수단을 입력해주세요.");
         return;
@@ -63,8 +73,7 @@ export function initListener() {
       display.textContent = newMethod;
       selectedMethod = newMethod;
       sharedState.selectedMethod = selectedMethod; // sharedState에 selectedMethod 업데이트
-      modal.classList.add("hidden");
-    });
+    };
   
     document.addEventListener("click", (e) => {
       if (!methodWrapper.contains(e.target)) {
