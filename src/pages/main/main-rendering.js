@@ -1,4 +1,5 @@
-function renderMain() {
+export function renderMain() {
+  console.log("renderMain 함수 호출");
   const mainHTML = `
         <!-- 가계부 입력 폼 -->
         <div class="input-row-wrapper">

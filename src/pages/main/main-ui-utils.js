@@ -1,4 +1,8 @@
-import { formatDateText } from "../../utils/date-utils.js";
+import {
+  formatDateText,
+  updateHeaderDate,
+  updateInputDate,
+} from "../../utils/date-utils.js";
 import {
   formatAmount,
   formatAmountInput,
@@ -9,6 +13,7 @@ import {
   createNewItem,
   updateTransactionItem,
   processAmountSign,
+  deleteItem,
 } from "../../utils/data-utils.js";
 import { showModal } from "../../layouts/modal/modal.js";
 import { getTransactions, getTransactionById } from "../../api/transaction.js";
@@ -18,23 +23,8 @@ import { getPaymentMethods as getPaymentMethodsApi } from "../../api/payment-met
 let paymentMethods = ["현금", "신용카드"];
 
 // 전역 변수들을 window 객체에 등록
+// 추후에 store로 대체 예정
 export function setupGlobalVariables() {
-  const elements = {
-    contentInput: document.querySelector(".input-cell.content input"),
-    charCountSpan: document.querySelector(".input-cell.content .char-count"),
-    addBtn: document.querySelector(".input-cell.submit button"),
-    dateInput: document.querySelector(".date-input"),
-    amountInput: document.querySelector(".amount-input"),
-    methodDropdown: document.querySelector(
-      ".input-cell.method .custom-dropdown"
-    ),
-    categoryDropdown: document.querySelector(
-      ".input-cell.category .custom-dropdown"
-    ),
-    historyList: document.querySelector(".history-list"),
-    toggleBtns: document.querySelectorAll(".toggle-icon"),
-  };
-
   // 전역 변수들 (currentYear, currentMonth만 유지)
   const globals = {
     currentYear: new Date().getFullYear(),
@@ -45,9 +35,9 @@ export function setupGlobalVariables() {
   };
 
   // window 객체에 등록
-  Object.assign(window, elements, globals);
+  Object.assign(window, globals);
 
-  return { ...elements, ...globals };
+  return { ...globals };
 }
 
 // 전역 함수들을 window 객체에 등록
@@ -55,16 +45,13 @@ export function setupGlobalFunctions(
   deleteItem,
   updateHeaderDate,
   updateInputDate,
-  getFilteredData,
-  onMonthChanged
+  getFilteredData
 ) {
   const globalFunctions = {
     deleteItem,
     updateHeaderDate,
     updateInputDate,
     getFilteredData,
-    onMonthChanged,
-    renderHistoryList,
     enterEditMode,
     cancelEditMode,
     getDropdownValue,
@@ -159,12 +146,8 @@ export function setupAmountInputListeners() {
   const newAmountInput = document.querySelector(".amount-input");
 
   newAmountInput.addEventListener("input", function (e) {
-    if (window.formatAmountInput) {
-      window.formatAmountInput(e);
-    }
-    if (window.updateFormValidation) {
-      window.updateFormValidation();
-    }
+    formatAmountInput(e);
+    updateFormValidation();
   });
 }
 
@@ -184,10 +167,7 @@ export function setupContentInputListeners() {
     const maxLength = 32;
     const currentLength = this.value.length;
     charCountSpan.textContent = `${currentLength}/${maxLength}`;
-
-    if (window.updateFormValidation) {
-      window.updateFormValidation();
-    }
+    updateFormValidation();
   });
 }
 
@@ -281,13 +261,7 @@ export function setupAddButtonListeners() {
     setDropdownValue(methodDropdown, "");
     setDropdownValue(categoryDropdown, "");
     charCountSpan.textContent = "0/32";
-    if (window.updateInputDate) {
-      window.updateInputDate(
-        window.currentYear,
-        window.currentMonth,
-        dateInput
-      );
-    }
+    updateInputDate();
 
     // 토글 상태 초기화 - toggle-btn 기준으로 수정
     window.currentToggleType = "minus";
@@ -311,9 +285,9 @@ export function setupAddButtonListeners() {
 }
 
 // 최초 렌더링 초기화
-export function initializeRendering(updateHeaderDate, updateInputDate) {
-  updateHeaderDate(window.currentYear, window.currentMonth);
-  updateInputDate(window.currentYear, window.currentMonth, window.dateInput);
+export function initializeRendering() {
+  updateHeaderDate();
+  updateInputDate();
   updateHistoryList();
 }
 
@@ -326,14 +300,7 @@ export function initializeModal(initModal) {
 export async function updateHistoryList() {
   try {
     const transactions = await getTransactions();
-    renderHistoryList(
-      transactions,
-      window.currentYear,
-      window.currentMonth,
-      window.historyList,
-      window.enterEditMode,
-      window.deleteItem
-    );
+    renderHistoryList(transactions);
   } catch (error) {
     console.error("히스토리 리스트 업데이트 실패:", error);
   }
@@ -723,15 +690,12 @@ export function cancelEditMode() {
 }
 
 // 렌더링 함수 수정
-export async function renderHistoryList(
-  transactions,
-  currentYear,
-  currentMonth,
-  historyList,
-  enterEditMode,
-  deleteItem
-) {
-  const filteredData = getFilteredData(transactions, currentYear, currentMonth);
+export async function renderHistoryList(transactions) {
+  //랜더링 할 리스트
+  const historyList = document.querySelector(".history-list");
+  // 필터링된 데이터
+  const filteredData = getFilteredData(transactions);
+  // 그룹화된 데이터
   const grouped = {};
 
   filteredData.forEach((item) => {
@@ -739,12 +703,15 @@ export async function renderHistoryList(
     grouped[item.date].push(item);
   });
 
+  // 날짜 정렬
   const sortedDates = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
 
+  // 총 수입, 총 지출, 총 건수
   let totalIncome = 0,
     totalExpense = 0;
   let totalCount = filteredData.length;
 
+  // 랜더링 할 문자열
   let html = "";
   sortedDates.forEach((date) => {
     const items = grouped[date];
@@ -776,6 +743,7 @@ export async function renderHistoryList(
       `;
     });
 
+    // 일 총 금액
     let dayTotalText = "";
     if (dayIncome && dayExpense)
       dayTotalText = `수입 ${formatAmount(dayIncome)}원 지출 ${formatAmount(
@@ -784,6 +752,7 @@ export async function renderHistoryList(
     else if (dayIncome) dayTotalText = `수입 ${formatAmount(dayIncome)}원`;
     else if (dayExpense) dayTotalText = `지출 ${formatAmount(dayExpense)}원`;
 
+    // 랜더링 할 문자열
     html += `
       <div class="history-date-group">
         <div class="history-date">${formatDateText(
@@ -796,8 +765,10 @@ export async function renderHistoryList(
     totalExpense += dayExpense;
   });
 
+  // 랜더링
   historyList.innerHTML = html;
 
+  // 요약 문자열
   const summaryB = document.querySelectorAll(".summary-row b");
   if (summaryB.length >= 3) {
     summaryB[0].textContent = `${totalCount}건`;
@@ -805,6 +776,7 @@ export async function renderHistoryList(
     summaryB[2].textContent = formatAmount(totalExpense);
   }
 
+  // 아이템 목록
   const items = historyList.querySelectorAll(".history-item");
   items.forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -813,6 +785,7 @@ export async function renderHistoryList(
       // ID를 문자열로 처리 (parseInt 제거)
       const itemId = item.getAttribute("data-id");
 
+      // 수정 모드 취소
       if (item.classList.contains("edit-mode")) {
         items.forEach((i) => i.classList.remove("edit-mode"));
         items.forEach(
@@ -822,7 +795,8 @@ export async function renderHistoryList(
         return;
       }
 
-      if (typeof enterEditMode === "function") enterEditMode(itemId);
+      // 수정 모드 진입
+      enterEditMode(itemId);
 
       items.forEach((i) => i.classList.remove("edit-mode"));
       item.classList.add("edit-mode");
@@ -834,6 +808,7 @@ export async function renderHistoryList(
     });
   });
 
+  // 삭제 버튼
   items.forEach((item) => {
     const deleteBtn = item.querySelector(".delete-btn");
     if (deleteBtn) {
@@ -841,7 +816,7 @@ export async function renderHistoryList(
         e.stopPropagation();
         // ID를 문자열로 처리 (parseInt 제거)
         const itemId = item.getAttribute("data-id");
-        if (typeof deleteItem === "function") deleteItem(itemId);
+        deleteItem(itemId);
       });
     }
   });
