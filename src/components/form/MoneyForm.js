@@ -16,9 +16,9 @@ export const MoneyForm = () => {
 
   formStore.subscribe((newData) => {
     //결제값 변경시 화면 업데이트
-    const normalMoney = NumberManager.parseToNormalNumber(newData.money);
+    console.log(newData);
     const moneyInput = moneyForm.querySelector("#money");
-    moneyInput.value = NumberManager.parseToCommaNumber(normalMoney);
+    moneyInput.value = NumberManager.parseToCommaNumber(newData.money);
 
     // 결제 방법 클릭시 화면 업데이트
     moneyTypeImg.src = `./src/assets/${newData.moneyType}.png`;

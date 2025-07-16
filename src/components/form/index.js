@@ -8,6 +8,7 @@ import { ElementManager } from "../../utils/ElementManager.js";
 import { InputValidator } from "../../utils/InputValidator.js";
 import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { formStore } from "../../store/FormStore.js";
+import { NumberManager } from "../../utils/NumberManager.js";
 
 export const EntireForm = () => {
   const entireForm = ElementManager.renderElement("div", "entire-form");
@@ -46,7 +47,10 @@ export const EntireForm = () => {
     selector: "entire-form",
     handler: ({ target }) => {
       const targetName = target.name;
-      const targetValue = target.value;
+      let targetValue = target.value;
+      if (targetName === "money") {
+        targetValue = NumberManager.parseToNormalNumber(targetValue);
+      }
       formStore.dispatch("update", { [targetName]: targetValue });
     },
   });

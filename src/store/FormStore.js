@@ -32,6 +32,7 @@ class FormStore extends Store {
           ...newItem,
           mode: "edit",
           date: new Date(newItem.date),
+          uid: newItem.uid,
         };
         break;
     }

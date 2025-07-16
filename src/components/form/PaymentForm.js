@@ -27,9 +27,9 @@ export const PaymentForm = () => {
     eventType: "click",
     selector: "form-payment",
     handler: ({ target }) => {
-      // 값 선택 업데이트+화면에 표시
       const dropDownLi = target.closest(".drop-down-li");
 
+      // 드롭다운 선택시
       if (dropDownLi) {
         const selectedPayment = target.innerText;
         formStore.dispatch("update", { payment: selectedPayment });
