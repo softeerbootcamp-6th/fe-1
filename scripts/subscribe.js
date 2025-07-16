@@ -6,10 +6,7 @@ export function subscribeStore() {
   store.subscribe((records) => {
     const { year, month } = store.getDate();
     renderRecordHeader(year, month, records);
-    renderRecords(year, month, records, {
-      income: incomeVisible,
-      outcome: outcomeVisible,
-    });
+    renderRecords(year, month, records);
   });
   store.subscribeDate(({ year, month }) => {
     const records = store.getRecords();
