@@ -7,7 +7,7 @@ import { formatAmount } from "../../utils/format-utils.js";
 import { getFilteredData } from "../../utils/data-utils.js";
 import { getTransactions } from "../../api/transaction.js";
 
-function initCalendar() {
+export function initCalendar() {
   // DOM 요소들
   const calendarBody = document.getElementById("calendar-body");
   const totalExpenseEl = document.getElementById("total-expense");
@@ -166,5 +166,3 @@ function initCalendar() {
   updateHeaderDate(window.currentYear, window.currentMonth);
   renderCalendar(window.currentYear, window.currentMonth);
 }
-
-window.initCalendar = initCalendar;

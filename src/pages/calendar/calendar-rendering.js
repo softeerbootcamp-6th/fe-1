@@ -1,4 +1,6 @@
-function renderCalendar() {
+import { initCalendar } from "./calendar.js";
+
+export function renderCalendar() {
   const calendarHTML = `
    <!-- 캘린더 컨테이너 -->
     <div class="calendar-container">
@@ -48,6 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const headerContainer = document.getElementById("header-container");
   if (headerContainer) {
     headerContainer.innerHTML = renderCalendar();
-    if (typeof initCalendar === "function") initCalendar();
+    initCalendar();
   }
 });
