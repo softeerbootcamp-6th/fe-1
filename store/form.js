@@ -1,3 +1,5 @@
+import { getUUID } from '../lib/utils.js';
+
 const formStore = {
     isIncomeMode: false,
     paymentMethodOptions: [
@@ -29,9 +31,13 @@ const formStore = {
 
     /* paymentMethodOptions 관련 Method */
 
-    addPaymentMethod(value) {
-        this.paymentMethodOptions.push({ value, label: value });
-        this.notifyPaymentMethodOptionsAdded();
+    addPaymentMethod(label) {
+        const newPaymentMethod = {
+            value: getUUID(),
+            label: label,
+        };
+        this.paymentMethodOptions.push(newPaymentMethod);
+        this.notifyPaymentMethodOptionsAdded(newPaymentMethod);
     },
 
     deletePaymentMethod(value) {
@@ -39,6 +45,22 @@ const formStore = {
             (option) => option.value !== value
         );
         this.notifyPaymentMethodOptionsDeleted();
+    },
+
+    notifyPaymentMethodOptionsAdded(newPaymentMethod) {
+        document.dispatchEvent(
+            new CustomEvent('paymentMethodOptionsAdded', {
+                detail: { newPaymentMethod },
+            })
+        );
+    },
+
+    notifyPaymentMethodOptionsDeleted() {
+        document.dispatchEvent(
+            new CustomEvent('paymentMethodOptionsDeleted', {
+                detail: { paymentMethodOptions: this.paymentMethodOptions },
+            })
+        );
     },
 };
 

@@ -34,7 +34,7 @@
     text-align: right;
 }
 
-.dropdown-options {
+.dropdown-container {
     z-index: 1000;
     position: absolute;
     top: calc(100% + 20px);
@@ -50,10 +50,6 @@
 .dropdown-option-container {
     width: 100%;
     cursor: pointer;
-}
-
-.dropdown-option-container:last-child .dropdown-option {
-    border-bottom: none;
 }
 
 .dropdown-option {

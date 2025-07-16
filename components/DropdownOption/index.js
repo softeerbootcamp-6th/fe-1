@@ -2,7 +2,7 @@ import { close } from '../../lib/utils.js';
 import formStore from '../../store/form.js';
 
 const createDropdownOption = (option, deleteOption) => {
-    const optionContainer = document.createElement('div');
+    const optionContainer = document.createElement('li');
     optionContainer.className = 'dropdown-option-container';
 
     optionContainer.innerHTML = `
@@ -40,12 +40,16 @@ const createDropdownOption = (option, deleteOption) => {
 
 const createDropdownOptions = (options, onSelect, deleteOption) => {
     const optionsContainer = document.createElement('div');
-    optionsContainer.className = 'dropdown-options';
+    optionsContainer.className = 'dropdown-container';
     optionsContainer.style.display = 'none';
+
+    const optionsList = document.createElement('ul');
+    optionsList.className = 'dropdown-options-list';
+    optionsContainer.appendChild(optionsList);
 
     options.forEach((option) => {
         const optionElement = createDropdownOption(option, deleteOption);
-        optionsContainer.appendChild(optionElement);
+        optionsList.appendChild(optionElement);
     });
 
     optionsContainer.addEventListener('click', (event) => {
@@ -59,6 +63,14 @@ const createDropdownOptions = (options, onSelect, deleteOption) => {
             }
             close(optionsContainer);
         }
+    });
+
+    document.addEventListener('paymentMethodOptionsAdded', (event) => {
+        const newOptions = createDropdownOption(
+            event.detail.newPaymentMethod,
+            deleteOption
+        );
+        optionsList.appendChild(newOptions);
     });
 
     return optionsContainer;
