@@ -109,7 +109,7 @@ export const DummyList = [
     money: 10000,
     content: "은행 이자",
     payment: "현금",
-    category: "기타수입",
+    category: "기타 수입",
   },
   {
     date: new Date("2023-08-07T13:30:00"),
@@ -141,7 +141,7 @@ export const DummyList = [
     money: 30000,
     content: "중고물품 판매",
     payment: "현금",
-    category: "기타수입",
+    category: "기타 수입",
   },
   {
     date: new Date("2023-08-09T19:30:00"),

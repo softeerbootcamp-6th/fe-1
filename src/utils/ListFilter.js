@@ -3,7 +3,7 @@ export const ListFilter = {
     return transactions
       .filter((transaction) => transaction.date.getMonth() + 1 === month)
       .sort((a, b) => b.date - a.date)
-      .map((item, index) => ({
+      .map((item) => ({
         ...item,
         uid: crypto.randomUUID(),
       }));

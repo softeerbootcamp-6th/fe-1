@@ -1,16 +1,5 @@
 import { Store } from "./store.js";
 
-const initialFormInput = {
-  mode: "create",
-  date: new Date(),
-  moneyType: "expense",
-  money: "",
-  content: "",
-  payment: "",
-  category: "",
-  uid: null,
-};
-
 class FormStore extends Store {
   constructor(input) {
     super({ ...input });
@@ -39,5 +28,16 @@ class FormStore extends Store {
     this.notify();
   }
 }
+
+const initialFormInput = {
+  mode: "create",
+  date: new Date(),
+  moneyType: "expense",
+  money: "",
+  content: "",
+  payment: "",
+  category: "",
+  uid: null,
+};
 
 export const formStore = new FormStore(initialFormInput);

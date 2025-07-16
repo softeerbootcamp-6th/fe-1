@@ -1,6 +1,8 @@
+import { DateStore, dateStore } from "../store/DateStore.js";
 import { ElementManager } from "../utils/ElementManager.js";
+import { EventDispatcher } from "../utils/EventDispatcher.js";
 
-export const renderHeader = (currentDate) => {
+export const renderHeader = () => {
   const header = ElementManager.renderElementId("header", "header");
   const headerContainer = ElementManager.renderElement(
     "div",
@@ -13,11 +15,11 @@ export const renderHeader = (currentDate) => {
   headerContainer.appendChild(logo);
 
   // date
-  const date = ElementManager.renderElement("div", "date");
-  const year = currentDate.year;
-  const month = currentDate.month;
-  const monthEng = currentDate.monthEng;
-  date.innerHTML = `
+  const dateContainer = ElementManager.renderElement("div", "date");
+  const year = dateStore.data.year;
+  const month = dateStore.data.month;
+  const monthEng = DateStore.parseMonthToEng(month);
+  dateContainer.innerHTML = `
     <div class="arrow arrow-left">
       <img src="./src/assets/chevron-left.png" alt="left arrow" />
     </div>
@@ -30,7 +32,7 @@ export const renderHeader = (currentDate) => {
       <img src="./src/assets/chevron-right.png" alt="right arrow" />
     </div>
   `;
-  headerContainer.appendChild(date);
+  headerContainer.appendChild(dateContainer);
 
   // navigation
   const nav = ElementManager.renderElement("nav", "nav");
@@ -45,8 +47,33 @@ export const renderHeader = (currentDate) => {
     navItem.dataset.item = item;
     nav.appendChild(navItem);
   });
-
   headerContainer.appendChild(nav);
   header.appendChild(headerContainer);
+
+  dateStore.subscribe((newData) => {
+    const yearSpan = dateContainer.querySelector("span:nth-child(1)");
+    const monthNumSpan = dateContainer.querySelector("span:nth-child(2)");
+    const monthEngSpan = dateContainer.querySelector("span:nth-child(3)");
+
+    if (yearSpan) yearSpan.textContent = newData.year;
+    if (monthNumSpan) monthNumSpan.textContent = newData.month;
+    if (monthEngSpan)
+      monthEngSpan.textContent = DateStore.parseMonthToEng(newData.month);
+  });
+
+  EventDispatcher.register({
+    eventType: "click",
+    selector: "arrow",
+    handler: ({ target }) => {
+      const arrowLeft = target.closest(".arrow-left");
+      const arrowRight = target.closest(".arrow-right");
+      if (arrowLeft) {
+        dateStore.dispatch("decreaseMonth");
+      } else if (arrowRight) {
+        dateStore.dispatch("increaseMonth");
+      }
+    },
+  });
+
   return header;
 };
