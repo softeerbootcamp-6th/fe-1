@@ -1,3 +1,12 @@
+import { initCalendar } from "../../pages/calendar/calendar.js";
+import { onMonthChanged } from "../../utils/data-utils.js";
+import { initMain } from "../../pages/main/main.js";
+import { initStatistic } from "../../pages/statistic/statistic.js";
+
+import { renderMain } from "../../pages/main/main-rendering.js";
+import { renderCalendar } from "../../pages/calendar/calendar-rendering.js";
+import { renderStatistic } from "../../pages/statistic/statistic-rendering.js";
+
 // 월 이름 설정(재사용)
 export const monthNames = [
   "January",
@@ -71,45 +80,35 @@ export async function switchTab(tabName) {
     switch (tabName) {
       case "LIST_VIEW":
         // 메인 페이지 렌더링 함수 호출
-        if (typeof renderMain === "function") {
-          bodyContainer.innerHTML = renderMain();
-          // 병렬 로드
-          await Promise.all([
-            loadCSS("src/pages/main/main.css"),
-            loadScript("src/pages/main/main.js"),
-          ]);
-          if (typeof window.initMain === "function") {
-            window.initMain();
-          }
-        }
+        bodyContainer.innerHTML = renderMain();
+        // 병렬 로드
+        await Promise.all([
+          loadCSS("src/pages/main/main.css"),
+          loadScript("src/pages/main/main.js"),
+        ]);
+        initMain();
         break;
+
       case "CALENDAR_VIEW":
         // 달력 페이지 렌더링 함수 호출
-        if (typeof renderCalendar === "function") {
-          bodyContainer.innerHTML = renderCalendar();
-          // 병렬 로드
-          await Promise.all([
-            loadCSS("src/pages/calendar/calendar.css"),
-            loadScript("src/pages/calendar/calendar.js"),
-          ]);
-          if (typeof window.initCalendar === "function") {
-            window.initCalendar();
-          }
-        }
+        bodyContainer.innerHTML = renderCalendar();
+        // 병렬 로드
+        await Promise.all([
+          loadCSS("src/pages/calendar/calendar.css"),
+          loadScript("src/pages/calendar/calendar.js"),
+        ]);
+        initCalendar();
         break;
+
       case "STATISTIC_VIEW":
         // 통계 페이지 렌더링 함수 호출
-        if (typeof renderStatistic === "function") {
-          bodyContainer.innerHTML = renderStatistic();
-          // 병렬 로드
-          await Promise.all([
-            loadCSS("src/pages/statistic/statistic.css"),
-            loadScript("src/pages/statistic/statistic.js"),
-          ]);
-          if (typeof window.initStatistic === "function") {
-            window.initStatistic();
-          }
-        }
+        bodyContainer.innerHTML = renderStatistic();
+        // 병렬 로드
+        await Promise.all([
+          loadCSS("src/pages/statistic/statistic.css"),
+          loadScript("src/pages/statistic/statistic.js"),
+        ]);
+        initStatistic();
         break;
     }
   } catch (error) {
@@ -156,11 +155,8 @@ export function setupMonthNavigation() {
         window.currentYear--;
       }
       updateMonth();
-
       // 전역 함수 호출
-      if (window.onMonthChanged) {
-        window.onMonthChanged(window.currentYear, window.currentMonth);
-      }
+      onMonthChanged();
     });
   }
 
@@ -172,11 +168,7 @@ export function setupMonthNavigation() {
         window.currentYear++;
       }
       updateMonth();
-
-      // 전역 함수 호출
-      if (window.onMonthChanged) {
-        window.onMonthChanged(window.currentYear, window.currentMonth);
-      }
+      onMonthChanged();
     });
   }
 }

@@ -1,4 +1,7 @@
-function renderHeader() {
+import { initHeader } from "./header.js";
+
+export function renderHeader() {
+  console.log("renderHeader 함수 호출");
   const headerHTML = `
     <header class="header">
       <!-- 1. 왼쪽: 로고 -->
@@ -40,6 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const headerContainer = document.getElementById("header-container");
   if (headerContainer) {
     headerContainer.innerHTML = renderHeader();
-    if (typeof initHeader === "function") initHeader();
+    initHeader();
   }
 });
