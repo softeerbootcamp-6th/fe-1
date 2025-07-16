@@ -1,4 +1,4 @@
-import monthStore from "../../stores/MonthStore.js";
+import monthState from "../../stores/subjects/MonthState.js";
 import Subject from "../../utils/observers/Subject.js";
 import { getTransactionByMonth } from "../../apis/transaction.js";
 import {
@@ -30,7 +30,7 @@ class TransactionState extends Subject {
     try {
       const newTransaction = await postTransaction(transaction);
 
-      const { year, month } = monthStore.getMonthInfo();
+      const { year, month } = monthState.getMonthInfo();
       await this.loadMonthData(`${year}-${month}`);
     } catch (error) {
       console.error("Error adding transaction:", error);
@@ -42,7 +42,7 @@ class TransactionState extends Subject {
     try {
       const updatedTransaction = await putTransaction(id, newData);
 
-      const { year, month } = monthStore.getMonthInfo();
+      const { year, month } = monthState.getMonthInfo();
       await this.loadMonthData(`${year}-${month}`);
     } catch (error) {
       console.error("Error updating transaction:", error);
@@ -54,7 +54,7 @@ class TransactionState extends Subject {
     try {
       await delTransaction(id);
 
-      const { year, month } = monthStore.getMonthInfo();
+      const { year, month } = monthState.getMonthInfo();
       await this.loadMonthData(`${year}-${month}`);
 
       return true;

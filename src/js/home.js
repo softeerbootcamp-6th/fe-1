@@ -1,9 +1,9 @@
-import monthStore from "../stores/MonthStore.js";
-import transactionState from "../models/subjects/TransactionState.js";
+import monthState from "../stores/subjects/MonthState.js";
+import transactionState from "../stores/subjects/TransactionState.js";
 import { TransactionsView } from "../views/Transactions/TransactionsView.js";
-import { TransactionsInfo } from "../models/observers/TransactionsInfo.js";
+import { TransactionsInfo } from "../stores/observers/TransactionsInfo.js";
 import { initInputForm } from "../controllers/InputFormController.js";
-import { MonthObserver } from "../models/observers/MonthObserver.js";
+import { MonthObserver } from "../stores/observers/MonthObserver.js";
 
 const toggleFilter = (type) => {
   const filterState = transactionState.getFilterState();
@@ -12,9 +12,9 @@ const toggleFilter = (type) => {
 };
 
 const renderTransactionsHeader = async () => {
-  const { year, month } = monthStore.getMonthInfo();
+  const { year, month } = monthState.getMonthInfo();
   const monthObserver = new MonthObserver();
-  monthStore.subscribe(monthObserver);
+  monthState.subscribe(monthObserver);
 
   // Observer들 초기화
   const transactionsView = new TransactionsView();

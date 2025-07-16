@@ -4,8 +4,8 @@
   "description": "## 1주차 Todo",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"json-server --watch src/models/data.json --port 3001\" \"npx serve\"",
-    "server": "json-server --watch src/models/data.json --port 3001",
+    "dev": "concurrently \"json-server --watch src/stores/data.json --port 3001\" \"npx serve\"",
+    "server": "json-server --watch src/stores/data.json --port 3001",
     "start": "concurrently \"npm run server\" \"npx serve\""
   },
   "repository": {

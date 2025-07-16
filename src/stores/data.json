@@ -2699,15 +2699,6 @@
       "method": "현금",
       "type": "expense",
       "amount": 843194
-    },
-    {
-      "id": 301,
-      "date": "2025-01-16",
-      "category": "식비",
-      "description": "테스트 점심",
-      "method": "현금",
-      "type": "expense",
-      "amount": 15000
     }
   ],
   "method": [

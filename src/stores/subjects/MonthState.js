@@ -1,5 +1,5 @@
-// stores/MonthStore.js
-import Subject from "../utils/observers/Subject.js";
+// stores/MonthState.js
+import Subject from "../../utils/observers/Subject.js";
 
 const MONTH_NAMES = [
   "january",
@@ -16,7 +16,7 @@ const MONTH_NAMES = [
   "december",
 ];
 
-class MonthStore extends Subject {
+class MonthState extends Subject {
   constructor() {
     super();
     this.currentDate = new Date();
@@ -58,5 +58,5 @@ class MonthStore extends Subject {
   }
 }
 
-const monthStore = new MonthStore();
-export default monthStore;
+const monthState = new MonthState();
+export default monthState;
