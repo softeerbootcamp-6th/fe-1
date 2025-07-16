@@ -1,5 +1,7 @@
 import DropDown from '../../../components/DropDown/DropDown.js';
 import { formatAmount } from '../../../utils/format.js';
+import incomeExpenseStore from '../../../store/incomeExpenseStore.js';
+import MainPage from '../MainPage.js';
 
 const pluscCategoryList = [
     '월급', '용돈', '기타 수입'
@@ -8,7 +10,7 @@ const minusCategoryList = [
     '생활', '식비', '교통', '쇼핑/뷰티', '의료/건강', '문화/건강', '미분류'
 ];
 
-function InputBar(onSubmitCallback) {
+function InputBar() {
     const paymentOptions = ['카드', '현금', '계좌이체', '기타'];
 
     let isPlus = false;
@@ -85,19 +87,20 @@ function InputBar(onSubmitCallback) {
     const handleSubmit = () => {
         const { dateInput, amountInput, contentInput, paymentSelect, categorySelect } = getInputElements();
 
+        const signValue = isPlus ? amountInput.value : `-${amountInput.value}`; // 수입/지출에 따라 금액에 부호 추가
+
         const formData = {
             date: dateInput.value,
-            amount: amountInput.value,
-            content: contentInput.value,
-            payment: paymentSelect.value,
+            amount: parseInt(signValue.replace(/,/g, ''), 10), // 숫자만 허용하고 쉼표 제거
+            description: contentInput.value,
+            method: paymentSelect.value,
             category: categorySelect.value
         };
+        console.log('Form submitted:', formData);
 
-
-        // MainPage로 formData 전달
-        if (onSubmitCallback) {
-            onSubmitCallback(formData);
-        }
+        incomeExpenseStore.updateAllDummyData(formData);
+        incomeExpenseStore.getCurrentIncomeExpenseList();
+        MainPage().init(); // MainPage 초기화 호출
     };
 
     const formatAmountField = () => {
@@ -182,6 +185,12 @@ function InputBar(onSubmitCallback) {
             const plusMinusBtn = document.getElementById('plus-minus-btn');
             if (plusMinusBtn) {
                 plusMinusBtn.addEventListener('click', togglePlusMinus);
+                const img = plusMinusBtn.querySelector('img');
+
+                if (img) {
+                    img.src = `assets/icons/${!isPlus ? 'minus' : 'plus'}.svg`;
+                    img.alt = `${!isPlus ? 'minus' : 'plus'} icon`;
+                }
             }
 
             // 초기 분류 옵션 설정 (기본값: minus/지출)
@@ -191,6 +200,16 @@ function InputBar(onSubmitCallback) {
             const inputs = document.querySelectorAll('.input-field input, .amount-field, .content-field, .category-field, #category-select');
             inputs.forEach(input => {
                 input.addEventListener('input', validateInputs);
+
+                if (input.classList.contains('amount-field')) {
+                    input.value = '';
+                }
+                else if (input.classList.contains('content-field')) {
+                    input.value = '';
+                }
+                else if (input.classList.contains('category-field')) {
+                    input.value = '';
+                }
             });
 
             // 초기 체크 버튼 상태 설정
