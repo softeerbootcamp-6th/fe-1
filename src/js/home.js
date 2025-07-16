@@ -2,8 +2,12 @@ import monthState from "../stores/subjects/MonthState.js";
 import transactionState from "../stores/subjects/TransactionState.js";
 import { TransactionsView } from "../views/Transactions/TransactionsView.js";
 import { TransactionsInfo } from "../stores/observers/TransactionsInfo.js";
-import { initInputForm } from "../controllers/InputFormController.js";
 import { MonthObserver } from "../stores/observers/MonthObserver.js";
+import { InputFormView } from "../views/InputForm/inputFormView.js";
+import { InputFormObserver } from "../stores/observers/InputFormObserver.js";
+import { InputFormState } from "../stores/subjects/InputFormState.js";
+
+const inputFormState = new InputFormState();
 
 const toggleFilter = (type) => {
   const filterState = transactionState.getFilterState();
@@ -43,9 +47,53 @@ const renderTransactionsHeader = async () => {
   });
 };
 
+const renderInputForm = async () => {
+  const inputFormView = new InputFormView();
+  const inputFormObserver = new InputFormObserver(inputFormView);
+  inputFormState.subscribe(inputFormObserver);
+  inputFormState.init();
+
+  const inputFormElement = document.querySelector(".input-form");
+  inputFormElement.addEventListener("input", (e) => {
+    let { name, value } = e.target;
+    if (name === "amount") {
+      const formattedValue = Number(value.replace(/,/g, ""));
+      value = formattedValue;
+    }
+    inputFormState.setField(name, value);
+  });
+
+  inputFormElement.addEventListener("click", (e) => {
+    const $amountIcon = e.target.closest(".input-form__amount-icon");
+    if ($amountIcon) {
+      inputFormState.toggleType();
+    }
+
+    // delete button 추가해야함
+
+    const $selectItem = e.target.closest(".select-item");
+
+    const $methodSelect = e.target.closest("#method-select-container");
+    if ($methodSelect && $selectItem) {
+      inputFormState.setField("method", $selectItem.dataset.value);
+    }
+
+    const $categorySelect = e.target.closest("#category-select-container");
+    if ($categorySelect && $selectItem) {
+      inputFormState.setField("category", $selectItem.dataset.value);
+    }
+  });
+
+  inputFormElement.addEventListener("submit", (e) => {
+    e.preventDefault();
+    transactionState.addTransaction(inputFormState.getState());
+    inputFormState.reset();
+  });
+};
+
 const init = async () => {
   await renderTransactionsHeader();
-  initInputForm();
+  await renderInputForm();
 };
 
 init();

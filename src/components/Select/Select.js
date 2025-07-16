@@ -1,5 +1,4 @@
 import { createHTML } from "../../utils/dom.js";
-
 import Modal from "../Modal/Modal.js";
 
 const modalContainer = document.getElementById("modal");
@@ -7,6 +6,7 @@ const modalContainer = document.getElementById("modal");
 const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
   const listItem = document.createElement("li");
   listItem.className = "select-item font-light-12";
+  listItem.dataset.value = option;
 
   const selectItemContent = document.createElement("div");
   selectItemContent.className = "select-item__content";
@@ -26,7 +26,7 @@ const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
     deleteButtonIcon.alt = "delete-item";
     deleteButton.appendChild(deleteButtonIcon);
 
-    deleteButton.addEventListener("click", (e) => {
+    deleteButton.addEventListener("click", async (e) => {
       e.stopPropagation();
 
       const modal = Modal({
@@ -34,13 +34,20 @@ const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
         type: "delete",
         text: "해당 결제 수단을 삭제하시겠습니까?",
         value: option,
-        onConfirm: (value) => {
-          listItem.remove();
-          onDelete();
+        onConfirm: async (value) => {
+          try {
+            const currentMethods = await getMethods();
+            const updatedMethods = currentMethods.filter(
+              (item) => item !== value
+            );
+            await updateMethods(updatedMethods);
 
-          let options = JSON.parse(localStorage.getItem("method"));
-          options = options.filter((item) => item !== value);
-          localStorage.setItem("method", JSON.stringify(options));
+            listItem.remove();
+            onDelete();
+          } catch (error) {
+            console.error("Error deleting method:", error);
+            alert("결제 수단 삭제에 실패했습니다.");
+          }
         },
       });
 
@@ -59,37 +66,29 @@ const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
 };
 
 const Select = async ({
+  name,
   label,
   options = [],
   placeholder = "입력하세요",
   isEditable = false,
-  onChange,
+  selected = "",
 }) => {
   try {
     const selectElement = await createHTML(
       "/src/components/Select/Select.html"
     );
-
     // 라벨 설정
     const labelElement = selectElement.querySelector(".select__label");
     labelElement.textContent = label;
 
     // 입력 필드 설정
     const inputElement = selectElement.querySelector(".select-input");
+    inputElement.name = name;
     inputElement.placeholder = placeholder;
+    inputElement.value = selected;
 
     // 옵션 리스트 동적 생성
     const selectList = selectElement.querySelector(".select-list");
-
-    const handleClickItem = (option) => {
-      const optionText = typeof option === "string" ? option : option.text;
-      inputElement.value = optionText;
-      selectList.classList.remove("select-list--open");
-      const selectIcon = selectWrapper.querySelector(".select-icon");
-      selectIcon.classList.remove("select-icon--open");
-
-      onChange(optionText);
-    };
 
     options.forEach((option) => {
       selectList.appendChild(
@@ -99,7 +98,6 @@ const Select = async ({
           handleClick: () => handleClickItem(option),
           onDelete: () => {
             inputElement.value = "";
-            onChange("");
           },
         })
       );
@@ -123,7 +121,7 @@ const Select = async ({
           type: "add",
           text: "추가하실 결제 수단을 입력해주세요.",
           placeholder: "카테고리 이름",
-          onConfirm: (value) => {
+          onConfirm: async (value) => {
             if (options.includes(value)) {
               alert("이미 존재하는 결제 수단입니다.");
               return;
@@ -134,17 +132,28 @@ const Select = async ({
               return;
             }
 
-            const newItem = renderSelectItem({
-              option: value,
-              isEditable,
-              handleClick: () => handleClickItem(value),
-            });
+            try {
+              const currentMethods = await getMethods();
+              const updatedMethods = [...currentMethods, value];
+              await updateMethods(updatedMethods);
 
-            const addButtonItem = selectList.lastElementChild;
-            selectList.insertBefore(newItem, addButtonItem);
+              const newItem = renderSelectItem({
+                option: value,
+                isEditable,
+                handleClick: () => handleClickItem(value),
+                onDelete: () => {
+                  inputElement.value = "";
+                },
+              });
 
-            options.push(value);
-            localStorage.setItem("method", JSON.stringify(options));
+              const addButtonItem = selectList.lastElementChild;
+              selectList.insertBefore(newItem, addButtonItem);
+
+              options.push(value);
+            } catch (error) {
+              console.error("Error adding method:", error);
+              alert("결제 수단 추가에 실패했습니다.");
+            }
           },
         });
 
