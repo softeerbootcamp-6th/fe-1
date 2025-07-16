@@ -13,7 +13,15 @@ export function renderIncomeExpenseForm() {
   let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
   const incomeTags = ['용돈', '월급'];
-  const expenseTags = ['식비', '교통', '문화여가', '기타'];
+  const expenseTags = [
+    '생활',
+    '의료/건강',
+    '쇼핑/뷰티',
+    '교통',
+    '식비',
+    '문화/여가',
+    '미분류',
+  ];
 
   // TODO: select UI 구현 (현재는 단순한 select로 구현)
   const getDateContainerHTML = () => {

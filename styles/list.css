@@ -46,6 +46,46 @@
   justify-content: center;
 }
 
+.tag-life {
+  background-color: var(--colorchip-90);
+}
+
+.tag-health {
+  background-color: var(--colorchip-30);
+}
+
+.tag-shopping {
+  background-color: var(--colorchip-50);
+}
+
+.tag-food {
+  background-color: var(--colorchip-60);
+}
+
+.tag-transport {
+  background-color: var(--colorchip-70);
+}
+
+.tag-culture {
+  background-color: var(--pastel-perfume);
+}
+
+.tag-uncategorized {
+  background-color: var(--pastel-lavenderPink);
+}
+
+.tag-salary {
+  background-color: var(--colorchip-20);
+}
+
+.tag-etc-income {
+  background-color: var(--colorchip-10);
+}
+
+.tag-allowance {
+  background-color: var(--colorchip-40);
+}
+
 .description {
   width: 25rem;
   display: flex;

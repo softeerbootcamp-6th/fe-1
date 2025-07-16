@@ -85,14 +85,16 @@ export function renderListItem(listContainer) {
   };
 
   const tagColorMap = {
-    '문화/여가': 'tag-culture',
-    교통: 'tag-transport',
-    미분류: 'tag-uncategorized',
-    식비: 'tag-food',
-    월급: 'tag-salary',
     생활: 'tag-life',
+    '의료/건강': 'tag-health',
     '쇼핑/뷰티': 'tag-shopping',
-    의료: 'tag-health',
+    식비: 'tag-food',
+    교통: 'tag-transport',
+    '문화/여가': 'tag-culture',
+    미분류: 'tag-uncategorized',
+    월급: 'tag-salary',
+    '기타 수입': 'tag-etc-income',
+    용돈: 'tag-allowance',
   };
 
   const getListItemHTML = ({ money, description, payment, tag }) => {
@@ -100,7 +102,8 @@ export function renderListItem(listContainer) {
     li.className = 'list-item';
 
     const tagDiv = document.createElement('div');
-    tagDiv.className = 'tag light14';
+    //tagDiv.className = 'tag light14';
+    tagDiv.classList.add('tag', 'light14', tagColorMap[tag]);
     tagDiv.textContent = tag;
 
     const descriptionDiv = document.createElement('div');
