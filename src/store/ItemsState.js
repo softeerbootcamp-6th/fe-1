@@ -11,11 +11,9 @@ class ItemsState extends Observable {
     this.items = newItems;
     this.notify();
   }
-
   getItems() {
     return this.items;
   }
 }
 
-const itemsState = new ItemsState();
-export default itemsState;
+export default new ItemsState();
