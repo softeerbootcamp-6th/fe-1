@@ -11,6 +11,7 @@ class FormState extends Observable {
       description: "",
       method: "",
       category: "",
+      editId: null,
     };
   }
   setFormState(newFields) {
@@ -28,6 +29,7 @@ class FormState extends Observable {
       description: "",
       method: "",
       category: "",
+      editId: null,
     };
     this.notify();
   }

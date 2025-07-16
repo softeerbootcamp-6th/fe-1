@@ -1,7 +1,11 @@
+import { initTransactionForm } from "../components/TransactionForm.js";
 import {
   renderCategorySelect,
+  renderTransactionForm,
   updateDescriptionCount,
 } from "../components/TransactionFormView.js";
+import DateState from "../store/DateState.js";
+import FormState from "../store/FormState.js";
 
 export class DateInputObserver {
   constructor(dateState) {
@@ -80,5 +84,35 @@ export class SubmitButtonObserver {
 
     const btn = document.getElementById("submit-btn");
     if (btn) btn.disabled = !isValid;
+  }
+}
+
+export class TransactionFormObserver {
+  constructor(formState) {
+    this.formState = formState;
+    formState.subscribe(this);
+  }
+
+  update() {
+    const { editId, date, amount, type, description, method, category } =
+      this.formState.getFormState();
+    if (!editId) return;
+
+    const dateInput = document.getElementById("date-input");
+    if (dateInput) dateInput.value = date;
+
+    const amountInput = document.getElementById("amount-input");
+    if (amountInput) amountInput.value = amount;
+
+    const typeInput = document.getElementById("type-input");
+    if (typeInput) typeInput.value = type;
+
+    const descInput = document.getElementById("desc-input");
+    if (descInput) descInput.value = description;
+
+    const methodSelect = document.getElementById("method-select");
+    if (methodSelect) methodSelect.value = method;
+
+    renderCategorySelect(type, category);
   }
 }

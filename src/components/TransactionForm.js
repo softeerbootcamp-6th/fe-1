@@ -8,6 +8,7 @@ import {
   DateInputObserver,
   DescriptionLengthObserver,
   SubmitButtonObserver,
+  TransactionFormObserver,
   TransactionTypeButtonObserver,
 } from "../observers/transactionFormObservers.js";
 import FormState from "../store/FormState.js";
@@ -21,6 +22,7 @@ export function initTransactionForm() {
   new DescriptionLengthObserver(FormState);
   new CategorySelectObserver(FormState);
   new SubmitButtonObserver(FormState);
+  new TransactionFormObserver(FormState);
 
   const form = document.getElementById("transaction-form");
   if (!form) return;
@@ -38,7 +40,7 @@ export function initTransactionForm() {
 
     const currentType = FormState.getFormState().type;
     const newType = currentType === "withdraw" ? "deposit" : "withdraw";
-    FormState.setFormState({ type: newType });
+    FormState.setFormState({ type: newType, category: "" });
   });
 
   // submit 이벤트 위임 등록
@@ -47,12 +49,16 @@ export function initTransactionForm() {
     const formState = FormState.getFormState();
     const newItem = {
       ...formState,
-      id: Date.now(),
+      id: formState.editId ?? Date.now(),
     };
-    itemsState.setItems([...itemsState.getItems(), newItem]);
-    console.log(itemsState.getItems());
+
+    const updatedItems = formState.editId
+      ? itemsState
+          .getItems()
+          .map((item) => (item.id === formState.editId ? newItem : item))
+      : [...itemsState.getItems(), newItem];
+
+    itemsState.setItems(updatedItems);
     FormState.resetFormState();
-    console.log(FormState.getFormState());
-    renderTransactionForm();
   });
 }

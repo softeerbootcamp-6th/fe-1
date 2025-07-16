@@ -7,6 +7,7 @@ import { addEventListener } from "../utils/addEvent.js";
 import { renderTransactionList } from "./transactionListView.js";
 import ItemsState from "../store/ItemsState.js";
 import { TransactionListObserver } from "../observers/TransactionListObserver.js";
+import FormState from "../store/FormState.js";
 
 export function initTransactionList() {
   renderTransactionList();
@@ -15,17 +16,29 @@ export function initTransactionList() {
     id: "transaction-list",
     event: "click",
     onEvent: (e) => {
-      const target = e.target;
-      const deleteBtn = target.closest(".delete-btn");
-      if (!deleteBtn) return;
+      const itemDiv = e.target.closest(".item");
+      if (!itemDiv) return;
 
-      const itemDiv = deleteBtn.closest(".item");
+      const deleteBtn = e.target.closest(".delete-btn");
+      if (deleteBtn) {
+        const itemId = Number(itemDiv.dataset.id);
+        const updatedItems = ItemsState.getItems().filter(
+          (item) => item.id !== itemId
+        );
+        ItemsState.setItems(updatedItems);
+        return;
+      }
+
       const itemId = Number(itemDiv.dataset.id);
-      const updatedItems = itemsState
-        .getItems()
-        .filter((item) => item.id !== itemId);
+      const selectedItem = ItemsState.getItems().find(
+        (item) => item.id === itemId
+      );
+      if (!selectedItem) return;
 
-      itemsState.setItems(updatedItems); // → notify → update → render
+      FormState.setFormState({
+        ...selectedItem,
+        editId: itemId,
+      });
     },
   });
 }
