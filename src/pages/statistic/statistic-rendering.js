@@ -33,15 +33,5 @@ document.addEventListener("DOMContentLoaded", function () {
   const bodyContainer = document.getElementById("body-container");
   if (bodyContainer) {
     bodyContainer.innerHTML = renderStatistic();
-    if (typeof initStatistic === "function") {
-      /**
-       * 차트 초기화를 비동기로 처리하여 렌더링 완료 후 실행하게끔 유도해야함... 너무 오래 걸렸다
-       * */
-      setTimeout(() => {
-        initStatistic();
-      }, 100);
-    } else {
-      console.error("initStatistic 함수를 찾을 수 없습니다");
-    }
   }
 });
