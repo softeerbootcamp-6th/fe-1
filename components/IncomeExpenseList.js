@@ -18,7 +18,6 @@ export function renderIncomeExpenseList() {
 }
 
 export function renderListItem(listContainer) {
-  // 데이터 로드
   const incomeExpenseData = incomeExpenseStore.getIncomeExpenseData();
 
   // 현재 연월 가져오기
