@@ -25,5 +25,6 @@ class ListStore extends Store {
   }
 }
 
+//month에 전역적으로 관리하는 값 전달 필요
 const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, 8);
 export const listStore = new ListStore(groupedListByMonth);

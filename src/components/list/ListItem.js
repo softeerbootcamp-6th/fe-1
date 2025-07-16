@@ -20,17 +20,22 @@ export const ListItem = (item) => {
   </button>
   `;
 
+  listStore.subscribe((newData) => {
+    const isUIDExist = newData.some(
+      (data) => String(data.uid) === String(item.uid)
+    );
+    if (!isUIDExist) {
+      listItem.remove();
+    }
+  });
+
   EventDispatcher.register({
     eventType: "click",
     selector: "delete-button",
     handler: (e) => {
       const listItem = e.target.closest(".list-item");
       const uid = listItem.dataset.uid;
-      //data update
       listStore.dispatch("removeListItemByUID", uid);
-
-      //dom update
-      listItem.remove();
     },
   });
   return listItem;
