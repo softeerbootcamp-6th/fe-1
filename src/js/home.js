@@ -11,7 +11,7 @@ const toggleFilter = (type) => {
   transactionState.setFilterState(filterState);
 };
 
-const renderTransactionsHeader = () => {
+const renderTransactionsHeader = async () => {
   const { year, month } = monthStore.getMonthInfo();
   const monthObserver = new MonthObserver();
   monthStore.subscribe(monthObserver);
@@ -21,7 +21,9 @@ const renderTransactionsHeader = () => {
   const transactionsInfo = new TransactionsInfo(transactionsView);
 
   transactionState.subscribe(transactionsInfo);
-  transactionState.loadMonthData(`${year}-${month}`);
+
+  // 모든 데이터를 먼저 로드한 후 월별 데이터 표시
+  await transactionState.loadMonthData(`${year}-${month}`);
 
   const $transactions = document.querySelector(".transactions");
   $transactions.addEventListener("click", (e) => {
@@ -33,8 +35,8 @@ const renderTransactionsHeader = () => {
   });
 };
 
-const init = () => {
-  renderTransactionsHeader();
+const init = async () => {
+  await renderTransactionsHeader();
   initInputForm();
 };
 

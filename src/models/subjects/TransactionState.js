@@ -1,4 +1,6 @@
+import monthStore from "../../stores/MonthStore.js";
 import Subject from "../../utils/observers/Subject.js";
+import { getTransactionByMonth } from "../../apis/transaction.js";
 
 class TransactionState extends Subject {
   constructor() {
@@ -10,49 +12,51 @@ class TransactionState extends Subject {
     };
   }
 
-  loadMonthData(month) {
-    const transactionsData = JSON.parse(
-      localStorage.getItem("transactionsData") || {}
-    );
-    this.transactions = transactionsData[month] || [];
+  async loadMonthData(month) {
+    const monthTransactions = await getTransactionByMonth(month);
+    this.transactions = monthTransactions;
     this.notify({
-      transactions: this.transactions,
+      transactions: monthTransactions,
       filterState: this.filterState,
     });
   }
 
-  addTransaction(tx) {
-    this.transactions.push(tx);
-    this.save();
-    this.notify({
-      transactions: this.transactions,
-      filterState: this.filterState,
-    });
-  }
+  async addTransaction(transaction) {
+    try {
+      const newTransaction = await addTransaction(transaction);
 
-  updateTransaction(id, newData) {
-    const index = this.transactions.findIndex((t) => t.id === id);
-    if (index !== -1) {
-      this.transactions[index] = { ...this.transactions[index], ...newData };
-      this.save();
-      this.notify({
-        transactions: this.transactions,
-        filterState: this.filterState,
-      });
+      const { year, month } = monthStore.getMonthInfo();
+      await this.loadMonthData(`${year}-${month}`);
+    } catch (error) {
+      console.error("Error adding transaction:", error);
+      throw error;
     }
   }
 
-  deleteTransaction(id) {
-    this.transactions = this.transactions.filter((t) => t.id !== id);
-    this.save();
-    this.notify({
-      transactions: this.transactions,
-      filterState: this.filterState,
-    });
+  async updateTransaction(id, newData) {
+    try {
+      const updatedTransaction = await updateTransaction(id, newData);
+
+      const { year, month } = monthStore.getMonthInfo();
+      await this.loadMonthData(`${year}-${month}`);
+    } catch (error) {
+      console.error("Error updating transaction:", error);
+      throw error;
+    }
   }
 
-  save() {
-    localStorage.setItem("transactionsData", JSON.stringify(this.transactions));
+  async deleteTransaction(id) {
+    try {
+      await deleteTransaction(id);
+
+      const { year, month } = monthStore.getMonthInfo();
+      await this.loadMonthData(`${year}-${month}`);
+
+      return true;
+    } catch (error) {
+      console.error("Error deleting transaction:", error);
+      throw error;
+    }
   }
 
   getByMonth(month) {
