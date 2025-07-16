@@ -35,20 +35,20 @@ const getTransactionByMonth = async (month) => {
 };
 
 // 거래 내역 추가
-const addTransaction = async (transaction) => {
+const postTransaction = async (transaction) => {
   transaction.id = await getNextId();
   const response = await post("/items", transaction);
   return response;
 };
 
 // 거래 내역 수정
-const updateTransaction = async (id, transaction) => {
+const putTransaction = async (id, transaction) => {
   const response = await put(`/items/${id}`, transaction);
   return response;
 };
 
 // 거래 내역 삭제
-const deleteTransaction = async (id) => {
+const delTransaction = async (id) => {
   const response = await del(`/items/${id}`);
   return response;
 };
@@ -79,9 +79,9 @@ const getCategories = async (type) => {
 export {
   // 기본 CRUD
   getTransactionAll,
-  addTransaction,
-  updateTransaction,
-  deleteTransaction,
+  postTransaction,
+  putTransaction,
+  delTransaction,
 
   // 필터링 조회
   getTransactionByMonth,

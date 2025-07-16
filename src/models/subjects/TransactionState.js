@@ -1,6 +1,11 @@
 import monthStore from "../../stores/MonthStore.js";
 import Subject from "../../utils/observers/Subject.js";
 import { getTransactionByMonth } from "../../apis/transaction.js";
+import {
+  postTransaction,
+  delTransaction,
+  putTransaction,
+} from "../../apis/transaction.js";
 
 class TransactionState extends Subject {
   constructor() {
@@ -23,7 +28,7 @@ class TransactionState extends Subject {
 
   async addTransaction(transaction) {
     try {
-      const newTransaction = await addTransaction(transaction);
+      const newTransaction = await postTransaction(transaction);
 
       const { year, month } = monthStore.getMonthInfo();
       await this.loadMonthData(`${year}-${month}`);
@@ -35,7 +40,7 @@ class TransactionState extends Subject {
 
   async updateTransaction(id, newData) {
     try {
-      const updatedTransaction = await updateTransaction(id, newData);
+      const updatedTransaction = await putTransaction(id, newData);
 
       const { year, month } = monthStore.getMonthInfo();
       await this.loadMonthData(`${year}-${month}`);
@@ -47,7 +52,7 @@ class TransactionState extends Subject {
 
   async deleteTransaction(id) {
     try {
-      await deleteTransaction(id);
+      await delTransaction(id);
 
       const { year, month } = monthStore.getMonthInfo();
       await this.loadMonthData(`${year}-${month}`);

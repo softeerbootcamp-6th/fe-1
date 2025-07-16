@@ -26,11 +26,19 @@ const renderTransactionsHeader = async () => {
   await transactionState.loadMonthData(`${year}-${month}`);
 
   const $transactions = document.querySelector(".transactions");
-  $transactions.addEventListener("click", (e) => {
+  $transactions.addEventListener("click", async (e) => {
     const checkboxContainer = e.target.closest(".checkbox-container");
     if (checkboxContainer) {
       const type = checkboxContainer.dataset.type;
       toggleFilter(type);
+      return;
+    }
+
+    const deleteButton = e.target.closest(".content-row__delete-button");
+    if (deleteButton) {
+      const id = deleteButton.dataset.id;
+      await transactionState.deleteTransaction(id);
+      return;
     }
   });
 };
