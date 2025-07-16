@@ -84,27 +84,38 @@ export function renderListItem(listContainer) {
     `;
   };
 
-  const getListItemHTML = ({ money, description, payment, class_name }) => {
+  const tagColorMap = {
+    '문화/여가': 'tag-culture',
+    교통: 'tag-transport',
+    미분류: 'tag-uncategorized',
+    식비: 'tag-food',
+    월급: 'tag-salary',
+    생활: 'tag-life',
+    '쇼핑/뷰티': 'tag-shopping',
+    의료: 'tag-health',
+  };
+
+  const getListItemHTML = ({ money, description, payment, tag }) => {
     const li = document.createElement('li');
     li.className = 'list-item';
 
-    const classNameDiv = document.createElement('div');
-    classNameDiv.className = 'class_name';
-    classNameDiv.textContent = class_name;
+    const tagDiv = document.createElement('div');
+    tagDiv.className = 'tag light14';
+    tagDiv.textContent = tag;
 
     const descriptionDiv = document.createElement('div');
-    descriptionDiv.className = 'description';
+    descriptionDiv.className = 'description light14';
     descriptionDiv.textContent = description;
 
     const paymentDiv = document.createElement('div');
-    paymentDiv.className = 'payment';
+    paymentDiv.className = 'payment light14';
     paymentDiv.textContent = payment;
 
     const moneyDiv = document.createElement('div');
-    moneyDiv.className = 'money';
-    moneyDiv.textContent = money;
+    moneyDiv.className = 'money light14';
+    moneyDiv.textContent = `${money}원`;
 
-    li.appendChild(classNameDiv);
+    li.appendChild(tagDiv);
     li.appendChild(descriptionDiv);
     li.appendChild(paymentDiv);
     li.appendChild(moneyDiv);

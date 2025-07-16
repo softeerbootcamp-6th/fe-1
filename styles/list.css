@@ -38,7 +38,7 @@
   height: 3.5rem;
 }
 
-.class_name {
+.tag {
   width: 5.75rem;
   background-color: aqua; /*임시색상*/
   display: flex;
