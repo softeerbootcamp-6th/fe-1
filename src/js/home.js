@@ -1,7 +1,7 @@
 import monthState from "../stores/subjects/MonthState.js";
 import transactionState from "../stores/subjects/TransactionState.js";
 import { TransactionsView } from "../views/Transactions/TransactionsView.js";
-import { TransactionsInfo } from "../stores/observers/TransactionsInfo.js";
+import { TransactionsObserver } from "../stores/observers/TransactionsObserver.js";
 import { MonthObserver } from "../stores/observers/MonthObserver.js";
 import { InputFormView } from "../views/InputForm/inputFormView.js";
 import { InputFormObserver } from "../stores/observers/InputFormObserver.js";
@@ -22,9 +22,9 @@ const renderTransactionsHeader = async () => {
 
   // Observer들 초기화
   const transactionsView = new TransactionsView();
-  const transactionsInfo = new TransactionsInfo(transactionsView);
+  const transactionsObserver = new TransactionsObserver(transactionsView);
 
-  transactionState.subscribe(transactionsInfo);
+  transactionState.subscribe(transactionsObserver);
 
   // 모든 데이터를 먼저 로드한 후 월별 데이터 표시
   await transactionState.loadMonthData(`${year}-${month}`);
