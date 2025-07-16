@@ -7,7 +7,7 @@ import { formatDate } from "../utils/date.js";
 function createTransactionItemInnerHtml(item) {
   const amount = Number(item.amount);
   return `
-        <div class="item data-id="${item.id}">
+        <div class="item" data-id="${item.id}">
           <div class="item-category-tag item-category-${
             item.category
           } font-light-14">${item.category}</div>
