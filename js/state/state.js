@@ -31,13 +31,6 @@ export const sharedState = {
   newMethodInput: document.getElementById("new-method"),
   methodWrapper: document.getElementById("method-wrapper"),
 
-  //카테고리 드롭박스 요소
-  categoryWrapper: document.getElementById("category-wrapper"),
-  categoryDisplay: document.getElementById("category-display"),
-  categoryPanel: document.getElementById("category-panel"),
-
-
-
   entries: [], // 서버에서 가져온 항목들을 저장할 배열
 
   // 뷰 관련 상태

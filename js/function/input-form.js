@@ -3,8 +3,9 @@ import { updateTotalAmounts } from "./totalAmount.js";
 import { sharedState } from "../state/state.js";
 import { renderCategoryOptions } from "./categoryRender.js";
 import { updateDataToServer, saveEntriesToServer, loadEntriesFromServer } from "../api/api.js";
-import { clearWebPage, currentMonth, currentYear } from "./header.js";
+import { currentMonth, currentYear } from "./header.js";
 import { getDateFromServer, updateDateSectionTotals } from "./entry/entry.js";
+import { category } from "../state/data.js";
 
 export function initInputForm() {
   let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
@@ -100,12 +101,9 @@ export function initInputForm() {
 }
 
 function isExistingEntry(entry){
-  // 이미 존재하는 항목인지 확인하는 함수
   return sharedState.entries.some(existingEntry => existingEntry.id === entry.id);
 }
 
-
-//// 항목을 DOM에 추가하는 함수
 export async function addEntryToDOM(entry) {
   if (isExistingEntry(entry)) {
     // 이미 존재하는 항목이면 업데이트만 수행
@@ -161,24 +159,8 @@ export async function addEntryToDOM(entry) {
     const item = document.createElement("div");
     item.className = "entry-row";
     
-    // 수입이면 + 기호, 지출이면 - 기호 표시
     const sign = entry.isIncome ? '' : '-';
     const amountClass = entry.isIncome ? 'income-amount' : 'expense-amount';
-
-    const category = {
-      "생활": "--colorchip-90",
-      "식비": "--colorchip-60",
-      "교통": "--colorchip-70",
-      "쇼핑/뷰티": "--colorchip-30",
-      "의료/건강": "--colorchip-50",
-      "문화/여가": "--colorchip-100",
-      미분류: "--colorchip-110",
-      월급: "--colorchip-20",
-      용돈: "--colorchip-40",
-      기타수입: "--colorchip-10"
-    }
-
-    
 
     item.setAttribute("data-id", entry.id);
     

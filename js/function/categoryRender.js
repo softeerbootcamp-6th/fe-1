@@ -3,7 +3,7 @@ import { updateTotalAmounts } from "./totalAmount.js";
 
 export function renderCategoryOptions() {
     let isIncome = sharedState.isIncome; // 수입/지출 여부
-    const categoryPanel = sharedState.categoryPanel; // 카테고리 패널 요소
+    const categoryPanel = document.getElementById("category-panel");
     const incomeCategories = ["월급", "용돈", "기타수입"];
     const expenseCategories = ["생활", "식비", "교통", "쇼핑/뷰티", "의료/건강", "문화/여가", "미분류"];
     

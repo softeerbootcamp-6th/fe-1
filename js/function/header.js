@@ -2,6 +2,12 @@ import { sharedState } from "../state/state.js";
 import { loadEntriesFromServer } from "../api/api.js";
 import { getDateFromServer } from "./entry/entry.js";
 
+
+
+/*
+  여기서 year과 month를 store로 관리하는 것이 좋을 것 같습니다.
+  현재는 전역 변수로 관리하고 있지만, store를 사용하면 더 나은 상태
+*/
 export let currentMonth = Date.now() ? new Date().getMonth() + 1 : 1; // 현재 월 (1~12)
 export let currentYear = Date.now() ? new Date().getFullYear() : 2023; // 현재 연도
 

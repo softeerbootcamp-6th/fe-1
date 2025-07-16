@@ -1,19 +1,27 @@
 import { sharedState } from "../state/state.js";
-import { renderCategoryOptions } from "../function/categoryRender.js";
+import { initCategoryListener } from "./category.js";
+import { initDescriptionListener } from "./description.js";
+import { initAmountListener } from "./amount.js";
+import { initToggleSignListener } from "./toggleSign.js";
 
+//리스너 등록
+function initTotalListener() {
+    initCategoryListener();
+    initDescriptionListener();
+    initAmountListener();
+    initToggleSignListener();
+}
+
+// 이벤트 위임 방식으로 처리하면 좋아 보임
 export function initListener() {
+
+    initTotalListener();
+
     let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
-    let selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
-    let isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
-    const toggleSign = sharedState.toggleSign; // sharedState에서 toggleSign 요소를 가져옴
 
     const display = sharedState.dropdownDisplay; // sharedState에서 dropdownDisplay 요소를 가져옴
     const panel = sharedState.dropdownPanel; // sharedState에서 dropdownPanel 요소를 가져옴
     const dropAddBtn = sharedState.dropdownAddBtn; // sharedState에서 dropdownAddBtn
-
-    const amountInput = sharedState.amount; // sharedState에서 amount 요소를 가져옴
-    const charCount = sharedState.charCount; // sharedState에서 charCount 요소를 가져옴
-    const descInput = sharedState.descInput; // sharedState에서 descInput 요소를 가져옴
 
     const modal = sharedState.modal; // sharedState에서 modal 요소를 가져옴
     const confirmAdd = sharedState.confirmAdd; // sharedState에서 confirmAdd 요소를 가져
@@ -21,33 +29,6 @@ export function initListener() {
     const newMethodInput = sharedState.newMethodInput; // sharedState에서 newMethodInput
     const methodWrapper = sharedState.methodWrapper; // sharedState에서 methodWrapper 요소를 가져옴
 
-    const categoryWrapper = sharedState.categoryWrapper; // sharedState에서 categoryWrapper 요소를 가져옴
-    const categoryDisplay = sharedState.categoryDisplay; // sharedState에서 categoryDisplay 요소를 가져옴
-    const categoryPanel = sharedState.categoryPanel; // sharedState에서 categoryPanel 요소
-
-    toggleSign.addEventListener("click", () => {
-      isIncome = !isIncome;
-      sharedState.isIncome = isIncome; // sharedState에 isIncome 업데이트
-      toggleSign.textContent = isIncome ? "+" : "-";
-      toggleSign.classList.toggle("minus", !isIncome);
-      categoryDisplay.textContent = "선택하세요";
-      selectedCategory = null;
-      sharedState.selectedCategory = selectedCategory; // sharedState에 selectedCategory 업데이트
-      renderCategoryOptions();
-    });
-  
-    //금액에 숫자만 입력되도록 필터링하고, 천 단위로 콤마 추가
-    amountInput.addEventListener("input", () => {
-      const rawValue = amountInput.value.replace(/[^\d]/g, "");
-      amountInput.value = rawValue ? Number(rawValue).toLocaleString() : "";
-    });
-  
-    //내용 32자 제한
-    descInput.addEventListener("input", () => {
-      const length = descInput.value.length;
-      charCount.textContent = `${length} / 32`;
-    });
-  
     //결제수단 드롭박스
     display.addEventListener("click", () => {
       panel.classList.toggle("hidden");
@@ -89,9 +70,6 @@ export function initListener() {
       if (!methodWrapper.contains(e.target)) {
         panel.classList.add("hidden");
       }
-      if (!categoryWrapper.contains(e.target)) {
-        categoryPanel.classList.add("hidden");
-      }
     });
   
     panel.addEventListener("click", (e) => {
@@ -110,19 +88,6 @@ export function initListener() {
         display.textContent = methodName;
         selectedMethod = methodName;
         panel.classList.add("hidden");
-      }
-    });
-  
-    categoryDisplay.addEventListener("click", () => {
-      categoryPanel.classList.toggle("hidden");
-    });
-  
-    categoryPanel.addEventListener("click", (e) => {
-      if (e.target.classList.contains("dropdown-option")) {
-        selectedCategory = e.target.dataset.value;
-        sharedState.selectedCategory = selectedCategory; // sharedState에 selectedCategory 업데이트
-        categoryDisplay.textContent = selectedCategory;
-        categoryPanel.classList.add("hidden");
       }
     });
   
