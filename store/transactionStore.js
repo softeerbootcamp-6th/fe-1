@@ -44,7 +44,10 @@ export class TransactionStore extends Subject {
     if (!this.transactions[year][month]) {
       this.transactions[year][month] = [];
     }
-    this.transactions[year][month].push(transaction);
+    this.transactions[year][month].push({
+      ...transaction,
+      id: Date.now(),
+    });
     this.transactions[year][month].sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     );

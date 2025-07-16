@@ -106,8 +106,8 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   }, {});
 
   // 날짜별로 섹션 생성
-  const sections = Object.entries(filteredTransactionsByDate)
-    .map(([date, transactionList]) => {
+  const sections = Object.entries(filteredTransactionsByDate).reduce(
+    (acc, [date, transactionList]) => {
       const { totalIncomeAmount } = totalIncomeData(transactionList);
       const { totalExpenseAmount } = totalExpenseData(transactionList);
 
@@ -129,21 +129,25 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
         </div>
       `;
 
-      const rows = transactionList.reduce((acc, transaction) => {
+      const rows = transactionList.reduce((rowAcc, transaction) => {
         const row = createTransactionRow(transaction);
-        return acc + row;
+        return rowAcc + row;
       }, "");
 
-      return `
+      return (
+        acc +
+        `
         ${header}
         <table>
             <tbody class="tbody-border">
                 ${rows}
             </tbody>
         </table>
-      `;
-    })
-    .join("");
+      `
+      );
+    },
+    ""
+  );
 
   return `
       ${sections}

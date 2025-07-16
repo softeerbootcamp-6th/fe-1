@@ -69,17 +69,12 @@ function createCalendarMonthlyInfo(year, month) {
   `;
 }
 
-export function createCalendar(year, month) {
-  const transactionListByDate = transactionStore.getGroupedTransactionsByDate(
-    year,
-    month
-  );
-
+function getCalendarMatrix(year, month) {
   // month: 1~12
   const firstDay = new Date(year, month - 1, 1);
   const lastDay = new Date(year, month, 0);
 
-  const firstDayOfWeek = firstDay.getDay(); //첫째 날이 시작되는 요일 인덱스
+  const firstDayOfWeek = firstDay.getDay(); // 첫째 날이 시작되는 요일 인덱스
   const daysInMonth = lastDay.getDate(); // 이번 달의 마지막 날의 날짜
 
   const days = [
@@ -94,12 +89,20 @@ export function createCalendar(year, month) {
   }
 
   // 2차원 배열 생성
-  const weeks = days.reduce((acc, _, i) => {
-    if (i % 7 === 0) {
-      acc.push(days.slice(i, i + 7));
-    }
-    return acc;
-  }, []);
+  const weeks = [];
+  for (let i = 0; i < days.length; i += 7) {
+    weeks.push(days.slice(i, i + 7));
+  }
+  return weeks;
+}
+
+export function createCalendar(year, month) {
+  const transactionListByDate = transactionStore.getGroupedTransactionsByDate(
+    year,
+    month
+  );
+
+  const weeks = getCalendarMatrix(year, month);
 
   const calendarHeader = `
     <div class="calendar-header light-12">

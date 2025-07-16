@@ -1,13 +1,8 @@
 import { dateStore, transactionStore } from "../store/index.js";
-import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
-import { getFilteringState } from "../pages.js";
 import {
   INCOME_CATEGORIES,
   EXPENSE_CATEGORIES,
 } from "../constants/category.js";
-import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
-import { renderTransactionList } from "./transactionsList.js";
-import { renderCalendar, renderCalendarInfo } from "./calendar.js";
 
 // 수정 모드 상태 관리
 let isEditMode = false;
@@ -236,36 +231,5 @@ export function renderInputBar(container) {
     }
 
     resetForm(form, elements);
-
-    const { isIncomeChecked, isExpenseChecked } = getFilteringState();
-    const monthlyInfoContainer = document.querySelector(
-      "#monthly-info-container"
-    );
-    renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
-    renderTotalCount(
-      monthlyInfoContainer,
-      isIncomeChecked,
-      isExpenseChecked,
-      totalIncomeData(
-        transactionStore.getTransactionsByYearMonth(
-          dateStore.getYear(),
-          dateStore.getMonth()
-        )
-      ),
-      totalExpenseData(
-        transactionStore.getTransactionsByYearMonth(
-          dateStore.getYear(),
-          dateStore.getMonth()
-        )
-      )
-    );
-    renderTransactionList(isIncomeChecked, isExpenseChecked);
-
-    const calendarContainer = document.querySelector(".calendar-container");
-    if (calendarContainer) renderCalendar(calendarContainer);
-    const calendarInfoContainer = document.querySelector(
-      ".calendar-info-container"
-    );
-    if (calendarInfoContainer) renderCalendarInfo(calendarInfoContainer);
   });
 }
