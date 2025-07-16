@@ -7,7 +7,7 @@ if (headerContainer) {
   renderHeader(headerContainer);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   document.body.addEventListener("click", (e) => {
     const link = e.target.closest("a");
     if (link && link.getAttribute("href")) {
