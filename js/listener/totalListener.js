@@ -24,10 +24,6 @@ export function initListener() {
     const panel = sharedState.dropdownPanel; // sharedState에서 dropdownPanel 요소를 가져옴
     const dropAddBtn = document.getElementById("dropdown-add"); // sharedState에서 dropdownAddBtn
 
-    const modal = sharedState.modal; // sharedState에서 modal 요소를 가져옴
-    const confirmAdd = sharedState.confirmAdd; // sharedState에서 confirmAdd 요소를 가져
-    const cancelAdd = sharedState.cancelAdd; // sharedState에서 cancelAdd 요소를 가져옴
-    const newMethodInput = sharedState.newMethodInput; // sharedState에서 newMethodInput
     const methodWrapper = sharedState.methodWrapper; // sharedState에서 methodWrapper 요소를 가져옴
 
     //결제수단 드롭박스
@@ -47,15 +43,9 @@ export function initListener() {
             <input type="text" id="new-method" placeholder="예: 우리카드" />
           `,
       });
-      // newMethodInput.value = "";
       panel.classList.add("hidden");
     });
 
-    //모달 닫기 버튼 클릭 시 모달 닫기
-    cancelAdd.addEventListener("click", () => {
-      modal.classList.add("hidden");
-    });
-  
     //새 결제수단 추가
     function addNewMethod() {
       const newMethod = document.getElementById("new-method").value.trim();
