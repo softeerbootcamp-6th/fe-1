@@ -1,4 +1,5 @@
 // 입력받은 정보를 토대로 삽입 / 수정 / 삭제 기능을 담당하는 함수들을 다루는 파일
+import { deleteRecordsFromServer } from "../api/recordsApi.js";
 import { elements } from "./elements.js";
 import { store } from "./store.js";
 
@@ -164,23 +165,6 @@ export const getTotalAmount = (items) => {
   return { income, outcome };
 };
 
-export const addRecord = ({ recordId, date, item }) => {
-  // record에 추가하려는 날짜에 대한 정보가 이미 있나 확인
-  const foundRecord = store.getRecords().find((record) => record.date === date);
-
-  if (foundRecord) {
-    // 이미 있는 날짜라면 해당 날짜의 items 배열에 추가
-    foundRecord.items.push(item);
-  } else {
-    // 없는 날짜라면 record에 날짜 포함한 새 객체 생성
-    store.addRecordToStore({
-      id: recordId,
-      date,
-      items: [item],
-    });
-  }
-};
-
 // 전체 내역 수입 지출 필터링
 const toggleRecordVisibility = (type) => {
   // type = "income" | "outcome"
@@ -248,6 +232,8 @@ export function initDeleteEvent() {
     const dateId = e.target.closest(".record-container").getAttribute("date-id");
     const itemId = e.target.closest(".record-item").getAttribute("item-id");
 
-    store.deleteRecordFromStore(dateId, itemId);
+    deleteRecordsFromServer(dateId, itemId).then(() => {
+      store.deleteRecordFromStore(dateId, itemId);
+    });
   });
 }

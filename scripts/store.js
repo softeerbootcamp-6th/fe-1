@@ -21,8 +21,20 @@ export const store = {
     this.records = newRecords;
     this.notify();
   },
-  addRecordToStore(record) {
-    this.records.push(record);
+  addRecordToStore({ recordId, date, item }) {
+    // record에 추가하려는 날짜에 대한 정보가 이미 있나 확인
+    const foundRecord = this.records.find((record) => record.date.toString() === date.toString());
+    if (foundRecord) {
+      // 이미 있는 날짜라면 해당 날짜의 items 배열에 추가
+      foundRecord.items.push(item);
+    } else {
+      // 없는 날짜라면 record에 날짜 포함한 새 객체 생성
+      this.records.push({
+        id: recordId,
+        date,
+        items: [item],
+      });
+    }
     this.notify();
   },
   deleteRecordFromStore(dateId, itemId) {
