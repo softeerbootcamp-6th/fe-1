@@ -25,7 +25,7 @@ export function fetchRecords() {
 //
 export function addRecordsToServer({ date, recordId, item }) {
   const records = store.getRecords();
-  const found = records.find((record) => record.date === date);
+  const found = records.find((record) => record.date.toString() === date.toString());
 
   if (found) {
     return fetch(`${BASE_URL}/${found.id}`, {
@@ -42,6 +42,32 @@ export function addRecordsToServer({ date, recordId, item }) {
         date,
         items: [item],
       }),
+    });
+  }
+}
+
+export function deleteRecordsFromServer(dateId, itemId) {
+  // store에서 해당 날짜의 record를 가져옴
+  const record = store.getRecords().find((record) => record.id.toString() === dateId.toString());
+
+  if (!record) return;
+
+  // 삭제하고자 하는 데이터를 제외한 items[]
+  const updatedItems = record.items.filter((item) => {
+    return item.id.toString() !== itemId.toString();
+  });
+
+  if (updatedItems.length === 0) {
+    // 해당 날짜 객체 자체를 삭제
+    return fetch(`${BASE_URL}/${dateId}`, {
+      method: "DELETE",
+    });
+  } else {
+    // 아이템만 삭제하고 나머지는 유지
+    return fetch(`${BASE_URL}/${dateId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: updatedItems }),
     });
   }
 }
