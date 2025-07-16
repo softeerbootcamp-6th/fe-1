@@ -5,20 +5,13 @@ import {
   getMonthlyExpenseByCategory,
 } from "../../utils/data-utils.js";
 import { getTransactions } from "../../api/transaction.js";
+import { dateStore } from "../../store/date-store.js";
 
 export function initStatistic() {
   // DOM 요소들
   const categoryListEl = document.getElementById("category-list");
   const totalExpenseAmountEl = document.getElementById("total-expense-amount");
   const chartPlaceholder = document.getElementById("chart-placeholder");
-
-  // DOM 요소가 모두 준비되었는지 확인
-  if (!categoryListEl || !chartPlaceholder) {
-    setTimeout(() => {
-      initStatistic();
-    }, 100);
-    return;
-  }
 
   // 기존 캔버스가 있다면 제거
   const existingCanvas = document.getElementById("expense-chart");
@@ -48,11 +41,6 @@ export function initStatistic() {
       chartPlaceholder.appendChild(chartCanvas);
     } catch (error) {}
   }
-
-  // 전역 변수 초기화 (헤더와 동기화)
-  if (!window.currentYear) window.currentYear = new Date().getFullYear();
-  if (window.currentMonth === undefined)
-    window.currentMonth = new Date().getMonth();
 
   // 카테고리별 색상 매핑
   const categoryColors = {
@@ -278,7 +266,7 @@ async function showCategoryTrendChart(category) {
     const months = Array.from({ length: 12 }, (_, i) =>
       (i + 1).toString().padStart(2, "0")
     );
-    const year = window.currentYear || new Date().getFullYear();
+    const year = dateStore.getState().currentYear;
     const dataArr = months.map((m) => monthlyData[`${year}-${m}`] || 0);
 
     // 차트 그리기

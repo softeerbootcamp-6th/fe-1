@@ -1,11 +1,4 @@
-import { initCalendar } from "../../pages/calendar/calendar.js";
-import { onMonthChanged } from "../../utils/data-utils.js";
-import { initMain } from "../../pages/main/main.js";
-import { initStatistic } from "../../pages/statistic/statistic.js";
-
-import { renderMain } from "../../pages/main/main-rendering.js";
-import { renderCalendar } from "../../pages/calendar/calendar-rendering.js";
-import { renderStatistic } from "../../pages/statistic/statistic-rendering.js";
+import { dateUtils } from "../../store/date-store.js";
 
 // 월 이름 설정(재사용)
 export const monthNames = [
@@ -23,100 +16,6 @@ export const monthNames = [
   "December",
 ];
 
-// 현재 탭 상태
-let currentTab = "LIST_VIEW";
-
-// CSS 동적 로드 함수
-function loadCSS(cssPath) {
-  return new Promise((resolve, reject) => {
-    const existingCSS = document.querySelector(`link[href="${cssPath}"]`);
-    if (existingCSS) {
-      resolve();
-      return;
-    }
-
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = cssPath;
-    link.className = "page-css";
-    link.onload = resolve;
-    link.onerror = reject;
-    document.head.appendChild(link);
-  });
-}
-
-// JS 동적 로드 함수
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const existingScript = document.querySelector(`script[src="${src}"]`);
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src = src;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.body.appendChild(script);
-  });
-}
-
-// 페이지별 CSS 제거
-function removePageCSS() {
-  const pageCSS = document.querySelectorAll(".page-css");
-  pageCSS.forEach((css) => css.remove());
-}
-
-// 탭 전환 함수
-export async function switchTab(tabName) {
-  currentTab = tabName;
-  const bodyContainer = document.getElementById("body-container");
-
-  // 기존 페이지별 CSS 제거
-  removePageCSS();
-
-  try {
-    switch (tabName) {
-      case "LIST_VIEW":
-        // 메인 페이지 렌더링 함수 호출
-        bodyContainer.innerHTML = renderMain();
-        // 병렬 로드
-        await Promise.all([
-          loadCSS("src/pages/main/main.css"),
-          loadScript("src/pages/main/main.js"),
-        ]);
-        initMain();
-        break;
-
-      case "CALENDAR_VIEW":
-        // 달력 페이지 렌더링 함수 호출
-        bodyContainer.innerHTML = renderCalendar();
-        // 병렬 로드
-        await Promise.all([
-          loadCSS("src/pages/calendar/calendar.css"),
-          loadScript("src/pages/calendar/calendar.js"),
-        ]);
-        initCalendar();
-        break;
-
-      case "STATISTIC_VIEW":
-        // 통계 페이지 렌더링 함수 호출
-        bodyContainer.innerHTML = renderStatistic();
-        // 병렬 로드
-        await Promise.all([
-          loadCSS("src/pages/statistic/statistic.css"),
-          loadScript("src/pages/statistic/statistic.js"),
-        ]);
-        initStatistic();
-        break;
-    }
-  } catch (error) {
-    console.error("Error switching tab:", error);
-    bodyContainer.innerHTML = `<p>페이지를 로드할 수 없습니다.</p>`;
-  }
-}
-
 // 월 업데이트 함수
 export function updateMonth() {
   const yearEl = document.querySelector("#currentMonth .year");
@@ -124,22 +23,13 @@ export function updateMonth() {
   const monthEngEl = document.querySelector("#currentMonth .month-eng");
 
   if (yearEl && monthNumEl && monthEngEl) {
-    yearEl.textContent = window.currentYear;
-    monthNumEl.textContent = window.currentMonth + 1;
-    monthEngEl.textContent = monthNames[window.currentMonth];
-  }
-}
+    const currentYear = dateUtils.getCurrentYear();
+    const currentMonth = dateUtils.getCurrentMonth();
 
-// 탭 리스너 설정
-export function setupTabListeners() {
-  const tabBtns = document.querySelectorAll(".tab-btn");
-  tabBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      tabBtns.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      switchTab(btn.dataset.tab);
-    });
-  });
+    yearEl.textContent = currentYear;
+    monthNumEl.textContent = currentMonth; // 1-12 표시
+    monthEngEl.textContent = monthNames[currentMonth - 1]; // 0-11 인덱스로 변환
+  }
 }
 
 // 월 네비게이션 리스너 설정
@@ -149,38 +39,13 @@ export function setupMonthNavigation() {
 
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
-      window.currentMonth--;
-      if (window.currentMonth < 0) {
-        window.currentMonth = 11;
-        window.currentYear--;
-      }
-      updateMonth();
-      // 전역 함수 호출
-      onMonthChanged();
+      dateUtils.prevMonth();
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
-      window.currentMonth++;
-      if (window.currentMonth > 11) {
-        window.currentMonth = 0;
-        window.currentYear++;
-      }
-      updateMonth();
-      onMonthChanged();
+      dateUtils.nextMonth();
     });
   }
-}
-
-// 기존 함수 (호환성 유지)
-export function setupHeaderListeners(
-  currentYear,
-  currentMonth,
-  updateHeaderDate,
-  updateInputDate,
-  renderHistoryList,
-  dateInput
-) {
-  setupMonthNavigation();
 }
