@@ -32,10 +32,12 @@ function notify() {
   listeners.forEach(listener => listener({ year, month }));
 }
 
-export default {
+export {
   getYear,
   getMonth,
   setYear,
   setMonth,
   subscribe,
 };
+
+

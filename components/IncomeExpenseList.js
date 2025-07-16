@@ -1,5 +1,5 @@
 // 1. month가 바뀔 때마다 다른 지출 내역 보여주기
-import dateState from '../states/DateState.js';
+import {getYear, getMonth, subscribe} from '../store/dateStore.js';
 import { store } from '../store/store.js';
 
 export function renderIncomeExpenseList() {
@@ -10,7 +10,7 @@ export function renderIncomeExpenseList() {
   renderListItem(incomeExpenseListContainer);
 
   // dateState 변경 시 재렌더링
-  dateState.subscribe(() => {
+  subscribe(() => {
     renderListItem(incomeExpenseListContainer);
   });
 
@@ -22,8 +22,8 @@ export function renderListItem(listContainer) {
   const incomeExpenseData = store.incomeExpenseData;
 
   // 현재 연월 가져오기
-  const currentYear = dateState.getYear();
-  const currentMonth = dateState.getMonth();
+  const currentYear = getYear();
+  const currentMonth = getMonth();
 
   // YYYY-MM 형식으로 키 생성
   const currentKey = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
