@@ -1,4 +1,3 @@
-import { DummyList } from "../../mocks/DummyList.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { NumberManager } from "../../utils/NumberManager.js";
 import { ListFilter } from "../../utils/ListFilter.js";
@@ -23,39 +22,33 @@ export const List = () => {
     });
   };
 
-  // setup list overview
-  const renderListOverview = (data) => {
-    const listCounter = ElementManager.renderElement("div", "list-counter");
+  // setup list overview counter
+  const renderListOverviewCounter = (data) => {
     listCounter.innerHTML = `
     <span>전체 내역</span>
     <span class="total-count">${data.length}건</span>
     `;
-    listOverview.appendChild(listCounter);
-
-    const listTypeFilterWrapper = ElementManager.renderElement(
-      "div",
-      "list-type-container"
-    );
-    const { income, expense } = NumberManager.calculateTotalMoney(data);
-    listTypeFilterWrapper.appendChild(
-      ListTypeFilter("income", income, data, moneyTypeFilter, renderListWrapper)
-    );
-    listTypeFilterWrapper.appendChild(
-      ListTypeFilter(
-        "expense",
-        expense,
-        data,
-        moneyTypeFilter,
-        renderListWrapper
-      )
-    );
-    listOverview.appendChild(listTypeFilterWrapper);
   };
 
   // render list overview
   const listOverview = ElementManager.renderElement("div", "list-overview");
+  const listCounter = ElementManager.renderElement("div", "list-counter");
+  listOverview.appendChild(listCounter);
+  renderListOverviewCounter(listStore.data);
+
+  const listTypeFilterWrapper = ElementManager.renderElement(
+    "div",
+    "list-type-container"
+  );
+  const { income, expense } = NumberManager.calculateTotalMoney(listStore.data);
+  listTypeFilterWrapper.appendChild(
+    ListTypeFilter("income", income, moneyTypeFilter)
+  );
+  listTypeFilterWrapper.appendChild(
+    ListTypeFilter("expense", expense, moneyTypeFilter)
+  );
+  listOverview.appendChild(listTypeFilterWrapper);
   list.appendChild(listOverview);
-  renderListOverview(listStore.data);
 
   // render list wrapper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
@@ -63,7 +56,9 @@ export const List = () => {
   renderListWrapper(listStore.data);
 
   // rerender using dispatcher
+  // 데이터가 업데이트되는 화면만 부분 렌더링
   listStore.subscribe((newData) => {
+    renderListOverviewCounter(newData);
     renderListWrapper(newData);
   });
   return list;

@@ -4,13 +4,7 @@ import { ListFilter } from "../../utils/ListFilter.js";
 import { NumberManager } from "../../utils/NumberManager.js";
 import { listStore } from "../../store/ListStore.js";
 
-export const ListTypeFilter = (
-  type,
-  totalMoney,
-  groupedListByMonth,
-  entireFilter,
-  renderListWrapper
-) => {
+export const ListTypeFilter = (type, totalMoney, entireFilter) => {
   const listTypeFilter = ElementManager.renderElement(
     "div",
     `list-type-${type}`
@@ -39,20 +33,6 @@ export const ListTypeFilter = (
         isActive ? "checkbox" : "uncheckbox"
       }.png`;
 
-      // 내역 데이터 업데이트
-      const updatedTransactioin = ListFilter.groupTransactionsByMoneyType(
-        groupedListByMonth,
-        entireFilter
-      );
-
-      // 내역 개요 화면 업데이트
-      const listOverviewCounter = document.querySelector(
-        ".list-overview > .list-counter > .total-count"
-      );
-      listOverviewCounter.textContent = updatedTransactioin.length + "건";
-
-      // 내역 화면 업데이트
-      // renderListWrapper(updatedTransactioin);
       listStore.dispatch("filterList", entireFilter);
     },
   });
