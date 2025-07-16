@@ -1,0 +1,19 @@
+.donut-chart-container{
+    display: flex;
+    box-sizing: border-box;
+    padding: 22px 32px;
+    gap:32px;
+    width: 100%;
+    height: 517px;
+}
+.donut-chart-container > .category-list {
+    width: 328px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+}
+.donut-chart-container > .chart{
+    flex-grow: 1;
+}
