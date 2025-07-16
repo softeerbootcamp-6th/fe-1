@@ -641,11 +641,11 @@
         "list": [
           {
             "date": 4,
+            "amount": 2180000,
             "type": "income",
-            "category": "월급",
             "description": "11월 급여",
             "paymentMethod": "현금",
-            "amount": 2180000
+            "category": "월급"
           },
           {
             "date": 6,
@@ -829,11 +829,11 @@
           },
           {
             "date": 20,
+            "amount": 60001,
             "type": "expense",
-            "category": "의료/건강",
             "description": "피트니스 PT 1회",
             "paymentMethod": "신용카드",
-            "amount": 60000
+            "category": "의료/건강"
           },
           {
             "date": 28,

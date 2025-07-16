@@ -12,7 +12,7 @@ export function DatesCard(
         식비: "colorchip-60",
         교통: "colorchip-70",
         "문화/여가": "pastel-perfume",
-        미분류: "pastel-lavenderCream",
+        미분류: "pastel-lavenderPink",
         월급: "colorchip-20",
         용돈: "colorchip-40",
         "기타 수입": "colorchip-10",

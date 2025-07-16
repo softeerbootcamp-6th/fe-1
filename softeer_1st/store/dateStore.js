@@ -1,7 +1,7 @@
 import { setLocalStorage } from "../utils/localStorage.js";
 
-const MIN_YEAR = 2024;
-const MAX_YEAR = 2025;
+const MIN_YEAR = 2020;
+const MAX_YEAR = 2030;
 const MIN_MONTH = 1;
 const MAX_MONTH = 12;
 
