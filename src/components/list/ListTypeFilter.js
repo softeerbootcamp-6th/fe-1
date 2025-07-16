@@ -19,21 +19,14 @@ export const ListTypeFilter = (type, totalMoney, entireFilter) => {
     eventType: "click",
     selector: `list-type-${type}`,
     handler: () => {
+      // 전체 내역 리스트 화면 업데이트
+      listStore.dispatch("filterList", type);
+
       // 필터링 화면 업데이트
-      let isActive = false;
-      if (type === "income") {
-        entireFilter.isIncomeTypeOpen = !entireFilter.isIncomeTypeOpen;
-        isActive = entireFilter.isIncomeTypeOpen;
-      } else {
-        entireFilter.isExpenseTypeOpen = !entireFilter.isExpenseTypeOpen;
-        isActive = entireFilter.isExpenseTypeOpen;
-      }
       const listTypeFilterImg = listTypeFilter.querySelector("img");
       listTypeFilterImg.src = `./src/assets/${
-        isActive ? "checkbox" : "uncheckbox"
+        listStore.moneyTypeFilter[type] ? "checkbox" : "uncheckbox"
       }.png`;
-
-      listStore.dispatch("filterList", entireFilter);
     },
   });
 

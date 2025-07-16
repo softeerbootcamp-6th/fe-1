@@ -28,9 +28,9 @@ export const ListFilter = {
   groupTransactionsByMoneyType: (transactions, moneyTypeFilter) => {
     return transactions.filter((transaction) => {
       if (transaction.moneyType === "income") {
-        return moneyTypeFilter.isIncomeTypeOpen;
+        return moneyTypeFilter.income;
       } else {
-        return moneyTypeFilter.isExpenseTypeOpen;
+        return moneyTypeFilter.expense;
       }
     });
   },

@@ -6,6 +6,10 @@ class ListStore extends Store {
   constructor(initData) {
     super(initData);
     this.originData = [...initData]; //원본+화면에 나타내지 않는 요소
+    this.moneyTypeFilter = {
+      expense: true,
+      income: true,
+    };
   }
 
   // dispatcher 패턴으로 render 함수 호출하여 실행
@@ -23,9 +27,15 @@ class ListStore extends Store {
         this.data = [...this.originData];
         break;
       case "filterList":
+        if (newItem === "income") {
+          this.moneyTypeFilter.income = !this.moneyTypeFilter.income;
+        } else {
+          this.moneyTypeFilter.expense = !this.moneyTypeFilter.expense;
+        }
+        console.log(this.moneyTypeFilter);
         this.data = ListFilter.groupTransactionsByMoneyType(
           this.originData,
-          newItem
+          this.moneyTypeFilter
         );
         break;
     }
