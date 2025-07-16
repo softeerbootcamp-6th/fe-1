@@ -1,4 +1,5 @@
 import { extractNumbersOnly } from '../../lib/utils.js';
+import formStore from '../../store/form.js';
 
 export default function createInputBar(formItemsConfig) {
     if (!formItemsConfig) {
@@ -68,10 +69,14 @@ function handleFormSubmit(event) {
 
 function collectFormData(form) {
     const formData = new FormData(form);
+    const formAmount = parseFloat(extractNumbersOnly(formData.get('amount')));
+    const isIncomeMode = formStore.getIsIncomeMode();
+    const amount = isIncomeMode ? formAmount : -formAmount;
+
     return {
         date: formData.get('date') || new Date().toISOString().split('T')[0],
-        amount: parseFloat(extractNumbersOnly(formData.get('amount'))) || 0,
-        content: formData.get('content') || '',
+        amount: amount,
+        description: formData.get('description') || '',
         paymentMethod: formData.get('paymentMethod') || '',
         category: formData.get('category') || '',
     };
@@ -82,7 +87,7 @@ function validateFormData(data) {
         return false;
     }
 
-    if (!data.content.trim()) {
+    if (!data.description.trim()) {
         return false;
     }
 

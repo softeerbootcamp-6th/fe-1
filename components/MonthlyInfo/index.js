@@ -62,7 +62,7 @@ export default function createMonthlyInfo() {
 
     renderDailyLists();
 
-    document.addEventListener('paymentDataDeleted', renderDailyLists);
+    document.addEventListener('paymentDataUpdated', renderDailyLists);
 
     return monthlyInfo;
 }

@@ -3,7 +3,7 @@ import createMonthlyInfo from '../components/MonthlyInfo/index.js';
 
 import createDate from '../components/InputBar/InputItems/date.js';
 import createAmount from '../components/InputBar/InputItems/amount.js';
-import createContent from '../components/InputBar/InputItems/content.js';
+import createDescription from '../components/InputBar/InputItems/description.js';
 import createPaymentMethod from '../components/InputBar/InputItems/paymentMethod.js';
 import createCategory from '../components/InputBar/InputItems/category.js';
 import createSubmitButton from '../components/InputBar/submitButton.js';
@@ -11,7 +11,7 @@ import createSubmitButton from '../components/InputBar/submitButton.js';
 const DEFAULT_FORM_ITEMS_CONFIG = [
     createDate,
     createAmount,
-    createContent,
+    createDescription,
     createPaymentMethod,
     createCategory,
     createSubmitButton,

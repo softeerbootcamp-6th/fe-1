@@ -2,10 +2,16 @@ import { formatNumberWithCommas } from '../../../lib/utils.js';
 import { categoryConfig } from './categoryConfig.js';
 import paymentDataStore from '../../../store/paymentData.js';
 
-function createDetailListItem({ id, category, description, payment, value }) {
+function createDetailListItem({
+    id,
+    category,
+    description,
+    paymentMethod,
+    amount,
+}) {
     const categoryLabel = categoryConfig[category].text || '미분류';
     const categoryColor = categoryConfig[category].color;
-    const isIncome = value > 0 ? 'income-value' : 'expense-value';
+    const isIncome = amount > 0 ? 'income' : 'expense';
 
     const itemElement = document.createElement('li');
     itemElement.className = 'daily-info-detail-list-item';
@@ -14,9 +20,9 @@ function createDetailListItem({ id, category, description, payment, value }) {
             <span class="light-12">${categoryLabel}</span>
         </div>
         <span class="description light-14">${description}</span>
-        <span class="payment light-14">${payment}</span>
-        <span class="value ${isIncome} light-14">
-            ${formatNumberWithCommas(value)}원
+        <span class="payment-method light-14">${paymentMethod}</span>
+        <span class="amount ${isIncome} light-14">
+            ${formatNumberWithCommas(amount)}원
         </span>
         <button class="delete-button">
             <div class="delete-button-icon"></div>

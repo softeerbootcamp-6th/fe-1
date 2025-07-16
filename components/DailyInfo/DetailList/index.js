@@ -4,13 +4,13 @@ function createDetailList({ records }) {
     const detailList = document.createElement('ol');
     detailList.className = 'daily-info-detail-list';
 
-    records.map(({ id, category, description, payment, value }) => {
+    records.map(({ id, category, description, paymentMethod, amount }) => {
         const item = createDetailListItem({
             id,
             category,
             description,
-            payment,
-            value,
+            paymentMethod,
+            amount,
         });
         detailList.appendChild(item);
     });
