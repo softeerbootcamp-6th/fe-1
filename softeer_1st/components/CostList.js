@@ -43,9 +43,7 @@ export function CostList(year, month, item) {
             className: "cost-item-list",
             
         });
-    console.log(item.items);
     item.items.map((item) => {
-        console.log(item);
         const datesCard = DatesCard(item, ()=>deleteMonthData({year: year, month: month, ...item}));
 
         costItem.appendChild(datesCard);

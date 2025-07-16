@@ -1,7 +1,14 @@
-import { getMonthData } from "../api/api.js";
+import {
+    getMonthData,
+    getExpenseByCategory,
+    getExpenseByMonth,
+    getRecentMonthCategoryData,
+} from "../api/api.js";
 import { createElement } from "../utils/createElement.js";
 import { dateStore } from "../store/dateStore.js";
 import { DonutChart } from "../components/DonutChart.js";
+import { DotChart } from "../components/DotChart.js";
+import { CostList } from "../components/CostList.js";
 
 export function renderStats() {
     const [year, month] = [dateStore.year, dateStore.month];
@@ -9,51 +16,48 @@ export function renderStats() {
         className: "stats-page",
         id: "stats-page",
     });
-    const donutGraphContainer = createElement("div", {
-        className: "donut-graph-container",
+    const donutChartContainer = createElement("div", {
+        id: "donut-chart-container",
     });
-    const dotGraphContainer = createElement("div", {
-        className: "dot-graph-container",
+    const dotChartContainer = createElement("div", {
+        id: "dot-chart-container",
     });
     const costListContainer = createElement("div", {
-        className: "cost-list-container",
+        id: "cost-list-container",
     });
-    section.appendChild(donutGraphContainer);
-    section.appendChild(dotGraphContainer);
+    section.appendChild(donutChartContainer);
+    section.appendChild(dotChartContainer);
     section.appendChild(costListContainer);
-    renderDonutGraph(year, month);
+    renderDonutChart(year, month);
     window.addEventListener("date-change", async (e) => {
         const { year, month } = e.detail;
-        donutGraphContainer.innerHTML = "";
-        dotGraphContainer.innerHTML = "";
+        donutChartContainer.innerHTML = "";
+        dotChartContainer.innerHTML = "";
         costListContainer.innerHTML = "";
-        renderDonutGraph(year, month);
+        renderDonutChart(year, month);
     });
+    section.addEventListener('category-selected', async (e) => {
+        dotChartContainer.innerHTML = "";
+        const { category } = e.detail;
+        const currentYear = dateStore.year;
+        const currentMonth = dateStore.month;
 
-    async function renderDonutGraph(year, month) {
-        const donutGraphData = await refineData(year, month);
-        const donutGraph = DonutChart(donutGraphData);
-        donutGraphContainer.appendChild(donutGraph);
+        await renderDotChart(currentYear, currentMonth, category);
+        // await renderCostList(currentYear, currentMonth, category);
+    })
+
+    async function renderDonutChart(year, month) {
+        const donutChartData = await getExpenseByMonth(year, month);
+        const donutChart = DonutChart(donutChartData);
+        donutChartContainer.appendChild(donutChart);
     }
-    async function refineData(year, month) {
-        const monthData = await getMonthData(year, month);
+    async function renderDotChart(year, month, category) {
+        const dotChartData = await getExpenseByCategory(year, month, category);
+        console.log(dotChartData);
+        const dotChart = DotChart(dotChartData)
+        dotChartContainer.appendChild(dotChart);
         
-        const categoryData = {}
-        let total = 0;
-        monthData.forEach((item) => {
-            if (item.type === "expense") {
-                total += item.amount;
-                categoryData[item.category] = (categoryData[item.category] || 0) + item.amount;
-            }
-        });
-        const sortedCategories = Object.entries(categoryData)
-            .sort((a, b) => b[1] - a[1])
-            .map(([category, amount]) => ({ category, amount }));
-        return {
-            data: sortedCategories,
-            total: total,
-        };
     }
-    //dotGraph, CostList는 donutGraph 내 각 카테고리 버튼을 클릭했을 때만 렌더. 거기서 이벤트를 쏘고, 여기서 받아와서 렌더링하기
+    //dotChart, CostList는 donutChart 내 각 카테고리 버튼을 클릭했을 때만 렌더. 거기서 이벤트를 쏘고, 여기서 받아와서 렌더링하기
     return section;
 }

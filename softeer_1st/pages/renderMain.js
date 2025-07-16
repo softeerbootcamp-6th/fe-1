@@ -15,7 +15,6 @@ export function renderMain() {
         className: "main-container",
     });
     const updateDateState = (e) => {
-        console.log(e);
         const { year: newYear, month: newMonth } = e
             ? e.detail
             : { year, month };
