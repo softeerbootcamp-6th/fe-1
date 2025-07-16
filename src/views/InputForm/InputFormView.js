@@ -1,4 +1,3 @@
-import Observer from "../../utils/observers/Observer.js";
 import Select from "../../components/Select/Select.js";
 
 const DESCRIPTION_MAX_LENGTH = 32;
@@ -15,7 +14,7 @@ const CATEGORY_OPTIONS = {
   ],
 };
 
-export class InputFormView extends Observer {
+export class InputFormView {
   constructor() {
     super();
     this.$root = document.querySelector(".input-form");
