@@ -1,0 +1,89 @@
+.select {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.select-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+
+.select-input {
+  width: 100%;
+  height: 1.6rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.select-icon {
+  width: 1.6rem;
+  min-width: 1.6rem;
+  height: 1.6rem;
+}
+
+.select-list {
+  display: none;
+  box-sizing: content-box;
+  position: absolute;
+  top: 5.95rem;
+  left: 0;
+  width: 15.2rem;
+  border: 0.05rem solid var(--nuetral-border-default);
+  background-color: var(--nuetral-surface-default);
+}
+
+.select-list--open {
+  display: block;
+}
+
+.select-icon img {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.select-icon--open {
+  transform: rotate(180deg);
+}
+
+.select-item {
+  padding: 0 2.4rem;
+  cursor: pointer;
+}
+
+.select-item:hover {
+  background-color: var(--nuetral-surface-point);
+}
+
+.select-item__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 0;
+  border-bottom: 0.05rem solid var(--nuetral-border-default);
+}
+
+.select-item:last-of-type .select-item__content {
+  border-bottom: none;
+}
+
+.select-item__delete-button {
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.select-item__add-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

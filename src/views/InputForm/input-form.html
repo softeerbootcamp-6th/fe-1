@@ -1,0 +1,52 @@
+<form action="" class="input-form">
+  <div class="input-form__row input-form__date">
+    <label class="font-light-12" for="date">일자</label>
+    <input class="input-form__date-input" type="date" id="date" required />
+  </div>
+  <div class="input-form__row input-form__amount">
+    <label class="font-light-12" for="amount">금액</label>
+    <div class="input-form__amount-wrapper">
+      <button
+        class="input-form__amount-icon input-form__amount-icon--minus"
+        type="button"
+      ></button>
+      <input
+        class="input-form__amount-input"
+        type="text"
+        id="amount"
+        placeholder="0"
+        required
+      />
+      <span class="font-light-14">원</span>
+    </div>
+  </div>
+  <div class="input-form__row input-form__description">
+    <div class="input-form__description-wrapper">
+      <label class="font-light-12" for="description">내용</label>
+      <span class="input-form__description-count font-light-12">0/32</span>
+    </div>
+    <input
+      class="input-form__description-input"
+      type="text"
+      id="description"
+      placeholder="입력하세요"
+      maxlength="32"
+      required
+    />
+  </div>
+  <div
+    id="method-select-container"
+    class="input-form__row input-form__method"
+  ></div>
+  <div
+    id="category-select-container"
+    class="input-form__row input-form__category"
+  ></div>
+
+  <button type="submit" class="input-form__button" disabled>
+    <img
+      src="/src/assets/icons/add-button-disabled.svg"
+      alt="add-button--disabled"
+    />
+  </button>
+</form>
