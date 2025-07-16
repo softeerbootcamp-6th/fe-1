@@ -1,7 +1,7 @@
 // input 바에서 사용하는 드롭다운, 유효성 검증, 글자수 세기 등의 로직을 다루는 파일
 import { addRecordsToServer } from "../api/recordsApi.js";
+import { store } from "./store.js";
 import { elements } from "./elements.js";
-import { addRecord } from "./records.js";
 
 let valueSign = "minus"; // or "plus"
 let paymentOptions = ["현금", "신용카드", "추가하기"];
@@ -180,10 +180,10 @@ export const getInputValues = () => {
         amount,
       },
     };
-    // API 호출
-    addRecordsToServer(formInput);
 
-    // 로컬 store와 화면 렌더링
-    addRecord(formInput);
+    // 로컬 store에 추가
+    addRecordsToServer(formInput).then(() => {
+      store.addRecordToStore(formInput);
+    });
   });
 };
