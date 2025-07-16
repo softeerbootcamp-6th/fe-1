@@ -1,4 +1,9 @@
 import Subject from "../../utils/observers/Subject.js";
+import {
+  getTransactionMethod,
+  postTransactionMethod,
+  delTransactionMethod,
+} from "../../apis/transaction.js";
 
 export class InputFormState extends Subject {
   constructor() {
@@ -12,14 +17,20 @@ export class InputFormState extends Subject {
       method: "",
       category: "",
     };
+    this.methodList = [];
     this.isValidate = false;
   }
 
-  init() {
+  async init() {
     this.validate();
+    this.methodList = await getTransactionMethod();
     this.notify({
       type: "all",
-      state: { ...this.state, isValidate: this.isValidate },
+      state: {
+        ...this.state,
+        methodList: this.methodList,
+        isValidate: this.isValidate,
+      },
     });
   }
 
@@ -36,10 +47,17 @@ export class InputFormState extends Subject {
     }
   }
 
+  getState() {
+    return { ...this.state };
+  }
+
   setField(field, value) {
     this.state[field] = value;
     this.validate();
-    this.notify({ type: field, state: this.state });
+    this.notify({
+      type: field,
+      state: { ...this.state, methodList: this.methodList },
+    });
   }
 
   toggleType() {
@@ -58,7 +76,7 @@ export class InputFormState extends Subject {
     this.updateId = id;
   }
 
-  reset() {
+  async reset() {
     this.updateId = null;
     this.state = {
       date: new Date().toISOString().split("T")[0],
@@ -68,11 +86,29 @@ export class InputFormState extends Subject {
       method: "",
       category: "",
     };
+    this.methodList = await getTransactionMethod();
     this.isValidate = false;
-    this.notify({ type: "all", state: this.state });
+    this.notify({
+      type: "all",
+      state: { ...this.state, methodList: this.methodList },
+    });
   }
 
-  getState() {
-    return { ...this.state };
+  async addMethod(method) {
+    await postTransactionMethod(method);
+    this.methodList.push(method);
+    this.notify({
+      type: "method",
+      state: { ...this.state, methodList: this.methodList },
+    });
+  }
+
+  async deleteMethod(method) {
+    await delTransactionMethod(method);
+    this.methodList = this.methodList.filter((m) => m !== method);
+    this.notify({
+      type: "method",
+      state: { ...this.state, methodList: this.methodList },
+    });
   }
 }

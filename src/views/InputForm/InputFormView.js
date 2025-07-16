@@ -20,8 +20,16 @@ export class InputFormView {
   }
 
   async render(state) {
-    const { date, type, amount, description, method, category, isValidate } =
-      state;
+    const {
+      date,
+      type,
+      amount,
+      description,
+      method,
+      category,
+      methodList,
+      isValidate,
+    } = state;
     const template = `
         <form action="" class="input-form">
             <div class="input-form__row input-form__date">
@@ -89,7 +97,7 @@ export class InputFormView {
     const methodSelect = await Select({
       name: "method",
       label: "결제수단",
-      options: ["현금", "카드"],
+      options: methodList,
       isEditable: true,
       selected: method,
     });
@@ -153,11 +161,11 @@ export class InputFormView {
   }
 
   async renderMethod(state) {
-    const { method } = state;
+    const { methodList, method } = state;
     const methodSelect = await Select({
       name: "method",
       label: "결제수단",
-      options: ["현금", "카드"],
+      options: methodList,
       isEditable: true,
       selected: method,
     });
