@@ -209,9 +209,14 @@ header {
   align-items: center;
 }
 
+.gap-8 {
+  gap: 8px;
+}
+
 .input-bar {
   width: 894px;
   height: 112px;
+  margin: 0 auto 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -221,7 +226,7 @@ header {
 
 .container {
   width: 846px;
-  margin: 40px auto 0;
+  margin: 0 auto;
   gap: 20px;
   display: flex;
   flex-direction: column;
@@ -462,7 +467,7 @@ table {
   height: 56px;
   text-align: center;
   vertical-align: middle;
-  background-color: var(--danger-surface-default);
+  background-color: var(--pastel-lavenderPink);
 }
 
 .category-life {
@@ -493,8 +498,13 @@ table {
 .category-etc-income {
   background: var(--colorchip-10);
 }
-.category-etc-expense {
-  background: var(--colorchip-40);
+
+.text-expense {
+  color: var(--brand-text-expense);
+}
+
+.text-income {
+  color: var(--brand-text-income);
 }
 
 .td-description {
@@ -546,10 +556,91 @@ table {
   height: 12px;
 }
 
-tr:hover .delete-btn {
+.transaction-row:hover .delete-btn {
   display: flex;
 }
 
-tr:hover {
+.transaction-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.transaction-row:hover {
   background-color: var(--nuetral-surface-point);
+}
+
+.transaction-row.selected {
+  background-color: var(--nuetral-surface-point);
+}
+
+.transaction-row.selected .delete-btn {
+  display: flex;
+}
+
+/* calendar */
+.calendar-container {
+  border-top: 1px solid var(--nuetral-border-default);
+  border-left: 1px solid var(--nuetral-border-default);
+  width: 100%;
+  background: var(--nuetral-surface-default);
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  height: 48px;
+}
+
+.calendar-header > div {
+  border-right: 1px solid var(--nuetral-border-default);
+  border-bottom: 1px solid var(--nuetral-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: right;
+  height: 120px;
+}
+
+.calendar-cell {
+  cursor: pointer;
+  transition: background 0.2s;
+  border-right: 1px solid var(--nuetral-border-default);
+  border-bottom: 1px solid var(--nuetral-border-default);
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-cell:hover {
+  background: var(--nuetral-surface-point);
+}
+
+.calendar-cell.empty {
+  background: none;
+  cursor: default;
+}
+
+.calendar-cell-details {
+  height: 100%;
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-amount {
+  height: 24px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.calendar-date {
+  padding: 8px 8px;
+  text-align: right;
 }

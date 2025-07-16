@@ -1,4 +1,4 @@
-import { renderMainPage } from "../pages.js";
+import { render } from "./routes.js";
 
 // 현재 날짜 상태 관리
 let currentDate = new Date();
@@ -76,7 +76,7 @@ export function setupDateEventListeners(container) {
     prevMonthBtn.addEventListener("click", () => {
       goToPreviousMonth();
       renderHeaderDate();
-      renderMainPage();
+      render();
     });
   }
 
@@ -84,7 +84,7 @@ export function setupDateEventListeners(container) {
     nextMonthBtn.addEventListener("click", () => {
       goToNextMonth();
       renderHeaderDate();
-      renderMainPage();
+      render();
     });
   }
 }

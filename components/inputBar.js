@@ -1,59 +1,66 @@
-import { addNewTransaction } from "../utils/transaction.js";
 import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
-import { renderTransactionList } from "./transactionsList.js";
+import {
+  getTransactionsByYearMonth,
+  addNewTransaction,
+  updateTransaction,
+  monthlyTotalData,
+} from "../utils/transaction.js";
 import { getFilteringState } from "../pages.js";
+import {
+  INCOME_CATEGORIES,
+  EXPENSE_CATEGORIES,
+} from "../constants/category.js";
+import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
+import { renderTransactionList } from "./transactionsList.js";
+import { renderCalendar, renderCalendarInfo } from "./calendar.js";
+
+// 수정 모드 상태 관리
+let isEditMode = false;
+let editingTransactionId = null;
+
+// 폼 필드 이름 상수
+const FORM_FIELDS = {
+  DATE: "date",
+  AMOUNT: "amount",
+  CONTENT: "content",
+  PAYMENT_METHOD: "paymentMethod",
+  CATEGORY: "category",
+};
+
+function createCategoryOptions(isIncome) {
+  const categories = isIncome ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+  return [
+    `<option value="" disabled selected hidden>선택하세요</option>`,
+    ...categories.map((cat) => `<option value="${cat}">${cat}</option>`),
+    `<option value="추가하기">추가하기</option>`,
+  ].reduce((acc, cur) => acc + cur, "");
+}
 
 export function createInputBar() {
-  return ` 
-  <form
-    class="input-bar flex-row"
-    id="inputBarForm"
-  >
+  const today = new Date().toISOString().split("T")[0];
+  return `
+  <form class="input-bar flex-row" id="inputBarForm">
     <label class="flex-column input-section">
       <div class="input-label light-12">일자</div>
-      <input type="date" name="date" class="date-input semibold-12" required value="${
-        new Date().toISOString().split("T")[0]
-      }" />
+      <input type="date" name="date" class="date-input semibold-12" required value="${today}" />
     </label>
     <label class="flex-column input-section">
       <div class="input-label light-12">금액</div>
       <div class="flex-row semibold-12">
-        <button
-          type="button"
-          class="amount-toggle"
-          data-sign="+"
-        >
+        <button type="button" class="amount-toggle" data-sign="+">
           <img src="../icons/plus.svg" alt="plus" />
         </button>
-        <input
-          type="number"
-          name="amount"
-          placeholder="0"
-          min="0"
-          required
-          class="semibold-12 text-input"
-        />
+        <input type="number" name="amount" placeholder="0" min="0" required class="semibold-12 text-input" />
         <div class="semibold-12">원</div>
       </div>
     </label>
     <label class="flex-column input-section">
       <div class="input-label light-12">내용</div>
-      <input
-        type="text"
-        name="content"
-        maxlength="32"
-        placeholder="내용을 입력하세요"
-        required
-        class="semibold-12 text-input"
-      />
+      <input type="text" name="content" maxlength="32" placeholder="내용을 입력하세요" required class="semibold-12 text-input" />
     </label>
     <label class="flex-column input-section">
       <div class="input-label light-12">결제수단</div>
-      <select
-        name="paymentMethod"
-        required
-        class="semibold-12 text-input"
-      >
+      <select name="paymentMethod" required class="semibold-12 text-input">
         <option value="" disabled selected hidden>선택하세요</option>
         <option value="현금">현금</option>
         <option value="카드">카드</option>
@@ -62,11 +69,7 @@ export function createInputBar() {
     </label>
     <label class="flex-column w-full px-20">
       <div class="input-label light-12">분류</div>
-      <select
-        name="category"
-        required
-        class="semibold-12 text-input"
-      >
+      <select name="category" required class="semibold-12 text-input">
         <option value="" disabled selected hidden>선택하세요</option>
         <option value="생활">생활</option>
         <option value="식비">식비</option>
@@ -78,10 +81,7 @@ export function createInputBar() {
       </select>
     </label>
     <div class="flex-column">
-      <button
-        type="submit"
-        class="add-button"
-      >
+      <button type="submit" class="add-button" id="submitButton">
         <img src="../icons/check.svg" alt="check" />
       </button>
     </div>
@@ -89,81 +89,173 @@ export function createInputBar() {
   `;
 }
 
-function validateForm(requiredFields, submitButton) {
-  const isValid = requiredFields.every((field) => {
-    if (field.tagName === "SELECT") {
-      return field.value !== "";
-    }
+function getFormElements(form) {
+  return {
+    dateInput: form.querySelector(`input[name='${FORM_FIELDS.DATE}']`),
+    amountInput: form.querySelector(`input[name='${FORM_FIELDS.AMOUNT}']`),
+    contentInput: form.querySelector(`input[name='${FORM_FIELDS.CONTENT}']`),
+    paymentMethodSelect: form.querySelector(
+      `select[name='${FORM_FIELDS.PAYMENT_METHOD}']`
+    ),
+    categorySelect: form.querySelector(
+      `select[name='${FORM_FIELDS.CATEGORY}']`
+    ),
+    amountToggle: form.querySelector(".amount-toggle"),
+    submitButton: form.querySelector("#submitButton"),
+  };
+}
+
+function getRequiredFields(elements) {
+  return {
+    dateInput: elements.dateInput,
+    amountInput: elements.amountInput,
+    contentInput: elements.contentInput,
+    paymentMethodSelect: elements.paymentMethodSelect,
+    categorySelect: elements.categorySelect,
+  };
+}
+
+function validateForm(fields, submitButton) {
+  const isValid = Object.values(fields).every((field) => {
+    if (field.tagName === "SELECT") return field.value !== "";
     return field.value.trim() !== "";
   });
   submitButton.disabled = !isValid;
   submitButton.classList.toggle("disabled", !isValid);
 }
 
+function updateAmountToggleIcon(toggle, isPositive) {
+  const icon = isPositive ? "plus.svg" : "minus.svg";
+  const sign = isPositive ? "+" : "-";
+  toggle.querySelector("img").src = `../icons/${icon}`;
+  toggle.querySelector("img").alt = sign;
+  toggle.dataset.sign = sign;
+}
+
+function resetForm(form, elements) {
+  form.reset();
+  updateAmountToggleIcon(elements.amountToggle, true);
+  validateForm(getRequiredFields(elements), elements.submitButton);
+}
+
+function processFormData(formData, amountToggle) {
+  const data = Object.fromEntries(formData.entries());
+  data.amount =
+    amountToggle.dataset.sign === "-"
+      ? -Math.abs(+data.amount)
+      : Math.abs(+data.amount);
+  return data;
+}
+
+export function fillFormWithTransaction(transaction) {
+  const form = document.getElementById("inputBarForm");
+  if (!form || !transaction) return;
+
+  const elements = getFormElements(form);
+  const fields = getRequiredFields(elements);
+
+  elements.dateInput.value = transaction.date;
+  elements.amountInput.value = Math.abs(transaction.amount);
+
+  updateAmountToggleIcon(elements.amountToggle, transaction.amount > 0);
+  updateCategoryOptions(elements, transaction.amount > 0);
+  elements.contentInput.value = transaction.description;
+  elements.paymentMethodSelect.value = transaction.paymentMethod;
+  elements.categorySelect.value = transaction.category;
+
+  isEditMode = true;
+  editingTransactionId = transaction.id;
+
+  validateForm(fields, elements.submitButton);
+}
+
+export function resetEditMode() {
+  isEditMode = false;
+  editingTransactionId = null;
+  document
+    .querySelectorAll(".transaction-row.selected")
+    .forEach((row) => row.classList.remove("selected"));
+}
+
+export function cancelEditMode() {
+  const form = document.getElementById("inputBarForm");
+  if (!form) return;
+  const elements = getFormElements(form);
+  resetForm(form, elements);
+  resetEditMode();
+}
+
+function updateCategoryOptions(elements, isIncome) {
+  elements.categorySelect.innerHTML = createCategoryOptions(isIncome);
+}
+
 export function renderInputBar(container) {
   container.innerHTML = createInputBar();
 
   const form = container.querySelector("#inputBarForm");
-  const amountToggle = container.querySelector(".amount-toggle");
-  const amountInput = container.querySelector("input[name='amount']");
-  const submitButton = container.querySelector(".add-button");
+  const elements = getFormElements(form);
+  const fields = getRequiredFields(elements);
 
-  const requiredFields = [
-    form.querySelector("input[name='date']"),
-    form.querySelector("input[name='amount']"),
-    form.querySelector("input[name='content']"),
-    form.querySelector("select[name='paymentMethod']"),
-    form.querySelector("select[name='category']"),
-  ];
-
-  // 모든 필드에 이벤트 리스너 추가
-  requiredFields.forEach((field) => {
-    const eventType = field.tagName === "SELECT" ? "change" : "input";
-    field.addEventListener(eventType, () =>
-      validateForm(requiredFields, submitButton)
+  Object.values(fields).forEach((field) => {
+    const type = field.tagName === "SELECT" ? "change" : "input";
+    field.addEventListener(type, () =>
+      validateForm(fields, elements.submitButton)
     );
   });
 
-  // 초기 상태 검사
-  validateForm(requiredFields, submitButton);
+  validateForm(fields, elements.submitButton);
 
-  if (amountToggle && amountInput) {
-    amountToggle.addEventListener("click", () => {
-      //+ - 변경
-      if (amountToggle.dataset.sign === "+") {
-        amountToggle.innerHTML = `<img src="../icons/minus.svg" alt="minus" />`;
-        amountToggle.dataset.sign = "-";
-      } else {
-        amountToggle.innerHTML = `<img src="../icons/plus.svg" alt="plus" />`;
-        amountToggle.dataset.sign = "+";
-      }
+  if (elements.amountToggle) {
+    elements.amountToggle.addEventListener("click", () => {
+      const isPositive = elements.amountToggle.dataset.sign === "+";
+      updateAmountToggleIcon(elements.amountToggle, !isPositive);
+      updateCategoryOptions(elements, !isPositive);
     });
+    updateCategoryOptions(elements, true);
   }
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault(); // 페이지 새로고침 방지
-
+    e.preventDefault();
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const data = processFormData(formData, elements.amountToggle);
 
-    // amountToggle 상태에 따라 금액 부호 결정
-    if (amountToggle && amountToggle.dataset.sign === "-") {
-      data.amount = -Math.abs(parseInt(data.amount));
+    if (isEditMode && editingTransactionId) {
+      updateTransaction(
+        getCurrentYear(),
+        getCurrentMonth(),
+        editingTransactionId,
+        data
+      );
+      resetEditMode();
     } else {
-      data.amount = Math.abs(parseInt(data.amount));
+      addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
+      document
+        .querySelectorAll(".transaction-row.selected")
+        .forEach((row) => row.classList.remove("selected"));
     }
 
-    // 새로운 거래내역 추가
-    addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
+    resetForm(form, elements);
 
-    form.reset();
-
-    // 폼 reset 후 다시 검사
-    validateForm(requiredFields, submitButton);
-
-    // 금액 토글 초기화
-    amountToggle.innerHTML = `<img src="../icons/plus.svg" alt="plus" />`;
     const { isIncomeChecked, isExpenseChecked } = getFilteringState();
+    const monthlyInfoContainer = document.querySelector(
+      "#monthly-info-container"
+    );
+    renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
+    renderTotalCount(
+      monthlyInfoContainer,
+      isIncomeChecked,
+      isExpenseChecked,
+      monthlyTotalData(
+        getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+      )
+    );
     renderTransactionList(isIncomeChecked, isExpenseChecked);
+
+    const calendarContainer = document.querySelector(".calendar-container");
+    if (calendarContainer) renderCalendar(calendarContainer);
+    const calendarInfoContainer = document.querySelector(
+      ".calendar-info-container"
+    );
+    if (calendarInfoContainer) renderCalendarInfo(calendarInfoContainer);
   });
 }

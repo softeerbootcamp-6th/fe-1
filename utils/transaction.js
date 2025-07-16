@@ -23,7 +23,7 @@ export function groupTransactionsByDate(transactions) {
 // 새로운 거래내역 추가
 export function addNewTransaction(year, month, formData) {
   const newTransaction = {
-    id: transactionsData.length + 1,
+    id: new Date().getTime() + Math.random(),
     date: formData.date,
     amount: parseInt(formData.amount),
     description: formData.content,
@@ -44,15 +44,49 @@ export function addNewTransaction(year, month, formData) {
 
 //기존 거래 내역 삭제
 export function deleteTransaction(year, month, id) {
+  alert(`거래내역 ID ${id}을 삭제하시겠습니까?`);
   const index = transactionsData[year][month].findIndex(
     (transaction) => transaction.id === id
   );
   if (index !== -1) {
     transactionsData[year][month].splice(index, 1);
-    alert(`거래내역 ID ${id}가 삭제되었습니다.`);
   } else {
     alert(`거래내역 ID ${id} 삭제에 실패했습니다.`);
   }
+}
+
+// 거래내역 수정
+export function updateTransaction(year, month, id, formData) {
+  const index = transactionsData[year][month].findIndex(
+    (transaction) => transaction.id === id
+  );
+  if (index !== -1) {
+    transactionsData[year][month][index] = {
+      ...transactionsData[year][month][index],
+      date: formData.date,
+      amount: parseInt(formData.amount),
+      description: formData.content,
+      paymentMethod: formData.paymentMethod,
+      category: formData.category,
+    };
+
+    // 날짜순으로 정렬
+    transactionsData[year][month].sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
+
+    return transactionsData[year][month][index];
+  } else {
+    alert(`거래내역 ID ${id} 수정에 실패했습니다.`);
+    return null;
+  }
+}
+
+// 특정 ID의 거래내역 조회
+export function getTransactionById(year, month, id) {
+  return transactionsData[year][month].find(
+    (transaction) => transaction.id === id
+  );
 }
 
 // 월별 수입 건수, 총합, 지출 건수, 총합, 총 건수 계산
@@ -82,5 +116,38 @@ export function monthlyTotalData(transactions) {
     monthlyTotalCount,
     monthlyTotalIncomeCount,
     monthlyTotalExpenseCount,
+  };
+}
+
+export function dailyTotalData(transactions) {
+  const dailyTotalIncomeTransactions = transactions.filter(
+    (transaction) => transaction.amount > 0
+  );
+  const dailyTotalExpenseTransactions = transactions.filter(
+    (transaction) => transaction.amount < 0
+  );
+  const dailyTotalIncome = dailyTotalIncomeTransactions.reduce(
+    (sum, transaction) => sum + transaction.amount,
+    0
+  );
+  const dailyTotalExpense = dailyTotalExpenseTransactions.reduce(
+    (sum, transaction) => sum + transaction.amount,
+    0
+  );
+  const dailyTotalCount =
+    dailyTotalIncomeTransactions.length + dailyTotalExpenseTransactions.length;
+
+  const dailyTotalIncomeCount = dailyTotalIncomeTransactions.length;
+
+  const dailyTotalExpenseCount = dailyTotalExpenseTransactions.length;
+
+  const dailyTotalAmount = dailyTotalIncome + dailyTotalExpense;
+  return {
+    dailyTotalIncome,
+    dailyTotalExpense,
+    dailyTotalCount,
+    dailyTotalIncomeCount,
+    dailyTotalExpenseCount,
+    dailyTotalAmount,
   };
 }

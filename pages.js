@@ -1,6 +1,15 @@
-import { renderMonthlyInfo } from "./components/monthlyInfo.js";
+import {
+  renderMonthlyInfo,
+  renderTotalCount,
+} from "./components/monthlyInfo.js";
 import { renderInputBar } from "./components/inputBar.js";
 import { renderTransactionList } from "./components/transactionsList.js";
+import {
+  getTransactionsByYearMonth,
+  monthlyTotalData,
+} from "./utils/transaction.js";
+import { getCurrentYear, getCurrentMonth } from "./utils/currentDate.js";
+import { renderCalendar, renderCalendarInfo } from "./components/calendar.js";
 
 let isIncomeChecked = true;
 let isExpenseChecked = true;
@@ -26,8 +35,9 @@ export function createMainPage() {
 
 export function createCalendarPage() {
   return `
-    <div class="calendar-page">
-      <h2>캘린더</h2>
+    <div class="container">
+      <div class="calendar-container"></div>
+      <div class="calendar-info-container"></div>
     </div>
   `;
 }
@@ -62,6 +72,14 @@ export function renderMainPage() {
   );
   if (monthlyInfoContainer) {
     renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
+    renderTotalCount(
+      monthlyInfoContainer,
+      isIncomeChecked,
+      isExpenseChecked,
+      monthlyTotalData(
+        getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+      )
+    );
   }
 
   renderTransactionList(isIncomeChecked, isExpenseChecked);
@@ -71,6 +89,17 @@ export function renderCalendarPage() {
   const mainContainer = document.getElementById("main-container");
   if (mainContainer) {
     mainContainer.innerHTML = createCalendarPage();
+  }
+
+  const calendarContainer = mainContainer.querySelector(".calendar-container");
+  if (calendarContainer) {
+    renderCalendar(calendarContainer);
+  }
+  const calendarInfoContainer = mainContainer.querySelector(
+    ".calendar-info-container"
+  );
+  if (calendarInfoContainer) {
+    renderCalendarInfo(calendarInfoContainer);
   }
 }
 

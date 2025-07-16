@@ -10,3 +10,15 @@ export const CATEGORY_NAME = {
   "기타 수입": "etc-income",
   용돈: "allowance",
 };
+
+export const INCOME_CATEGORIES = ["월급", "용돈", "기타  수입"];
+
+export const EXPENSE_CATEGORIES = [
+  "생활",
+  "식비",
+  "교통",
+  "쇼핑/뷰티",
+  "의료/건강",
+  "문화/여가",
+  "미분류",
+];
