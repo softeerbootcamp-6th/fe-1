@@ -8,8 +8,8 @@ import {
   getTransactionsByYearMonth,
   monthlyTotalData,
 } from "./utils/transaction.js";
-import { getCurrentYear, getCurrentMonth } from "./utils/currentDate.js";
 import { renderCalendar, renderCalendarInfo } from "./components/calendar.js";
+import { dateStore } from "./store/index.js";
 
 let isIncomeChecked = true;
 let isExpenseChecked = true;
@@ -26,7 +26,7 @@ export function setFilteringState(income, expense) {
 export function createMainPage() {
   return `
     <div id="input-bar-container"></div>
-    <div class="container">
+    <div class="container main-page">
       <div id="monthly-info-container"></div>
       <div id="transaction-list-container"></div>
     </div>
@@ -35,7 +35,7 @@ export function createMainPage() {
 
 export function createCalendarPage() {
   return `
-    <div class="container">
+    <div class="container calendar-page">
       <div class="calendar-container"></div>
       <div class="calendar-info-container"></div>
     </div>
@@ -64,10 +64,8 @@ export function renderMainPage() {
     renderInputBar(inputBarContainer);
   }
 
-  const container = mainContainer.querySelector(".container");
-
   // monthlyInfo 렌더링
-  const monthlyInfoContainer = container.querySelector(
+  const monthlyInfoContainer = mainContainer.querySelector(
     "#monthly-info-container"
   );
   if (monthlyInfoContainer) {
@@ -77,7 +75,7 @@ export function renderMainPage() {
       isIncomeChecked,
       isExpenseChecked,
       monthlyTotalData(
-        getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+        getTransactionsByYearMonth(dateStore.getYear(), dateStore.getMonth())
       )
     );
   }

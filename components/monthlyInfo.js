@@ -1,4 +1,3 @@
-import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import {
   getTransactionsByYearMonth,
   monthlyTotalData,
@@ -6,6 +5,7 @@ import {
 import { setFilteringState } from "../pages.js";
 import { renderTransactionList } from "./transactionsList.js";
 import { formatMoney } from "../utils/format.js";
+import { dateStore } from "../store/index.js";
 
 // totalCount 텍스트를 생성하는 함수
 function createTotalCountText(isIncomeChecked, isExpenseChecked, monthlyData) {
@@ -107,7 +107,7 @@ export function renderMonthlyInfo(
   isExpenseChecked
 ) {
   const monthlyData = monthlyTotalData(
-    getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+    getTransactionsByYearMonth(dateStore.getYear(), dateStore.getMonth())
   );
 
   container.innerHTML = createMonthlyInfo(

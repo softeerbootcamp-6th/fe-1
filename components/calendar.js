@@ -1,4 +1,3 @@
-import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import {
   getTransactionsByYearMonth,
   groupTransactionsByDate,
@@ -6,6 +5,7 @@ import {
   monthlyTotalData,
 } from "../utils/transaction.js";
 import { formatMoney } from "../utils/format.js";
+import { dateStore } from "../store/index.js";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -132,12 +132,15 @@ export function createCalendar(year, month) {
 }
 
 export function renderCalendar(container) {
-  container.innerHTML = createCalendar(getCurrentYear(), getCurrentMonth());
+  container.innerHTML = createCalendar(
+    dateStore.getYear(),
+    dateStore.getMonth()
+  );
 }
 
 export function renderCalendarInfo(container) {
   container.innerHTML = createCalendarMonthlyInfo(
-    getCurrentYear(),
-    getCurrentMonth()
+    dateStore.getYear(),
+    dateStore.getMonth()
   );
 }

@@ -1,4 +1,4 @@
-import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
+import { dateStore } from "../store/index.js";
 import {
   getTransactionsByYearMonth,
   addNewTransaction,
@@ -221,14 +221,14 @@ export function renderInputBar(container) {
 
     if (isEditMode && editingTransactionId) {
       updateTransaction(
-        getCurrentYear(),
-        getCurrentMonth(),
+        dateStore.getYear(),
+        dateStore.getMonth(),
         editingTransactionId,
         data
       );
       resetEditMode();
     } else {
-      addNewTransaction(getCurrentYear(), getCurrentMonth(), data);
+      addNewTransaction(dateStore.getYear(), dateStore.getMonth(), data);
       document
         .querySelectorAll(".transaction-row.selected")
         .forEach((row) => row.classList.remove("selected"));
@@ -246,7 +246,7 @@ export function renderInputBar(container) {
       isIncomeChecked,
       isExpenseChecked,
       monthlyTotalData(
-        getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+        getTransactionsByYearMonth(dateStore.getYear(), dateStore.getMonth())
       )
     );
     renderTransactionList(isIncomeChecked, isExpenseChecked);

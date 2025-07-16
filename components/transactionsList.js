@@ -5,12 +5,12 @@ import {
   getTransactionById,
   monthlyTotalData,
 } from "../utils/transaction.js";
-import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
 import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
 import { renderCalendar, renderCalendarInfo } from "./calendar.js";
+import { dateStore } from "../store/index.js";
 
 // 클릭된 행 상태 관리
 let selectedRowId = null;
@@ -78,8 +78,8 @@ function createTransactionRow(transaction) {
 
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   const transactionListByYearMonth = getTransactionsByYearMonth(
-    getCurrentYear(),
-    getCurrentMonth()
+    dateStore.getYear(),
+    dateStore.getMonth()
   );
 
   // 체크박스 상태에 따라 거래내역 필터링
@@ -166,7 +166,7 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
       btn.addEventListener("click", (e) => {
         e.stopPropagation(); // 행 클릭 이벤트 방지
         const id = Number(btn.dataset.id);
-        deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
+        deleteTransaction(dateStore.getYear(), dateStore.getMonth(), id);
         // 삭제 후 선택 상태 초기화
         selectedRowId = null;
         const monthlyInfoContainer = document.querySelector(
@@ -182,7 +182,10 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           isIncomeChecked,
           isExpenseChecked,
           monthlyTotalData(
-            getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
+            getTransactionsByYearMonth(
+              dateStore.getYear(),
+              dateStore.getMonth()
+            )
           )
         );
         renderTransactionList(isIncomeChecked, isExpenseChecked);
@@ -212,8 +215,8 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
 
           const id = Number(row.dataset.id);
           const transaction = getTransactionById(
-            getCurrentYear(),
-            getCurrentMonth(),
+            dateStore.getYear(),
+            dateStore.getMonth(),
             id
           );
 
