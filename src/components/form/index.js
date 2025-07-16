@@ -6,6 +6,7 @@ import { CategoryForm } from "./CategoryForm.js";
 import { FormChecker } from "./FormChecker.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { InputValidator } from "../../utils/InputValidator.js";
+import { EventDispatcher } from "../../store/EventBusStore.js";
 
 export const EntireForm = () => {
   const entireForm = ElementManager.renderElement("div", "entire-form");
@@ -30,13 +31,20 @@ export const EntireForm = () => {
   });
   entireForm.appendChild(FormChecker(input));
 
-  entireForm.addEventListener("input", () => {
-    const isFullFilled = InputValidator.validateFullFilled(input);
-    if (isFullFilled) {
-      const formChecker = entireForm.querySelector(".form-checker");
-      formChecker.classList.add("active");
-    }
+  EventDispatcher.register({
+    eventType: "input",
+    selector: "entire-form",
+    handler: () => {
+      const isFullFilled = InputValidator.validateFullFilled(input);
+      const formCheckerWrapper = entireForm.querySelector(
+        ".form-checker > .img-wrapper"
+      );
+      if (isFullFilled) {
+        formCheckerWrapper.classList.add("active");
+      } else {
+        formCheckerWrapper.classList.remove("active");
+      }
+    },
   });
-
   return entireForm;
 };

@@ -1,3 +1,4 @@
+import { EventDispatcher } from "../../store/EventBusStore.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { NumberManager } from "../../utils/NumberManager.js";
 
@@ -13,17 +14,26 @@ export const MoneyForm = (input) => {
     `;
 
   const moneyTypeImg = moneyForm.querySelector(".money-input-wrapper > img");
-  moneyTypeImg.addEventListener("click", (e) => {
-    input.moneyType = input.moneyType === "income" ? "expense" : "income";
-    moneyTypeImg.src = `./src/assets/${input.moneyType}.png`;
-    moneyTypeImg.alt = `${input.moneyType} icon`;
+  EventDispatcher.register({
+    eventType: "click",
+    selector: "money-input-wrapper > img",
+    handler: () => {
+      input.moneyType = input.moneyType === "income" ? "expense" : "income";
+      moneyTypeImg.src = `./src/assets/${input.moneyType}.png`;
+      moneyTypeImg.alt = `${input.moneyType} icon`;
+    },
   });
-
-  moneyForm.addEventListener("input", (e) => {
-    const moneyInput = moneyForm.querySelector(".money-input-wrapper > input");
-    const normalMoney = NumberManager.parseToNormalNumber(e.target.value);
-    moneyInput.value = NumberManager.parseToCommaNumber(normalMoney);
-    input.money = normalMoney;
+  EventDispatcher.register({
+    eventType: "input",
+    selector: "form-money",
+    handler: (e) => {
+      const moneyInput = moneyForm.querySelector(
+        ".money-input-wrapper > input"
+      );
+      const normalMoney = NumberManager.parseToNormalNumber(e.target.value);
+      moneyInput.value = NumberManager.parseToCommaNumber(normalMoney);
+      input.money = normalMoney;
+    },
   });
   return moneyForm;
 };

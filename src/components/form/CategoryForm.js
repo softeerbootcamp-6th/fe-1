@@ -1,4 +1,5 @@
 import { CATEGORY } from "../../constants/category.js";
+import { EventDispatcher } from "../../store/EventBusStore.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { DropDown } from "./DropDown.js";
 
@@ -13,35 +14,37 @@ export const CategoryForm = (input) => {
   </button>
   `;
 
-  categoryForm.addEventListener("click", (e) => {
-    // 이미지 업데이트
-    const categoryImg = categoryForm.querySelector("#category > img");
-    isCategoryOpen = !isCategoryOpen;
-    categoryImg.src = `./src/assets/chevron-${
-      isCategoryOpen ? "up" : "down"
-    }.png`;
+  EventDispatcher.register({
+    eventType: "click",
+    selector: "form-category",
+    handler: ({ target }) => {
+      // 이미지 업데이트
+      const categoryImg = categoryForm.querySelector("#category > img");
+      isCategoryOpen = !isCategoryOpen;
+      categoryImg.src = `./src/assets/chevron-${
+        isCategoryOpen ? "up" : "down"
+      }.png`;
 
-    // 값 업데이트+화면에 표시
-    if (e.target.closest("li")) {
-      const selectedCategory = e.target.innerText;
-      input.category = selectedCategory;
-      const categoryTextInput = categoryForm.querySelector("#category > span");
-      categoryTextInput.textContent = selectedCategory;
+      // 값 업데이트+화면에 표시
+      const dropDownLi = target.closest(".drop-down-li");
+      if (dropDownLi) {
+        const selectedCategory = target.innerText;
+        input.category = selectedCategory;
+        const categoryTextInput =
+          categoryForm.querySelector("#category > span");
+        categoryTextInput.textContent = selectedCategory;
+      }
 
-      const event = new Event("input", {
-        bubbles: true, // 이벤트 버블링을 허용 -> 상위 entireForm까지 도달
-        cancelable: false,
-      });
-      categoryTextInput.dispatchEvent(event);
-    }
-
-    // 드롭다운 화면에 표시/제거
-    if (isCategoryOpen) {
-      categoryForm.appendChild(DropDown("category", CATEGORY[input.moneyType]));
-    } else {
-      const dropDown = categoryForm.querySelector(".drop-down");
-      categoryForm.removeChild(dropDown);
-    }
+      // 드롭다운 화면에 표시/제거
+      if (isCategoryOpen) {
+        categoryForm.appendChild(
+          DropDown({ type: "category", data: CATEGORY[input.moneyType] })
+        );
+      } else {
+        const dropDown = categoryForm.querySelector(".drop-down");
+        categoryForm.removeChild(dropDown);
+      }
+    },
   });
   return categoryForm;
 };
