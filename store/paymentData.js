@@ -14,20 +14,6 @@ const paymentDataStore = {
 
 export default paymentDataStore;
 
-/*
-
-{
-    id: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
-    category: 'food',
-    description: '편의점 간식 구매',
-    payment: 'KB국민카드',
-    value: -4500,
-    paidAt: '2025-07-11',
-    createdAt: '2025-07-11',
-}
-
-*/
-
 function getDummyData() {
     return [
         {
