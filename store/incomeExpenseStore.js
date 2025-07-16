@@ -1,4 +1,4 @@
-export const store = {
+export const incomeExpenseStore = {
   incomeExpenseData: {},
 
   // incomeExpenseData 불러 오기

@@ -1,6 +1,6 @@
 // 1. month가 바뀔 때마다 다른 지출 내역 보여주기
 import { getYear, getMonth, subscribe } from '../store/dateStore.js';
-import { store } from '../store/store.js';
+import { incomeExpenseStore } from '../store/incomeExpenseStore.js';
 
 export function renderIncomeExpenseList() {
   const incomeExpenseListContainer = document.createElement('div');
@@ -19,7 +19,7 @@ export function renderIncomeExpenseList() {
 
 export function renderListItem(listContainer) {
   // 데이터 로드
-  const incomeExpenseData = store.incomeExpenseData;
+  const incomeExpenseData = incomeExpenseStore.incomeExpenseData;
 
   // 현재 연월 가져오기
   const currentYear = getYear();
