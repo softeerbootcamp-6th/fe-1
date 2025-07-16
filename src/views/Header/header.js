@@ -1,5 +1,5 @@
 import { createHTML } from "../../utils/dom.js";
-import monthStore from "../../stores/MonthStore.js";
+import monthState from "../../stores/subjects/MonthState.js";
 
 const Header = async ({
   selectedNav = "home", // 'home', 'calendar', 'chart'
@@ -20,18 +20,18 @@ const Header = async ({
     $monthText.textContent = `${monthInfo.monthText}`;
   };
 
-  renderMonth(monthStore.getMonthInfo());
+  renderMonth(monthState.getMonthInfo());
 
-  monthStore.subscribe({
+  monthState.subscribe({
     update: renderMonth,
   });
 
   $prevBtn.addEventListener("click", () => {
-    monthStore.goToPreviousMonth();
+    monthState.goToPreviousMonth();
   });
 
   $nextBtn.addEventListener("click", () => {
-    monthStore.goToNextMonth();
+    monthState.goToNextMonth();
   });
 
   // 🔹 네비게이션

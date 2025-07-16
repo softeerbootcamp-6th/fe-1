@@ -65,6 +65,7 @@
 .daily-list__content-row {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .content-row__info {
