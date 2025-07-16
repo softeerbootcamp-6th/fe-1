@@ -1,12 +1,12 @@
-import { accountBookStore } from "../../store/account-book-store.js";
 import { updateHeaderDate } from "../../utils/date-utils.js";
 import { formatAmount } from "../../utils/format-utils.js";
 import {
   getFilteredData,
   getMonthlyExpenseByCategory,
 } from "../../utils/data-utils.js";
+import { getTransactions } from "../../api/transaction.js";
 
-function initStatistic() {
+export function initStatistic() {
   // DOM 요소들
   const categoryListEl = document.getElementById("category-list");
   const totalExpenseAmountEl = document.getElementById("total-expense-amount");
@@ -70,50 +70,59 @@ function initStatistic() {
   };
 
   // 통계 데이터 계산 함수
-  function calculateStatistics(year, month) {
-    // Store에서 데이터 가져오기
-    const storeData = accountBookStore.getTransactions();
-    // 해당 월의 데이터 가져오기
-    const monthlyData = getFilteredData(storeData, year, month);
-    // 지출 데이터만 필터링 (음수 금액)
-    const expenseData = monthlyData.filter((item) => item.amount < 0);
-    // 카테고리별 지출 집계
-    const categoryStats = {};
-    let totalExpense = 0;
+  async function calculateStatistics() {
+    try {
+      // API에서 데이터 가져오기
+      const storeData = await getTransactions();
+      // 해당 월의 데이터 가져오기
+      const monthlyData = getFilteredData(storeData);
+      // 지출 데이터만 필터링 (음수 금액)
+      const expenseData = monthlyData.filter((item) => item.amount < 0);
+      // 카테고리별 지출 집계
+      const categoryStats = {};
+      let totalExpense = 0;
 
-    expenseData.forEach((item) => {
-      const category = item.category || "미분류";
-      const amount = Math.abs(item.amount);
-      if (!categoryStats[category]) {
-        categoryStats[category] = {
-          amount: 0,
-          count: 0,
-          percentage: 0,
-        };
-      }
-      categoryStats[category].amount += amount;
-      categoryStats[category].count += 1;
-      totalExpense += amount;
-    });
+      expenseData.forEach((item) => {
+        const category = item.category || "미분류";
+        const amount = Math.abs(item.amount);
+        if (!categoryStats[category]) {
+          categoryStats[category] = {
+            amount: 0,
+            count: 0,
+            percentage: 0,
+          };
+        }
+        categoryStats[category].amount += amount;
+        categoryStats[category].count += 1;
+        totalExpense += amount;
+      });
 
-    // 퍼센트 계산
-    Object.keys(categoryStats).forEach((category) => {
-      categoryStats[category].percentage =
-        totalExpense > 0
-          ? Math.round((categoryStats[category].amount / totalExpense) * 100)
-          : 0;
-    });
+      // 퍼센트 계산
+      Object.keys(categoryStats).forEach((category) => {
+        categoryStats[category].percentage =
+          totalExpense > 0
+            ? Math.round((categoryStats[category].amount / totalExpense) * 100)
+            : 0;
+      });
 
-    // 금액 순으로 정렬
-    const sortedCategories = Object.entries(categoryStats).sort(
-      ([, a], [, b]) => b.amount - a.amount
-    );
+      // 금액 순으로 정렬
+      const sortedCategories = Object.entries(categoryStats).sort(
+        ([, a], [, b]) => b.amount - a.amount
+      );
 
-    return {
-      totalExpense,
-      categoryStats: Object.fromEntries(sortedCategories),
-      sortedCategories,
-    };
+      return {
+        totalExpense,
+        categoryStats: Object.fromEntries(sortedCategories),
+        sortedCategories,
+      };
+    } catch (error) {
+      console.error("통계 데이터 계산 실패:", error);
+      return {
+        totalExpense: 0,
+        categoryStats: {},
+        sortedCategories: [],
+      };
+    }
   }
 
   // 도넛 차트 그리기 함수 (https://aosceno.tistory.com/729)
@@ -210,78 +219,73 @@ function initStatistic() {
   }
 
   // 전체 통계 업데이트 함수
-  function updateStatistics(year, month) {
-    const statisticsData = calculateStatistics(year, month);
-    // 총 지출 금액 업데이트 (요소가 있다면)
-    if (totalExpenseAmountEl) {
-      totalExpenseAmountEl.textContent = `${formatAmount(
-        statisticsData.totalExpense
-      )}원`;
-    }
-    // 도넛 차트 그리기
-    if (chartCanvas) {
-      drawDonutChart(chartCanvas, statisticsData);
-    }
-    // 카테고리 리스트 렌더링
-    if (categoryListEl) {
-      renderCategoryList(statisticsData);
+  async function updateStatistics() {
+    try {
+      const statisticsData = await calculateStatistics();
+      // 총 지출 금액 업데이트 (요소가 있다면)
+      if (totalExpenseAmountEl) {
+        totalExpenseAmountEl.textContent = `${formatAmount(
+          statisticsData.totalExpense
+        )}원`;
+      }
+      // 도넛 차트 그리기
+      if (chartCanvas) {
+        drawDonutChart(chartCanvas, statisticsData);
+      }
+      // 카테고리 리스트 렌더링
+      if (categoryListEl) {
+        renderCategoryList(statisticsData);
+      }
+    } catch (error) {
+      console.error("통계 업데이트 실패:", error);
     }
   }
-
-  // Store 변경 감지 설정
-  function setupStoreSubscription() {
-    accountBookStore.subscribe(() => {
-      updateStatistics(window.currentYear, window.currentMonth);
-    });
-  }
-
-  // Store 변경 감지 설정
-  setupStoreSubscription();
 
   // 초기 렌더링
-  updateHeaderDate(window.currentYear, window.currentMonth);
-  updateStatistics(window.currentYear, window.currentMonth);
-
-  // 전역 함수로 등록 (월 변경 시 호출용)
-  window.updateStatistics = updateStatistics;
+  updateHeaderDate();
+  updateStatistics();
 }
 
-function showCategoryTrendChart(category) {
-  // 전체 데이터 가져오기
-  const allData = accountBookStore.getTransactions();
-  // 월별 데이터 추출
-  const monthlyData = getMonthlyExpenseByCategory(allData, category);
+async function showCategoryTrendChart(category) {
+  try {
+    // API에서 전체 데이터 가져오기
+    const allData = await getTransactions();
+    // 월별 데이터 추출
+    const monthlyData = getMonthlyExpenseByCategory(allData, category);
 
-  // 차트 그릴 canvas 준비
-  const trendContainer = document.getElementById("trend-chart");
-  if (!trendContainer) return;
+    // 차트 그릴 canvas 준비
+    const trendContainer = document.getElementById("trend-chart");
+    if (!trendContainer) return;
 
-  // 기존 캔버스가 있다면 제거
-  const existingCanvas = trendContainer.querySelector("canvas");
-  if (existingCanvas) {
-    existingCanvas.remove();
+    // 기존 캔버스가 있다면 제거
+    const existingCanvas = trendContainer.querySelector("canvas");
+    if (existingCanvas) {
+      existingCanvas.remove();
+    }
+
+    // 새 캔버스 생성
+    const trendCanvas = document.createElement("canvas");
+    trendCanvas.width = 850;
+    trendCanvas.height = 450;
+
+    trendCanvas.style.margin = "20px auto";
+    trendCanvas.style.border = "1px solid black";
+
+    // 컨테이너에 캔버스 추가
+    trendContainer.appendChild(trendCanvas);
+
+    // 차트 데이터 준비
+    const months = Array.from({ length: 12 }, (_, i) =>
+      (i + 1).toString().padStart(2, "0")
+    );
+    const year = window.currentYear || new Date().getFullYear();
+    const dataArr = months.map((m) => monthlyData[`${year}-${m}`] || 0);
+
+    // 차트 그리기
+    drawLineChart(trendCanvas, dataArr, months, category);
+  } catch (error) {
+    console.error("카테고리 트렌드 차트 로드 실패:", error);
   }
-
-  // 새 캔버스 생성
-  const trendCanvas = document.createElement("canvas");
-  trendCanvas.width = 850;
-  trendCanvas.height = 450;
-
-  trendCanvas.style.margin = "20px auto";
-  trendCanvas.style.border = "1px solid black";
-
-  // 컨테이너에 캔버스 추가
-  trendContainer.appendChild(trendCanvas);
-
-  // 차트 데이터 준비
-  const months = Array.from({ length: 12 }, (_, i) =>
-    (i + 1).toString().padStart(2, "0")
-  );
-  const year = window.currentYear || new Date().getFullYear();
-  const dataArr = months.map((m) => monthlyData[`${year}-${m}`] || 0);
-
-  // 차트 그리기
-  drawLineChart(trendCanvas, dataArr, months, category);
 }
 
 // 차트 그리기 함수
@@ -378,5 +382,3 @@ function drawLineChart(canvas, dataArr, months, category) {
   ctx.fillText(`${category} 월별 소비 추이`, padding, 32);
   ctx.restore();
 }
-
-window.initStatistic = initStatistic;

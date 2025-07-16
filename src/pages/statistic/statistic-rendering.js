@@ -1,4 +1,4 @@
-function renderStatistic() {
+export function renderStatistic() {
   const statisticHTML = `
     <!-- 통계 컨테이너 -->
     <div class="stats-container">
