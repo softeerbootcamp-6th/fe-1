@@ -116,3 +116,7 @@
 .daily-line:hover .daily-delete-btn {
     display: block;
 }
+
+.selected {
+    background-color: var(--neutral-surface-point);
+}

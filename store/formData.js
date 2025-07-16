@@ -9,7 +9,7 @@ const formData = {
 
     init() {
         this.date = null;
-        this.amount = null;
+        this.amount = '';
         this.description = null;
         this.payment = null;
         this.category = null;
@@ -20,13 +20,13 @@ const formData = {
     isValidListeners: new Set(),
 
     setFormData(date, formData) {
-        const { amount, description, payment, category } = formData;
+        const { amount, description, payment, category, sign } = formData;
         this.date = date;
         this.amount = amount;
         this.description = description;
         this.payment = payment;
         this.category = category;
-        this.sign = false;
+        this.sign = sign;
     },
 
     setSign(value) {
@@ -38,7 +38,7 @@ const formData = {
         this.checkAndNotify();
     },
     setAmount(amountValue) {
-        this.amount = amountValue;
+        this.amount = Number(amountValue.replace(',', ''));
         this.checkAndNotify();
     },
     setDescription(descriptionValue) {
