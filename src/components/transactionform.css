@@ -7,6 +7,7 @@
   height: 44px;
   padding: 16px 12px 16px 0;
   border: 1px solid #d3d3d3;
+  background-color: #fff;
 }
 .transaction-form-col {
   display: flex;
