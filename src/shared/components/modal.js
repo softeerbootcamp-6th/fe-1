@@ -18,13 +18,13 @@ export const showModal = (onConfirm) => {
   const input = overlay.querySelector('.modal-input');
 
   // 취소 버튼 클릭 시 모달을 닫음
-  overlay.querySelector('.cancel').onclick = close;
+  overlay.querySelector('.cancel').addEventListener('click', close)
   // 추가 버튼 클릭 시
-  overlay.querySelector('.confirm').onclick = () => {
+  overlay.querySelector('.confirm').addEventListener('click', ()=>{
     // 입력 필드의 값을 가져와 공백을 제거
     const v = input.value.trim();
     // 입력값이 비어있지 않으면 onConfirm 함수 호출
     if (v) onConfirm(v);
     close();
-  };
+  })
 };
