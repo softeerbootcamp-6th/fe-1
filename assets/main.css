@@ -262,6 +262,13 @@
   cursor: pointer;
 }
 
+.record-item.selected {
+  background-color: var(--neutral-surface-point);
+}
+.record-item.selected .delete {
+  display: flex;
+}
+
 .delete-button-wrapper {
   background: var(--danger-surface-default);
   border-radius: 20px;

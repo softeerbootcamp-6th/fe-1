@@ -7,6 +7,7 @@ import {
   initPaymentDropdown,
   initCategoryDropdown,
   initInputChanges,
+  initModifyEvent,
 } from "./input.js";
 import {
   renderRecords,
@@ -39,6 +40,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   subscribeStore();
   renderRecordHeader(year, month, store.getRecords());
   renderRecords(year, month, store.getRecords());
+  initModifyEvent();
   initDeleteEvent();
 });
 window.addEventListener("hashchange", loadPage);

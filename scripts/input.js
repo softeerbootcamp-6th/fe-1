@@ -3,6 +3,9 @@ import { addRecordsToServer } from "../api/recordsApi.js";
 import { store } from "./store.js";
 import { elements } from "./elements.js";
 
+let isEditMode = false;
+let editingItem = null;
+
 let valueSign = "minus"; // or "plus"
 let paymentOptions = ["현금", "신용카드", "추가하기"];
 const categoryOptions = {
@@ -105,7 +108,7 @@ export const initCategoryDropdown = () => {
 };
 
 // 폼 검증 함수
-const validateForm = () => {
+export const validateForm = () => {
   const date = elements.dateInputEl().value;
   const value = elements.valueInputEl().value;
   const description = elements.descInputEl().value;
@@ -166,8 +169,10 @@ export const getInputValues = () => {
     const category = elements.categoryCellEl().textContent.trim();
     const amount = sign + value;
 
-    const itemId = Date.now().toString() + Math.random().toString().slice(2, 5);
-    const recordId = Date.now().toString();
+    const itemId = isEditMode
+      ? editingItem.itemId
+      : Date.now().toString() + Math.random().toString().slice(2, 5);
+    const recordId = isEditMode ? editingItem.dateId : Date.now().toString();
 
     const formInput = {
       recordId,
@@ -180,10 +185,53 @@ export const getInputValues = () => {
         amount,
       },
     };
-
-    // 로컬 store에 추가
-    addRecordsToServer(formInput).then(() => {
-      store.addRecordToStore(formInput);
-    });
+    if (isEditMode) {
+      console.log("수정할 아이템:", formInput);
+      isEditMode = false;
+      editingItem = null;
+    } else {
+      // 로컬 store에 추가
+      addRecordsToServer(formInput).then(() => {
+        store.addRecordToStore(formInput);
+      });
+    }
   });
 };
+
+export function initModifyEvent() {
+  const recordContainerEl = elements.recordContainerEl();
+
+  recordContainerEl.addEventListener("click", (e) => {
+    const recordItemEl = e.target.closest(".record-item");
+    if (!recordItemEl) return;
+
+    const prevSelected = recordContainerEl.querySelector(".record-item.selected");
+    if (prevSelected) prevSelected.classList.remove("selected");
+
+    recordItemEl.classList.add("selected");
+
+    const dateId = recordItemEl.closest(".record-container").getAttribute("date-id");
+    const itemId = recordItemEl.getAttribute("item-id");
+
+    editingItem = {
+      dateId,
+      itemId,
+    };
+    isEditMode = true;
+
+    const record = store.getRecords().find((r) => r.id.toString() === dateId.toString());
+    const item = record.items.find((r) => r.id.toString() === itemId.toString());
+
+    const amount = item.amount;
+    const sign = amount < 0 ? "-" : "+";
+    const value = Math.abs(amount);
+
+    elements.dateInputEl().value = record.date;
+    elements.toggleButtonEl().textContent = sign;
+    elements.valueInputEl().value = value;
+    elements.descInputEl().value = item.description;
+    elements.paymentCellEl().textContent = item.payment;
+    elements.categoryCellEl().textContent = item.category;
+    validateForm();
+  });
+}
