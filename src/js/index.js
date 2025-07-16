@@ -1,5 +1,4 @@
 import router from "./router.js";
-import "../models/data.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   router.start();
