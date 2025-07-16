@@ -1,18 +1,27 @@
-
-import {getYear, getMonth, setYear, setMonth, subscribe} from "../store/dateStore.js";
+import { dateStore } from "../store/dateStore.js";
 
 const monthNames = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 export function renderHeader() {
-    const header = document.createElement('header');
-    const year = getYear();
-    const month = getMonth();
-    const monthText = monthNames[month - 1];
-    
-    header.innerHTML = `
+  const header = document.createElement("header");
+  const year = dateStore.getYear();
+  const month = dateStore.getMonth();
+  const monthText = monthNames[month - 1];
+
+  header.innerHTML = `
     <div class='header-content'>
         <div class="serif24" id="logo">
             Wise Wallet
@@ -44,46 +53,46 @@ export function renderHeader() {
             </button>
         </nav>
     </div>
-    `
-    // 요소 가져오기
-    const leftArrow = header.querySelector('#left-arrow'); // 둘 다 같은 arrow class 사용하므로 id로 구분
-    const rightArrow = header.querySelector('#right-arrow');
-    const yearSpan = header.querySelector('.year');
-    const monthSpan = header.querySelector('.month');
-    const monthTextSpan = header.querySelector('.month-text');
+    `;
+  // 요소 가져오기
+  const leftArrow = header.querySelector("#left-arrow"); // 둘 다 같은 arrow class 사용하므로 id로 구분
+  const rightArrow = header.querySelector("#right-arrow");
+  const yearSpan = header.querySelector(".year");
+  const monthSpan = header.querySelector(".month");
+  const monthTextSpan = header.querySelector(".month-text");
 
-    // 상태 변경 시 UI 업데이트
-    subscribe(({ year, month }) => {
-        if (yearSpan) yearSpan.textContent = year;
-        if (monthSpan) monthSpan.textContent = month;
-        if (monthTextSpan) monthTextSpan.textContent = monthNames[month - 1];
-    });
+  // 상태 변경 시 UI 업데이트
+  dateStore.subscribe(({ year, month }) => {
+    if (yearSpan) yearSpan.textContent = year;
+    if (monthSpan) monthSpan.textContent = month;
+    if (monthTextSpan) monthTextSpan.textContent = monthNames[month - 1];
+  });
 
-    leftArrow.addEventListener('click', () => {
-        preDate();
-    });
+  leftArrow.addEventListener("click", () => {
+    preDate({ year, month });
+  });
 
-    rightArrow.addEventListener('click', () => {
-        nextDate();
-    });
+  rightArrow.addEventListener("click", () => {
+    nextDate({ year, month });
+  });
 
-    const nextDate = () => {
-        if (getMonth() === 12) {
-            setYear(getYear() + 1);
-            setMonth(1);
-        } else {
-            setMonth(getMonth() + 1);
-        }
+  const nextDate = ({ year, month }) => {
+    if (month === 12) {
+      dateStore.setYear(year + 1);
+      setMonth(1);
+    } else {
+      setMonth(month + 1);
     }
+  };
 
-    const preDate = () => {
-        if (getMonth() === 1) {
-            setYear(getYear() - 1);
-            setMonth(12);
-        } else {
-            setMonth(getMonth() - 1);
-        }
+  const preDate = ({ year, month }) => {
+    if (month === 1) {
+      setYear(year - 1);
+      setMonth(12);
+    } else {
+      setMonth(month - 1);
     }
+  };
 
-    return header
+  return header;
 }
