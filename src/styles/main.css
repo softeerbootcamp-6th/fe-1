@@ -262,7 +262,6 @@ input#money {
   width: 92px;
   min-width: 92px;
   padding: 16px 23px;
-  background-color: var(--colorchip-10);
 }
 
 .list-item .content {
