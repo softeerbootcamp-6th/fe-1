@@ -44,7 +44,6 @@ const sumAmount = (transactions, type) => {
 
 export class TransactionsView {
   constructor() {
-    super();
     this.$root = document.querySelector(".transactions");
   }
 

@@ -16,7 +16,6 @@ const CATEGORY_OPTIONS = {
 
 export class InputFormView {
   constructor() {
-    super();
     this.$root = document.querySelector(".input-form");
   }
 
