@@ -10,14 +10,14 @@ export const PaymentForm = () => {
   const paymentForm = ElementManager.renderElement("div", "form-payment");
   paymentForm.innerHTML = `
   <label for="payment" class="light-12">결제수단</label>
-  <button class="payment-button">
+  <div class="form-input-wrapper">
     <input type="text" id="payment" name="payment" placeholder="선택하세요" value="${formStore.data.payment}" readonly class="semibold-12" />
     <img width="16px" src="./src/assets/chevron-down.png" alt="arrow"/>
-  </button>
+  </div>
   `;
 
   const paymentTextInput = paymentForm.querySelector("#payment");
-  const paymentImg = paymentForm.querySelector(".payment-button > img");
+  const paymentImg = paymentForm.querySelector(".form-input-wrapper > img");
 
   formStore.subscribe((newData) => {
     paymentTextInput.value = newData.payment;

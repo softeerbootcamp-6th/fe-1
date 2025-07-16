@@ -11,14 +11,14 @@ export const CategoryForm = () => {
   const categoryForm = ElementManager.renderElement("div", "form-category");
   categoryForm.innerHTML = `
     <label for="category" class="light-12">카테고리</label>
-    <button class="category-button">
+    <div class="form-input-wrapper">
       <input type="text" id="category" name="category" placeholder="선택하세요" value="${data.category}" readonly class="semibold-12" />
       <img width="16px" src="./src/assets/chevron-down.png" alt="arrow"/>
-    </button>
+    </div>
   `;
 
   const categoryTextInput = categoryForm.querySelector("#category");
-  const categoryImg = categoryForm.querySelector(".category-button > img");
+  const categoryImg = categoryForm.querySelector(".form-input-wrapper > img");
 
   formStore.subscribe((newData) => {
     categoryTextInput.value = newData.category;
