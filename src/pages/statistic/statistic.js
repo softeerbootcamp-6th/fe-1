@@ -1,10 +1,10 @@
 import { accountBookStore } from "../../store/account-book-store.js";
-import { updateHeaderDate } from "../../utils/dateUtils.js";
-import { formatAmount } from "../../utils/formatUtils.js";
+import { updateHeaderDate } from "../../utils/date-utils.js";
+import { formatAmount } from "../../utils/format-utils.js";
 import {
   getFilteredData,
   getMonthlyExpenseByCategory,
-} from "../../utils/dataUtils.js";
+} from "../../utils/data-utils.js";
 
 function initStatistic() {
   // DOM 요소들
@@ -18,9 +18,6 @@ function initStatistic() {
       initStatistic();
     }, 100);
     return;
-  } else {
-    console.log("categoryListEl", categoryListEl);
-    console.log("chartPlaceholder", chartPlaceholder);
   }
 
   // 기존 캔버스가 있다면 제거
@@ -51,7 +48,6 @@ function initStatistic() {
       chartPlaceholder.appendChild(chartCanvas);
     } catch (error) {}
   }
-
 
   // 전역 변수 초기화 (헤더와 동기화)
   if (!window.currentYear) window.currentYear = new Date().getFullYear();

@@ -3,7 +3,7 @@ import {
   setupTabListeners,
   setupMonthNavigation,
   switchTab,
-} from "./header-uiUtils.js";
+} from "./header-ui-utils.js";
 
 function initHeader() {
   // 월 업데이트
@@ -16,7 +16,7 @@ function initHeader() {
   setupMonthNavigation();
 
   // 초기 메인 페이지 로드
-  switchTab("list");
+  switchTab("LIST_VIEW");
 }
 
 // 전역 함수에 해당 함수 등록(index.html에서 호출)

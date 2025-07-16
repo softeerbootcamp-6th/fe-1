@@ -140,6 +140,5 @@ document.addEventListener("DOMContentLoaded", function () {
   const bodyContainer = document.getElementById("body-container");
   if (bodyContainer) {
     bodyContainer.innerHTML = renderMain();
-    if (typeof initMain === "function") initMain();
   }
 });

@@ -1,8 +1,12 @@
+import { monthNames } from "../layouts/headers/header-ui-utils.js";
+
 // 날짜 포맷 함수
 export function formatDateText(dateStr) {
-  const dateObj = new Date(dateStr);
-  return `${dateObj.getMonth() + 1}월 ${dateObj.getDate()}일 ${
-    ["일", "월", "화", "수", "목", "금", "토"][dateObj.getDay()]
+  const dateStrToDateObj = new Date(dateStr);
+  return `${
+    dateStrToDateObj.getMonth() + 1
+  }월 ${dateStrToDateObj.getDate()}일 ${
+    ["일", "월", "화", "수", "목", "금", "토"][dateStrToDateObj.getDay()]
   }요일`;
 }
 
@@ -17,7 +21,8 @@ export function formatDateString(date) {
 // 오늘 날짜인지 확인
 export function isDateToday(date) {
   const today = new Date();
-  return date.toDateString() === today.toDateString();
+  const isToday = date.toDateString() === today.toDateString();
+  return isToday;
 }
 
 // 입력 폼 날짜 업데이트 함수
@@ -47,21 +52,6 @@ export function updateHeaderDate(currentYear, currentMonth) {
   const monthEngEl = document.querySelector("#currentMonth .month-eng");
 
   if (yearEl && monthNumEl && monthEngEl) {
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
     yearEl.textContent = currentYear;
     monthNumEl.textContent = currentMonth + 1;
     monthEngEl.textContent = monthNames[currentMonth];
