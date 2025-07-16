@@ -36,24 +36,22 @@ function createLegend(categories, expenseByCategory, totalExpense) {
   const dailyInfoTemplate = `
   <div class="daily-info serif-14 flex-between">
     <div>이번 달 지출 금액</div>
-    <div>${formatMoney(totalExpense)}원</div>
+    <div>${formatMoney(totalExpense) || 0}원</div>
   </div>
   `;
   let legendTemplate = '<table class="legend-container tbody-border"><tbody>';
   categories.forEach((cat) => {
     legendTemplate += `
-      <tr class="flex-between">
+      <tr class="flex-between transaction-row">
         <td class="td-category light-12 category-${
           CATEGORY_NAME[cat] || "미분류"
         }">${cat}</td>
-        <td class="flex-row legend-item">
-            <div class="light-14 legend-percent">${expenseByCategory[
-              cat
-            ].percent.toFixed(1)}%</div>
-            <div class="light-14 legend-amount">${formatMoney(
-              expenseByCategory[cat].amount
-            )}원</div>
-        </td>
+        <td class="light-14 legend-percent">${expenseByCategory[
+          cat
+        ].percent.toFixed(1)}%</td>
+        <td class="light-14 legend-amount">${formatMoney(
+          expenseByCategory[cat].amount
+        )}원</td>
       </tr>
     `;
   });
