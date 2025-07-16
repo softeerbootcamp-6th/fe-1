@@ -25,7 +25,7 @@ const getTransactionAll = async () => {
   return response;
 };
 
-// 월별 거래 내역 조회 (프론트엔드에서 필터링)
+// 월별 거래 내역 조회
 // month: "2024-01"
 const getTransactionByMonth = async (month) => {
   const allTransactions = await get("/items");
@@ -56,14 +56,20 @@ const delTransaction = async (id) => {
 // ============= 결제 수단 관련 API =============
 
 // 결제 수단 조회
-const getMethods = async () => {
+const getTransactionMethod = async () => {
   const response = await get("/method");
+  return response.map((method) => method.name);
+};
+
+// 결제 수단 추가
+const postTransactionMethod = async (method) => {
+  const response = await post("/method", { id: method, name: method });
   return response;
 };
 
-// 결제 수단 수정 (전체 배열 교체)
-const postMethod = async (method) => {
-  const response = await post("/method", method);
+// 결제 수단 삭제
+const delTransactionMethod = async (method) => {
+  const response = await del(`/method/${method}`);
   return response;
 };
 
@@ -87,8 +93,9 @@ export {
   getTransactionByMonth,
 
   // 결제 수단
-  getMethods,
-  postMethod,
+  getTransactionMethod,
+  postTransactionMethod,
+  delTransactionMethod,
 
   // 카테고리
   getCategories,
