@@ -71,7 +71,7 @@ export const List = () => {
 
   // rerender using dispatcher
   listStore.subscribe(() => {
-    console.log("mememe");
+    // 작성 필요
   });
   return list;
 };

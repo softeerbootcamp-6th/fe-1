@@ -1,4 +1,5 @@
 import { DummyList } from "../mocks/DummyList.js";
+import { ListFilter } from "../utils/ListFilter.js";
 import { Store } from "./store.js";
 
 class ListStore extends Store {
@@ -8,7 +9,6 @@ class ListStore extends Store {
 
   // dispatcher 패턴으로 render 함수 호출하여 실행
   dispatch(type, newItem) {
-    console.log(this.data);
     switch (type) {
       case "addListItem":
         this.data.push(newItem);
@@ -25,4 +25,5 @@ class ListStore extends Store {
   }
 }
 
-export const listStore = new ListStore(DummyList);
+const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, 8);
+export const listStore = new ListStore(groupedListByMonth);

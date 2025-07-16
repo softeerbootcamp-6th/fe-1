@@ -1,5 +1,6 @@
 import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
+import { listStore } from "../../store/ListStore.js";
 
 export const ListItem = (item) => {
   const listItem = ElementManager.renderElement("div", "list-item");
@@ -26,6 +27,7 @@ export const ListItem = (item) => {
       const listItem = e.target.closest(".list-item");
       const uid = listItem.dataset.uid;
       //data update
+      listStore.dispatch("removeListItemByUID", uid);
 
       //dom update
       listItem.remove();
