@@ -41,7 +41,6 @@ class TransactionState extends Subject {
   async updateTransaction(id, newData) {
     try {
       const updatedTransaction = await putTransaction(id, newData);
-
       const { year, month } = monthState.getMonthInfo();
       await this.loadMonthData(`${year}-${month}`);
     } catch (error) {

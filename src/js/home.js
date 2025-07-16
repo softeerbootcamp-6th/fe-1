@@ -15,38 +15,6 @@ const toggleFilter = (type) => {
   transactionState.setFilterState(filterState);
 };
 
-const renderTransactionsHeader = async () => {
-  const { year, month } = monthState.getMonthInfo();
-  const monthObserver = new MonthObserver();
-  monthState.subscribe(monthObserver);
-
-  // Observer들 초기화
-  const transactionsView = new TransactionsView();
-  const transactionsObserver = new TransactionsObserver(transactionsView);
-
-  transactionState.subscribe(transactionsObserver);
-
-  // 모든 데이터를 먼저 로드한 후 월별 데이터 표시
-  await transactionState.loadMonthData(`${year}-${month}`);
-
-  const $transactions = document.querySelector(".transactions");
-  $transactions.addEventListener("click", async (e) => {
-    const checkboxContainer = e.target.closest(".checkbox-container");
-    if (checkboxContainer) {
-      const type = checkboxContainer.dataset.type;
-      toggleFilter(type);
-      return;
-    }
-
-    const deleteButton = e.target.closest(".content-row__delete-button");
-    if (deleteButton) {
-      const id = deleteButton.dataset.id;
-      await transactionState.deleteTransaction(id);
-      return;
-    }
-  });
-};
-
 const renderInputForm = async () => {
   const inputFormView = new InputFormView();
   const inputFormObserver = new InputFormObserver(inputFormView);
@@ -86,13 +54,79 @@ const renderInputForm = async () => {
 
   inputFormElement.addEventListener("submit", (e) => {
     e.preventDefault();
-    transactionState.addTransaction(inputFormState.getState());
+    const id = inputFormState.updateId;
+    if (id) {
+      transactionState.updateTransaction(id, inputFormState.getState());
+    } else {
+      transactionState.addTransaction(inputFormState.getState());
+    }
     inputFormState.reset();
   });
 };
 
+const renderTransactions = async () => {
+  const { year, month } = monthState.getMonthInfo();
+  const monthObserver = new MonthObserver();
+  monthState.subscribe(monthObserver);
+
+  // Observer들 초기화
+  const transactionsView = new TransactionsView();
+  const transactionsObserver = new TransactionsObserver(transactionsView);
+
+  transactionState.subscribe(transactionsObserver);
+
+  // 모든 데이터를 먼저 로드한 후 월별 데이터 표시
+  await transactionState.loadMonthData(`${year}-${month}`);
+
+  const $transactions = document.querySelector(".transactions");
+  $transactions.addEventListener("click", async (e) => {
+    const $contentRow = e.target.closest(".daily-list__content-row");
+    if (!$contentRow) return;
+
+    const itemId = $contentRow.dataset.id;
+    const $checkboxContainer = e.target.closest(".checkbox-container");
+    if ($checkboxContainer) {
+      const type = $checkboxContainer.dataset.type;
+      toggleFilter(type);
+      return;
+    }
+
+    const $deleteButton = e.target.closest(".content-row__delete-button");
+    if ($deleteButton) {
+      await transactionState.deleteTransaction(itemId);
+      return;
+    }
+
+    if ($contentRow) {
+      const $dailyList = e.target.closest(".history__daily-list");
+      const amountString = $contentRow.querySelector(
+        ".content-row__amount"
+      ).textContent;
+
+      const transactionType = amountString[0] === "-" ? "expense" : "income";
+      const transactionAmount = Math.abs(
+        Number(amountString.slice(0, -1).replace(/,/g, ""))
+      );
+
+      const currentData = {
+        date: $dailyList.dataset.date,
+        type: transactionType,
+        amount: transactionAmount,
+        description: $contentRow.querySelector(".content-row__description")
+          .textContent,
+        method: $contentRow.querySelector(".content-row__method").textContent,
+        category: $contentRow.querySelector(".category-tag").textContent,
+      };
+
+      inputFormState.setUpdateId(itemId);
+      inputFormState.setAll(currentData);
+      return;
+    }
+  });
+};
+
 const init = async () => {
-  await renderTransactionsHeader();
+  await renderTransactions();
   await renderInputForm();
 };
 

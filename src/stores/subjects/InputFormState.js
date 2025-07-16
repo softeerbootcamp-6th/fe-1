@@ -16,6 +16,7 @@ export class InputFormState extends Subject {
   }
 
   init() {
+    this.validate();
     this.notify({
       type: "all",
       state: { ...this.state, isValidate: this.isValidate },
@@ -43,12 +44,18 @@ export class InputFormState extends Subject {
 
   toggleType() {
     this.state.type = this.state.type === "income" ? "expense" : "income";
+    this.state.category = "";
+    this.validate();
     this.notify({ type: "type", state: this.state });
   }
 
-  setAll(fields) {
-    this.state = { ...this.state, ...fields };
-    this.notify(this.state);
+  setAll(state) {
+    this.state = state;
+    this.init();
+  }
+
+  setUpdateId(id) {
+    this.updateId = id;
   }
 
   reset() {

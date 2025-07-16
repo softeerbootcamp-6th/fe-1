@@ -3,7 +3,7 @@ import Modal from "../Modal/Modal.js";
 
 const modalContainer = document.getElementById("modal");
 
-const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
+const renderSelectItem = ({ option, isEditable }) => {
   const listItem = document.createElement("li");
   listItem.className = "select-item font-light-12";
   listItem.dataset.value = option;
@@ -43,7 +43,6 @@ const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
             await updateMethods(updatedMethods);
 
             listItem.remove();
-            onDelete();
           } catch (error) {
             console.error("Error deleting method:", error);
             alert("결제 수단 삭제에 실패했습니다.");
@@ -59,7 +58,6 @@ const renderSelectItem = ({ option, isEditable, handleClick, onDelete }) => {
   }
 
   // 옵션 클릭 이벤트
-  listItem.addEventListener("click", handleClick);
   listItem.appendChild(selectItemContent);
 
   return listItem;
@@ -95,10 +93,6 @@ const Select = async ({
         renderSelectItem({
           option,
           isEditable,
-          handleClick: () => handleClickItem(option),
-          onDelete: () => {
-            inputElement.value = "";
-          },
         })
       );
     });
@@ -140,10 +134,6 @@ const Select = async ({
               const newItem = renderSelectItem({
                 option: value,
                 isEditable,
-                handleClick: () => handleClickItem(value),
-                onDelete: () => {
-                  inputElement.value = "";
-                },
               });
 
               const addButtonItem = selectList.lastElementChild;

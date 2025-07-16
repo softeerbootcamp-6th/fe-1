@@ -34,7 +34,9 @@ export class InputFormView extends Observer {
                 <label class="font-light-12" for="amount">금액</label>
                 <div class="input-form__amount-wrapper">
                 <button
-                    class="input-form__amount-icon input-form__amount-icon--minus"
+                    class="input-form__amount-icon input-form__amount-icon--${
+                      type === "income" ? "plus" : "minus"
+                    }"
                     type="button"
                 ></button>
                 <input
@@ -44,7 +46,7 @@ export class InputFormView extends Observer {
                     id="amount"
                     placeholder="0"
                     required
-                    value="${amount || ""}"
+                    value="${amount.toLocaleString() || ""}"
                 />
                 <span class="font-light-14">원</span>
                 </div>
@@ -73,7 +75,9 @@ export class InputFormView extends Observer {
                 class="input-form__row input-form__category"
             >
             </div>
-            <button type="submit" class="input-form__button" disabled="${!isValidate}">
+            <button type="submit" class="input-form__button" ${
+              !isValidate ? "disabled" : ""
+            }>
                 <img
                 src="/src/assets/icons/add-button${
                   isValidate ? "" : "-disabled"
