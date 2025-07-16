@@ -14,7 +14,9 @@ import {
   getFormattedDate,
   initVisibleButton,
   renderRecordHeader,
+  initDeleteEvent,
 } from "./records.js";
+import { subscribeStore } from "./subscribe.js";
 window.addEventListener("DOMContentLoaded", async () => {
   // 오늘 날짜 기준 연도와 월 추출
   const today = new Date();
@@ -34,7 +36,9 @@ window.addEventListener("DOMContentLoaded", async () => {
   getInputValues();
 
   await store.init();
+  subscribeStore();
   renderRecordHeader(year, month, store.getRecords());
   renderRecords(year, month, store.getRecords());
+  initDeleteEvent();
 });
 window.addEventListener("hashchange", loadPage);
