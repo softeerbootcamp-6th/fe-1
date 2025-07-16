@@ -111,10 +111,10 @@ export function renderListItem(listContainer) {
     dailyContainer.innerHTML = getDailyInfoHTML(dateData.date);
 
     // 지출 내역 추가
+    const listItem = document.createElement('div');
+    listItem.className = 'list-item-container';
     dateData.income_expense.forEach(item => {
-      const listItem = document.createElement('div');
-      listItem.className = 'list-item-container';
-      listItem.innerHTML = getListItemHTML(item);
+      listItem.innerHTML += getListItemHTML(item);
       dailyContainer.appendChild(listItem);
     });
     listContainer.appendChild(dailyContainer);

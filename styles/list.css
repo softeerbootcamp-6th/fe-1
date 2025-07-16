@@ -11,14 +11,28 @@
   flex-direction: row;
 }
 
+.daily-container {
+  margin-bottom: 2.5rem;
+}
+
 .daily-info-container {
   display: flex;
   flex-direction: row;
 }
 
+.list-item-container {
+  width: 52.875rem;
+  min-height: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-top: 0.0313rem solid var(--neutral-border-default);
+  border-bottom: 0.0313rem solid var(--neutral-border-default);
+}
+
 .list-item {
   list-style: none;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
   width: 52.875rem;
   height: 3.5rem;
@@ -27,16 +41,29 @@
 .class_name {
   width: 5.75rem;
   background-color: aqua; /*임시색상*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .description {
   width: 25rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .payment {
   width: 6.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .money {
   width: 11.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-right: 1rem;
 }
