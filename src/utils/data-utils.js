@@ -1,25 +1,23 @@
 import {
-  getTransactions,
   createTransaction,
   updateTransaction,
   deleteTransaction,
 } from "../api/transaction.js";
 import {
-  renderHistoryList,
   updateHistoryList,
   cancelEditMode,
 } from "../pages/main/main-ui-utils.js";
 import { updateHeaderDate, updateInputDate } from "./date-utils.js";
-import { initCalendar } from "../pages/calendar/calendar.js";
-import { initStatistic } from "../pages/statistic/statistic.js";
+import { dateStore } from "../store/date-store.js";
+import { routingStore } from "../store/routing-store.js";
 
 // 현재 선택된 월의 내역만 필터링하는 함수
 export function getFilteredData(initialData) {
   return initialData.filter((item) => {
     const itemDate = new Date(item.date);
     return (
-      itemDate.getFullYear() === window.currentYear &&
-      itemDate.getMonth() === window.currentMonth
+      itemDate.getFullYear() === dateStore.getState().currentYear &&
+      itemDate.getMonth() === dateStore.getState().currentMonth - 1 // 1-12를 0-11로 변환
     );
   });
 }
@@ -38,9 +36,8 @@ export async function deleteItemFromData(itemId) {
   return false;
 }
 
-// 삭제 함수 (전역 함수용)
+// 삭제 함수
 export async function deleteItem(itemId) {
-  console.log("deleteItem 함수 호출", itemId);
   if (await deleteItemFromData(itemId)) {
     // 수동으로 UI 업데이트
     await updateHistoryList();
@@ -80,8 +77,6 @@ export async function createNewItem(date, amount, content, method, category) {
     updatedAt: new Date().toISOString(),
   };
 
-  console.log("createNewItem 함수 호출", newItem);
-
   try {
     await createTransaction(newItem);
     // JSON Server가 파일 쓰기를 완료할 시간을 준 뒤 업데이트(동시성 문제 해결)
@@ -111,23 +106,10 @@ export async function updateTransactionItem(itemId, updatedData) {
 export async function onMonthChanged() {
   // 헤더와 입력 폼 동기화
   updateHeaderDate();
-  updateInputDate();
-
-  // 최신 데이터로 렌더링
-  try {
-    const transactions = await getTransactions();
-    renderHistoryList(transactions);
-  } catch (error) {
-    console.error("거래 내역 로드 실패:", error);
+  // 메인 페이지에서만 입력 폼 동기화(달을 바꾸면 바로 입력 폼이 해당 달의 1일로 변경됨)
+  if (routingStore.getState().currentTab === "MAIN_VIEW") {
+    updateInputDate();
   }
-
-  // 캘린더 업데이트
-  initCalendar();
-
-  // 통계 업데이트
-  updateStatistics(window.currentYear, window.currentMonth);
-
-  initStatistic();
 }
 
 // 카테고리별 월별 지출금액 반환 함수(Chart 에서 data로 사용할 예정)
