@@ -60,6 +60,16 @@ export const dailyData = {
         }, []);
     },
 
+    findDailyDataById(id) {
+        for (const day of this.data) {
+            const item = day.items.find((item) => item.id === id);
+            if (item) {
+                return { date: day.date, item };
+            }
+        }
+        return null;
+    },
+
     getDailyByYearAndMonth(year, month) {
         return this.data.filter((item) => {
             const date = new Date(item.date);

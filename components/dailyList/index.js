@@ -92,12 +92,12 @@ export function dailyViewChange(year, month) {
         const $dailyLine = e.target.closest('.daily-line');
         if ($dailyLine) {
             const $deleteBtn = e.target.closest('.daily-delete-btn');
+            const seletedId = $dailyLine.getAttribute('id');
             if ($deleteBtn) {
-                const seletedId = $dailyLine.getAttribute('id');
                 dailyData.removeDailyData(seletedId);
                 dailyViewChange(dateData.year, dateData.month);
             } else {
-                console.log('라인 클릭쓰');
+                const seletedDailyData = dailyData.findDailyDataById(seletedId);
             }
         }
     });
