@@ -1,4 +1,4 @@
-import { monthlyTotalData, getTotalAmount } from "../utils/transaction.js";
+import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
@@ -110,21 +110,21 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   // 날짜별로 섹션 생성
   const sections = Object.entries(filteredTransactionsByDate)
     .map(([date, transactionList]) => {
-      const totalIncome = getTotalAmount(transactionList, "income");
-      const totalExpense = getTotalAmount(transactionList, "expense");
+      const { totalIncomeAmount } = totalIncomeData(transactionList);
+      const { totalExpenseAmount } = totalExpenseData(transactionList);
 
       const header = `
         <div class="flex-between serif-14">
           <div>${date}</div>
           <div> 
           ${
-            isIncomeChecked && totalIncome > 0
-              ? `수입 ${formatMoney(totalIncome)}원`
+            isIncomeChecked && totalIncomeAmount > 0
+              ? `수입 ${formatMoney(totalIncomeAmount)}원`
               : ""
           }
           ${
-            isExpenseChecked && totalExpense < 0
-              ? `지출 ${formatMoney(totalExpense)}원`
+            isExpenseChecked && totalExpenseAmount < 0
+              ? `지출 ${formatMoney(totalExpenseAmount)}원`
               : ""
           }
        </div>
@@ -182,12 +182,8 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           monthlyInfoContainer,
           isIncomeChecked,
           isExpenseChecked,
-          monthlyTotalData(
-            transactionStore.getTransactionsByYearMonth(
-              dateStore.getYear(),
-              dateStore.getMonth()
-            )
-          )
+          totalIncomeData,
+          totalExpenseData
         );
         renderTransactionList(isIncomeChecked, isExpenseChecked);
 

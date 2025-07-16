@@ -1,5 +1,5 @@
 import { dateStore, transactionStore } from "../store/index.js";
-import { monthlyTotalData } from "../utils/transaction.js";
+import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
 import { getFilteringState } from "../pages.js";
 import {
   INCOME_CATEGORIES,
@@ -246,7 +246,13 @@ export function renderInputBar(container) {
       monthlyInfoContainer,
       isIncomeChecked,
       isExpenseChecked,
-      monthlyTotalData(
+      totalIncomeData(
+        transactionStore.getTransactionsByYearMonth(
+          dateStore.getYear(),
+          dateStore.getMonth()
+        )
+      ),
+      totalExpenseData(
         transactionStore.getTransactionsByYearMonth(
           dateStore.getYear(),
           dateStore.getMonth()

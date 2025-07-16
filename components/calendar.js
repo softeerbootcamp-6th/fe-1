@@ -1,4 +1,4 @@
-import { dailyTotalData, monthlyTotalData } from "../utils/transaction.js";
+import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
 import { transactionStore } from "../store/index.js";
 import { formatMoney } from "../utils/format.js";
 import { dateStore } from "../store/index.js";
@@ -15,26 +15,20 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 
   const transactions = transactionListByDate[key] || [];
 
-  const {
-    dailyTotalIncome,
-    dailyTotalExpense,
-    dailyTotalIncomeCount,
-    dailyTotalExpenseCount,
-    dailyTotalAmount,
-    dailyTotalCount,
-  } = dailyTotalData(transactions);
+  const { totalIncomeAmount } = totalIncomeData(transactions);
+  const { totalExpenseAmount } = totalExpenseData(transactions);
 
   const createCalendarTotalIncomeAmount =
-    dailyTotalIncomeCount > 0
+    totalIncomeAmount > 0
       ? `<div class="calendar-amount text-income">${formatMoney(
-          dailyTotalIncome
+          totalIncomeAmount
         )}</div>`
       : ``;
 
   const createCalendarTotalExpenseAmount =
-    dailyTotalExpenseCount > 0
+    totalExpenseAmount < 0
       ? `<div class="calendar-amount text-expense">${formatMoney(
-          dailyTotalExpense
+          totalExpenseAmount
         )}</div>`
       : ``;
 
@@ -56,16 +50,19 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 }
 
 function createCalendarMonthlyInfo(year, month) {
-  const { monthlyTotalIncome, monthlyTotalExpense } = monthlyTotalData(
+  const { totalIncomeAmount } = totalIncomeData(
+    transactionStore.getTransactionsByYearMonth(year, month)
+  );
+  const { totalExpenseAmount } = totalExpenseData(
     transactionStore.getTransactionsByYearMonth(year, month)
   );
   return `
   <div class="calendar-info flex-between serif-14">
       <div class="flex-row gap-8">
-          <div>총 수입 ${formatMoney(monthlyTotalIncome)}원</div>
-          <div>총 지출${formatMoney(monthlyTotalExpense)}원</div>
+          <div>총 수입 ${formatMoney(totalIncomeAmount)}원</div>
+          <div>총 지출${formatMoney(totalExpenseAmount)}원</div>
       </div>
-      <div>총 ${formatMoney(monthlyTotalIncome + monthlyTotalExpense)} 원</div>
+      <div>총 ${formatMoney(totalIncomeAmount + totalExpenseAmount)} 원</div>
   </div>
   `;
 }

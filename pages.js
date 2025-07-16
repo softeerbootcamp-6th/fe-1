@@ -4,7 +4,7 @@ import {
 } from "./components/monthlyInfo.js";
 import { renderInputBar } from "./components/inputBar.js";
 import { renderTransactionList } from "./components/transactionsList.js";
-import { monthlyTotalData } from "./utils/transaction.js";
+import { totalIncomeData, totalExpenseData } from "./utils/transaction.js";
 import { transactionStore } from "./store/index.js";
 import { renderCalendar, renderCalendarInfo } from "./components/calendar.js";
 import { dateStore } from "./store/index.js";
@@ -68,16 +68,24 @@ export function renderMainPage() {
   );
   if (monthlyInfoContainer) {
     renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
+    const { totalIncomeCount } = totalIncomeData(
+      transactionStore.getTransactionsByYearMonth(
+        dateStore.getYear(),
+        dateStore.getMonth()
+      )
+    );
+    const { totalExpenseCount } = totalExpenseData(
+      transactionStore.getTransactionsByYearMonth(
+        dateStore.getYear(),
+        dateStore.getMonth()
+      )
+    );
     renderTotalCount(
       monthlyInfoContainer,
       isIncomeChecked,
       isExpenseChecked,
-      monthlyTotalData(
-        transactionStore.getTransactionsByYearMonth(
-          dateStore.getYear(),
-          dateStore.getMonth()
-        )
-      )
+      totalIncomeCount,
+      totalExpenseCount
     );
   }
 
