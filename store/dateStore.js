@@ -16,12 +16,12 @@ class DateStore {
   // setter
   setYear(newYear) {
     this.year = newYear;
-    notify(); // state 바뀌었음을 알림
+    this.notify(); // state 바뀌었음을 알림
   }
 
   setMonth(newMonth) {
     this.month = newMonth;
-    notify();
+    this.notify();
   }
 
   // 상태가 바뀔 때 실행할 함수들 추가

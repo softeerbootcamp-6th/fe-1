@@ -18,24 +18,22 @@ export function renderIncomeExpenseList() {
 }
 
 export function renderListItem(listContainer) {
-  const incomeExpenseData = incomeExpenseStore.getIncomeExpenseData();
-
   // 현재 연월 가져오기
   const currentYear = dateStore.getYear();
   const currentMonth = dateStore.getMonth();
 
-  // YYYY-MM 형식으로 키 생성
-  const currentKey = `${currentYear}-${String(currentMonth).padStart(2, "0")}`;
-
   // 키로 현재 연월 데이터 가져오기
-  const currentMonthData = incomeExpenseData[currentKey] || [];
+  const currentMonthData = incomeExpenseStore.getIncomeExpenseData([
+    currentYear,
+    currentMonth,
+  ]);
 
   // TODO: 계산 로직 작성
   const monthlyNum = 0;
   const monthlyIncome = 0;
   const monthlyExpense = 0;
 
-  // 기존 내용 지우기 (DOM 조작 방식)
+  // 기존 내용 지우기
   while (listContainer.firstChild) {
     listContainer.removeChild(listContainer.firstChild);
   }
@@ -57,8 +55,6 @@ export function renderListItem(listContainer) {
           <span>지출${monthlyExpense}</span>
         </div>
       <div>
-    
-    
     `;
   };
 
@@ -139,15 +135,15 @@ export function renderListItem(listContainer) {
   listContainer.appendChild(monthlyInfoContainer);
 
   // 월데이터 날짜 별로 화면에 뿌리기
-  currentMonthData.forEach((dateData) => {
+  Object.entries(currentMonthData).forEach(([date, dateData]) => {
     const dailyContainer = document.createElement("div");
     dailyContainer.className = "daily-container";
-    dailyContainer.innerHTML = getDailyInfoHTML(dateData.date);
+    dailyContainer.innerHTML = getDailyInfoHTML(date);
 
     // 지출 내역 추가
     const listItem = document.createElement("div");
     listItem.className = "list-item-container";
-    dateData.income_expense.forEach((item) => {
+    dateData.forEach((item) => {
       listItem.appendChild(getListItemHTML(item));
       dailyContainer.appendChild(listItem);
     });

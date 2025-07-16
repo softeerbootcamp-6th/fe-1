@@ -19,44 +19,44 @@ class IncomeExpenseStore {
     return dataPromise;
   }
 
-  getIncomeExpenseData() {
-    return this.incomeExpenseData;
+  filterByMonth({ year, month }) {
+    const currentKey = `${year}-${String(month).padStart(2, "0")}`;
+    const monthData = Object.fromEntries(
+      Object.entries(this.incomeExpenseData).filter(([key]) =>
+        key.startsWith(currentKey),
+      ),
+    );
+
+    return monthData;
+  }
+
+  getIncomeExpenseData([year, month] = []) {
+    if (year && month) {
+      return this.filterByMonth({ year, month });
+    } else {
+      return this.incomeExpenseData;
+    }
   }
 
   // incomeExpenseData 업데이트
   updateIncomeExpenseData(dateInputValue, newIncomeExpense) {
-    // 해당 월에 데이터 있는지 확인
-    const currentYear = dateInputValue.split("-")[0];
-    const currentMonth = dateInputValue.split("-")[1];
-    const currentKey = `${currentYear}-${currentMonth}`;
-    let dataID = 0;
+    // 해당 일 데이터 가져오기
+    const dateData = this.incomeExpenseData[dateInputValue];
+    if (dateData) {
+      // ID 생성 (해당 날짜 데이터의 max ID + 1)
+      dataID =
+        dateData.income_expense[dateData.income_expense.length - 1].id + 1;
+      newIncomeExpense.id = dataID;
 
-    const monthData = this.incomeExpenseData[currentKey];
+      // dateData에 새로운 지출/수입 추가
+      dateData.income_expense.push(newIncomeExpense);
 
-    if (monthData) {
-      // 해당 일 데이터 가져오기
-      const dateData = monthData.find((data) => data.date === dateInputValue);
-      if (dateData) {
-        // ID 생성 (해당 날짜 데이터의 max ID + 1)
-        dataID =
-          dateData.income_expense[dateData.income_expense.length - 1].id + 1;
-        newIncomeExpense.id = dataID;
-
-        // dateData에 새로운 지출/수입 추가
-        dateData.income_expense.push(newIncomeExpense);
-
-        // date 데이터 비어있을 때
-      } else {
-        monthData.push({
-          date: dateInputValue,
-          income_expense: [newIncomeExpense],
-        });
-      }
-      // month 데이터 비어있을 때
+      // date 데이터 비어있을 때
     } else {
-      this.incomeExpenseData[currentKey] = [
-        { date: dateInputValue, income_expense: [newIncomeExpense] },
-      ];
+      this.incomeExpenseData.push({
+        date: dateInputValue,
+        income_expense: [newIncomeExpense],
+      });
     }
   }
 }
