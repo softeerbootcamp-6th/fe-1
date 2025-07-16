@@ -1,11 +1,5 @@
-import { initTransactionForm } from "./components/TransactionForm.js";
-import { initHeader } from "./components/Header.js";
-import { initTransactionList } from "./components/TransactionList.js";
+import { createMainLayout } from "./pages/main.js";
+import { initHeader } from "./components/header.js";
 
-function createMainLayout() {
-  initHeader();
-  initTransactionForm();
-  initTransactionList();
-}
-
+initHeader();
 createMainLayout();

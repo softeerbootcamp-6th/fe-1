@@ -9,3 +9,14 @@ export function formatDate(dateStr) {
 export function getDateYMD(date) {
   return date.toISOString().slice(0, 10);
 }
+
+export function parseYMD(ymd) {
+  const [year, month, day] = ymd.split("-").map(Number);
+  return { year, month, day };
+}
+
+export function formatYMD(year, month, day) {
+  const mm = String(month).padStart(2, "0");
+  const dd = String(day).padStart(2, "0");
+  return `${year}-${mm}-${dd}`;
+}
