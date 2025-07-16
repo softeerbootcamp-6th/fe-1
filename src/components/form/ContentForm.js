@@ -11,6 +11,11 @@ export const ContentForm = (input) => {
   `;
 
   formStore.subscribe((newData) => {
+    // 내용 반영
+    const contentInput = contentForm.querySelector("#content");
+    contentInput.value = newData.content;
+
+    // 내용 글자수 반영
     const contentInputLength = contentForm.querySelector(
       ".form-content-length"
     );

@@ -16,7 +16,6 @@ export const MoneyForm = () => {
 
   formStore.subscribe((newData) => {
     //결제값 변경시 화면 업데이트
-    console.log(newData);
     const moneyInput = moneyForm.querySelector("#money");
     moneyInput.value = NumberManager.parseToCommaNumber(newData.money);
 
