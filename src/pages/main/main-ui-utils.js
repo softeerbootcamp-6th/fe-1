@@ -18,50 +18,8 @@ import {
 import { showModal } from "../../layouts/modal/modal.js";
 import { getTransactions, getTransactionById } from "../../api/transaction.js";
 import { getPaymentMethods as getPaymentMethodsApi } from "../../api/payment-method.js";
-
-// 결제 수단 저장소
-let paymentMethods = ["현금", "신용카드"];
-
-// 전역 변수들을 window 객체에 등록
-// 추후에 store로 대체 예정
-export function setupGlobalVariables() {
-  // 전역 변수들 (currentYear, currentMonth만 유지)
-  const globals = {
-    currentYear: new Date().getFullYear(),
-    currentMonth: new Date().getMonth(),
-    currentToggleType: "minus",
-    isEditMode: false,
-    editingItemId: null,
-  };
-
-  // window 객체에 등록
-  Object.assign(window, globals);
-
-  return { ...globals };
-}
-
-// 전역 함수들을 window 객체에 등록
-export function setupGlobalFunctions(
-  deleteItem,
-  updateHeaderDate,
-  updateInputDate,
-  getFilteredData
-) {
-  const globalFunctions = {
-    deleteItem,
-    updateHeaderDate,
-    updateInputDate,
-    getFilteredData,
-    enterEditMode,
-    cancelEditMode,
-    getDropdownValue,
-    setDropdownValue,
-    updateFormValidation,
-    formatAmountInput,
-  };
-
-  Object.assign(window, globalFunctions);
-}
+import { editStore, editUtils } from "../../store/edit-mode-store.js";
+import { toggleUtils } from "../../store/toggle-store.js";
 
 // 각각의 이벤트 리스너 설정 함수들
 // 토글 버튼 이벤트 리스너 설정
@@ -82,8 +40,6 @@ export function setupToggleListeners() {
 
   if (!minusBtn || !plusBtn) return;
 
-  console.log("토글 버튼 찾기:", { minusBtn, plusBtn });
-
   // plusBtn만 클릭 이벤트 리스너 등록
   plusBtn.addEventListener("click", function (e) {
     e.preventDefault();
@@ -96,30 +52,28 @@ export function setupToggleListeners() {
       // minus가 active면 plus로 변경
       minusBtn.classList.remove("active");
       plusBtn.classList.add("active");
-      window.currentToggleType = "plus";
+      toggleUtils.setPlus();
     } else {
       // plus가 active면 minus로 변경
       plusBtn.classList.remove("active");
       minusBtn.classList.add("active");
-      window.currentToggleType = "minus";
+      toggleUtils.setMinus();
     }
 
     // 입력 필드 클래스도 업데이트
     const amountInput = document.querySelector(".amount-input");
     if (amountInput) {
       amountInput.classList.remove("plus", "minus");
-      amountInput.classList.add(window.currentToggleType);
+      amountInput.classList.add(toggleUtils.getCurrentToggleType());
 
       // 입력 필드에 값이 있으면 부호 적용
       if (amountInput.value && amountInput.value !== "") {
-        updateAmountSign(window.currentToggleType, amountInput);
+        updateAmountSign(toggleUtils.getCurrentToggleType(), amountInput);
       }
     }
 
     updateFormValidation();
   });
-
-  console.log("토글 버튼 이벤트 리스너 등록 완료");
 }
 
 // 날짜 입력 필드 이벤트 리스너 설정
@@ -176,14 +130,12 @@ export function setupAddButtonListeners() {
   const addBtn = document.querySelector(".input-cell.submit button");
 
   if (!addBtn) return;
-  console.log("addBtn 이벤트 리스너 등록", addBtn);
 
   // 기존 이벤트 리스너 제거 (중복 방지)
   const newAddBtn = addBtn.cloneNode(true);
   addBtn.parentNode.replaceChild(newAddBtn, addBtn);
 
   newAddBtn.addEventListener("click", async function () {
-    console.log("addBtn 클릭");
     const dateInput = document.querySelector(".date-input");
     const amountInput = document.querySelector(".amount-input");
     const contentInput = document.querySelector(".input-cell.content input");
@@ -214,7 +166,10 @@ export function setupAddButtonListeners() {
     const content = contentInput.value.trim();
     const method = getDropdownValue(methodDropdown);
     const category = getDropdownValue(categoryDropdown);
-    const amountNum = processAmountSign(amount, window.currentToggleType);
+    const amountNum = processAmountSign(
+      amount,
+      toggleUtils.getCurrentToggleType()
+    );
 
     // 데이터 검증 추가
     if (!date || !amount || !content || !method || !category) {
@@ -227,17 +182,16 @@ export function setupAddButtonListeners() {
       return;
     }
 
-    if (window.isEditMode) {
+    if (editUtils.isEditMode()) {
       // 수정 모드 - transaction.js API 사용
       try {
-        await updateTransactionItem(window.editingItemId, {
+        await updateTransactionItem(editStore.getState().editingItemId, {
           date,
           amount: amountNum,
           content,
           method,
           category,
         });
-        console.log("거래 내역 수정 완료");
       } catch (error) {
         console.error("거래 내역 수정 실패:", error);
         return;
@@ -246,9 +200,7 @@ export function setupAddButtonListeners() {
     } else {
       // 새 항목 추가 - transaction.js API 사용
       try {
-        console.log("거래 내역 추가 시도");
         await createNewItem(date, amountNum, content, method, category);
-        console.log("거래 내역 추가 완료");
       } catch (error) {
         console.error("거래 내역 추가 실패:", error);
         return;
@@ -264,7 +216,7 @@ export function setupAddButtonListeners() {
     updateInputDate();
 
     // 토글 상태 초기화 - toggle-btn 기준으로 수정
-    window.currentToggleType = "minus";
+    toggleUtils.setMinus();
     const toggleBtnContainer = document.querySelector(".toggle-btn");
     if (toggleBtnContainer) {
       const toggleBtns = toggleBtnContainer.querySelectorAll(".toggle-icon");
@@ -291,10 +243,6 @@ export function initializeRendering() {
   updateHistoryList();
 }
 
-// 모달 초기화
-export function initializeModal(initModal) {
-  initModal();
-}
 
 // 히스토리 리스트 업데이트 함수
 export async function updateHistoryList() {
@@ -333,7 +281,6 @@ export function setupCustomDropdowns() {
         e.stopImmediatePropagation(); // 즉시 전파 중단
 
         const isActive = selected.classList.contains("active");
-        console.log("isActive", isActive);
 
         // 다른 드롭다운들만 닫기
         dropdowns.forEach((otherDropdown) => {
@@ -603,8 +550,8 @@ export function setupRealtimeValidation() {
 
 // 수정 모드 진입 함수
 export function enterEditMode(itemId) {
-  window.isEditMode = true;
-  window.editingItemId = itemId; // 문자열 ID 그대로 사용
+  editUtils.enableEditMode();
+  editStore.setState({ editingItemId: itemId });
 
   getTransactionById(itemId)
     .then((item) => {
@@ -632,12 +579,12 @@ export function enterEditMode(itemId) {
       setDropdownValue(categoryDropdown, item.category);
 
       const isIncome = item.amount > 0;
-      window.currentToggleType = isIncome ? "plus" : "minus";
+      toggleUtils.setToggleType(isIncome ? "plus" : "minus");
 
       const toggleBtns = document.querySelectorAll(".toggle-icon");
       toggleBtns.forEach((btn) => btn.classList.remove("active"));
       const activeToggle = document.querySelector(
-        `[data-type="${window.currentToggleType}"]`
+        `[data-type="${toggleUtils.getCurrentToggleType()}"]`
       );
       if (activeToggle) activeToggle.classList.add("active");
 
@@ -654,8 +601,8 @@ export function enterEditMode(itemId) {
 
 // 수정 모드 취소 함수
 export function cancelEditMode() {
-  window.isEditMode = false;
-  window.editingItemId = null;
+  editUtils.disableEditMode();
+  editStore.setState({ editingItemId: null });
 
   const amountInput = document.querySelector(".amount-input");
   const contentInput = document.querySelector(".input-cell.content input");
@@ -676,7 +623,7 @@ export function cancelEditMode() {
   setDropdownValue(categoryDropdown, "");
   charCountSpan.textContent = "0/32";
 
-  window.currentToggleType = "minus";
+  toggleUtils.setMinus();
   const toggleBtns = document.querySelectorAll(".toggle-icon");
   toggleBtns.forEach((btn) => btn.classList.remove("active"));
   const minusToggle = document.querySelector('[data-type="minus"]');
