@@ -1,8 +1,9 @@
-import { setState, state } from "../store.js";
+import DateState from "../store/DateState.js";
+import NavBarState from "../store/NavBarState.js";
 import { parseYMD, formatYMD } from "../utils/date.js";
 
 export function changeMonth(direction) {
-  let { year, month, day } = parseYMD(state.curDate);
+  let { year, month, day } = parseYMD(DateState.getDate());
   if (direction === "prev") {
     month--;
     if (month < 1) {
@@ -16,11 +17,11 @@ export function changeMonth(direction) {
       year++;
     }
   }
-  setState({ curDate: formatYMD(year, month, day) });
+  DateState.setDate(formatYMD(year, month, day));
 }
 
 export function changePage(page) {
-  setState({ navBarState: page });
+  NavBarState.setNavBarState(page);
 
   if (page === "메인") location.hash = "";
   else if (page === "캘린더") location.hash = "calendar";

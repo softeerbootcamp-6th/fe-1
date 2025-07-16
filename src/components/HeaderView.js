@@ -3,16 +3,6 @@ import { state } from "../store.js";
 import { parseYMD } from "../utils/date.js";
 import { renderComponent } from "../utils/render.js";
 
-const ROUTE_BUTTONS = [
-  { label: "메인", icon: "src/assets/icons/doc.svg", page: "" },
-  {
-    label: "캘린더",
-    icon: "src/assets/icons/calendar.svg",
-    page: "calendar",
-  },
-  { label: "차트", icon: "src/assets/icons/chart.svg", page: "chart" },
-];
-
 function getCurrentPageName() {
   const hash = location.hash.replace("#", "");
   if (hash === "calendar") return "캘린더";
@@ -28,8 +18,7 @@ function createHeaderLeft() {
   `;
 }
 
-function createHeaderCenter() {
-  const curDate = state.curDate;
+function createHeaderCenter(curDate) {
   const { year, month } = parseYMD(curDate);
   return `
     <div class="header-center">
@@ -46,24 +35,31 @@ function createHeaderCenter() {
     `;
 }
 
-function createHeaderRight() {
-  const menuButtonsHtml = ROUTE_BUTTONS.map((btn) => {
-    const isActive = state.navBarState === btn.label;
-    const className =
-      "header-menu-icon" + (isActive ? " header-menu-icon-active" : "");
-    return `
-      <li>
-        <button class="${className}" data-page="${btn.label}">
-          <img src="${btn.icon}"/>
-        </button>
-      </li>
-    `;
-  }).join("");
-
+function createHeaderRight(navBarState) {
   return `
     <div class="header-right">
       <ul class="header-menu">
-        ${menuButtonsHtml}
+        <li>
+          <button class="header-menu-icon${
+            navBarState === "메인" ? " header-menu-icon-active" : ""
+          }" data-page="메인">
+            <img src="src/assets/icons/doc.svg" alt="메인 아이콘" />
+          </button>
+        </li>
+        <li>
+          <button class="header-menu-icon${
+            navBarState === "캘린더" ? " header-menu-icon-active" : ""
+          }" data-page="캘린더">
+            <img src="src/assets/icons/calendar.svg" alt="캘린더 아이콘" />
+          </button>
+        </li>
+        <li>
+          <button class="header-menu-icon${
+            navBarState === "차트" ? " header-menu-icon-active" : ""
+          }" data-page="차트">
+            <img src="src/assets/icons/chart.svg" alt="차트 아이콘" />
+          </button>
+        </li>
       </ul>
     </div>
   `;
@@ -72,8 +68,8 @@ function createHeaderRight() {
 export function renderHeader(state) {
   let innerHTML = "";
   innerHTML += createHeaderLeft();
-  innerHTML += createHeaderCenter();
-  innerHTML += createHeaderRight();
+  innerHTML += createHeaderCenter(state.curDate);
+  innerHTML += createHeaderRight(state.navBarState);
 
   renderComponent({
     id: "header",
