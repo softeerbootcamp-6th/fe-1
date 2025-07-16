@@ -1,6 +1,6 @@
-import { records, renderRecords } from "./records.js";
+import { renderRecordHeader, renderRecords } from "./records.js";
 import { elements } from "./elements.js";
-
+import { store } from "./store.js";
 export async function loadHeaderHTML() {
   const headerEl = elements.headerEl();
   const res = await fetch("./components/header.html");
@@ -50,7 +50,8 @@ export function initializeHeader() {
     }
 
     updateDisplay();
-    renderRecords(currentYear, currentMonth, records);
+    renderRecordHeader(currentYear, currentMonth, store.getRecords());
+    renderRecords(currentYear, currentMonth, store.getRecords());
   });
 
   nextBtn.addEventListener("click", () => {
@@ -62,6 +63,7 @@ export function initializeHeader() {
     }
 
     updateDisplay();
-    renderRecords(currentYear, currentMonth, records);
+    renderRecordHeader(currentYear, currentMonth, store.getRecords());
+    renderRecords(currentYear, currentMonth, store.getRecords());
   });
 }

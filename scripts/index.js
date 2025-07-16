@@ -1,4 +1,5 @@
 import { loadPage } from "./router.js";
+import { store } from "./store.js";
 import { loadHeaderHTML, initializeHeader } from "./header.js";
 import {
   initToggleButton,
@@ -7,9 +8,19 @@ import {
   initCategoryDropdown,
   initInputChanges,
 } from "./input.js";
-import { records, renderRecords, renderRecordByDate, getFormattedDate } from "./records.js";
-
+import {
+  renderRecords,
+  renderRecordByDate,
+  getFormattedDate,
+  initVisibleButton,
+  renderRecordHeader,
+} from "./records.js";
 window.addEventListener("DOMContentLoaded", async () => {
+  // 오늘 날짜 기준 연도와 월 추출
+  const today = new Date();
+  const year = String(today.getFullYear());
+  const month = String(today.getMonth() + 1);
+
   // 헤더 html 로딩 후 초기화
   await loadHeaderHTML();
   initializeHeader();
@@ -22,7 +33,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   initInputChanges();
   getInputValues();
 
-  renderRecords(records);
+  await store.init();
+  renderRecordHeader(year, month, store.getRecords());
+  renderRecords(year, month, store.getRecords());
 });
-
 window.addEventListener("hashchange", loadPage);

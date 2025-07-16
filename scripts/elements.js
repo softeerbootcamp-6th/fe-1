@@ -11,6 +11,9 @@ export const elements = {
   submitButtonEl: () => document.querySelector(".submit-button"),
   checkBoxEl: () => document.querySelector(".checkbox"),
   recordContainerEl: () => document.querySelector(".record-main"),
+  totalAmountEl: () => document.querySelector(".total-amount"),
   incomeFilterButtonEl: () => document.querySelector(".income-filter"),
   outcomeFilterButtonEl: () => document.querySelector(".outcome-filter"),
+  incomeFilterDivEl: () => document.querySelector(".total-income"),
+  outcomeFilterDivEl: () => document.querySelector(".total-outcome"),
 };
