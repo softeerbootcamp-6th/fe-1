@@ -1,4 +1,5 @@
 import { close } from '../../lib/utils.js';
+import formStore from '../../store/form.js';
 
 const createDropdownOption = (option, deleteOption) => {
     const optionContainer = document.createElement('div');
@@ -23,6 +24,17 @@ const createDropdownOption = (option, deleteOption) => {
         </div>
     `;
 
+    if (deleteOption) {
+        const deleteButton = optionContainer.querySelector(
+            '.option-delete-button'
+        );
+        deleteButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            optionContainer.remove();
+            formStore.deletePaymentMethod(option.value);
+        });
+    }
+
     return optionContainer;
 };
 
@@ -37,18 +49,6 @@ const createDropdownOptions = (options, onSelect, deleteOption) => {
     });
 
     optionsContainer.addEventListener('click', (event) => {
-        if (
-            deleteOption &&
-            event.target.classList.contains('option-delete-button')
-        ) {
-            event.stopPropagation();
-            close(optionsContainer);
-            deleteDropdownOption(
-                event.target.closest('.dropdown-option').dataset.value
-            );
-            return;
-        }
-
         const optionElement = event.target.closest('.dropdown-option');
         if (optionElement) {
             const value = optionElement.dataset.value;
@@ -60,15 +60,6 @@ const createDropdownOptions = (options, onSelect, deleteOption) => {
             close(optionsContainer);
         }
     });
-
-    function deleteDropdownOption(value) {
-        const optionElement = optionsContainer.querySelector(
-            `.dropdown-option[data-value="${value}"]`
-        );
-        if (optionElement) {
-            optionElement.remove();
-        }
-    }
 
     return optionsContainer;
 };

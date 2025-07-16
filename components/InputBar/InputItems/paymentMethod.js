@@ -1,13 +1,7 @@
 import { createDropdownOptions } from '../../DropdownOption/index.js';
 import { toggle } from '../../../lib/utils.js';
 import createModal from '../../Modal/index.js';
-
-const paymentMethodOptions = [
-    { value: 'card', label: '카드' },
-    { value: 'cash', label: '현금' },
-    { value: 'transfer', label: '계좌이체' },
-    { value: 'mobile', label: '모바일페이' },
-];
+import formStore from '../../../store/form.js';
 
 const createPaymentMethod = () => {
     const paymentMethodItem = document.createElement('div');
@@ -40,7 +34,7 @@ const createPaymentMethod = () => {
     );
 
     const dropdownOptions = createDropdownOptions(
-        paymentMethodOptions,
+        formStore.paymentMethodOptions,
         (value, label) => {
             selectLabel.textContent = label;
             selectLabel.style.color = 'var(--neutral-text-default)';
@@ -67,10 +61,7 @@ const createPaymentMethod = () => {
         okText: '추가',
         onOk: () => {
             const input = modal.querySelector('.input-payment-method');
-            paymentMethodOptions.push({
-                value: input.value,
-                label: input.value,
-            });
+            formStore.addPaymentMethod(input.value);
 
             input.value = '';
         },
