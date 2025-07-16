@@ -1,0 +1,128 @@
+.item {
+  display: flex;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+}
+
+.item-category-tag {
+  height: 100%;
+  width: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 0 8px;
+  flex: 1;
+}
+
+.item-content:hover {
+  background-color: var(--neutral-surface-point);
+}
+
+.item-description {
+  width: 400px;
+}
+
+.item-method {
+  width: 104px;
+}
+
+.item-amount {
+  width: 186px;
+  text-align: end;
+}
+
+.minus {
+  color: var(--brand-text-expense);
+}
+
+.plus {
+  color: var(--brand-text-income);
+}
+
+.item-category-생활 {
+  background-color: var(--colorchip-90); /* pastel-perano */
+}
+
+.item-category-쇼핑\/뷰티 {
+  background-color: var(--colorchip-30); /* pastel-chenin */
+}
+
+.item-category-의료\/건강 {
+  background-color: var(--colorchip-50); /* pastel-cruise */
+}
+
+.item-category-식비 {
+  background-color: var(--colorchip-60); /* pastel-onahau */
+}
+
+.item-category-교통 {
+  background-color: var(--colorchip-70); /* pastel-glacier */
+}
+
+.item-category-문화\/여가 {
+  background-color: var(--colorchip-100); /* pastel-perfume */
+}
+
+.item-category-미분류 {
+  background-color: var(--colorchip-110); /* pastel-lavenderPink */
+}
+
+.item-category-월급 {
+  background-color: var(--colorchip-20); /* pastel-porsche */
+}
+
+.item-category-기타수입 {
+  background-color: var(--colorchip-10); /* pastel-almondFrost */
+}
+
+.item-category-용돈 {
+  background-color: var(--colorchip-40); /* pastel-caper */
+}
+
+.delete-btn {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--danger-surface-default);
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px;
+  margin-left: 16px;
+}
+
+.delete-btn img {
+  background: none;
+  width: 8px;
+  height: 8px;
+}
+
+.transactions-container {
+  border-top: solid 0.5px var(--neutral-text-default);
+  border-bottom: solid 0.5px var(--neutral-text-default);
+}
+
+.day-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+}
