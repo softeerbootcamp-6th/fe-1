@@ -64,7 +64,7 @@ export const dailyData = {
         for (const day of this.data) {
             const item = day.items.find((item) => item.id === id);
             if (item) {
-                return { date: day.date, item };
+                return { date: day.date, items: item };
             }
         }
         return null;

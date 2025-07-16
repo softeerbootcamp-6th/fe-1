@@ -2,6 +2,7 @@ import { createElement, formatAmount } from '../../utils.js';
 import { dailyData } from '../../store/daily.js';
 import createDaliyList from './dailyList.js';
 import dateData from '../../store/date.js';
+import formData from '../../store/formData.js';
 
 export default function initalizeDailyList() {
     const today = new Date().toISOString().split('T')[0];
@@ -97,7 +98,8 @@ export function dailyViewChange(year, month) {
                 dailyData.removeDailyData(seletedId);
                 dailyViewChange(dateData.year, dateData.month);
             } else {
-                const seletedDailyData = dailyData.findDailyDataById(seletedId);
+                const { date, items } = dailyData.findDailyDataById(seletedId);
+                formData.setFormData(date, items);
             }
         }
     });

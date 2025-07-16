@@ -27,9 +27,11 @@ export default function createSummitButton() {
     $btn.addEventListener('click', () => {
         if (!formData.isValid) return;
         dailyData.uploadDailyData(formData);
+
+        formData.init();
+
         const { year: nowYear, month: nowMonth } = dateData;
         const [year, month] = formData.date.split('-');
-
         if (nowYear == year && month == nowMonth)
             dailyViewChange(nowYear, nowMonth);
     });

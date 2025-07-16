@@ -4,11 +4,30 @@ const formData = {
     description: null,
     payment: null,
     category: null,
-    createDate: null,
     sign: false,
     isValid: false,
 
+    init() {
+        this.date = null;
+        this.amount = null;
+        this.description = null;
+        this.payment = null;
+        this.category = null;
+        this.sign = false;
+        this.isValid = false;
+    },
+
     isValidListeners: new Set(),
+
+    setFormData(date, formData) {
+        const { amount, description, payment, category } = formData;
+        this.date = date;
+        this.amount = amount;
+        this.description = description;
+        this.payment = payment;
+        this.category = category;
+        this.sign = false;
+    },
 
     setSign(value) {
         this.sign = value;
