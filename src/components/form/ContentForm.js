@@ -14,7 +14,6 @@ export const ContentForm = (input) => {
   contentInput.addEventListener("input", (e) => {
     input.content = e.target.value;
     contentInputLength.textContent = input.content.length + "/" + maxLength;
-    console.log("a");
   });
   return contentForm;
 };

@@ -9,7 +9,7 @@ export const CategoryForm = (input) => {
   categoryForm.innerHTML = `
   <label for="category" class="light-12">카테고리</label>
   <button id="category">
-    <span class="semibold-12">분류하세요</span>
+    <span class="semibold-12">${input.category}</span>
     <img width="16px" src="./src/assets/chevron-down.png" alt="arrow"/>
   </button>
   `;

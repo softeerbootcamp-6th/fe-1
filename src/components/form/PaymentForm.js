@@ -10,7 +10,7 @@ export const PaymentForm = (input) => {
   paymentForm.innerHTML = `
   <label for="payment" class="light-12">결제수단</label>
   <button id="payment">
-    <span class="semibold-12">선택하세요</span>
+    <span class="semibold-12">${input.payment}</span>
     <img width="16px" src="./src/assets/chevron-down.png" alt="arrow"/>
   </button>
   `;

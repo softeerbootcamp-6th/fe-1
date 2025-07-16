@@ -8,7 +8,7 @@ export const MoneyForm = (input) => {
     <label for="money" class="light-12">금액</label>
     <div class="money-input-wrapper">
       <img src="./src/assets/expense.png" alt="expense icon">
-      <input type="text" id="money" name="money" placeholder="0">
+      <input type="text" id="money" name="money" placeholder="0" value="${input.money}">
       <span>원</span>
     </div>
     `;

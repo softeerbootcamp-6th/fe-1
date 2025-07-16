@@ -1,6 +1,7 @@
 import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { listStore } from "../../store/ListStore.js";
+import { formStore } from "../../store/FormStore.js";
 
 export const ListItem = (item) => {
   const listItem = ElementManager.renderElement("div", "list-item");
@@ -22,11 +23,20 @@ export const ListItem = (item) => {
 
   EventDispatcher.register({
     eventType: "click",
-    selector: "delete-button",
+    selector: "list-item",
     handler: (e) => {
       const listItem = e.target.closest(".list-item");
       const uid = listItem.dataset.uid;
-      listStore.dispatch("removeListItemByUID", uid);
+      if (e.target.closest(".delete-button")) {
+        // 리스트에서 삭제
+        listStore.dispatch("removeListItemByUID", uid);
+      } else {
+        // 폼에 반영하여 수정
+        const item = listStore.data.find((partData) => partData.uid === uid);
+        if (item) {
+          formStore.dispatch("edit", item);
+        }
+      }
     },
   });
   return listItem;

@@ -246,6 +246,10 @@ button#payment {
   border-bottom: 0.5px solid var(--nuetral-border-default);
 }
 
+.list-item:hover {
+  background-color: var(--nuetral-surface-point);
+}
+
 .list-item .category {
   display: flex;
   justify-content: center;

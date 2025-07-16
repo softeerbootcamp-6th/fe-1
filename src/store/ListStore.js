@@ -35,7 +35,6 @@ class ListStore extends Store {
         } else {
           this.moneyTypeFilter.expense = !this.moneyTypeFilter.expense;
         }
-        console.log(this.moneyTypeFilter);
         this.data = ListFilter.groupTransactionsByMoneyType(
           this.originData,
           this.moneyTypeFilter
