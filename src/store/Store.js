@@ -17,5 +17,6 @@ export class Store {
   notify() {
     this.subscribers.forEach((callback) => callback(this.data));
   }
+
   dispatch() {}
 }

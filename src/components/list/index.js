@@ -67,11 +67,11 @@ export const List = () => {
   // render list wrapper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
   list.appendChild(listWrapper);
-  renderListWrapper(groupedListByMoneyType);
+  renderListWrapper(listStore.data);
 
   // rerender using dispatcher
-  listStore.subscribe(() => {
-    // 작성 필요
+  listStore.subscribe((newData) => {
+    renderListWrapper(newData);
   });
   return list;
 };
