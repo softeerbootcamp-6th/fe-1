@@ -177,13 +177,7 @@
   justify-content: center;
 }
 
-/* .record-item:hover {
-  opacity: 0.7;
-} */
-.record-item:hover .delete {
-  display: flex;
-}
-.record-item > div {
+.record-item > div:not(.delete) {
   display: flex;
   margin-right: 16px;
 }
@@ -254,13 +248,20 @@
 .record-item .category.용돈 {
   background-color: var(--colorchip-40);
 }
-
+.record-item:hover .delete {
+  display: flex;
+}
+.record-item:hover {
+  background-color: var(--neutral-surface-point);
+}
 .delete {
   gap: 8px;
   display: none;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
+
 .delete-button-wrapper {
   background: var(--danger-surface-default);
   border-radius: 20px;
