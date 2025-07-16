@@ -1,4 +1,4 @@
-import { store } from '../store/store.js';
+import { incomeExpenseStore } from '../store/incomeExpenseStore.js';
 import { renderListItem } from './IncomeExpenseList.js';
 
 export function renderIncomeExpenseForm() {
