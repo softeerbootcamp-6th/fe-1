@@ -491,6 +491,16 @@ table {
   background: var(--colorchip-10);
 }
 
+.td-category {
+  width: 92px;
+  height: 58px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
 .text-expense {
   color: var(--brand-text-expense);
 }
@@ -519,6 +529,7 @@ table {
   display: flex;
   justify-content: right;
   align-items: center;
+  width: 186px;
   height: 58px;
   padding: 0 16px;
   text-align: left;
@@ -661,16 +672,6 @@ table {
   padding: 0 40px;
   gap: 20px;
   width: 280px;
-}
-
-.td-category {
-  width: 92px;
-  height: 58px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
 }
 
 .legend-item {
