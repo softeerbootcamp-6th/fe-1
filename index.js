@@ -1,5 +1,6 @@
 import { renderHeader, initHeader } from "./components/header.js";
 import { render, navigate } from "./utils/routes.js";
+import { initTransactionStore } from "./store/index.js";
 
 const headerContainer = document.getElementById("header-container");
 
@@ -9,6 +10,7 @@ if (headerContainer) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  await initTransactionStore();
   document.body.addEventListener("click", (e) => {
     const link = e.target.closest("a");
     if (link && link.getAttribute("href")) {

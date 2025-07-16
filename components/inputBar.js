@@ -1,10 +1,5 @@
-import { dateStore } from "../store/index.js";
-import {
-  getTransactionsByYearMonth,
-  addNewTransaction,
-  updateTransaction,
-  monthlyTotalData,
-} from "../utils/transaction.js";
+import { dateStore, transactionStore } from "../store/index.js";
+import { monthlyTotalData } from "../utils/transaction.js";
 import { getFilteringState } from "../pages.js";
 import {
   INCOME_CATEGORIES,
@@ -22,7 +17,7 @@ let editingTransactionId = null;
 const FORM_FIELDS = {
   DATE: "date",
   AMOUNT: "amount",
-  CONTENT: "content",
+  DESCRIPTION: "description",
   PAYMENT_METHOD: "paymentMethod",
   CATEGORY: "category",
 };
@@ -56,7 +51,7 @@ export function createInputBar() {
     </label>
     <label class="flex-column input-section">
       <div class="input-label light-12">내용</div>
-      <input type="text" name="content" maxlength="32" placeholder="내용을 입력하세요" required class="semibold-12 text-input" />
+      <input type="text" name="description" maxlength="32" placeholder="내용을 입력하세요" required class="semibold-12 text-input" />
     </label>
     <label class="flex-column input-section">
       <div class="input-label light-12">결제수단</div>
@@ -93,7 +88,9 @@ function getFormElements(form) {
   return {
     dateInput: form.querySelector(`input[name='${FORM_FIELDS.DATE}']`),
     amountInput: form.querySelector(`input[name='${FORM_FIELDS.AMOUNT}']`),
-    contentInput: form.querySelector(`input[name='${FORM_FIELDS.CONTENT}']`),
+    descriptionInput: form.querySelector(
+      `input[name='${FORM_FIELDS.DESCRIPTION}']`
+    ),
     paymentMethodSelect: form.querySelector(
       `select[name='${FORM_FIELDS.PAYMENT_METHOD}']`
     ),
@@ -109,7 +106,7 @@ function getRequiredFields(elements) {
   return {
     dateInput: elements.dateInput,
     amountInput: elements.amountInput,
-    contentInput: elements.contentInput,
+    descriptionInput: elements.descriptionInput,
     paymentMethodSelect: elements.paymentMethodSelect,
     categorySelect: elements.categorySelect,
   };
@@ -159,7 +156,7 @@ export function fillFormWithTransaction(transaction) {
 
   updateAmountToggleIcon(elements.amountToggle, transaction.amount > 0);
   updateCategoryOptions(elements, transaction.amount > 0);
-  elements.contentInput.value = transaction.description;
+  elements.descriptionInput.value = transaction.description;
   elements.paymentMethodSelect.value = transaction.paymentMethod;
   elements.categorySelect.value = transaction.category;
 
@@ -220,7 +217,7 @@ export function renderInputBar(container) {
     const data = processFormData(formData, elements.amountToggle);
 
     if (isEditMode && editingTransactionId) {
-      updateTransaction(
+      transactionStore.updateTransaction(
         dateStore.getYear(),
         dateStore.getMonth(),
         editingTransactionId,
@@ -228,7 +225,11 @@ export function renderInputBar(container) {
       );
       resetEditMode();
     } else {
-      addNewTransaction(dateStore.getYear(), dateStore.getMonth(), data);
+      transactionStore.addTransaction(
+        dateStore.getYear(),
+        dateStore.getMonth(),
+        data
+      );
       document
         .querySelectorAll(".transaction-row.selected")
         .forEach((row) => row.classList.remove("selected"));
@@ -246,7 +247,10 @@ export function renderInputBar(container) {
       isIncomeChecked,
       isExpenseChecked,
       monthlyTotalData(
-        getTransactionsByYearMonth(dateStore.getYear(), dateStore.getMonth())
+        transactionStore.getTransactionsByYearMonth(
+          dateStore.getYear(),
+          dateStore.getMonth()
+        )
       )
     );
     renderTransactionList(isIncomeChecked, isExpenseChecked);

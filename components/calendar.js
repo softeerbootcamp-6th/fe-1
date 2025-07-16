@@ -1,9 +1,5 @@
-import {
-  getTransactionsByYearMonth,
-  groupTransactionsByDate,
-  dailyTotalData,
-  monthlyTotalData,
-} from "../utils/transaction.js";
+import { dailyTotalData, monthlyTotalData } from "../utils/transaction.js";
+import { transactionStore } from "../store/index.js";
 import { formatMoney } from "../utils/format.js";
 import { dateStore } from "../store/index.js";
 
@@ -60,9 +56,9 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 }
 
 function createCalendarMonthlyInfo(year, month) {
-  const transactions = getTransactionsByYearMonth(year, month);
-  const { monthlyTotalIncome, monthlyTotalExpense } =
-    monthlyTotalData(transactions);
+  const { monthlyTotalIncome, monthlyTotalExpense } = monthlyTotalData(
+    transactionStore.getTransactionsByYearMonth(year, month)
+  );
   return `
   <div class="calendar-info flex-between serif-14">
       <div class="flex-row gap-8">
@@ -75,8 +71,10 @@ function createCalendarMonthlyInfo(year, month) {
 }
 
 export function createCalendar(year, month) {
-  const transactions = getTransactionsByYearMonth(year, month);
-  const transactionListByDate = groupTransactionsByDate(transactions);
+  const transactionListByDate = transactionStore.getGroupedTransactionsByDate(
+    year,
+    month
+  );
 
   // month: 1~12
   const firstDay = new Date(year, month - 1, 1);

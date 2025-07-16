@@ -1,7 +1,5 @@
-import {
-  getTransactionsByYearMonth,
-  monthlyTotalData,
-} from "../utils/transaction.js";
+import { monthlyTotalData } from "../utils/transaction.js";
+import { transactionStore } from "../store/index.js";
 import { setFilteringState } from "../pages.js";
 import { renderTransactionList } from "./transactionsList.js";
 import { formatMoney } from "../utils/format.js";
@@ -17,18 +15,18 @@ function createTotalCountText(isIncomeChecked, isExpenseChecked, monthlyData) {
 
   if (isIncomeChecked && !isExpenseChecked) {
     // 수입만 체크된 경우: 수입 내역
-    return `<div class="totalCount">수입 내역 ${monthlyTotalIncomeCount}건</div>`;
+    return `수입 내역 ${monthlyTotalIncomeCount}건`;
   }
   if (!isIncomeChecked && isExpenseChecked) {
     // 지출만 체크된 경우: 지출 내역
-    return `<div class="totalCount">지출 내역 ${monthlyTotalExpenseCount}건</div>`;
+    return `지출 내역 ${monthlyTotalExpenseCount}건`;
   }
   if (isIncomeChecked && isExpenseChecked) {
     // 둘 다 체크된 경우: 전체 내역
-    return `<div class="totalCount">전체 내역 ${monthlyTotalCount}건</div>`;
+    return `전체 내역 ${monthlyTotalCount}건`;
   }
   // 둘 다 체크 해제된 경우: 전체 내역 0건
-  return `<div class="totalCount">전체 내역 0건</div>`;
+  return `전체 내역 0건`;
 }
 
 // totalCount를 렌더링하는 함수
@@ -53,8 +51,7 @@ export function createMonthlyInfo(
   isIncomeChecked,
   isExpenseChecked
 ) {
-  const { monthlyTotalIncome, monthlyTotalExpense, monthlyTotalCount } =
-    monthlyData;
+  const { monthlyTotalIncome, monthlyTotalExpense } = monthlyData;
 
   const monthlyInfoTemplate = `
     <div class="flex-between light-12">
@@ -107,7 +104,10 @@ export function renderMonthlyInfo(
   isExpenseChecked
 ) {
   const monthlyData = monthlyTotalData(
-    getTransactionsByYearMonth(dateStore.getYear(), dateStore.getMonth())
+    transactionStore.getTransactionsByYearMonth(
+      dateStore.getYear(),
+      dateStore.getMonth()
+    )
   );
 
   container.innerHTML = createMonthlyInfo(
@@ -115,6 +115,8 @@ export function renderMonthlyInfo(
     isIncomeChecked,
     isExpenseChecked
   );
+
+  renderTotalCount(container, isIncomeChecked, isExpenseChecked, monthlyData);
   setupMonthlyInfoEventListeners(container, monthlyData);
 }
 

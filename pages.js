@@ -4,10 +4,8 @@ import {
 } from "./components/monthlyInfo.js";
 import { renderInputBar } from "./components/inputBar.js";
 import { renderTransactionList } from "./components/transactionsList.js";
-import {
-  getTransactionsByYearMonth,
-  monthlyTotalData,
-} from "./utils/transaction.js";
+import { monthlyTotalData } from "./utils/transaction.js";
+import { transactionStore } from "./store/index.js";
 import { renderCalendar, renderCalendarInfo } from "./components/calendar.js";
 import { dateStore } from "./store/index.js";
 
@@ -75,7 +73,10 @@ export function renderMainPage() {
       isIncomeChecked,
       isExpenseChecked,
       monthlyTotalData(
-        getTransactionsByYearMonth(dateStore.getYear(), dateStore.getMonth())
+        transactionStore.getTransactionsByYearMonth(
+          dateStore.getYear(),
+          dateStore.getMonth()
+        )
       )
     );
   }

@@ -1,20 +1,31 @@
-import {
-  getTransactionsByYearMonth,
-  groupTransactionsByDate,
-  deleteTransaction,
-  getTransactionById,
-  monthlyTotalData,
-} from "../utils/transaction.js";
+import { monthlyTotalData, getTotalAmount } from "../utils/transaction.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
 import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
 import { renderCalendar, renderCalendarInfo } from "./calendar.js";
-import { dateStore } from "../store/index.js";
+import { dateStore, transactionStore } from "../store/index.js";
 
 // 클릭된 행 상태 관리
 let selectedRowId = null;
 let isExternalClickHandlerRegistered = false;
+
+export function isTransactionVisible(
+  transaction,
+  isIncomeChecked,
+  isExpenseChecked
+) {
+  if (isIncomeChecked && isExpenseChecked) {
+    return true;
+  }
+  if (!isIncomeChecked && isExpenseChecked) {
+    return transaction.amount < 0;
+  }
+  if (isIncomeChecked && !isExpenseChecked) {
+    return transaction.amount > 0;
+  }
+  return false;
+}
 
 // 선택된 행의 스타일을 업데이트하는 함수
 function updateSelectedRowStyle(selectedRowId) {
@@ -77,56 +88,46 @@ function createTransactionRow(transaction) {
 }
 
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
-  const transactionListByYearMonth = getTransactionsByYearMonth(
+  // 날짜별로 그룹핑된 거래 객체
+  const transactionListByDate = transactionStore.getGroupedTransactionsByDate(
     dateStore.getYear(),
     dateStore.getMonth()
   );
 
-  // 체크박스 상태에 따라 거래내역 필터링
-  const filteredTransactions = transactionListByYearMonth.filter(
-    (transaction) => {
-      if (isIncomeChecked && isExpenseChecked) {
-        // 둘 다 체크된 경우: 모든 거래 표시
-        return true;
-      } else if (!isIncomeChecked && isExpenseChecked) {
-        // 수입 해제, 지출 체크: 지출만 표시
-        return transaction.amount < 0;
-      } else if (isIncomeChecked && !isExpenseChecked) {
-        // 수입 체크, 지출 해제: 수입만 표시
-        return transaction.amount > 0;
-      } else {
-        // 둘 다 해제된 경우: 모든 거래 미표시
-        return false;
-      }
+  // 날짜별로 필터링된 거래 객체 생성
+  const filteredTransactionsByDate = Object.entries(
+    transactionListByDate
+  ).reduce((acc, [date, transactionList]) => {
+    const filteredList = transactionList.filter((transaction) =>
+      isTransactionVisible(transaction, isIncomeChecked, isExpenseChecked)
+    );
+    if (filteredList.length > 0) {
+      acc[date] = filteredList;
     }
-  );
+    return acc;
+  }, {});
 
-  const transactionListByDate = groupTransactionsByDate(filteredTransactions);
-
-  const sections = Object.entries(transactionListByDate)
+  // 날짜별로 섹션 생성
+  const sections = Object.entries(filteredTransactionsByDate)
     .map(([date, transactionList]) => {
-      const totalIncome = transactionList
-        .filter((transaction) => transaction.amount > 0)
-        .reduce((sum, transaction) => sum + transaction.amount, 0);
-      const totalExpense = transactionList
-        .filter((transaction) => transaction.amount < 0)
-        .reduce((sum, transaction) => sum + transaction.amount, 0);
+      const totalIncome = getTotalAmount(transactionList, "income");
+      const totalExpense = getTotalAmount(transactionList, "expense");
 
       const header = `
         <div class="flex-between serif-14">
           <div>${date}</div>
           <div> 
-            ${
-              isIncomeChecked && totalIncome > 0
-                ? `수입 ${formatMoney(totalIncome)}원`
-                : ""
-            }
-            ${
-              isExpenseChecked && totalExpense < 0
-                ? `지출 ${formatMoney(totalExpense)}원`
-                : ""
-            }
-          </div>
+          ${
+            isIncomeChecked && totalIncome > 0
+              ? `수입 ${formatMoney(totalIncome)}원`
+              : ""
+          }
+          ${
+            isExpenseChecked && totalExpense < 0
+              ? `지출 ${formatMoney(totalExpense)}원`
+              : ""
+          }
+       </div>
         </div>
       `;
 
@@ -182,7 +183,7 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           isIncomeChecked,
           isExpenseChecked,
           monthlyTotalData(
-            getTransactionsByYearMonth(
+            transactionStore.getTransactionsByYearMonth(
               dateStore.getYear(),
               dateStore.getMonth()
             )
@@ -214,7 +215,7 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           }
 
           const id = Number(row.dataset.id);
-          const transaction = getTransactionById(
+          const transaction = transactionStore.getTransactionById(
             dateStore.getYear(),
             dateStore.getMonth(),
             id
