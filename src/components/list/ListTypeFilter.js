@@ -2,6 +2,7 @@ import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { ListFilter } from "../../utils/ListFilter.js";
 import { NumberManager } from "../../utils/NumberManager.js";
+import { listStore } from "../../store/ListStore.js";
 
 export const ListTypeFilter = (
   type,
@@ -51,7 +52,8 @@ export const ListTypeFilter = (
       listOverviewCounter.textContent = updatedTransactioin.length + "건";
 
       // 내역 화면 업데이트
-      renderListWrapper(updatedTransactioin);
+      // renderListWrapper(updatedTransactioin);
+      listStore.dispatch("filterList", entireFilter);
     },
   });
 

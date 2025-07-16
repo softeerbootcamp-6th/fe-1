@@ -13,12 +13,6 @@ export const List = () => {
     isIncomeTypeOpen: true,
   };
 
-  const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, 8);
-  const groupedListByMoneyType = ListFilter.groupTransactionsByMoneyType(
-    groupedListByMonth,
-    moneyTypeFilter
-  );
-
   // setup list wrpper
   const renderListWrapper = (data) => {
     listWrapper.innerHTML = ``;
@@ -29,40 +23,39 @@ export const List = () => {
     });
   };
 
-  // list overview
-  const listOverview = ElementManager.renderElement("div", "list-overview");
-  const listCounter = ElementManager.renderElement("div", "list-counter");
-  listCounter.innerHTML = `
+  // setup list overview
+  const renderListOverview = (data) => {
+    const listCounter = ElementManager.renderElement("div", "list-counter");
+    listCounter.innerHTML = `
     <span>전체 내역</span>
-    <span class="total-count">${groupedListByMonth.length}건</span>
+    <span class="total-count">${data.length}건</span>
     `;
-  listOverview.appendChild(listCounter);
+    listOverview.appendChild(listCounter);
 
-  const listTypeFilterWrapper = ElementManager.renderElement(
-    "div",
-    "list-type-container"
-  );
-  const totalMoney = NumberManager.calculateTotalMoney(groupedListByMoneyType);
-  listTypeFilterWrapper.appendChild(
-    ListTypeFilter(
-      "income",
-      totalMoney.income,
-      groupedListByMonth,
-      moneyTypeFilter,
-      renderListWrapper
-    )
-  );
-  listTypeFilterWrapper.appendChild(
-    ListTypeFilter(
-      "expense",
-      totalMoney.expense,
-      groupedListByMonth,
-      moneyTypeFilter,
-      renderListWrapper
-    )
-  );
-  listOverview.appendChild(listTypeFilterWrapper);
+    const listTypeFilterWrapper = ElementManager.renderElement(
+      "div",
+      "list-type-container"
+    );
+    const { income, expense } = NumberManager.calculateTotalMoney(data);
+    listTypeFilterWrapper.appendChild(
+      ListTypeFilter("income", income, data, moneyTypeFilter, renderListWrapper)
+    );
+    listTypeFilterWrapper.appendChild(
+      ListTypeFilter(
+        "expense",
+        expense,
+        data,
+        moneyTypeFilter,
+        renderListWrapper
+      )
+    );
+    listOverview.appendChild(listTypeFilterWrapper);
+  };
+
+  // render list overview
+  const listOverview = ElementManager.renderElement("div", "list-overview");
   list.appendChild(listOverview);
+  renderListOverview(listStore.data);
 
   // render list wrapper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
