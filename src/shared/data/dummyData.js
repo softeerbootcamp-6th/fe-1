@@ -1,4 +1,4 @@
-import { DUMMY_DATA_URL } from '../constants/jsonServerUrl';
+import { DUMMY_DATA_URL } from '../constants/jsonServerUrl.js';
 
 // 더미데이터를 로드하는 함수
 export const GetDummyData = () =>
