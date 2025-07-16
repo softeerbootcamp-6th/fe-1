@@ -1,4 +1,5 @@
-import incomeExpenseData from '../data/incomeExpenseData.js';
+import { store } from '../store/store.js';
+import { renderListItem } from './IncomeExpenseList.js';
 
 export function renderIncomeExpenseForm() {
   const form = document.createElement('form');
@@ -8,6 +9,7 @@ export function renderIncomeExpenseForm() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
   let isIncome = true; // true: 수입, false: 지출
+  const maxDescriptionLength = 32;
   let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
   const incomeClasses = ['용돈', '월급'];
@@ -38,12 +40,12 @@ export function renderIncomeExpenseForm() {
     `;
   };
 
-  const getDescriptionContainerHTML = () => {
+  const getDescriptionContainerHTML = maxDescriptionLength => {
     return `
         <div class="description-container">
             <div class="description-label-container">
                 <label class="description-label light12" for="description-input">내용</label>
-                <span class="description-length light12">${descriptionLength}/32</span>
+                <span class="description-length light12">${descriptionLength}/${maxDescriptionLength}</span>
             </div>
             <input id="description-input" type="text" class="description-input" maxlength="32"></input>
         </div>
@@ -97,7 +99,7 @@ export function renderIncomeExpenseForm() {
     ${getVerticalLineHTML()}
     ${getMoneyContainerHTML()}
     ${getVerticalLineHTML()}
-    ${getDescriptionContainerHTML()}
+    ${getDescriptionContainerHTML(maxDescriptionLength)}
     ${getVerticalLineHTML()}
     ${getPaymentContainerHTML()}
     ${getVerticalLineHTML()}
@@ -136,30 +138,23 @@ export function renderIncomeExpenseForm() {
     updateClassSelect(incomeClasses, expenseClasses);
   });
 
-  moneyInput.addEventListener('keyup', e => {
-    let moneyValue = Number(e.target.value.replace(/[^0-9]/g, '')); // 숫자가 아닌 것들은 제외
+  moneyInput.addEventListener('keyup', ({ target }) => {
+    let moneyValue = Number(target.value.replace(/[^0-9]/g, '')); // 숫자가 아닌 것들은 제외
     let formattedValue = moneyValue.toLocaleString('ko-KR'); // 세자리마다 콤마
-    e.target.value = formattedValue; // 입력 필드에 포맷된 값 설정
+    target.value = formattedValue; // 입력 필드에 포맷된 값 설정
   });
 
   // 입력 시 기본값 0 제거
-  moneyInput.addEventListener('focus', e => {
-    if (e.target.value === '0') {
-      e.target.value = '';
+  moneyInput.addEventListener('focus', ({ target }) => {
+    if (target.value === '0') {
+      target.value = '';
     }
   });
 
-  descriptionInput.addEventListener('keyup', e => {
-    descriptionLength = e.target.value.length;
+  descriptionInput.addEventListener('keyup', ({ target }) => {
+    descriptionLength = target.value.length;
     const lengthSpan = form.querySelector('.description-length');
     lengthSpan.textContent = `${descriptionLength}/32`;
-
-    // 32자 이상 입력 시 입력 받지 않음
-    if (descriptionLength > 32) {
-      e.target.value = e.target.value.slice(0, 32);
-      descriptionLength = 32;
-      lengthSpan.textContent = `${descriptionLength}/32`;
-    }
   });
 
   // keyup, select 이벤트 발생 시 유효성 검사
@@ -186,7 +181,31 @@ export function renderIncomeExpenseForm() {
     }
   );
 
-  addButton.addEventListener('click', e => {});
+  addButton.addEventListener('click', e => {
+    e.preventDefault();
+    const incomeExpenseListContainer = document.querySelector(
+      '.income-expense-list-container'
+    );
+    console.log(incomeExpenseListContainer);
+    console.log(incomeExpenseListContainer.firstChild);
+
+    handleSubmit(
+      e,
+      dateInput,
+      moneyInput,
+      descriptionInput,
+      paymentSelect,
+      classSelect
+    );
+    formInit(
+      dateInput,
+      moneyInput,
+      descriptionInput,
+      paymentSelect,
+      classSelect
+    );
+    renderListItem(incomeExpenseListContainer);
+  });
 
   const updateClassSelect = (incomeClasses, expenseClasses) => {
     classSelect.innerHTML = `<option value="" selected disabled hidden>선택해주세요</option>
@@ -248,37 +267,30 @@ export function renderIncomeExpenseForm() {
     const paymentSelectValue = paymentSelect.value;
     const classSelectValue = classSelect.value;
 
-    // 해당 월에 데이터 있는지 확인
-    const currentYear = dateInputValue.split('-')[0];
-    const currentMonth = dateInputValue.split('-')[1];
-    const currentKey = `${currentYear}-${currentMonth}`;
-    let dataID = 0;
-
-    const monthData = incomeExpenseData[currentKey];
-    if (monthData) {
-      // 해당 일 데이터 가져오기
-      const dateData = monthData.find(data => data.date === dateInputValue);
-      if (dateData) {
-        // 해당 날짜 데이터 length를 사용하여 ID 생성
-        dataID = dateData.income_expense[dateData.income_expense.length];
-        // dateData에 새로운 지출/수입 추가
-      }
-    }
-
-    // 새로운 데이터 객체 생성
-    const newData = {
-      date: dateInputValue,
-      income_expense: [
-        {
-          id: dataID,
-          type: isIncome ? 'income' : 'expense',
-          money: moneyInputValue,
-          description: descriptionInputValue,
-          payment: paymentSelectValue,
-          class: classSelectValue,
-        },
-      ],
+    const newIncomeExpense = {
+      id: 0,
+      type: isIncome ? 'income' : 'expense',
+      money: isIncome ? Number(moneyInputValue) : -Number(moneyInputValue),
+      description: descriptionInputValue,
+      payment: paymentSelectValue,
+      class_name: classSelectValue,
     };
+
+    store.updateIncomeExpenseData(dateInputValue, newIncomeExpense);
+  };
+
+  const formInit = (
+    dateInput,
+    moneyInput,
+    descriptionInput,
+    paymentSelect,
+    classSelect
+  ) => {
+    dateInput.value = formattedDate;
+    moneyInput.value = '';
+    descriptionInput.value = '';
+    paymentSelect.value = '';
+    classSelect.value = '';
   };
 
   return form;

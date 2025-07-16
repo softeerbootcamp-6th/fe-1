@@ -1,10 +1,5 @@
-// 1. Header 기본 구조 만들기 (innerHTML) v
-// 2. css 적용 v
-// 3. 연월 이동 기능 추가 
-// 4. 탭 기능 추가
-// 5. 홈으로 돌아오기 기능 추가
 
-import dateState from "../states/DateState.js";
+import {getYear, getMonth, setYear, setMonth, subscribe} from "../store/dateStore.js";
 
 const monthNames = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -13,8 +8,8 @@ const monthNames = [
 
 export function renderHeader() {
     const header = document.createElement('header');
-    const year = dateState.getYear();
-    const month = dateState.getMonth();
+    const year = getYear();
+    const month = getMonth();
     const monthText = monthNames[month - 1];
     
     header.innerHTML = `
@@ -58,7 +53,7 @@ export function renderHeader() {
     const monthTextSpan = header.querySelector('.month-text');
 
     // 상태 변경 시 UI 업데이트
-    dateState.subscribe(({ year, month }) => {
+    subscribe(({ year, month }) => {
         if (yearSpan) yearSpan.textContent = year;
         if (monthSpan) monthSpan.textContent = month;
         if (monthTextSpan) monthTextSpan.textContent = monthNames[month - 1];
@@ -73,20 +68,20 @@ export function renderHeader() {
     });
 
     const nextDate = () => {
-        if (dateState.getMonth() === 12) {
-            dateState.setYear(dateState.getYear() + 1);
-            dateState.setMonth(1);
+        if (getMonth() === 12) {
+            setYear(getYear() + 1);
+            setMonth(1);
         } else {
-            dateState.setMonth(dateState.getMonth() + 1);
+            setMonth(getMonth() + 1);
         }
     }
 
     const preDate = () => {
-        if (dateState.getMonth() === 1) {
-            dateState.setYear(dateState.getYear() - 1);
-            dateState.setMonth(12);
+        if (getMonth() === 1) {
+            setYear(getYear() - 1);
+            setMonth(12);
         } else {
-            dateState.setMonth(dateState.getMonth() - 1);
+            setMonth(getMonth() - 1);
         }
     }
 
