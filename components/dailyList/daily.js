@@ -14,7 +14,7 @@ const COLOR = {
 };
 
 export default function createDaily(dailyInfo) {
-    const { category, description, payment, amount } = dailyInfo;
+    const { category, description, payment, amount, id } = dailyInfo;
 
     const dailyInnerHtml = `
             <div class="category-info lt-14" style="background-color :${
@@ -27,12 +27,17 @@ export default function createDaily(dailyInfo) {
             <div class="amount-info ${
                 amount > 0 ? 'text-blue' : 'text-red'
             } lt-14">${formatAmount(amount)}원</div>
+            <button class="daily-delete-btn sb-12 hidden"> 
+                <img />
+                <span>삭제가</span> 
+            </button>
         `;
 
     const $dailyInfo = createElement(
         'li',
         {
             class: 'daily-line',
+            id: id,
         },
         dailyInnerHtml,
     );
