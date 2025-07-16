@@ -107,3 +107,11 @@
   justify-content: end;
   margin-right: 1rem;
 }
+
+.money-income {
+  color: var(--brand-text-income);
+}
+
+.money-expense {
+  color: var(--brand-text-expense);
+}

@@ -97,31 +97,35 @@ export function renderListItem(listContainer) {
     용돈: 'tag-allowance',
   };
 
-  const getListItemHTML = ({ money, description, payment, tag }) => {
+  const moneyColorMap = {
+    income: 'money-income',
+    expense: 'money-expense',
+  };
+
+  const getListItemHTML = ({ type, money, description, payment, tag }) => {
     const li = document.createElement('li');
     li.className = 'list-item';
 
-    const tagDiv = document.createElement('div');
-    //tagDiv.className = 'tag light14';
-    tagDiv.classList.add('tag', 'light14', tagColorMap[tag]);
-    tagDiv.textContent = tag;
+    const tagSpan = document.createElement('span');
+    tagSpan.classList.add('tag', 'light14', tagColorMap[tag]);
+    tagSpan.textContent = tag;
 
-    const descriptionDiv = document.createElement('div');
-    descriptionDiv.className = 'description light14';
-    descriptionDiv.textContent = description;
+    const descriptionSpan = document.createElement('span');
+    descriptionSpan.className = 'description light14';
+    descriptionSpan.textContent = description;
 
-    const paymentDiv = document.createElement('div');
-    paymentDiv.className = 'payment light14';
-    paymentDiv.textContent = payment;
+    const paymentSpan = document.createElement('span');
+    paymentSpan.className = 'payment light14';
+    paymentSpan.textContent = payment;
 
-    const moneyDiv = document.createElement('div');
-    moneyDiv.className = 'money light14';
-    moneyDiv.textContent = `${money}원`;
+    const moneySpan = document.createElement('span');
+    moneySpan.classList.add('money', 'light14', moneyColorMap[type]);
+    moneySpan.textContent = `${money}원`;
 
-    li.appendChild(tagDiv);
-    li.appendChild(descriptionDiv);
-    li.appendChild(paymentDiv);
-    li.appendChild(moneyDiv);
+    li.appendChild(tagSpan);
+    li.appendChild(descriptionSpan);
+    li.appendChild(paymentSpan);
+    li.appendChild(moneySpan);
 
     return li;
   };

@@ -33,6 +33,8 @@
   --brand-surface-default: var(--grayscale-50);
   --brand-text-strong: var(--pastel-seagull);
   --brand-text-expressive: var(--pastel-chestnut);
+  --brand-text-income: var(--pastel-seagull);
+  --brand-text-expense: var(--pastel-chestnut);
 
   --danger-surface-default: var(--pastel-amaranth);
   --danger-text-default: var(--pastel-amaranth);
