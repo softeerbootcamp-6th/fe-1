@@ -23,6 +23,7 @@ export const renderRecords = (
     //"YYYY-MM-DD" 에서 YYYY와 MM 추출 후 헤더의 날짜와 비교해서 같은 값만 호출
     let year = date.split("-")[0];
     let month = date.split("-")[1];
+    let dateId = record.id;
     if (Number(currentYear) === Number(year) && Number(currentMonth) === Number(month)) {
       const filteredItems = record.items.filter((item) => {
         if (item.amount < 0 && filter.outcome) return true;
@@ -30,7 +31,7 @@ export const renderRecords = (
         return false;
       });
       if (filteredItems.length > 0) {
-        renderRecordByDate({ date, items: filteredItems });
+        renderRecordByDate({ dateId, date, items: filteredItems });
       }
     }
   });
@@ -78,10 +79,9 @@ export const renderRecordHeader = (currentYear, currentMonth, records) => {
 };
 
 // 날짜와 데이터를 받아와서 섹션을 렌더링
-export const renderRecordByDate = ({ date, items }) => {
+export const renderRecordByDate = ({ dateId, date, items }) => {
   const formattedDate = getFormattedDate(date);
   const recordsHTML = generateRecordHTML(items);
-
   // 해당 날짜의 총 지출/수입을 구하기 위한 코드
   const { income, outcome } = getTotalAmount(items);
   let incomeContent = "";
@@ -91,7 +91,7 @@ export const renderRecordByDate = ({ date, items }) => {
 
   const recordContainerEl = elements.recordContainerEl();
   recordContainerEl.innerHTML += `
-    <div class="record-container">
+    <div class="record-container" date-id="${dateId}">
       <div class="record-header">
         <div class="record-date font-serif-14">${formattedDate}</div>
         <div class="record-amount font-serif-14">${incomeContent}  ${outcomeContent}</div>
@@ -104,6 +104,7 @@ export const renderRecordByDate = ({ date, items }) => {
 export const generateRecordHTML = (items) => {
   let itemsHTML = "";
   let sign = "minus"; // or "plus", 금액의 지출/수입 여부
+
   items.forEach((item) => {
     if (item.amount < 0) {
       sign = "minus";
@@ -111,14 +112,19 @@ export const generateRecordHTML = (items) => {
       sign = "plus";
     }
     itemsHTML += `
-      <div class="record-item">
+      <div class="record-item" item-id="${item.id}">
         <div class="category font-light-12 ${item.category.replace(/\s+/g, "")}">${
       item.category
     }</div>
         <div class="description font-light-14">${item.description}</div>
         <div class="payment font-light-14">${item.payment}</div>
         <div class="amount font-light-14 ${sign}">${formatWithComma(item.amount)}</div>
-        
+        <div class="delete font-semibold-12">
+          <div class="delete-button-wrapper">
+          <img src="../assets/icons/closed.svg" class="delete-icon" alt="삭제" />
+        </div>
+      삭제
+      </div>
       </div>`;
   });
   return itemsHTML;
@@ -167,21 +173,12 @@ export const addRecord = ({ recordId, date, item }) => {
     foundRecord.items.push(item);
   } else {
     // 없는 날짜라면 record에 날짜 포함한 새 객체 생성
-    store.addRecord({
+    store.addRecordToStore({
       id: recordId,
       date,
       items: [item],
     });
   }
-
-  // 이후 다시 렌더링
-  const headerEl = elements.headerEl();
-  const yearEl = headerEl.querySelector(".year");
-  const monthEl = headerEl.querySelector(".month");
-  renderRecords(yearEl.textContent, monthEl.textContent, store.getRecords(), {
-    income: true,
-    outcome: true,
-  });
 };
 
 // 전체 내역 수입 지출 필터링
@@ -239,5 +236,18 @@ export function initVisibleButton() {
 
   outcomeButtonEl.addEventListener("click", (e) => {
     toggleRecordVisibility("outcome");
+  });
+}
+
+export function initDeleteEvent() {
+  const recordContainerEl = elements.recordContainerEl();
+
+  recordContainerEl.addEventListener("click", (e) => {
+    const deleteBtn = e.target.closest(".delete");
+    if (!deleteBtn) return;
+    const dateId = e.target.closest(".record-container").getAttribute("date-id");
+    const itemId = e.target.closest(".record-item").getAttribute("item-id");
+
+    store.deleteRecordFromStore(dateId, itemId);
   });
 }

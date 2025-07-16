@@ -25,8 +25,24 @@ export const store = {
     this.records.push(record);
     this.notify();
   },
-  deleteRecordToStore(itemId) {
-    // todo: id에 해당하는 레코드 지워서 반영
+  deleteRecordFromStore(dateId, itemId) {
+    this.records = this.records.reduce((acc, record) => {
+      // 삭제하려는 레코드의 날짜의 items 배열에 접근
+      if (record.id.toString() === dateId.toString()) {
+        const filteredItems = record.items.filter(
+          (item) => item.id.toString() !== itemId.toString()
+        );
+
+        // 삭제 결과 해당 날짜의 item이 남아있다면 남은 items를 반환
+        if (filteredItems.length > 0) {
+          acc.push({ ...record, items: filteredItems });
+        }
+        // item 배열이 없다면 해당 날짜의 객체는 사라짐
+      } else {
+        acc.push(record); // 삭제 대상 날짜가 아니므로 그대로 유지
+      }
+      return acc;
+    }, []);
 
     this.notify();
   },
