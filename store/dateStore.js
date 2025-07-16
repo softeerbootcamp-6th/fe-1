@@ -32,7 +32,10 @@ class DateStore {
 
   // listener들에게 state 변경을 알려주기
   notify() {
-    this.listeners.forEach((listener) => listener({ year, month }));
+    const currentDate = [this.year, this.month];
+    this.listeners.forEach((listener) => {
+      listener(currentDate);
+    });
   }
 }
 

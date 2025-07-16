@@ -62,35 +62,39 @@ export function renderHeader() {
   const monthTextSpan = header.querySelector(".month-text");
 
   // 상태 변경 시 UI 업데이트
-  dateStore.subscribe(({ year, month }) => {
-    if (yearSpan) yearSpan.textContent = year;
-    if (monthSpan) monthSpan.textContent = month;
-    if (monthTextSpan) monthTextSpan.textContent = monthNames[month - 1];
+  dateStore.subscribe(([newYear, newMonth]) => {
+    if (yearSpan) yearSpan.textContent = newYear;
+    if (monthSpan) monthSpan.textContent = newMonth;
+    if (monthTextSpan) monthTextSpan.textContent = monthNames[newMonth - 1];
   });
 
   leftArrow.addEventListener("click", () => {
+    const year = dateStore.getYear();
+    const month = dateStore.getMonth();
     preDate({ year, month });
   });
 
   rightArrow.addEventListener("click", () => {
+    const year = dateStore.getYear();
+    const month = dateStore.getMonth();
     nextDate({ year, month });
   });
 
   const nextDate = ({ year, month }) => {
     if (month === 12) {
       dateStore.setYear(year + 1);
-      setMonth(1);
+      dateStore.setMonth(1);
     } else {
-      setMonth(month + 1);
+      dateStore.setMonth(month + 1);
     }
   };
 
   const preDate = ({ year, month }) => {
     if (month === 1) {
-      setYear(year - 1);
-      setMonth(12);
+      dateStore.setYear(year - 1);
+      dateStore.setMonth(12);
     } else {
-      setMonth(month - 1);
+      dateStore.setMonth(month - 1);
     }
   };
 
