@@ -4,15 +4,22 @@ import {
   updateTransaction,
   deleteTransaction,
 } from "../api/transaction.js";
-import { updateHistoryList } from "../pages/main/main-ui-utils.js";
+import {
+  renderHistoryList,
+  updateHistoryList,
+  cancelEditMode,
+} from "../pages/main/main-ui-utils.js";
+import { updateHeaderDate, updateInputDate } from "./date-utils.js";
+import { initCalendar } from "../pages/calendar/calendar.js";
+import { initStatistic } from "../pages/statistic/statistic.js";
 
 // 현재 선택된 월의 내역만 필터링하는 함수
-export function getFilteredData(initialData, currentYear, currentMonth) {
+export function getFilteredData(initialData) {
   return initialData.filter((item) => {
     const itemDate = new Date(item.date);
     return (
-      itemDate.getFullYear() === currentYear &&
-      itemDate.getMonth() === currentMonth
+      itemDate.getFullYear() === window.currentYear &&
+      itemDate.getMonth() === window.currentMonth
     );
   });
 }
@@ -37,7 +44,7 @@ export async function deleteItem(itemId) {
   if (await deleteItemFromData(itemId)) {
     // 수동으로 UI 업데이트
     await updateHistoryList();
-    window.cancelEditMode();
+    cancelEditMode();
   }
 }
 
@@ -101,42 +108,26 @@ export async function updateTransactionItem(itemId, updatedData) {
 }
 
 // 월 변경 처리 함수
-export async function onMonthChanged(year, month) {
-  window.currentYear = year;
-  window.currentMonth = month;
-
+export async function onMonthChanged() {
   // 헤더와 입력 폼 동기화
-  window.updateHeaderDate(year, month);
-  window.updateInputDate(year, month, window.dateInput);
+  updateHeaderDate();
+  updateInputDate();
 
   // 최신 데이터로 렌더링
   try {
     const transactions = await getTransactions();
-    window.renderHistoryList(
-      transactions,
-      year,
-      month,
-      window.historyList,
-      window.enterEditMode,
-      window.deleteItem
-    );
+    renderHistoryList(transactions);
   } catch (error) {
     console.error("거래 내역 로드 실패:", error);
   }
 
   // 캘린더 업데이트
-  if (window.initCalendar) {
-    window.initCalendar();
-  }
+  initCalendar();
 
   // 통계 업데이트
-  if (window.updateStatistics) {
-    window.updateStatistics(year, month);
-  }
+  updateStatistics(window.currentYear, window.currentMonth);
 
-  if (window.initStatistic) {
-    window.initStatistic();
-  }
+  initStatistic();
 }
 
 // 카테고리별 월별 지출금액 반환 함수(Chart 에서 data로 사용할 예정)
