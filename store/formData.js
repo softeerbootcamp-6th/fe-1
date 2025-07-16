@@ -5,9 +5,14 @@ const formData = {
     payment: null,
     category: null,
     createDate: null,
+    sign: false,
     isValid: false,
 
     isValidListeners: new Set(),
+
+    setSign(value) {
+        this.sign = value;
+    },
 
     setDate(dateValue) {
         this.date = dateValue;

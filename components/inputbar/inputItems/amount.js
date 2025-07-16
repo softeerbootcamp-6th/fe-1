@@ -7,8 +7,9 @@ export default function createAmountInput() {
                 금액
             </label>
             <div class="value-box">
-                <button>
+                <button id="toggle-sign">
                     <img
+                        id="sign"
                         src="/public/minus.svg"
                         aria-label="마이너스 바 "
                         width="16px"
@@ -37,5 +38,16 @@ export default function createAmountInput() {
         formData.setAmount(inputValue);
     });
 
+    const $toggleBtn = $valueInputItem.querySelector('#toggle-sign');
+    $toggleBtn.addEventListener('click', (e) => {
+        const nowSrc = e.target.getAttribute('src');
+        if (nowSrc.includes('minus')) {
+            e.target.setAttribute('src', '/public/plus.svg');
+        } else {
+            e.target.setAttribute('src', '/public/minus.svg');
+        }
+
+        formData.setSign(!formData.sign);
+    });
     return $valueInputItem;
 }

@@ -29,3 +29,8 @@ export function formatDateToKorean(dateStr) {
 
     return `${month}월 ${day}일 ${weekday}`;
 }
+
+export function formatAmount(value) {
+    const textValue = String(value);
+    return textValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

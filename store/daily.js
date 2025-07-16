@@ -1,9 +1,9 @@
-import createDaily from '../components/dailyList/daily.js';
-import createDaliyList from '../components/dailyList/dailyList.js';
-import { formatDateToKorean } from '../utils.js';
-
 export const dailyData = {
     data: [],
+    filteredIncome: false,
+    filteredExpense: false,
+    totalIncome: 0,
+    totalExpense: 0,
     async init() {
         await this.fetch();
     },
@@ -16,54 +16,45 @@ export const dailyData = {
     },
 
     uploadDailyData(data) {
-        const { amount, category, date, description, payment } = data;
-        const targetDateObj = this.data.find((item) => item.date === date);
+        const { amount, category, date, description, payment, sign } = data;
+        let numberAmount = Number(amount.replace(/,/g, ''));
+        if (!sign) numberAmount *= -1;
         const newItems = {
             category,
             description,
             payment,
-            amount: Number(amount.replace(/,/g, '')),
+            amount: numberAmount,
             createAt: new Date().toISOString(),
         };
+
+        const targetDateObj = this.data.find((item) => item.date === date);
         if (targetDateObj) {
             targetDateObj.items.push(newItems);
         } else {
-            this.data = [{ date: date, items: [newItems] }, ...this.data];
+            const newGroup = { date, items: [newItems] };
+            const index = this.data.findIndex(
+                (item) => new Date(date) < new Date(item.date),
+            );
+            if (index === -1) {
+                this.data.push(newGroup);
+            } else {
+                this.data.splice(index, 0, newGroup);
+            }
         }
-        updateDailyView(data);
+    },
+
+    getDailyByYearAndMonth(year, month) {
+        return this.data.filter((item) => {
+            const date = new Date(item.date);
+            return date.getMonth() + 1 === month && date.getFullYear() === year;
+        });
+    },
+
+    toggleIncomeFilter() {
+        this.filteredIncome = !this.filteredIncome;
+    },
+
+    toggleExpenseFilter() {
+        this.filteredExpense = !this.filteredExpense;
     },
 };
-
-dailyData.init();
-
-function updateDailyView(data) {
-    const $dailyContainer = document.querySelector('.daily-list-wrapper'); // 여긴 ID 맞게 수정
-
-    const { date } = data;
-    const dateToKorean = formatDateToKorean(date);
-
-    let $dateSection = [...$dailyContainer.children].find(
-        (section) =>
-            section.querySelector('.date-info')?.textContent === dateToKorean,
-    );
-
-    if ($dateSection) {
-        const $newItem = createDaily(data);
-        const $list = $dateSection.querySelector('.daliy-line-wrapper');
-        $list.appendChild($newItem);
-    } else {
-        const listData = {
-            date: data.date,
-            items: [
-                {
-                    amount: data.amount,
-                    category: data.category,
-                    description: data.description,
-                    payment: data.payment,
-                },
-            ],
-        };
-        const $newItemList = createDaliyList(listData);
-        $dailyContainer.appendChild($newItemList);
-    }
-}

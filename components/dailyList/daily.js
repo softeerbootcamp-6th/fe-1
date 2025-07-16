@@ -1,4 +1,5 @@
 import { createElement } from '../../../utils.js';
+import { formatAmount } from '../../utils.js';
 const COLOR = {
     생활: '#A7B9E9',
     '문화/여가': '#BDA6E1',
@@ -16,12 +17,16 @@ export default function createDaily(dailyInfo) {
     const { category, description, payment, amount } = dailyInfo;
 
     const dailyInnerHtml = `
-            <div class="category-info lt-14" style="background-color :${COLOR[category]}" >${category}</div>
+            <div class="category-info lt-14" style="background-color :${
+                COLOR[category]
+            }" >${category}</div>
             <div class="description-info lt-14">
                 ${description}
             </div>
             <div class="payment-info lt-14">${payment}</div>
-            <div class="amount-info lt-14">${amount}</div>
+            <div class="amount-info ${
+                amount > 0 ? 'text-blue' : 'text-red'
+            } lt-14">${formatAmount(amount)}원</div>
         `;
 
     const $dailyInfo = createElement(
