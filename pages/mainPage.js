@@ -25,7 +25,7 @@ export function createMainPage() {
     <div id="input-bar-container"></div>
     <div class="container main-page">
       <div id="monthly-info-container"></div>
-      <div id="transaction-list-container"></div>
+      <div class="transaction-list-container"></div>
     </div>
   `;
 }

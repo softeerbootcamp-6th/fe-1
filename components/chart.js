@@ -1,60 +1,77 @@
 import { formatMoney } from "../utils/format.js";
 import { dateStore, transactionStore } from "../store/index.js";
 import { CATEGORY_COLORS, CATEGORY_NAME } from "../constants/category.js";
+import { getCategoryColor } from "../utils/style.js";
 
-// 카테고리별 실제 색상값 반환
-function getCategoryColor(category) {
-  const root = document.documentElement;
-  const styles = getComputedStyle(root);
-  const cssVar = CATEGORY_COLORS[category];
-  if (!cssVar) return "--colorchip-10";
-
-  const match = cssVar.match(/var\((--[\w-]+)\)/);
-  if (match) {
-    return styles.getPropertyValue(match[1]);
-  }
-
-  return cssVar;
-}
-
-// 카테고리별 지출 합계 구하기
+// 카테고리별 지출 합계 및 퍼센트 구하기
 function getExpenseByCategory(year, month) {
   const transactions = transactionStore.getTransactionsByYearMonth(year, month);
   const expenseByCategory = {};
+  let totalExpense = 0;
 
-  transactions.forEach((t) => {
-    if (t.amount < 0) {
-      const cat = t.category;
-      if (!expenseByCategory[cat]) expenseByCategory[cat] = 0;
-      expenseByCategory[cat] += Math.abs(t.amount);
+  transactions.forEach(({ amount, category }) => {
+    if (amount < 0) {
+      const absAmount = Math.abs(amount);
+      expenseByCategory[category] =
+        (expenseByCategory[category] || 0) + absAmount;
+      totalExpense += absAmount;
     }
   });
 
-  return expenseByCategory;
+  // 카테고리별 { amount, percent } 객체로 변환
+  const expenseByCategoryData = Object.fromEntries(
+    Object.entries(expenseByCategory).map(([cat, amount]) => [
+      cat,
+      {
+        amount,
+        percent: totalExpense > 0 ? (amount / totalExpense) * 100 : 0,
+      },
+    ])
+  );
+
+  return { expenseByCategoryData, totalExpense };
 }
 
-function createLegend(categories, expenseByCategory) {
-  let legendTemplate = '<div class="legend-container">';
-  categories.forEach((cat, i) => {
+function createLegend(categories, expenseByCategory, totalExpense) {
+  const dailyInfoTemplate = `
+  <div class="daily-info serif-14 flex-between">
+    <div>이번 달 지출 금액</div>
+    <div>${formatMoney(totalExpense)}원</div>
+  </div>
+  `;
+  let legendTemplate = '<table class="legend-container tbody-border"><tbody>';
+  categories.forEach((cat) => {
     legendTemplate += `
-      <div class="legend-item category-${CATEGORY_NAME[cat]}">
-        ${cat} : ${formatMoney(expenseByCategory[cat])}원
-      </div>
+      <tr class="flex-between">
+        <td class="td-category light-12 category-${
+          CATEGORY_NAME[cat] || "미분류"
+        }">${cat}</td>
+        <td class="flex-row legend-item">
+            <div class="light-14 legend-percent">${expenseByCategory[
+              cat
+            ].percent.toFixed(1)}%</div>
+            <div class="light-14 legend-amount">${formatMoney(
+              expenseByCategory[cat].amount
+            )}원</div>
+        </td>
+      </tr>
     `;
   });
-  legendTemplate += "</div>";
-  return legendTemplate;
+  legendTemplate += "</tbody></table>";
+  return dailyInfoTemplate + legendTemplate;
 }
 
 // 도넛차트 그리기
 export function renderDonutChart(container) {
   const year = dateStore.getYear();
   const month = dateStore.getMonth();
-  const expenseByCategory = getExpenseByCategory(year, month);
+  const { expenseByCategoryData, totalExpense } = getExpenseByCategory(
+    year,
+    month
+  );
 
-  const categories = Object.keys(expenseByCategory);
-  const values = Object.values(expenseByCategory);
-  const total = values.reduce((a, b) => a + b, 0);
+  const categories = Object.keys(expenseByCategoryData);
+  const values = Object.values(expenseByCategoryData);
 
   // canvas 생성 및 추가
   const canvas = document.createElement("canvas");
@@ -71,8 +88,8 @@ export function renderDonutChart(container) {
 
   let startAngle = -Math.PI / 2;
   categories.forEach((cat) => {
-    const value = expenseByCategory[cat];
-    const angle = (value / total) * Math.PI * 2;
+    const value = expenseByCategoryData[cat].amount;
+    const angle = (value / totalExpense) * Math.PI * 2;
     ctx.beginPath();
     ctx.moveTo(cx, cy);
     ctx.arc(cx, cy, r, startAngle, startAngle + angle);
@@ -90,10 +107,21 @@ export function renderDonutChart(container) {
   ctx.globalCompositeOperation = "source-over";
 
   const legendContainer = container.querySelector("#donut-chart-legend");
-  renderLegend(legendContainer, categories, expenseByCategory);
+  renderLegend(
+    legendContainer,
+    categories,
+    expenseByCategoryData,
+    totalExpense
+  );
 }
 
-export function renderLegend(container, categories, expenseByCategory) {
-  const legend = createLegend(categories, expenseByCategory);
+export function renderLegend(container, categories) {
+  const year = dateStore.getYear();
+  const month = dateStore.getMonth();
+  const { expenseByCategoryData, totalExpense } = getExpenseByCategory(
+    year,
+    month
+  );
+  const legend = createLegend(categories, expenseByCategoryData, totalExpense);
   container.innerHTML = legend;
 }

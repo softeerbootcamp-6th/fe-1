@@ -44,7 +44,7 @@ function handleExternalClick(e) {
   if (
     !e.target.closest(".transaction-row") &&
     !e.target.closest(".input-bar") &&
-    !e.target.closest("#transaction-list-container")
+    !e.target.closest(".transaction-list-container")
   ) {
     selectedRowId = null;
     updateSelectedRowStyle(null);
@@ -155,8 +155,8 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
 }
 
 export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
-  const transactionListContainer = document.getElementById(
-    "transaction-list-container"
+  const transactionListContainer = document.querySelector(
+    ".transaction-list-container"
   );
   if (transactionListContainer) {
     transactionListContainer.innerHTML = createTransactionList(
