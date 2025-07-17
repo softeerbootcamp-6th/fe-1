@@ -1,10 +1,10 @@
 import { renderHeader } from './components/Header.js';
 import { renderIncomeExpenseList } from './components/IncomeExpenseList.js';
 import { renderIncomeExpenseForm } from './components/IncomeExpenseForm.js';
-import { store } from './store/store.js';
+import { incomeExpenseStore } from './store/incomeExpenseStore.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  store.loadIncomeExpenseData().then(() => {
+  incomeExpenseStore.loadIncomeExpenseData().then(() => {
     const app = document.getElementById('app');
     const header = renderHeader();
     const incomeExpenseList = renderIncomeExpenseList();

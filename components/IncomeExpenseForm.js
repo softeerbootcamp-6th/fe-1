@@ -1,4 +1,4 @@
-import { store } from '../store/store.js';
+import { incomeExpenseStore } from '../store/incomeExpenseStore.js';
 import { renderListItem } from './IncomeExpenseList.js';
 
 export function renderIncomeExpenseForm() {
@@ -12,8 +12,16 @@ export function renderIncomeExpenseForm() {
   const maxDescriptionLength = 32;
   let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
-  const incomeClasses = ['용돈', '월급'];
-  const expenseClasses = ['식비', '교통', '문화여가', '기타'];
+  const incomeTags = ['용돈', '월급'];
+  const expenseTags = [
+    '생활',
+    '의료/건강',
+    '쇼핑/뷰티',
+    '교통',
+    '식비',
+    '문화/여가',
+    '미분류',
+  ];
 
   // TODO: select UI 구현 (현재는 단순한 select로 구현)
   const getDateContainerHTML = () => {
@@ -66,13 +74,13 @@ export function renderIncomeExpenseForm() {
     `;
   };
 
-  const getClassContainerHTML = () => {
+  const getTagContainerHTML = () => {
     return `
-        <div class="class-container">
-            <label class="class-label light12">분류</label>
-            <select class="class-select">
+        <div class="tag-container">
+            <label class="tag-label light12">분류</label>
+            <select class="tag-select">
             <option value="" selected disabled hidden>선택하세요</option>
-                ${incomeClasses
+                ${incomeTags
                   .map(option => `<option value="${option}">${option}</option>`)
                   .join('')}
             </select>
@@ -103,7 +111,7 @@ export function renderIncomeExpenseForm() {
     ${getVerticalLineHTML()}
     ${getPaymentContainerHTML()}
     ${getVerticalLineHTML()}
-    ${getClassContainerHTML()}
+    ${getTagContainerHTML()}
     ${addButtonHTML()}
     `;
 
@@ -122,7 +130,7 @@ export function renderIncomeExpenseForm() {
   const paymentSelect = form.querySelector('.payment-select');
 
   // 분류
-  const classSelect = form.querySelector('.class-select');
+  const tagSelect = form.querySelector('.tag-select');
 
   // add 버튼
   const addButton = form.querySelector('.add-button');
@@ -135,7 +143,7 @@ export function renderIncomeExpenseForm() {
       : '../assets/icons/minus.svg';
 
     // 클래스 옵션 업데이트
-    updateClassSelect(incomeClasses, expenseClasses);
+    updateTagSelect(incomeTags, expenseTags);
   });
 
   moneyInput.addEventListener('keyup', ({ target }) => {
@@ -158,7 +166,7 @@ export function renderIncomeExpenseForm() {
   });
 
   // keyup, select 이벤트 발생 시 유효성 검사
-  [dateInput, moneyInput, descriptionInput, paymentSelect, classSelect].forEach(
+  [dateInput, moneyInput, descriptionInput, paymentSelect, tagSelect].forEach(
     input => {
       input.addEventListener('keyup', () => {
         validateForm(
@@ -166,7 +174,7 @@ export function renderIncomeExpenseForm() {
           moneyInput,
           descriptionInput,
           paymentSelect,
-          classSelect
+          tagSelect
         );
       });
       input.addEventListener('change', () => {
@@ -175,7 +183,7 @@ export function renderIncomeExpenseForm() {
           moneyInput,
           descriptionInput,
           paymentSelect,
-          classSelect
+          tagSelect
         );
       });
     }
@@ -186,8 +194,6 @@ export function renderIncomeExpenseForm() {
     const incomeExpenseListContainer = document.querySelector(
       '.income-expense-list-container'
     );
-    console.log(incomeExpenseListContainer);
-    console.log(incomeExpenseListContainer.firstChild);
 
     handleSubmit(
       e,
@@ -195,21 +201,15 @@ export function renderIncomeExpenseForm() {
       moneyInput,
       descriptionInput,
       paymentSelect,
-      classSelect
+      tagSelect
     );
-    formInit(
-      dateInput,
-      moneyInput,
-      descriptionInput,
-      paymentSelect,
-      classSelect
-    );
+    formInit(dateInput, moneyInput, descriptionInput, paymentSelect, tagSelect);
     renderListItem(incomeExpenseListContainer);
   });
 
-  const updateClassSelect = (incomeClasses, expenseClasses) => {
-    classSelect.innerHTML = `<option value="" selected disabled hidden>선택해주세요</option>
-    ${(isIncome ? incomeClasses : expenseClasses)
+  const updateTagSelect = (incomeTags, expenseTags) => {
+    tagSelect.innerHTML = `<option value="" selected disabled hidden>선택해주세요</option>
+    ${(isIncome ? incomeTags : expenseTags)
       .map(option => `<option value="${option}">${option}</option>`)
       .join('')}`;
   };
@@ -220,7 +220,7 @@ export function renderIncomeExpenseForm() {
     moneyInput,
     descriptionInput,
     paymentSelect,
-    classSelect
+    tagSelect
   ) => {
     // 날짜 입력값 확인
     const isDateValid = !!dateInput.value; // 날짜가 선택되었는지 확인(true/false 강제변환)
@@ -231,14 +231,14 @@ export function renderIncomeExpenseForm() {
     // 결제수단 선택 여부 확인
     const isPaymentValid = paymentSelect.value !== '';
     // 분류 선택 여부 확인
-    const isClassValid = classSelect.value !== '';
+    const isTagValid = tagSelect.value !== '';
 
     const isValid =
       isDateValid &&
       isMoneyValid &&
       isDescriptionValid &&
       isPaymentValid &&
-      isClassValid;
+      isTagValid;
 
     activeAddButton(isValid);
   };
@@ -257,7 +257,7 @@ export function renderIncomeExpenseForm() {
     moneyInput,
     descriptionInput,
     paymentSelect,
-    classSelect
+    tagSelect
   ) => {
     e.preventDefault();
 
@@ -265,7 +265,7 @@ export function renderIncomeExpenseForm() {
     const moneyInputValue = moneyInput.value.replace(/[^0-9]/g, ''); // 숫자만 추출
     const descriptionInputValue = descriptionInput.value.trim();
     const paymentSelectValue = paymentSelect.value;
-    const classSelectValue = classSelect.value;
+    const tagSelectValue = tagSelect.value;
 
     const newIncomeExpense = {
       id: 0,
@@ -273,10 +273,10 @@ export function renderIncomeExpenseForm() {
       money: isIncome ? Number(moneyInputValue) : -Number(moneyInputValue),
       description: descriptionInputValue,
       payment: paymentSelectValue,
-      class_name: classSelectValue,
+      tag: tagSelectValue,
     };
 
-    store.updateIncomeExpenseData(dateInputValue, newIncomeExpense);
+    incomeExpenseStore.updateIncomeExpenseData(dateInputValue, newIncomeExpense);
   };
 
   const formInit = (
@@ -284,13 +284,13 @@ export function renderIncomeExpenseForm() {
     moneyInput,
     descriptionInput,
     paymentSelect,
-    classSelect
+    tagSelect
   ) => {
     dateInput.value = formattedDate;
     moneyInput.value = '';
     descriptionInput.value = '';
     paymentSelect.value = '';
-    classSelect.value = '';
+    tagSelect.value = '';
   };
 
   return form;

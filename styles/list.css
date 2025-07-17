@@ -1,4 +1,4 @@
-@import './colors.css';
+@import "./colors.css";
 
 .monthly-info-container {
   display: flex;
@@ -11,32 +11,130 @@
   flex-direction: row;
 }
 
+.daily-container {
+  margin-bottom: 2.5rem;
+}
+
 .daily-info-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+.list-item-container {
+  width: 52.875rem;
+  min-height: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-top: 0.0313rem solid var(--neutral-border-default);
+  border-bottom: 0.0313rem solid var(--neutral-border-default);
 }
 
 .list-item {
   list-style: none;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
   width: 52.875rem;
   height: 3.5rem;
 }
 
-.class_name {
+.tag {
   width: 5.75rem;
   background-color: aqua; /*임시색상*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-life {
+  background-color: var(--colorchip-90);
+}
+
+.tag-health {
+  background-color: var(--colorchip-30);
+}
+
+.tag-shopping {
+  background-color: var(--colorchip-50);
+}
+
+.tag-food {
+  background-color: var(--colorchip-60);
+}
+
+.tag-transport {
+  background-color: var(--colorchip-70);
+}
+
+.tag-culture {
+  background-color: var(--pastel-perfume);
+}
+
+.tag-uncategorized {
+  background-color: var(--pastel-lavenderPink);
+}
+
+.tag-salary {
+  background-color: var(--colorchip-20);
+}
+
+.tag-etc-income {
+  background-color: var(--colorchip-10);
+}
+
+.tag-allowance {
+  background-color: var(--colorchip-40);
 }
 
 .description {
   width: 25rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .payment {
   width: 6.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .money {
-  width: 11.625rem;
+  width: 8.0625rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-right: 1rem;
+}
+
+.money-income {
+  color: var(--brand-text-income);
+}
+
+.money-expense {
+  color: var(--brand-text-expense);
+}
+
+.delete {
+  width: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.delete-icon {
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-text {
+  width: 1.32rem;
+  color: var(--danger-text-default);
 }

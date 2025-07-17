@@ -1,16 +1,16 @@
 // 1. month가 바뀔 때마다 다른 지출 내역 보여주기
-import {getYear, getMonth, subscribe} from '../store/dateStore.js';
-import { store } from '../store/store.js';
+import { dateStore } from "../store/dateStore.js";
+import { incomeExpenseStore } from "../store/incomeExpenseStore.js";
 
 export function renderIncomeExpenseList() {
-  const incomeExpenseListContainer = document.createElement('div');
-  incomeExpenseListContainer.className = 'income-expense-list-container';
+  const incomeExpenseListContainer = document.createElement("div");
+  incomeExpenseListContainer.className = "income-expense-list-container";
 
   // 초기 렌더링
   renderListItem(incomeExpenseListContainer);
 
   // dateState 변경 시 재렌더링
-  subscribe(() => {
+  dateStore.subscribe(() => {
     renderListItem(incomeExpenseListContainer);
   });
 
@@ -18,25 +18,22 @@ export function renderIncomeExpenseList() {
 }
 
 export function renderListItem(listContainer) {
-  // 데이터 로드
-  const incomeExpenseData = store.incomeExpenseData;
-
   // 현재 연월 가져오기
-  const currentYear = getYear();
-  const currentMonth = getMonth();
-
-  // YYYY-MM 형식으로 키 생성
-  const currentKey = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
+  const currentYear = dateStore.getYear();
+  const currentMonth = dateStore.getMonth();
 
   // 키로 현재 연월 데이터 가져오기
-  const currentMonthData = incomeExpenseData[currentKey] || [];
+  const currentMonthData = incomeExpenseStore.getIncomeExpenseData([
+    currentYear,
+    currentMonth,
+  ]);
 
   // TODO: 계산 로직 작성
   const monthlyNum = 0;
   const monthlyIncome = 0;
   const monthlyExpense = 0;
 
-  // 기존 내용 지우기 (DOM 조작 방식)
+  // 기존 내용 지우기
   while (listContainer.firstChild) {
     listContainer.removeChild(listContainer.firstChild);
   }
@@ -58,20 +55,18 @@ export function renderListItem(listContainer) {
           <span>지출${monthlyExpense}</span>
         </div>
       <div>
-    
-    
     `;
   };
 
-  const getDailyInfoHTML = dateString => {
+  const getDailyInfoHTML = (dateString) => {
     const dateObj = new Date(dateString);
     const month = dateObj.getMonth() + 1;
     const date = dateObj.getDate();
-    const dayStringList = ['월', '화', '수', '목', '금', '토', '일'];
+    const dayStringList = ["월", "화", "수", "목", "금", "토", "일"];
     const dayStringIndex = dateObj.getDay();
 
-    const dailyIncome = '';
-    const dailyExpense = '';
+    const dailyIncome = "";
+    const dailyExpense = "";
 
     return `
     <div class="daily-info-container">
@@ -84,38 +79,91 @@ export function renderListItem(listContainer) {
     `;
   };
 
-  const getListItemHTML = ({ money, description, payment, class_name }) => {
-    return `
-      <li class="list-item">
-        <div class="class_name">${class_name}</div>
-        <div class="description">${description}</div>
-        <div class="payment">${payment}</div>
-        <div class="money">${money}원</div>
-      </li>
-      `;
+  const tagColorMap = {
+    생활: "tag-life",
+    "의료/건강": "tag-health",
+    "쇼핑/뷰티": "tag-shopping",
+    식비: "tag-food",
+    교통: "tag-transport",
+    "문화/여가": "tag-culture",
+    미분류: "tag-uncategorized",
+    월급: "tag-salary",
+    "기타 수입": "tag-etc-income",
+    용돈: "tag-allowance",
   };
 
-  const monthlyInfoContainer = document.createElement('div');
-  monthlyInfoContainer.className = 'monthly-info-container';
+  const moneyColorMap = {
+    income: "money-income",
+    expense: "money-expense",
+  };
+
+  const getListItemHTML = ({ type, money, description, payment, tag }) => {
+    const li = document.createElement("li");
+    li.className = "list-item";
+
+    const tagSpan = document.createElement("span");
+    tagSpan.classList.add("tag", "light14", tagColorMap[tag]);
+    tagSpan.textContent = tag;
+
+    const descriptionSpan = document.createElement("span");
+    descriptionSpan.className = "description light14";
+    descriptionSpan.textContent = description;
+
+    const paymentSpan = document.createElement("span");
+    paymentSpan.className = "payment light14";
+    paymentSpan.textContent = payment;
+
+    const moneySpan = document.createElement("span");
+    moneySpan.classList.add("money", "light14", moneyColorMap[type]);
+    moneySpan.textContent = `${money}원`;
+
+    // hover 시 deleteDiv 보여짐
+    const deleteDiv = document.createElement("div");
+    deleteDiv.className = "delete";
+    deleteDiv.style.display = "none";
+    deleteDiv.innerHTML = `
+    <div class="delete-icon"><img src='../assets/icons/delete-icon.svg'/></div>
+    <span class="delete-text semibold12">삭제</span>
+    `;
+
+    li.appendChild(tagSpan);
+    li.appendChild(descriptionSpan);
+    li.appendChild(paymentSpan);
+    li.appendChild(moneySpan);
+    li.appendChild(deleteDiv);
+
+    // hover 이벤트 추가
+    li.addEventListener("mouseenter", () => {
+      deleteDiv.style.display = "block";
+    });
+
+    li.addEventListener("mouseleave", () => {
+      deleteDiv.style.display = "none";
+    });
+
+    return li;
+  };
+
+  const monthlyInfoContainer = document.createElement("div");
+  monthlyInfoContainer.className = "monthly-info-container";
   monthlyInfoContainer.innerHTML = getMonthlyInfoHTML(
     monthlyNum,
     monthlyIncome,
-    monthlyExpense
+    monthlyExpense,
   );
   listContainer.appendChild(monthlyInfoContainer);
 
   // 월데이터 날짜 별로 화면에 뿌리기
-  currentMonthData.forEach(dateData => {
-    console.log(dateData);
-    const dailyContainer = document.createElement('div');
-    dailyContainer.className = 'daily-container';
-    dailyContainer.innerHTML = getDailyInfoHTML(dateData.date);
+  Object.entries(currentMonthData).forEach(([date, dateData]) => {
+    const dailyContainer = document.createElement("div");
+    dailyContainer.className = "daily-container";
+    dailyContainer.innerHTML = getDailyInfoHTML(date);
 
     // 지출 내역 추가
-    dateData.income_expense.forEach(item => {
-      const listItem = document.createElement('div');
-      listItem.className = 'list-item-container';
-      listItem.innerHTML = getListItemHTML(item);
+    const listItem = document.createElement("div");
+    listItem.className = "list-item-container";
+    dateData.forEach((item) => {
+      listItem.appendChild(getListItemHTML(item));
       dailyContainer.appendChild(listItem);
     });
     listContainer.appendChild(dailyContainer);
