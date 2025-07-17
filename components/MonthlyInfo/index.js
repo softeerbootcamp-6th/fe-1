@@ -1,5 +1,6 @@
 import createDailyList from '../DailyInfo/List/index.js';
 import paymentDataStore from '../../store/paymentData.js';
+import dateStore from '../../store/date.js';
 
 const filterState = {
     income: true,
@@ -69,9 +70,11 @@ export default function createMonthlyInfo() {
 
     const renderDailyLists = () => {
         dailyListContainer.innerHTML = '';
+        const year = dateStore.getYear();
+        const month = dateStore.getMonth();
 
         const paymentData = filterPaymentData({
-            data: paymentDataStore.getPaymentData(),
+            data: paymentDataStore.getPaymentData(year, month),
             income: filterState.income,
             expense: filterState.expense,
         });
@@ -88,6 +91,7 @@ export default function createMonthlyInfo() {
     renderDailyLists();
 
     document.addEventListener('paymentDataUpdated', renderDailyLists);
+    document.addEventListener('dateChanged', renderDailyLists);
 
     const incomeCheckbox = monthlyInfo.querySelector('#income-checkbox');
     const expenseCheckbox = monthlyInfo.querySelector('#expense-checkbox');
