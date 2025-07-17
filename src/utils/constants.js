@@ -20,3 +20,18 @@ export const PIE_CHART_DATA = [
   { category: "문화/여가", total: 0, color: "var(--pastel-perfume)" },
   { category: "미분류", total: 0, color: "var(--pastel-lavenderPink)" },
 ];
+
+export const MONTH_NAMES = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
