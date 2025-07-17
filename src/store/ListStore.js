@@ -37,11 +37,7 @@ class ListStore extends Store {
         break;
       }
       case "addListItem": {
-        const newListItem = {
-          ...newItem,
-          uid: crypto.randomUUID(),
-        };
-        this.data.push(newListItem);
+        this.data.push(newItem);
         this.viewData = this.#getViewDataFromData(this.data);
         break;
       }

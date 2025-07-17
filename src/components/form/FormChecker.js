@@ -25,6 +25,7 @@ export const FormChecker = () => {
         listStore.dispatch("addListItem", {
           ...formStore.data,
           date: new Date(formStore.data.date),
+          uid: crypto.randomUUID(),
         });
       } else {
         console.log("no");

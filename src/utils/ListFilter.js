@@ -6,12 +6,7 @@ export const ListFilter = {
           transaction.date.getMonth() + 1 === date.month &&
           transaction.date.getFullYear() === date.year
       )
-      .sort((a, b) => b.date - a.date)
-      .map((item) => ({
-        ...item,
-        //init시 생성, 존재하면 그대로 사용
-        uid: item.uid ? item.uid : crypto.randomUUID(),
-      }));
+      .sort((a, b) => b.date - a.date);
   },
   groupTransactionsByDate: (transactions) => {
     const groupedListByDate = {};
