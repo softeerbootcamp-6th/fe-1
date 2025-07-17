@@ -1,7 +1,7 @@
 import {
   renderCalendar,
   renderCalendarInfo,
-} from "../components/calendar/calendar.js";
+} from "../components/calendar/calendar.view.js";
 
 export function createCalendarPage() {
   return `

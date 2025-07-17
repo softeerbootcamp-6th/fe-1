@@ -11,16 +11,16 @@ const routes = {
 
 export function navigate(url) {
   history.pushState({}, "", url);
-  render();
+  pathStore.setPath(url);
 }
 
 export function render() {
   const path = pathStore.getPath();
   const container = document.getElementById("main-container");
-  const routeFunction = routes[path];
+  const renderPage = routes[path];
 
-  if (routeFunction) {
-    routeFunction();
+  if (renderPage) {
+    renderPage();
   } else {
     container.innerHTML = "<h1>404 Not Found</h1>";
   }
