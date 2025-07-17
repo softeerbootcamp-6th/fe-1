@@ -4,6 +4,31 @@ import { groupItemsByDate } from "../../utils/group.js";
 import { calculateSummary } from "../../utils/summary.js";
 import { formatDate } from "../../utils/date.js";
 
+function createTransactionItemsFilterBar() {
+  return `
+    <div class="transaction-filter-bar font-light-12">
+      <div class="filter-bar-left">
+        <span class="filter-total-label">전체 내역</span>
+        <span class="filter-total-count">13건</span>
+      </div>
+      <div class="filter-bar-right">
+        <label class="filter-checkbox">
+          <input type="checkbox" checked />
+          <span class="check-icon"></span>
+          <span>수입</span>
+          <span class="filter-income-amount">2,010,580</span>
+        </label>
+        <label class="filter-checkbox">
+          <input type="checkbox" />
+          <span class="check-icon"></span>
+          <span>지출</span>
+          <span class="filter-expense-amount">834,640</span>
+        </label>
+      </div>
+    </div>
+  `;
+}
+
 function createTransactionItemInnerHtml(item) {
   const amount = Number(item.amount);
   return `
@@ -72,8 +97,11 @@ function createDaySectionListInnerHtml() {
 }
 
 export function renderTransactionList() {
+  let innerHTML = "";
+  innerHTML += createTransactionItemsFilterBar();
+  innerHTML += createDaySectionListInnerHtml();
   renderComponent({
     id: "transaction-list",
-    innerHTML: createDaySectionListInnerHtml(),
+    innerHTML,
   });
 }

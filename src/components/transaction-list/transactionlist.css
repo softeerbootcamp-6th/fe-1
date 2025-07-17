@@ -128,3 +128,52 @@
   display: flex;
   justify-content: space-between;
 }
+
+.transaction-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.filter-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.filter-checkbox input {
+  display: none;
+}
+
+.check-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("../../assets/icons/uncheckbox.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.filter-checkbox input:checked + .check-icon {
+  background-image: url("../../assets/icons/checkbox.svg");
+}
+
+/* .filter-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+} */
