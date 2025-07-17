@@ -1,4 +1,4 @@
-@import "./colors.css";
+@import './colors.css';
 
 .monthly-info-container {
   display: flex;
@@ -118,7 +118,7 @@
 }
 
 .delete {
-  width: 2.5rem;
+  width: 2.5625rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -135,6 +135,6 @@
 }
 
 .delete-text {
-  width: 1.32rem;
+  width: 1.3125rem;
   color: var(--danger-text-default);
 }
