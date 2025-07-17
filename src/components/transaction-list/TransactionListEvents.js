@@ -2,6 +2,7 @@ import FormState from "../../store/FormState.js";
 import ItemsState from "../../store/ItemsState.js";
 import { addEventListener } from "../../utils/addEvent.js";
 import FilterState from "../../store/FilterState.js";
+import { deleteItem, getItems } from "../../apis/items.js";
 
 export function addTransactionListEvents() {
   addEventListener({
@@ -22,13 +23,20 @@ export function addTransactionListEvents() {
       const itemDiv = e.target.closest(".item");
       if (!itemDiv) return;
 
+      // 삭제 버튼 클릭한 경우
       const deleteBtn = e.target.closest(".delete-btn");
       if (deleteBtn) {
-        const itemId = Number(itemDiv.dataset.id);
-        const updatedItems = ItemsState.getItems().filter(
-          (item) => item.id !== itemId
-        );
-        ItemsState.setItems(updatedItems);
+        const itemId = itemDiv.dataset.id;
+        deleteItem(itemId)
+          .then(() => {
+            const updatedItems = ItemsState.getItems().filter(
+              (item) => item.id !== itemId
+            );
+            ItemsState.setItems(updatedItems);
+          })
+          .catch((error) => {
+            throw error;
+          });
         return;
       }
 
