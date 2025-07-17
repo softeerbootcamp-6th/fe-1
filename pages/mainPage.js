@@ -4,7 +4,10 @@ import {
 } from "../components/monthlyInfo.js";
 import { renderInputBar } from "../components/inputBar.js";
 import { renderTransactionList } from "../components/transactionsList.js";
-import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
+import {
+  getTotalIncomeData,
+  getTotalExpenseData,
+} from "../utils/transaction.js";
 import { transactionStore } from "../store/index.js";
 import { dateStore } from "../store/index.js";
 
@@ -50,13 +53,13 @@ export function renderMainPage() {
   );
   if (monthlyInfoContainer) {
     renderMonthlyInfo(monthlyInfoContainer, isIncomeChecked, isExpenseChecked);
-    const { totalIncomeCount } = totalIncomeData(
+    const { totalIncomeCount } = getTotalIncomeData(
       transactionStore.getTransactionsByYearMonth(
         dateStore.getYear(),
         dateStore.getMonth()
       )
     );
-    const { totalExpenseCount } = totalExpenseData(
+    const { totalExpenseCount } = getTotalExpenseData(
       transactionStore.getTransactionsByYearMonth(
         dateStore.getYear(),
         dateStore.getMonth()

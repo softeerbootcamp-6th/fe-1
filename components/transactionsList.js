@@ -1,4 +1,7 @@
-import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
+import {
+  getTotalIncomeData,
+  getTotalExpenseData,
+} from "../utils/transaction.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
@@ -116,8 +119,8 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
   // 날짜별로 섹션 생성
   const sections = Object.entries(filteredTransactionsByDate).reduce(
     (acc, [date, transactionList]) => {
-      const { totalIncomeAmount } = totalIncomeData(transactionList);
-      const { totalExpenseAmount } = totalExpenseData(transactionList);
+      const { totalIncomeAmount } = getTotalIncomeData(transactionList);
+      const { totalExpenseAmount } = getTotalExpenseData(transactionList);
 
       const header = `
         <div class="flex-between serif-14">

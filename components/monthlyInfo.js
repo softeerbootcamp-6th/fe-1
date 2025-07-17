@@ -1,4 +1,7 @@
-import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
+import {
+  getTotalIncomeData,
+  getTotalExpenseData,
+} from "../utils/transaction.js";
 import { transactionStore } from "../store/index.js";
 import { setFilteringState } from "../pages/mainPage.js";
 import { renderTransactionList } from "./transactionsList.js";
@@ -103,13 +106,13 @@ export function renderMonthlyInfo(
   isIncomeChecked,
   isExpenseChecked
 ) {
-  const { totalIncomeCount, totalIncomeAmount } = totalIncomeData(
+  const { totalIncomeCount, totalIncomeAmount } = getTotalIncomeData(
     transactionStore.getTransactionsByYearMonth(
       dateStore.getYear(),
       dateStore.getMonth()
     )
   );
-  const { totalExpenseCount, totalExpenseAmount } = totalExpenseData(
+  const { totalExpenseCount, totalExpenseAmount } = getTotalExpenseData(
     transactionStore.getTransactionsByYearMonth(
       dateStore.getYear(),
       dateStore.getMonth()

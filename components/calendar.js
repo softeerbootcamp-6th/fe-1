@@ -1,4 +1,7 @@
-import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
+import {
+  getTotalIncomeData,
+  getTotalExpenseData,
+} from "../utils/transaction.js";
 import { formatMoney } from "../utils/format.js";
 import { dateStore, transactionStore } from "../store/index.js";
 
@@ -14,8 +17,8 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 
   const transactions = transactionListByDate[key] || [];
 
-  const { totalIncomeAmount } = totalIncomeData(transactions);
-  const { totalExpenseAmount } = totalExpenseData(transactions);
+  const { totalIncomeAmount } = getTotalIncomeData(transactions);
+  const { totalExpenseAmount } = getTotalExpenseData(transactions);
 
   const createCalendarTotalIncomeAmount =
     totalIncomeAmount > 0
@@ -51,10 +54,10 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 }
 
 function createCalendarMonthlyInfo(year, month) {
-  const { totalIncomeAmount } = totalIncomeData(
+  const { totalIncomeAmount } = getTotalIncomeData(
     transactionStore.getTransactionsByYearMonth(year, month)
   );
-  const { totalExpenseAmount } = totalExpenseData(
+  const { totalExpenseAmount } = getTotalExpenseData(
     transactionStore.getTransactionsByYearMonth(year, month)
   );
   return `
