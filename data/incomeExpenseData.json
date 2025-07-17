@@ -25,6 +25,32 @@
       "tag": "수입"
     }
   ],
+  "2025-08-10": [
+    {
+      "id": 0,
+      "type": "expense",
+      "money": -10600,
+      "description": "하하하",
+      "payment": "현금",
+      "tag": "문화/여가"
+    },
+    {
+      "id": 1,
+      "type": "expense",
+      "money": -500,
+      "description": "점심",
+      "payment": "카드",
+      "tag": "식비"
+    },
+    {
+      "id": 2,
+      "type": "income",
+      "money": 2000,
+      "description": "월급",
+      "payment": "계좌이체",
+      "tag": "수입"
+    }
+  ],
   "2025-07-06": [
     {
       "id": 0,

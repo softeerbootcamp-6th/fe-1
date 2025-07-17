@@ -63,22 +63,31 @@ export function renderListItem(listContainer) {
     `;
   };
 
-  const getDailyInfoHTML = dateString => {
+  const getDailyInfoHTML = ([dateString, dateData]) => {
     const dateObj = new Date(dateString);
     const month = dateObj.getMonth() + 1;
     const date = dateObj.getDate();
     const dayStringList = ['월', '화', '수', '목', '금', '토', '일'];
     const dayStringIndex = dateObj.getDay();
 
-    const dailyIncome = '';
-    const dailyExpense = '';
+    const dailyIncomeData = dateData.filter(data => data.type == 'income');
+    const dailyExpenseData = dateData.filter(data => data.type == 'expense');
+
+    const dailyIncome = dailyIncomeData.reduce(
+      (income, data) => income + data.money,
+      0
+    );
+    const dailyExpense = dailyExpenseData.reduce(
+      (expense, data) => expense - data.money,
+      0
+    );
 
     return `
     <div class="daily-info-container">
       <span>${month}월 ${date}일 ${dayStringList[dayStringIndex]}요일</span>
       <div>
-        <span>수입 ${dailyIncome}</span>
-        <span>지출 ${dailyExpense}</span>
+        <span>수입 ${dailyIncome}원</span>
+        <span>지출 ${dailyExpense}원</span>
       </div>
     </div>
     `;
@@ -162,7 +171,7 @@ export function renderListItem(listContainer) {
   Object.entries(currentMonthData).forEach(([date, dateData]) => {
     const dailyContainer = document.createElement('div');
     dailyContainer.className = 'daily-container';
-    dailyContainer.innerHTML = getDailyInfoHTML(date);
+    dailyContainer.innerHTML = getDailyInfoHTML([date, dateData]);
 
     // 지출 내역 추가
     const listItem = document.createElement('div');
