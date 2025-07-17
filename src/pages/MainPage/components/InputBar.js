@@ -3,7 +3,7 @@ import { formatAmount } from '../../../utils/format.js';
 import incomeExpenseStore from '../../../store/incomeExpenseStore.js';
 import MainPage from '../MainPage.js';
 
-const pluscCategoryList = [
+const plusCategoryList = [
     '월급', '용돈', '기타 수입'
 ];
 const minusCategoryList = [
@@ -17,18 +17,14 @@ function InputBar() {
     let isEditing = false;
     let editingData = null; // 수정 중인 데이터 저장
 
+     let categoryDropDownInstance = null;
     const updateCategoryOptions = () => {
         const { categorySelect } = getInputElements();
         if (categorySelect) {
-            const categoryList = isPlus ? pluscCategoryList : minusCategoryList;
-            // categorySelect.innerHTML = `
-            //     <option value="" disabled selected>선택하세요.</option>
-            //     ${categoryList.map(category =>
-            //     `<option value="${category}">${category}</option>`
-            // ).join('')}
-            // `;
+          const categoryList = isPlus ? plusCategoryList : minusCategoryList;
 
-            categorySelect.value = ''; // 선택된 값 초기화
+          // categoryList에 따라 옵션 업데이트
+          categoryDropDownInstance.updateOptions(categoryList);
         }
     };
 
@@ -65,6 +61,14 @@ function InputBar() {
 
     const validateInputs = () => {
         const { dateInput, amountInput, contentInput, paymentSelect, categorySelect, checkButton } = getInputElements();
+
+        console.log('Validating inputs:', {
+            date: dateInput.value,
+            amount: amountInput.value,
+            content: contentInput.value,
+            payment: paymentSelect.value,
+            category: categorySelect.value
+            });
 
         const isValid = dateInput.value.trim() !== '' &&
             !isNaN(parseFloat(amountInput.value)) &&
@@ -143,17 +147,24 @@ function InputBar() {
     };
 
     const setFields = (data) => {
-        // plusminus 버튼 상태 업데이트
+        // plus/minus 버튼 상태 업데이트
         isPlus = data && data.amount >= 0;
         updatePlusMinusButton();
 
+        console.log('Setting fields with data:', data);
         const { dateInput, amountInput, contentInput, paymentSelect, categorySelect } = getInputElements();
         if (data) {
             dateInput.value = data.date;
             amountInput.value = formatAmount(Math.abs(data.amount));
             contentInput.value = data.description;
             paymentSelect.value = data.method;
+            const paymentPlaceholder = paymentSelect.querySelector('.selected-value');
+            paymentPlaceholder.textContent = data.method;
+            paymentPlaceholder.classList.remove("selected-value-placeholder");
             categorySelect.value = data.category;
+            const categoryPlaceholder = categorySelect.querySelector('.selected-value');
+            categoryPlaceholder.textContent = data.category;
+            categoryPlaceholder.classList.remove("selected-value-placeholder");
             isEditing = true;
             editingData = data;
         }
@@ -166,10 +177,21 @@ function InputBar() {
         amountInput.value = '';
         contentInput.value = '';
         paymentSelect.value = '';
+        const paymentPlaceholder=paymentSelect.querySelector('.selected-value');
+        paymentPlaceholder.textContent = "선택하세요";
+        paymentPlaceholder.classList.add("selected-value-placeholder");
+        
         categorySelect.value = '';
+        const categoryPlaceholder=categorySelect.querySelector('.selected-value');
+        categoryPlaceholder.textContent = "선택하세요";
+        categoryPlaceholder.classList.add("selected-value-placeholder");
         isEditing = false;
         editingData = null;
     };
+
+
+   
+
 
     return {
         element: `
@@ -203,16 +225,22 @@ function InputBar() {
                     ${DropDown({
             options: paymentOptions,
             id: 'payment-field',
-            editable: true
+            editable: true,
+            onChange: (value) => {
+                validateInputs();
+            }
         }).element}
                 </div>
                 <div class="border-line"></div>
                 <div class="flex-column">
                     <label>분류</label>
                     ${DropDown({
-            options: isPlus ? pluscCategoryList : minusCategoryList,
+            options: isPlus ? plusCategoryList : minusCategoryList,
             id: 'category-select',
-            editable: false
+            editable: false,
+            onChange: (value) => {
+                validateInputs();
+            }
         }).element}
                 </div>
                 <button class="icon-button" id="submit-btn">
@@ -236,32 +264,13 @@ function InputBar() {
             }
 
             // 초기 분류 옵션 설정 (기본값: minus/지출)
-            updateCategoryOptions();
+            // updateCategoryOptions();
 
             // 입력값 변경 이벤트 등록
             const inputs = document.querySelectorAll('.input-field input, .amount-field, .content-field');
             inputs.forEach(input => {
                 input.addEventListener('input', validateInputs);
             });
-
-            // 드롭다운 값 변경 이벤트 등록
-            const paymentSelect = document.getElementById('payment-field');
-            if (paymentSelect) {
-                paymentSelect.addEventListener('change', () => {
-                    console.log('Payment method changed:', paymentSelect.value);
-                    validateInputs();
-                });
-            }
-            // 드롭다운 값 변경 이벤트 등록
-            const categorySelect = document.getElementById('category-select');
-            if (categorySelect) {
-                categorySelect.addEventListener('change', () => {
-                    console.log('Category changed:', categorySelect.value);
-                    validateInputs();
-                });
-            }
-
-
 
             // 입력 필드 초기화
             resetFields();
@@ -284,18 +293,35 @@ function InputBar() {
                 });
             }
 
+            categoryDropDownInstance = DropDown({
+              options: isPlus ? plusCategoryList : minusCategoryList,
+              id: "category-select",
+              editable: false,
+              onChange: (value) => {
+                validateInputs();
+              },
+            });
+            categoryDropDownInstance.init();
+
+
             // DropDown 초기화
             DropDown({
                 options: paymentOptions,
                 id: 'payment-field',
-                editable: true
+                editable: true,
+                onChange: (value) => {
+                    validateInputs();
+                }
             }).init();
             // 카테고리 선택 드롭다운 초기화
-            DropDown({
-                options: isPlus ? pluscCategoryList : minusCategoryList,
-                id: 'category-select',
-                editable: false
-            }).init();
+            // DropDown({
+            //     options: isPlus ? plusCategoryList : minusCategoryList,
+            //     id: 'category-select',
+            //     editable: false,
+            //     onChange: (value) => {
+            //         validateInputs();
+            //     }
+            // }).init();
 
         },
         setFields,
