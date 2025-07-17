@@ -1,6 +1,7 @@
 import createDailyList from '../DailyInfo/List/index.js';
 import paymentDataStore from '../../store/paymentData.js';
 import dateStore from '../../store/date.js';
+import { formatNumberWithCommas } from '../../lib/utils.js';
 
 const filterState = {
     income: true,
@@ -43,6 +44,7 @@ export default function createMonthlyInfo() {
                             />
                         </button>
                         <span class="light-12"> 수입 </span>
+                        <span class="light-12 total-income">0원</span>
                     </div>
                     <div class="checkbox-button-container">
                         <button class="checkbox-button" id="expense-checkbox">
@@ -54,6 +56,7 @@ export default function createMonthlyInfo() {
                             />
                         </button>
                         <span class="light-12"> 지출 </span>
+                        <span class="light-12 total-expense">0원</span>
                     </div>
                 </div>
             </div>
@@ -86,6 +89,12 @@ export default function createMonthlyInfo() {
         });
 
         itemCounterTextElement.textContent = `${paymentData.length}건`;
+
+        const { totalIncome, totalExpense } = getTotalAmount(paymentData);
+        monthlyInfo.querySelector('.total-income').textContent =
+            formatNumberWithCommas(totalIncome);
+        monthlyInfo.querySelector('.total-expense').textContent =
+            formatNumberWithCommas(totalExpense);
     };
 
     renderDailyLists();
@@ -111,6 +120,24 @@ export default function createMonthlyInfo() {
     });
 
     return monthlyInfo;
+}
+
+function getTotalAmount(paymentData) {
+    const totalIncome = paymentData.reduce((acc, item) => {
+        if (item.amount > 0) {
+            return acc + Math.abs(item.amount);
+        }
+        return acc;
+    }, 0);
+
+    const totalExpense = paymentData.reduce((acc, item) => {
+        if (item.amount < 0) {
+            return acc + Math.abs(item.amount);
+        }
+        return acc;
+    }, 0);
+
+    return { totalIncome, totalExpense };
 }
 
 function groupByDate(data) {
