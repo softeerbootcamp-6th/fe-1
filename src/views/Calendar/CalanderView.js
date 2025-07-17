@@ -1,6 +1,6 @@
 import monthState from "../../stores/subjects/MonthState.js";
 
-export class CalandarView {
+export class CalendarView {
   constructor() {
     this.$calendarContainer = document.querySelector(".calendar-container");
     this.$calendarFooter = document.querySelector(".calendar-footer");

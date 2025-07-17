@@ -1,6 +1,6 @@
 import Observer from "../../utils/observers/Observer.js";
 
-export class CalandarObserver extends Observer {
+export class CalendarObserver extends Observer {
   constructor(view) {
     super();
     this.view = view;

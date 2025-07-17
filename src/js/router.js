@@ -191,8 +191,8 @@ router.addRoute("/", {
 });
 
 router.addRoute("/calendar", {
-  template: "/src/views/calandar.html",
-  module: "/src/js/calandar.js",
+  template: "/src/views/calendar.html",
+  module: "/src/js/calendar.js",
   title: "Wise Wallet - 캘린더",
 });
 
