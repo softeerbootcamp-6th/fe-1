@@ -14,9 +14,10 @@ function createDetailListItem({
     const categoryLabel = categoryConfig[category].text || '미분류';
     const categoryColor = categoryConfig[category].color;
     const isIncome = amount > 0 ? 'income' : 'expense';
-    const paymentMethodLabel = formStore.paymentMethodOptions.find(
-        (option) => option.value === paymentMethod
-    ).label;
+    const paymentMethodLabel =
+        formStore.paymentMethodOptions.find(
+            (option) => option.value === paymentMethod
+        )?.label || '미분류';
 
     const itemElement = document.createElement('li');
     itemElement.className = 'daily-info-detail-list-item';
@@ -51,7 +52,7 @@ function createDetailListItem({
                 · 내용: ${description}
             </span>
             <span class="light-12">
-                · 결제 수단: ${paymentMethod}
+                · 결제 수단: ${paymentMethodLabel}
             </span>
             <span class="light-12">
                 · 금액: ${formatNumberWithCommas(amount)}원
