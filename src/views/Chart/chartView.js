@@ -1,5 +1,8 @@
-import CategoryTag from "../../components/CategoryTag/CategoryTag.js";
+import { monthState } from "../../stores/subjects/index.js";
 import { PIE_CHART_DATA } from "../../utils/constants.js";
+import CategoryTag from "../../components/CategoryTag/CategoryTag.js";
+import DailyHistory from "../../components/DailyHistory/DailyHistory.js";
+
 class ChartView {
   constructor() {
     this.$pieChart = document.querySelector(".pie-chart");
@@ -31,7 +34,9 @@ class ChartView {
                 ${sortedList
                   .map(
                     (item) => `
-                    <li class="pie-chart__item">
+                    <li class="pie-chart__item" data-category="${
+                      item.category
+                    }">
                         ${CategoryTag({ label: item.category }).outerHTML}
                         <div class="pie-chart__item-value font-light-14">
                             <span>
@@ -71,7 +76,21 @@ class ChartView {
   }
 
   renderDetail(data) {
-    const { groupedByCategory } = data;
+    const { year, month } = monthState.getMonthInfo();
+    const { sortedByDate: transactions } = data;
+
+    const transactionsListContainer = document.createElement("div");
+    transactionsListContainer.className = "transactions__list";
+    transactions.forEach((transaction) => {
+      const dailyHistory = DailyHistory({
+        date: `${year}-${month}-${transaction.date}`,
+        items: transaction.transactions,
+      });
+      transactionsListContainer.appendChild(dailyHistory);
+    });
+
+    this.$transactions.innerHTML = "";
+    this.$transactions.appendChild(transactionsListContainer);
   }
 }
 

@@ -21,8 +21,11 @@ class TransactionState extends Subject {
     const monthTransactions = await getTransactionByMonth(month);
     this.transactions = monthTransactions;
     this.notify({
-      transactions: monthTransactions,
-      filterState: this.filterState,
+      subject: "transactions",
+      data: {
+        transactions: monthTransactions,
+        filterState: this.filterState,
+      },
     });
   }
 
@@ -82,8 +85,11 @@ class TransactionState extends Subject {
   setFilterState(state) {
     this.filterState = state;
     this.notify({
-      transactions: this.transactions,
-      filterState: this.filterState,
+      subject: "transactions",
+      data: {
+        transactions: this.transactions,
+        filterState: this.filterState,
+      },
     });
   }
 }

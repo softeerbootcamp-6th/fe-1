@@ -32,8 +32,8 @@ class TransactionsObserver extends Observer {
     this.view = view;
   }
 
-  update(state) {
-    const { transactions, filterState } = state;
+  update({ subject, data }) {
+    const { transactions, filterState } = data;
     const totalIncome = sumAmount(transactions, "income");
     const totalExpense = sumAmount(transactions, "expense");
     const sortedDailyData = getSortedDailyData(transactions, filterState);
