@@ -1,14 +1,14 @@
 import { monthState } from "../../stores/subjects/index.js";
 import DailyHistory from "../../components/DailyHistory/DailyHistory.js";
 
-const { year, month } = monthState.getMonthInfo();
-
 class TransactionsView {
   constructor() {
     this.$root = document.querySelector(".transactions");
   }
 
   render(state) {
+    const { year, month } = monthState.getMonthInfo();
+
     const { transactions, filterState, totalIncome, totalExpense } = state;
     const transactionCount = transactions.length;
     const { filterIncome, filterExpense } = filterState;
