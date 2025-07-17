@@ -1,4 +1,5 @@
 import {
+  initCalendar,
   renderCalendar,
   renderCalendarInfo,
 } from "../components/calendar/calendar.viewmodel.js";
@@ -13,6 +14,7 @@ export function createCalendarPage() {
 }
 
 export function renderCalendarPage() {
+  initCalendar();
   const mainContainer = document.getElementById("main-container");
   if (mainContainer) {
     mainContainer.innerHTML = createCalendarPage();

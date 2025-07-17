@@ -61,7 +61,6 @@ function injectCalendarStyle() {
 }
 
 export function renderCalendar(container) {
-  initCalendar();
   container.innerHTML = `
     ${createCalendarHeader()}
     ${createCalendarBody(
