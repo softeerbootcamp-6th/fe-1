@@ -1,0 +1,2714 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "date": "2024-01-06",
+      "category": "식비",
+      "description": "버스 요금",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 9978
+    },
+    {
+      "id": 2,
+      "date": "2024-01-22",
+      "category": "쇼핑/뷰티",
+      "description": "네일아트",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 164278
+    },
+    {
+      "id": 3,
+      "date": "2024-01-21",
+      "category": "생활",
+      "description": "콘서트",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 580196
+    },
+    {
+      "id": 4,
+      "date": "2024-01-19",
+      "category": "미분류",
+      "description": "문화비",
+      "method": "토스",
+      "type": "expense",
+      "amount": 196774
+    },
+    {
+      "id": 5,
+      "date": "2024-01-19",
+      "category": "교통",
+      "description": "택시비",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 684478
+    },
+    {
+      "id": 6,
+      "date": "2024-01-11",
+      "category": "문화/여가",
+      "description": "치킨 배달",
+      "method": "토스",
+      "type": "expense",
+      "amount": 160422
+    },
+    {
+      "id": 7,
+      "date": "2024-01-23",
+      "category": "용돈",
+      "description": "외식",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 9961259
+    },
+    {
+      "id": 8,
+      "date": "2024-01-26",
+      "category": "쇼핑/뷰티",
+      "description": "마트 쇼핑",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 94461
+    },
+    {
+      "id": 9,
+      "date": "2024-01-16",
+      "category": "미분류",
+      "description": "월급 지급",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 265438
+    },
+    {
+      "id": 10,
+      "date": "2024-01-17",
+      "category": "의료/건강",
+      "description": "월급 지급",
+      "method": "현금",
+      "type": "expense",
+      "amount": 996431
+    },
+    {
+      "id": 11,
+      "date": "2024-01-21",
+      "category": "기타수입",
+      "description": "보너스 수령",
+      "method": "현금",
+      "type": "income",
+      "amount": 3067784
+    },
+    {
+      "id": 12,
+      "date": "2024-01-07",
+      "category": "쇼핑/뷰티",
+      "description": "버스 요금",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 710177
+    },
+    {
+      "id": 13,
+      "date": "2024-01-23",
+      "category": "생활",
+      "description": "치킨 배달",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 310801
+    },
+    {
+      "id": 14,
+      "date": "2024-01-16",
+      "category": "용돈",
+      "description": "지하철",
+      "method": "토스",
+      "type": "income",
+      "amount": 8469183
+    },
+    {
+      "id": 15,
+      "date": "2024-01-05",
+      "category": "기타수입",
+      "description": "피부과",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 2099987
+    },
+    {
+      "id": 16,
+      "date": "2024-01-31",
+      "category": "의료/건강",
+      "description": "용돈 받음",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 897738
+    },
+    {
+      "id": 17,
+      "date": "2024-01-06",
+      "category": "용돈",
+      "description": "마트 쇼핑",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 2738923
+    },
+    {
+      "id": 18,
+      "date": "2024-01-16",
+      "category": "미분류",
+      "description": "문화비",
+      "method": "현금",
+      "type": "expense",
+      "amount": 229345
+    },
+    {
+      "id": 19,
+      "date": "2024-01-03",
+      "category": "기타수입",
+      "description": "보너스 수령",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 3144852
+    },
+    {
+      "id": 20,
+      "date": "2024-01-21",
+      "category": "의료/건강",
+      "description": "네일아트",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 639960
+    },
+    {
+      "id": 21,
+      "date": "2024-01-04",
+      "category": "미분류",
+      "description": "음악 스트리밍",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 27295
+    },
+    {
+      "id": 22,
+      "date": "2024-01-23",
+      "category": "교통",
+      "description": "카페 방문",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 664289
+    },
+    {
+      "id": 23,
+      "date": "2024-01-25",
+      "category": "월급",
+      "description": "카페 방문",
+      "method": "토스",
+      "type": "income",
+      "amount": 5417788
+    },
+    {
+      "id": 24,
+      "date": "2024-01-09",
+      "category": "생활",
+      "description": "외식",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 767315
+    },
+    {
+      "id": 25,
+      "date": "2024-02-21",
+      "category": "월급",
+      "description": "편의점",
+      "method": "현금",
+      "type": "income",
+      "amount": 5347021
+    },
+    {
+      "id": 26,
+      "date": "2024-02-28",
+      "category": "용돈",
+      "description": "병원비",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 5013252
+    },
+    {
+      "id": 27,
+      "date": "2024-02-12",
+      "category": "기타수입",
+      "description": "버스 요금",
+      "method": "현금",
+      "type": "income",
+      "amount": 2187004
+    },
+    {
+      "id": 28,
+      "date": "2024-02-26",
+      "category": "기타수입",
+      "description": "마트 쇼핑",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 5862077
+    },
+    {
+      "id": 29,
+      "date": "2024-02-11",
+      "category": "쇼핑/뷰티",
+      "description": "버스 요금",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 631144
+    },
+    {
+      "id": 30,
+      "date": "2024-02-09",
+      "category": "문화/여가",
+      "description": "화장품 구매",
+      "method": "토스",
+      "type": "expense",
+      "amount": 898091
+    },
+    {
+      "id": 31,
+      "date": "2024-02-01",
+      "category": "교통",
+      "description": "쇼핑",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 912928
+    },
+    {
+      "id": 32,
+      "date": "2024-02-26",
+      "category": "의료/건강",
+      "description": "편의점",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 20013
+    },
+    {
+      "id": 33,
+      "date": "2024-02-06",
+      "category": "의료/건강",
+      "description": "병원비",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 970535
+    },
+    {
+      "id": 34,
+      "date": "2024-02-03",
+      "category": "쇼핑/뷰티",
+      "description": "치킨 배달",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 200614
+    },
+    {
+      "id": 35,
+      "date": "2024-02-02",
+      "category": "생활",
+      "description": "콘서트",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 714324
+    },
+    {
+      "id": 36,
+      "date": "2024-02-12",
+      "category": "교통",
+      "description": "화장품 구매",
+      "method": "토스",
+      "type": "expense",
+      "amount": 338667
+    },
+    {
+      "id": 37,
+      "date": "2024-03-28",
+      "category": "쇼핑/뷰티",
+      "description": "택시비",
+      "method": "현금",
+      "type": "expense",
+      "amount": 872125
+    },
+    {
+      "id": 38,
+      "date": "2024-03-18",
+      "category": "쇼핑/뷰티",
+      "description": "편의점",
+      "method": "현금",
+      "type": "expense",
+      "amount": 745234
+    },
+    {
+      "id": 39,
+      "date": "2024-03-30",
+      "category": "생활",
+      "description": "의사 방문",
+      "method": "현금",
+      "type": "expense",
+      "amount": 332590
+    },
+    {
+      "id": 40,
+      "date": "2024-03-08",
+      "category": "교통",
+      "description": "고기 구입",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 322136
+    },
+    {
+      "id": 41,
+      "date": "2024-03-07",
+      "category": "월급",
+      "description": "카페 방문",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 5197855
+    },
+    {
+      "id": 42,
+      "date": "2024-03-04",
+      "category": "문화/여가",
+      "description": "지하철",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 495023
+    },
+    {
+      "id": 43,
+      "date": "2024-03-21",
+      "category": "기타수입",
+      "description": "피부과",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 6807069
+    },
+    {
+      "id": 44,
+      "date": "2024-03-16",
+      "category": "쇼핑/뷰티",
+      "description": "화장품 구매",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 662146
+    },
+    {
+      "id": 45,
+      "date": "2024-03-28",
+      "category": "생활",
+      "description": "피부과",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 219716
+    },
+    {
+      "id": 46,
+      "date": "2024-03-26",
+      "category": "월급",
+      "description": "문화비",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 4340870
+    },
+    {
+      "id": 47,
+      "date": "2024-03-07",
+      "category": "미분류",
+      "description": "치킨 배달",
+      "method": "현금",
+      "type": "expense",
+      "amount": 212351
+    },
+    {
+      "id": 48,
+      "date": "2024-03-21",
+      "category": "문화/여가",
+      "description": "월급 지급",
+      "method": "토스",
+      "type": "expense",
+      "amount": 219006
+    },
+    {
+      "id": 49,
+      "date": "2024-04-29",
+      "category": "용돈",
+      "description": "고기 구입",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 626232
+    },
+    {
+      "id": 50,
+      "date": "2024-04-17",
+      "category": "기타수입",
+      "description": "넷플릭스",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 6238383
+    },
+    {
+      "id": 51,
+      "date": "2024-04-20",
+      "category": "의료/건강",
+      "description": "점심 식사",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 61797
+    },
+    {
+      "id": 52,
+      "date": "2024-04-23",
+      "category": "교통",
+      "description": "부모님 선물",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 310045
+    },
+    {
+      "id": 53,
+      "date": "2024-04-23",
+      "category": "의료/건강",
+      "description": "고기 구입",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 515346
+    },
+    {
+      "id": 54,
+      "date": "2024-04-24",
+      "category": "쇼핑/뷰티",
+      "description": "부모님 선물",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 188973
+    },
+    {
+      "id": 55,
+      "date": "2024-04-23",
+      "category": "미분류",
+      "description": "택시비",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 134574
+    },
+    {
+      "id": 56,
+      "date": "2024-04-22",
+      "category": "기타수입",
+      "description": "피부과",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 1754246
+    },
+    {
+      "id": 57,
+      "date": "2024-04-19",
+      "category": "의료/건강",
+      "description": "편의점",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 266391
+    },
+    {
+      "id": 58,
+      "date": "2024-04-27",
+      "category": "월급",
+      "description": "고기 구입",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 935258
+    },
+    {
+      "id": 59,
+      "date": "2024-04-26",
+      "category": "쇼핑/뷰티",
+      "description": "편의점",
+      "method": "현금",
+      "type": "expense",
+      "amount": 647795
+    },
+    {
+      "id": 60,
+      "date": "2024-05-07",
+      "category": "용돈",
+      "description": "버스 요금",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 8938904
+    },
+    {
+      "id": 61,
+      "date": "2024-05-25",
+      "category": "용돈",
+      "description": "문화비",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 3775740
+    },
+    {
+      "id": 62,
+      "date": "2024-05-15",
+      "category": "교통",
+      "description": "고기 구입",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 510478
+    },
+    {
+      "id": 63,
+      "date": "2024-05-13",
+      "category": "미분류",
+      "description": "보너스 수령",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 389000
+    },
+    {
+      "id": 64,
+      "date": "2024-05-21",
+      "category": "생활",
+      "description": "넷플릭스",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 616173
+    },
+    {
+      "id": 65,
+      "date": "2024-05-26",
+      "category": "식비",
+      "description": "택시비",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 154766
+    },
+    {
+      "id": 66,
+      "date": "2024-05-05",
+      "category": "월급",
+      "description": "외식",
+      "method": "현금",
+      "type": "income",
+      "amount": 8628655
+    },
+    {
+      "id": 67,
+      "date": "2024-05-29",
+      "category": "쇼핑/뷰티",
+      "description": "마트 쇼핑",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 391943
+    },
+    {
+      "id": 68,
+      "date": "2024-05-10",
+      "category": "교통",
+      "description": "치킨 배달",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 784898
+    },
+    {
+      "id": 69,
+      "date": "2024-05-03",
+      "category": "생활",
+      "description": "택시비",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 909733
+    },
+    {
+      "id": 70,
+      "date": "2024-06-23",
+      "category": "월급",
+      "description": "보너스 수령",
+      "method": "현금",
+      "type": "income",
+      "amount": 2098200
+    },
+    {
+      "id": 71,
+      "date": "2024-06-16",
+      "category": "문화/여가",
+      "description": "용돈 받음",
+      "method": "현금",
+      "type": "expense",
+      "amount": 683291
+    },
+    {
+      "id": 72,
+      "date": "2024-06-19",
+      "category": "식비",
+      "description": "기타수입",
+      "method": "토스",
+      "type": "expense",
+      "amount": 98899
+    },
+    {
+      "id": 73,
+      "date": "2024-06-10",
+      "category": "문화/여가",
+      "description": "편의점",
+      "method": "토스",
+      "type": "expense",
+      "amount": 516328
+    },
+    {
+      "id": 74,
+      "date": "2024-06-13",
+      "category": "의료/건강",
+      "description": "콘서트",
+      "method": "현금",
+      "type": "expense",
+      "amount": 202964
+    },
+    {
+      "id": 75,
+      "date": "2024-06-16",
+      "category": "생활",
+      "description": "문화비",
+      "method": "현금",
+      "type": "expense",
+      "amount": 827505
+    },
+    {
+      "id": 76,
+      "date": "2024-06-18",
+      "category": "의료/건강",
+      "description": "요가 수업",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 61655
+    },
+    {
+      "id": 77,
+      "date": "2024-06-22",
+      "category": "미분류",
+      "description": "의료 보험료",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 285699
+    },
+    {
+      "id": 78,
+      "date": "2024-06-02",
+      "category": "용돈",
+      "description": "카페 방문",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 5071736
+    },
+    {
+      "id": 79,
+      "date": "2024-06-28",
+      "category": "월급",
+      "description": "용돈 받음",
+      "method": "현금",
+      "type": "income",
+      "amount": 3032774
+    },
+    {
+      "id": 80,
+      "date": "2024-06-25",
+      "category": "교통",
+      "description": "기타수입",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 908686
+    },
+    {
+      "id": 81,
+      "date": "2024-06-15",
+      "category": "생활",
+      "description": "화장품 구매",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 731229
+    },
+    {
+      "id": 82,
+      "date": "2024-07-08",
+      "category": "월급",
+      "description": "부모님 선물",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 6204617
+    },
+    {
+      "id": 83,
+      "date": "2024-07-21",
+      "category": "교통",
+      "description": "지하철",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 382528
+    },
+    {
+      "id": 84,
+      "date": "2024-07-25",
+      "category": "교통",
+      "description": "의료 보험료",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 30896
+    },
+    {
+      "id": 85,
+      "date": "2024-07-04",
+      "category": "생활",
+      "description": "쇼핑",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 437692
+    },
+    {
+      "id": 86,
+      "date": "2024-07-10",
+      "category": "미분류",
+      "description": "병원비",
+      "method": "현금",
+      "type": "expense",
+      "amount": 781661
+    },
+    {
+      "id": 87,
+      "date": "2024-07-30",
+      "category": "기타수입",
+      "description": "고기 구입",
+      "method": "토스",
+      "type": "income",
+      "amount": 9748925
+    },
+    {
+      "id": 88,
+      "date": "2024-07-20",
+      "category": "쇼핑/뷰티",
+      "description": "저녁 약속",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 891760
+    },
+    {
+      "id": 89,
+      "date": "2024-07-08",
+      "category": "쇼핑/뷰티",
+      "description": "고기 구입",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 762830
+    },
+    {
+      "id": 90,
+      "date": "2024-07-14",
+      "category": "식비",
+      "description": "서점",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 148590
+    },
+    {
+      "id": 91,
+      "date": "2024-07-09",
+      "category": "기타수입",
+      "description": "쇼핑",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 6061572
+    },
+    {
+      "id": 92,
+      "date": "2024-07-10",
+      "category": "월급",
+      "description": "점심 식사",
+      "method": "토스",
+      "type": "income",
+      "amount": 9942135
+    },
+    {
+      "id": 93,
+      "date": "2024-07-31",
+      "category": "미분류",
+      "description": "부모님 선물",
+      "method": "토스",
+      "type": "expense",
+      "amount": 367908
+    },
+    {
+      "id": 94,
+      "date": "2024-07-13",
+      "category": "식비",
+      "description": "영화 관람",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 933612
+    },
+    {
+      "id": 95,
+      "date": "2024-07-21",
+      "category": "기타수입",
+      "description": "네일아트",
+      "method": "토스",
+      "type": "income",
+      "amount": 5423406
+    },
+    {
+      "id": 96,
+      "date": "2024-07-05",
+      "category": "기타수입",
+      "description": "부모님 선물",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 8308076
+    },
+    {
+      "id": 97,
+      "date": "2024-07-02",
+      "category": "생활",
+      "description": "넷플릭스",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 113422
+    },
+    {
+      "id": 98,
+      "date": "2024-08-24",
+      "category": "식비",
+      "description": "화장품 구매",
+      "method": "현금",
+      "type": "expense",
+      "amount": 726110
+    },
+    {
+      "id": 99,
+      "date": "2024-08-22",
+      "category": "용돈",
+      "description": "저녁 약속",
+      "method": "토스",
+      "type": "income",
+      "amount": 622334
+    },
+    {
+      "id": 100,
+      "date": "2024-08-17",
+      "category": "쇼핑/뷰티",
+      "description": "병원비",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 294425
+    },
+    {
+      "id": 101,
+      "date": "2024-08-23",
+      "category": "미분류",
+      "description": "저녁 약속",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 363136
+    },
+    {
+      "id": 102,
+      "date": "2024-08-09",
+      "category": "의료/건강",
+      "description": "마트 쇼핑",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 638251
+    },
+    {
+      "id": 103,
+      "date": "2024-08-19",
+      "category": "월급",
+      "description": "의료 보험료",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 1776348
+    },
+    {
+      "id": 104,
+      "date": "2024-08-27",
+      "category": "의료/건강",
+      "description": "카페 방문",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 823802
+    },
+    {
+      "id": 105,
+      "date": "2024-08-25",
+      "category": "의료/건강",
+      "description": "치킨 배달",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 790197
+    },
+    {
+      "id": 106,
+      "date": "2024-08-27",
+      "category": "미분류",
+      "description": "치킨 배달",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 400885
+    },
+    {
+      "id": 107,
+      "date": "2024-08-13",
+      "category": "문화/여가",
+      "description": "점심 식사",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 498150
+    },
+    {
+      "id": 108,
+      "date": "2024-08-25",
+      "category": "의료/건강",
+      "description": "쇼핑",
+      "method": "토스",
+      "type": "expense",
+      "amount": 509763
+    },
+    {
+      "id": 109,
+      "date": "2024-08-26",
+      "category": "의료/건강",
+      "description": "월급 지급",
+      "method": "현금",
+      "type": "expense",
+      "amount": 429409
+    },
+    {
+      "id": 110,
+      "date": "2024-08-07",
+      "category": "문화/여가",
+      "description": "저녁 약속",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 465658
+    },
+    {
+      "id": 111,
+      "date": "2024-08-28",
+      "category": "용돈",
+      "description": "콘서트",
+      "method": "토스",
+      "type": "income",
+      "amount": 7969279
+    },
+    {
+      "id": 112,
+      "date": "2024-08-30",
+      "category": "쇼핑/뷰티",
+      "description": "요가 수업",
+      "method": "현금",
+      "type": "expense",
+      "amount": 978975
+    },
+    {
+      "id": 113,
+      "date": "2024-08-15",
+      "category": "의료/건강",
+      "description": "카페 방문",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 457597
+    },
+    {
+      "id": 114,
+      "date": "2024-08-30",
+      "category": "의료/건강",
+      "description": "쇼핑",
+      "method": "토스",
+      "type": "expense",
+      "amount": 373472
+    },
+    {
+      "id": 115,
+      "date": "2024-08-20",
+      "category": "문화/여가",
+      "description": "용돈 받음",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 713872
+    },
+    {
+      "id": 116,
+      "date": "2024-08-18",
+      "category": "식비",
+      "description": "콘서트",
+      "method": "현금",
+      "type": "expense",
+      "amount": 741482
+    },
+    {
+      "id": 117,
+      "date": "2024-08-17",
+      "category": "문화/여가",
+      "description": "의료 보험료",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 375949
+    },
+    {
+      "id": 118,
+      "date": "2024-09-23",
+      "category": "기타수입",
+      "description": "기타수입",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 6030492
+    },
+    {
+      "id": 119,
+      "date": "2024-09-13",
+      "category": "교통",
+      "description": "월급 지급",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 776369
+    },
+    {
+      "id": 120,
+      "date": "2024-09-01",
+      "category": "미분류",
+      "description": "요가 수업",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 812069
+    },
+    {
+      "id": 121,
+      "date": "2024-09-12",
+      "category": "교통",
+      "description": "버스 요금",
+      "method": "현금",
+      "type": "expense",
+      "amount": 696388
+    },
+    {
+      "id": 122,
+      "date": "2024-09-13",
+      "category": "월급",
+      "description": "의사 방문",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 677516
+    },
+    {
+      "id": 123,
+      "date": "2024-09-26",
+      "category": "용돈",
+      "description": "서점",
+      "method": "토스",
+      "type": "income",
+      "amount": 6753376
+    },
+    {
+      "id": 124,
+      "date": "2024-09-23",
+      "category": "교통",
+      "description": "화장품 구매",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 457666
+    },
+    {
+      "id": 125,
+      "date": "2024-09-12",
+      "category": "미분류",
+      "description": "저녁 약속",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 569306
+    },
+    {
+      "id": 126,
+      "date": "2024-09-12",
+      "category": "쇼핑/뷰티",
+      "description": "카페 방문",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 416340
+    },
+    {
+      "id": 127,
+      "date": "2024-09-21",
+      "category": "월급",
+      "description": "문화비",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 9177939
+    },
+    {
+      "id": 128,
+      "date": "2024-09-08",
+      "category": "의료/건강",
+      "description": "고기 구입",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 799340
+    },
+    {
+      "id": 129,
+      "date": "2024-09-08",
+      "category": "교통",
+      "description": "치킨 배달",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 999517
+    },
+    {
+      "id": 130,
+      "date": "2024-09-25",
+      "category": "월급",
+      "description": "쇼핑",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 3120587
+    },
+    {
+      "id": 131,
+      "date": "2024-09-14",
+      "category": "문화/여가",
+      "description": "의사 방문",
+      "method": "현금",
+      "type": "expense",
+      "amount": 449951
+    },
+    {
+      "id": 132,
+      "date": "2024-09-20",
+      "category": "미분류",
+      "description": "월급 지급",
+      "method": "현금",
+      "type": "expense",
+      "amount": 851289
+    },
+    {
+      "id": 133,
+      "date": "2024-09-02",
+      "category": "교통",
+      "description": "부모님 선물",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 547228
+    },
+    {
+      "id": 134,
+      "date": "2024-09-01",
+      "category": "식비",
+      "description": "넷플릭스",
+      "method": "현금",
+      "type": "expense",
+      "amount": 947807
+    },
+    {
+      "id": 135,
+      "date": "2024-10-05",
+      "category": "월급",
+      "description": "점심 식사",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 1469062
+    },
+    {
+      "id": 136,
+      "date": "2024-10-29",
+      "category": "미분류",
+      "description": "넷플릭스",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 875281
+    },
+    {
+      "id": 137,
+      "date": "2024-10-09",
+      "category": "월급",
+      "description": "버스 요금",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 831120
+    },
+    {
+      "id": 138,
+      "date": "2024-10-12",
+      "category": "식비",
+      "description": "월급 지급",
+      "method": "현금",
+      "type": "expense",
+      "amount": 57649
+    },
+    {
+      "id": 139,
+      "date": "2024-10-16",
+      "category": "쇼핑/뷰티",
+      "description": "저녁 약속",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 869932
+    },
+    {
+      "id": 140,
+      "date": "2024-10-14",
+      "category": "문화/여가",
+      "description": "헬스장 등록",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 193448
+    },
+    {
+      "id": 141,
+      "date": "2024-10-13",
+      "category": "미분류",
+      "description": "음악 스트리밍",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 624479
+    },
+    {
+      "id": 142,
+      "date": "2024-10-16",
+      "category": "미분류",
+      "description": "고기 구입",
+      "method": "토스",
+      "type": "expense",
+      "amount": 324621
+    },
+    {
+      "id": 143,
+      "date": "2024-10-02",
+      "category": "미분류",
+      "description": "월급 지급",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 308705
+    },
+    {
+      "id": 144,
+      "date": "2024-10-05",
+      "category": "기타수입",
+      "description": "외식",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 7285212
+    },
+    {
+      "id": 145,
+      "date": "2024-10-04",
+      "category": "기타수입",
+      "description": "영화 관람",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 5127616
+    },
+    {
+      "id": 146,
+      "date": "2024-10-20",
+      "category": "월급",
+      "description": "피부과",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 8691088
+    },
+    {
+      "id": 147,
+      "date": "2024-10-07",
+      "category": "의료/건강",
+      "description": "버스 요금",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 899383
+    },
+    {
+      "id": 148,
+      "date": "2024-10-04",
+      "category": "식비",
+      "description": "카페 방문",
+      "method": "현금",
+      "type": "expense",
+      "amount": 68900
+    },
+    {
+      "id": 149,
+      "date": "2024-10-19",
+      "category": "생활",
+      "description": "병원비",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 232998
+    },
+    {
+      "id": 150,
+      "date": "2024-10-15",
+      "category": "월급",
+      "description": "서점",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 8476944
+    },
+    {
+      "id": 151,
+      "date": "2024-10-30",
+      "category": "용돈",
+      "description": "영화 관람",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 7039746
+    },
+    {
+      "id": 152,
+      "date": "2024-10-02",
+      "category": "문화/여가",
+      "description": "지하철",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 27464
+    },
+    {
+      "id": 153,
+      "date": "2024-10-21",
+      "category": "미분류",
+      "description": "지하철",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 972699
+    },
+    {
+      "id": 154,
+      "date": "2024-11-12",
+      "category": "미분류",
+      "description": "치킨 배달",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 853400
+    },
+    {
+      "id": 155,
+      "date": "2024-11-29",
+      "category": "교통",
+      "description": "지하철",
+      "method": "토스",
+      "type": "expense",
+      "amount": 534474
+    },
+    {
+      "id": 156,
+      "date": "2024-11-19",
+      "category": "생활",
+      "description": "화장품 구매",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 715108
+    },
+    {
+      "id": 157,
+      "date": "2024-11-07",
+      "category": "의료/건강",
+      "description": "보너스 수령",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 809070
+    },
+    {
+      "id": 158,
+      "date": "2024-11-05",
+      "category": "식비",
+      "description": "서점",
+      "method": "토스",
+      "type": "expense",
+      "amount": 236186
+    },
+    {
+      "id": 159,
+      "date": "2024-11-18",
+      "category": "미분류",
+      "description": "피부과",
+      "method": "토스",
+      "type": "expense",
+      "amount": 378316
+    },
+    {
+      "id": 160,
+      "date": "2024-11-27",
+      "category": "용돈",
+      "description": "월급 지급",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 1066337
+    },
+    {
+      "id": 161,
+      "date": "2024-11-26",
+      "category": "쇼핑/뷰티",
+      "description": "버스 요금",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 608590
+    },
+    {
+      "id": 162,
+      "date": "2024-11-05",
+      "category": "미분류",
+      "description": "문화비",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 23889
+    },
+    {
+      "id": 163,
+      "date": "2024-11-16",
+      "category": "생활",
+      "description": "고기 구입",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 831377
+    },
+    {
+      "id": 164,
+      "date": "2024-11-16",
+      "category": "식비",
+      "description": "병원비",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 95604
+    },
+    {
+      "id": 165,
+      "date": "2024-11-14",
+      "category": "용돈",
+      "description": "요가 수업",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 4290059
+    },
+    {
+      "id": 166,
+      "date": "2024-11-05",
+      "category": "쇼핑/뷰티",
+      "description": "지하철",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 933808
+    },
+    {
+      "id": 167,
+      "date": "2024-11-10",
+      "category": "용돈",
+      "description": "지하철",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 6147437
+    },
+    {
+      "id": 168,
+      "date": "2024-11-06",
+      "category": "쇼핑/뷰티",
+      "description": "화장품 구매",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 389637
+    },
+    {
+      "id": 169,
+      "date": "2024-11-08",
+      "category": "의료/건강",
+      "description": "마트 쇼핑",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 681556
+    },
+    {
+      "id": 170,
+      "date": "2024-11-10",
+      "category": "생활",
+      "description": "콘서트",
+      "method": "현금",
+      "type": "expense",
+      "amount": 810021
+    },
+    {
+      "id": 171,
+      "date": "2024-11-28",
+      "category": "쇼핑/뷰티",
+      "description": "저녁 약속",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 607780
+    },
+    {
+      "id": 172,
+      "date": "2024-11-17",
+      "category": "쇼핑/뷰티",
+      "description": "점심 식사",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 353985
+    },
+    {
+      "id": 173,
+      "date": "2024-12-03",
+      "category": "문화/여가",
+      "description": "문화비",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 351467
+    },
+    {
+      "id": 174,
+      "date": "2024-12-23",
+      "category": "문화/여가",
+      "description": "넷플릭스",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 950487
+    },
+    {
+      "id": 175,
+      "date": "2024-12-18",
+      "category": "의료/건강",
+      "description": "피부과",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 873718
+    },
+    {
+      "id": 176,
+      "date": "2024-12-05",
+      "category": "미분류",
+      "description": "고기 구입",
+      "method": "토스",
+      "type": "expense",
+      "amount": 536764
+    },
+    {
+      "id": 177,
+      "date": "2024-12-01",
+      "category": "문화/여가",
+      "description": "카페 방문",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 683941
+    },
+    {
+      "id": 178,
+      "date": "2024-12-03",
+      "category": "교통",
+      "description": "의사 방문",
+      "method": "현금",
+      "type": "expense",
+      "amount": 833012
+    },
+    {
+      "id": 179,
+      "date": "2024-12-05",
+      "category": "기타수입",
+      "description": "보너스 수령",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 5838918
+    },
+    {
+      "id": 180,
+      "date": "2024-12-29",
+      "category": "용돈",
+      "description": "피부과",
+      "method": "삼성페이",
+      "type": "income",
+      "amount": 607267
+    },
+    {
+      "id": 181,
+      "date": "2024-12-05",
+      "category": "미분류",
+      "description": "용돈 받음",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 919036
+    },
+    {
+      "id": 182,
+      "date": "2024-12-19",
+      "category": "월급",
+      "description": "요가 수업",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 2113620
+    },
+    {
+      "id": 183,
+      "date": "2024-12-22",
+      "category": "식비",
+      "description": "월급 지급",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 794431
+    },
+    {
+      "id": 184,
+      "date": "2024-12-30",
+      "category": "식비",
+      "description": "치킨 배달",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 685133
+    },
+    {
+      "id": 185,
+      "date": "2024-12-24",
+      "category": "기타수입",
+      "description": "월급 지급",
+      "method": "토스",
+      "type": "income",
+      "amount": 4379682
+    },
+    {
+      "id": 186,
+      "date": "2025-01-19",
+      "category": "용돈",
+      "description": "의사 방문",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 2396766
+    },
+    {
+      "id": 187,
+      "date": "2025-01-08",
+      "category": "교통",
+      "description": "요가 수업",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 922323
+    },
+    {
+      "id": 188,
+      "date": "2025-01-26",
+      "category": "의료/건강",
+      "description": "피부과",
+      "method": "현금",
+      "type": "expense",
+      "amount": 712156
+    },
+    {
+      "id": 189,
+      "date": "2025-01-29",
+      "category": "월급",
+      "description": "택시비",
+      "method": "삼성페이",
+      "type": "income",
+      "amount": 2599546
+    },
+    {
+      "id": 190,
+      "date": "2025-01-19",
+      "category": "교통",
+      "description": "병원비",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 470688
+    },
+    {
+      "id": 191,
+      "date": "2025-01-16",
+      "category": "식비",
+      "description": "화장품 구매",
+      "method": "현금",
+      "type": "expense",
+      "amount": 921036
+    },
+    {
+      "id": 192,
+      "date": "2025-01-22",
+      "category": "쇼핑/뷰티",
+      "description": "택시비",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 955469
+    },
+    {
+      "id": 193,
+      "date": "2025-01-02",
+      "category": "용돈",
+      "description": "월급 지급",
+      "method": "토스",
+      "type": "income",
+      "amount": 5774829
+    },
+    {
+      "id": 194,
+      "date": "2025-01-20",
+      "category": "월급",
+      "description": "고기 구입",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 616153
+    },
+    {
+      "id": 195,
+      "date": "2025-01-05",
+      "category": "용돈",
+      "description": "피부과",
+      "method": "삼성페이",
+      "type": "income",
+      "amount": 6849418
+    },
+    {
+      "id": 196,
+      "date": "2025-01-06",
+      "category": "교통",
+      "description": "요가 수업",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 688183
+    },
+    {
+      "id": 197,
+      "date": "2025-01-01",
+      "category": "쇼핑/뷰티",
+      "description": "마트 쇼핑",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 442719
+    },
+    {
+      "id": 198,
+      "date": "2025-01-31",
+      "category": "용돈",
+      "description": "의료 보험료",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 4733756
+    },
+    {
+      "id": 199,
+      "date": "2025-01-02",
+      "category": "용돈",
+      "description": "요가 수업",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 2625374
+    },
+    {
+      "id": 200,
+      "date": "2025-01-01",
+      "category": "월급",
+      "description": "카페 방문",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 6371410
+    },
+    {
+      "id": 201,
+      "date": "2025-01-01",
+      "category": "월급",
+      "description": "넷플릭스",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 6637520
+    },
+    {
+      "id": 202,
+      "date": "2025-01-26",
+      "category": "생활",
+      "description": "의료 보험료",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 173282
+    },
+    {
+      "id": 203,
+      "date": "2025-01-05",
+      "category": "기타수입",
+      "description": "보너스 수령",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 609792
+    },
+    {
+      "id": 204,
+      "date": "2025-02-21",
+      "category": "문화/여가",
+      "description": "문화비",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 50479
+    },
+    {
+      "id": 205,
+      "date": "2025-02-17",
+      "category": "의료/건강",
+      "description": "쇼핑",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 788634
+    },
+    {
+      "id": 206,
+      "date": "2025-02-19",
+      "category": "생활",
+      "description": "화장품 구매",
+      "method": "현금",
+      "type": "expense",
+      "amount": 815092
+    },
+    {
+      "id": 207,
+      "date": "2025-02-24",
+      "category": "생활",
+      "description": "마트 쇼핑",
+      "method": "현금",
+      "type": "expense",
+      "amount": 552877
+    },
+    {
+      "id": 208,
+      "date": "2025-02-11",
+      "category": "용돈",
+      "description": "지하철",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 3500853
+    },
+    {
+      "id": 209,
+      "date": "2025-02-02",
+      "category": "월급",
+      "description": "마트 쇼핑",
+      "method": "토스",
+      "type": "income",
+      "amount": 939289
+    },
+    {
+      "id": 210,
+      "date": "2025-02-13",
+      "category": "의료/건강",
+      "description": "부모님 선물",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 831090
+    },
+    {
+      "id": 211,
+      "date": "2025-02-09",
+      "category": "쇼핑/뷰티",
+      "description": "저녁 약속",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 457692
+    },
+    {
+      "id": 212,
+      "date": "2025-02-15",
+      "category": "생활",
+      "description": "네일아트",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 144558
+    },
+    {
+      "id": 213,
+      "date": "2025-02-17",
+      "category": "기타수입",
+      "description": "카페 방문",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 8272358
+    },
+    {
+      "id": 214,
+      "date": "2025-02-25",
+      "category": "미분류",
+      "description": "화장품 구매",
+      "method": "현금",
+      "type": "expense",
+      "amount": 896169
+    },
+    {
+      "id": 215,
+      "date": "2025-02-10",
+      "category": "쇼핑/뷰티",
+      "description": "쇼핑",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 440306
+    },
+    {
+      "id": 216,
+      "date": "2025-02-04",
+      "category": "생활",
+      "description": "카페 방문",
+      "method": "토스",
+      "type": "expense",
+      "amount": 195594
+    },
+    {
+      "id": 217,
+      "date": "2025-02-07",
+      "category": "의료/건강",
+      "description": "영화 관람",
+      "method": "토스",
+      "type": "expense",
+      "amount": 43130
+    },
+    {
+      "id": 218,
+      "date": "2025-02-22",
+      "category": "문화/여가",
+      "description": "지하철",
+      "method": "현금",
+      "type": "expense",
+      "amount": 918103
+    },
+    {
+      "id": 219,
+      "date": "2025-02-02",
+      "category": "월급",
+      "description": "점심 식사",
+      "method": "현금",
+      "type": "income",
+      "amount": 4143481
+    },
+    {
+      "id": 220,
+      "date": "2025-02-26",
+      "category": "쇼핑/뷰티",
+      "description": "부모님 선물",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 153004
+    },
+    {
+      "id": 221,
+      "date": "2025-02-15",
+      "category": "쇼핑/뷰티",
+      "description": "택시비",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 299706
+    },
+    {
+      "id": 222,
+      "date": "2025-02-13",
+      "category": "문화/여가",
+      "description": "기타수입",
+      "method": "현금",
+      "type": "expense",
+      "amount": 567946
+    },
+    {
+      "id": 223,
+      "date": "2025-02-19",
+      "category": "문화/여가",
+      "description": "외식",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 829367
+    },
+    {
+      "id": 224,
+      "date": "2025-03-17",
+      "category": "식비",
+      "description": "기타수입",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 564218
+    },
+    {
+      "id": 225,
+      "date": "2025-03-10",
+      "category": "쇼핑/뷰티",
+      "description": "영화 관람",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 786493
+    },
+    {
+      "id": 226,
+      "date": "2025-03-08",
+      "category": "의료/건강",
+      "description": "기타수입",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 610670
+    },
+    {
+      "id": 227,
+      "date": "2025-03-07",
+      "category": "기타수입",
+      "description": "택시비",
+      "method": "현금",
+      "type": "income",
+      "amount": 4195399
+    },
+    {
+      "id": 228,
+      "date": "2025-03-01",
+      "category": "쇼핑/뷰티",
+      "description": "기타수입",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 143923
+    },
+    {
+      "id": 229,
+      "date": "2025-03-23",
+      "category": "식비",
+      "description": "네일아트",
+      "method": "토스",
+      "type": "expense",
+      "amount": 6198
+    },
+    {
+      "id": 230,
+      "date": "2025-03-07",
+      "category": "기타수입",
+      "description": "치킨 배달",
+      "method": "삼성페이",
+      "type": "income",
+      "amount": 9429094
+    },
+    {
+      "id": 231,
+      "date": "2025-03-13",
+      "category": "의료/건강",
+      "description": "치킨 배달",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 872936
+    },
+    {
+      "id": 232,
+      "date": "2025-03-09",
+      "category": "식비",
+      "description": "마트 쇼핑",
+      "method": "현금",
+      "type": "expense",
+      "amount": 218899
+    },
+    {
+      "id": 233,
+      "date": "2025-03-30",
+      "category": "교통",
+      "description": "외식",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 972435
+    },
+    {
+      "id": 234,
+      "date": "2025-03-05",
+      "category": "생활",
+      "description": "네일아트",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 677099
+    },
+    {
+      "id": 235,
+      "date": "2025-03-31",
+      "category": "기타수입",
+      "description": "피부과",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 6203530
+    },
+    {
+      "id": 236,
+      "date": "2025-03-24",
+      "category": "월급",
+      "description": "정기 구독",
+      "method": "현금",
+      "type": "income",
+      "amount": 7658217
+    },
+    {
+      "id": 237,
+      "date": "2025-03-17",
+      "category": "식비",
+      "description": "치킨 배달",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 570889
+    },
+    {
+      "id": 238,
+      "date": "2025-04-22",
+      "category": "미분류",
+      "description": "지하철",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 150201
+    },
+    {
+      "id": 239,
+      "date": "2025-04-23",
+      "category": "월급",
+      "description": "헬스장 등록",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 7889916
+    },
+    {
+      "id": 240,
+      "date": "2025-04-30",
+      "category": "의료/건강",
+      "description": "헬스장 등록",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 928459
+    },
+    {
+      "id": 241,
+      "date": "2025-04-27",
+      "category": "기타수입",
+      "description": "부모님 선물",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 9576294
+    },
+    {
+      "id": 242,
+      "date": "2025-04-04",
+      "category": "식비",
+      "description": "카페 방문",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 161426
+    },
+    {
+      "id": 243,
+      "date": "2025-04-22",
+      "category": "월급",
+      "description": "치킨 배달",
+      "method": "토스",
+      "type": "income",
+      "amount": 8575111
+    },
+    {
+      "id": 244,
+      "date": "2025-04-28",
+      "category": "용돈",
+      "description": "쇼핑",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 5486155
+    },
+    {
+      "id": 245,
+      "date": "2025-04-22",
+      "category": "용돈",
+      "description": "카페 방문",
+      "method": "현금",
+      "type": "income",
+      "amount": 2964295
+    },
+    {
+      "id": 246,
+      "date": "2025-04-03",
+      "category": "용돈",
+      "description": "버스 요금",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 7105749
+    },
+    {
+      "id": 247,
+      "date": "2025-05-18",
+      "category": "쇼핑/뷰티",
+      "description": "고기 구입",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 623993
+    },
+    {
+      "id": 248,
+      "date": "2025-05-28",
+      "category": "문화/여가",
+      "description": "편의점",
+      "method": "토스",
+      "type": "expense",
+      "amount": 993709
+    },
+    {
+      "id": 249,
+      "date": "2025-05-18",
+      "category": "용돈",
+      "description": "영화 관람",
+      "method": "카카오페이",
+      "type": "income",
+      "amount": 7830762
+    },
+    {
+      "id": 250,
+      "date": "2025-05-24",
+      "category": "월급",
+      "description": "외식",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 9321998
+    },
+    {
+      "id": 251,
+      "date": "2025-05-13",
+      "category": "문화/여가",
+      "description": "문화비",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 243149
+    },
+    {
+      "id": 252,
+      "date": "2025-05-17",
+      "category": "교통",
+      "description": "화장품 구매",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 439448
+    },
+    {
+      "id": 253,
+      "date": "2025-05-04",
+      "category": "문화/여가",
+      "description": "치킨 배달",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 67997
+    },
+    {
+      "id": 254,
+      "date": "2025-05-06",
+      "category": "의료/건강",
+      "description": "택시비",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 861850
+    },
+    {
+      "id": 255,
+      "date": "2025-05-01",
+      "category": "문화/여가",
+      "description": "보너스 수령",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 40043
+    },
+    {
+      "id": 256,
+      "date": "2025-05-08",
+      "category": "생활",
+      "description": "점심 식사",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 460444
+    },
+    {
+      "id": 257,
+      "date": "2025-05-15",
+      "category": "의료/건강",
+      "description": "지하철",
+      "method": "토스",
+      "type": "expense",
+      "amount": 420127
+    },
+    {
+      "id": 258,
+      "date": "2025-05-26",
+      "category": "교통",
+      "description": "피부과",
+      "method": "토스",
+      "type": "expense",
+      "amount": 562257
+    },
+    {
+      "id": 259,
+      "date": "2025-05-30",
+      "category": "문화/여가",
+      "description": "편의점",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 718943
+    },
+    {
+      "id": 260,
+      "date": "2025-05-29",
+      "category": "생활",
+      "description": "택시비",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 96887
+    },
+    {
+      "id": 261,
+      "date": "2025-05-25",
+      "category": "생활",
+      "description": "치킨 배달",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 934250
+    },
+    {
+      "id": 262,
+      "date": "2025-05-20",
+      "category": "기타수입",
+      "description": "기타수입",
+      "method": "국민카드",
+      "type": "income",
+      "amount": 9002413
+    },
+    {
+      "id": 263,
+      "date": "2025-05-29",
+      "category": "생활",
+      "description": "네일아트",
+      "method": "현금",
+      "type": "expense",
+      "amount": 738838
+    },
+    {
+      "id": 264,
+      "date": "2025-05-19",
+      "category": "문화/여가",
+      "description": "쇼핑",
+      "method": "토스",
+      "type": "expense",
+      "amount": 980264
+    },
+    {
+      "id": 265,
+      "date": "2025-05-10",
+      "category": "문화/여가",
+      "description": "외식",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 925185
+    },
+    {
+      "id": 266,
+      "date": "2025-05-23",
+      "category": "문화/여가",
+      "description": "마트 쇼핑",
+      "method": "토스",
+      "type": "expense",
+      "amount": 748908
+    },
+    {
+      "id": 267,
+      "date": "2025-05-15",
+      "category": "교통",
+      "description": "편의점",
+      "method": "현금",
+      "type": "expense",
+      "amount": 607465
+    },
+    {
+      "id": 268,
+      "date": "2025-05-10",
+      "category": "미분류",
+      "description": "영화 관람",
+      "method": "토스",
+      "type": "expense",
+      "amount": 653181
+    },
+    {
+      "id": 269,
+      "date": "2025-06-28",
+      "category": "용돈",
+      "description": "병원비",
+      "method": "현금",
+      "type": "income",
+      "amount": 4777781
+    },
+    {
+      "id": 270,
+      "date": "2025-06-02",
+      "category": "월급",
+      "description": "음악 스트리밍",
+      "method": "현금",
+      "type": "income",
+      "amount": 5187620
+    },
+    {
+      "id": 271,
+      "date": "2025-06-07",
+      "category": "의료/건강",
+      "description": "피부과",
+      "method": "신한카드",
+      "type": "expense",
+      "amount": 664387
+    },
+    {
+      "id": 272,
+      "date": "2025-06-01",
+      "category": "용돈",
+      "description": "보너스 수령",
+      "method": "토스",
+      "type": "income",
+      "amount": 7680470
+    },
+    {
+      "id": 273,
+      "date": "2025-06-06",
+      "category": "미분류",
+      "description": "문화비",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 514013
+    },
+    {
+      "id": 274,
+      "date": "2025-06-10",
+      "category": "미분류",
+      "description": "서점",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 835825
+    },
+    {
+      "id": 275,
+      "date": "2025-06-12",
+      "category": "월급",
+      "description": "카페 방문",
+      "method": "현대카드",
+      "type": "income",
+      "amount": 8989252
+    },
+    {
+      "id": 276,
+      "date": "2025-06-21",
+      "category": "식비",
+      "description": "넷플릭스",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 756507
+    },
+    {
+      "id": 277,
+      "date": "2025-06-03",
+      "category": "문화/여가",
+      "description": "화장품 구매",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 454693
+    },
+    {
+      "id": 278,
+      "date": "2025-06-26",
+      "category": "문화/여가",
+      "description": "음악 스트리밍",
+      "method": "토스",
+      "type": "expense",
+      "amount": 33360
+    },
+    {
+      "id": 279,
+      "date": "2025-06-29",
+      "category": "쇼핑/뷰티",
+      "description": "영화 관람",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 933899
+    },
+    {
+      "id": 280,
+      "date": "2025-06-09",
+      "category": "식비",
+      "description": "화장품 구매",
+      "method": "카카오페이",
+      "type": "expense",
+      "amount": 942870
+    },
+    {
+      "id": 281,
+      "date": "2025-06-18",
+      "category": "기타수입",
+      "description": "고기 구입",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 1188352
+    },
+    {
+      "id": 282,
+      "date": "2025-07-24",
+      "category": "의료/건강",
+      "description": "저녁 약속",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 381329
+    },
+    {
+      "id": 283,
+      "date": "2025-07-09",
+      "category": "월급",
+      "description": "마트 쇼핑",
+      "method": "현금",
+      "type": "income",
+      "amount": 7106773
+    },
+    {
+      "id": 284,
+      "date": "2025-07-28",
+      "category": "의료/건강",
+      "description": "화장품 구매",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 283399
+    },
+    {
+      "id": 285,
+      "date": "2025-07-25",
+      "category": "식비",
+      "description": "용돈 받음",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 316024
+    },
+    {
+      "id": 286,
+      "date": "2025-07-17",
+      "category": "기타수입",
+      "description": "음악 스트리밍",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 5276713
+    },
+    {
+      "id": 287,
+      "date": "2025-07-18",
+      "category": "용돈",
+      "description": "정기 구독",
+      "method": "토스",
+      "type": "income",
+      "amount": 5140367
+    },
+    {
+      "id": 288,
+      "date": "2025-07-26",
+      "category": "월급",
+      "description": "택시비",
+      "method": "신한카드",
+      "type": "income",
+      "amount": 8651734
+    },
+    {
+      "id": 289,
+      "date": "2025-07-07",
+      "category": "미분류",
+      "description": "피부과",
+      "method": "토스",
+      "type": "expense",
+      "amount": 296995
+    },
+    {
+      "id": 290,
+      "date": "2025-07-21",
+      "category": "월급",
+      "description": "병원비",
+      "method": "현금",
+      "type": "income",
+      "amount": 6131911
+    },
+    {
+      "id": 291,
+      "date": "2025-07-06",
+      "category": "생활",
+      "description": "피부과",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 35796
+    },
+    {
+      "id": 292,
+      "date": "2025-07-05",
+      "category": "식비",
+      "description": "부모님 선물",
+      "method": "현대카드",
+      "type": "expense",
+      "amount": 152101
+    },
+    {
+      "id": 293,
+      "date": "2025-07-02",
+      "category": "의료/건강",
+      "description": "저녁 약속",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 301451
+    },
+    {
+      "id": 294,
+      "date": "2025-07-05",
+      "category": "문화/여가",
+      "description": "쇼핑",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 707314
+    },
+    {
+      "id": 295,
+      "date": "2025-07-17",
+      "category": "생활",
+      "description": "화장품 구매",
+      "method": "삼성페이",
+      "type": "expense",
+      "amount": 959063
+    },
+    {
+      "date": "2025-07-31",
+      "type": "expense",
+      "amount": 920683,
+      "description": "요가 수업",
+      "method": "삼성페이",
+      "category": "미분류",
+      "id": 296
+    },
+    {
+      "id": 297,
+      "date": "2025-07-05",
+      "category": "기타수입",
+      "description": "편의점",
+      "method": "현금",
+      "type": "income",
+      "amount": 3939723
+    },
+    {
+      "id": 298,
+      "date": "2025-07-09",
+      "category": "쇼핑/뷰티",
+      "description": "보너스 수령",
+      "method": "국민카드",
+      "type": "expense",
+      "amount": 922668
+    },
+    {
+      "id": 299,
+      "date": "2025-07-30",
+      "category": "미분류",
+      "description": "부모님 선물",
+      "method": "현금",
+      "type": "expense",
+      "amount": 167054
+    },
+    {
+      "id": 300,
+      "date": "2025-07-11",
+      "category": "쇼핑/뷰티",
+      "description": "음악 스트리밍",
+      "method": "현금",
+      "type": "expense",
+      "amount": 843194
+    }
+  ],
+  "method": [
+    {
+      "id": "현금",
+      "name": "현금"
+    },
+    {
+      "id": "카드",
+      "name": "카드"
+    }
+  ]
+}
