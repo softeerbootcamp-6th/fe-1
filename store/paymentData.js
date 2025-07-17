@@ -6,12 +6,29 @@ const paymentDataStore = {
         this.notifyPaymentDataUpdated();
     },
 
+    updatePaymentData(id, updatedData) {
+        const index = this.paymentData.findIndex((data) => data.id === id);
+        if (index !== -1) {
+            this.paymentData[index] = {
+                ...this.paymentData[index],
+                ...updatedData,
+            };
+            this.notifyPaymentDataUpdated();
+            return true;
+        }
+        return false;
+    },
+
     getPaymentData() {
         return this.paymentData;
     },
 
     getPaymentDataCount() {
         return this.paymentData.length;
+    },
+
+    getPaymentDataById(id) {
+        return this.paymentData.find((data) => data.id === id);
     },
 
     deletePaymentData(id) {
@@ -21,6 +38,14 @@ const paymentDataStore = {
 
     notifyPaymentDataUpdated() {
         document.dispatchEvent(new CustomEvent('paymentDataUpdated'));
+    },
+
+    notifyEditModeRequested(id) {
+        document.dispatchEvent(
+            new CustomEvent('editModeRequested', {
+                detail: { id },
+            })
+        );
     },
 };
 
