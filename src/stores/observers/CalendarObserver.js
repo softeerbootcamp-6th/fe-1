@@ -6,7 +6,10 @@ class CalendarObserver extends Observer {
     this.view = view;
   }
 
-  update({ transactions }) {
+  update({ subject, data }) {
+    if (subject !== "transactions") return;
+
+    const { transactions } = data;
     const dailyTransactions = transactions.reduce((acc, transaction) => {
       const day = transaction.date;
       if (!acc[day]) {

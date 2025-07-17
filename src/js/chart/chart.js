@@ -15,8 +15,8 @@ const init = async () => {
 
   await transactionState.loadMonthData(`${year}-${month}`);
 
-  const $pieChartList = document.querySelector(".pie-chart__list");
-  $pieChartList.addEventListener("click", (e) => {
+  const $pieChart = document.querySelector(".pie-chart");
+  $pieChart.addEventListener("click", (e) => {
     const $listItem = e.target.closest(".pie-chart__item");
     if (!$listItem) return;
 
