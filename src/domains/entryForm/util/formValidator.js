@@ -1,5 +1,5 @@
 // 폼의 필드와 제출 버튼을 인자로 받아 유효성 검사를 수행하는 함수
-export const validateFormFields = (fields, btn) => {
+export const validateFormFields = ({ fields, btn }) => {
   const v = () => {
     const ok = fields.every((f) =>
       f.type === 'select-one' ? f.selectedIndex > 0 : f.value.trim(),

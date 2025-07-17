@@ -30,9 +30,9 @@ export class HeaderDateModel {
   }
 
   // 연도와 월을 설정하는 함수
-  set(y, m) {
-    this.year = y;
-    this.month = m;
+  set({ year, month }) {
+    this.year = year;
+    this.month = month;
   }
 
   // 현재 연도와 월을 반환하는 함수

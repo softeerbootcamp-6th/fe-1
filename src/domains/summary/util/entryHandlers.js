@@ -15,7 +15,7 @@ export const handleEntryDelete = ({ e, entryKeyMap, summaryStore }) => {
 
   if (!entryId) return;
 
-  deleteDummyData(entryId)
+  deleteDummyData({ id: entryId })
     .then(() => {
       // 성공적으로 삭제된 후 상태 업데이트
       summaryStore.dispatch('ENTRY/REMOVE', { id: entryId });

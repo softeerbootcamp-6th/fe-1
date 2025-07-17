@@ -5,7 +5,7 @@ export const generateFormData = ({ els, existingId = null }) => {
   return {
     id: existingId || crypto.randomUUID(), // 기존 ID가 있으면 사용, 없으면 새로 생성
     date: els.date.value,
-    sign: isExpense(els) ? '-' : '+',
+    sign: isExpense({ els }) ? '-' : '+',
     amount: +els.amtInp.value.replace(/,/g, ''),
     memo: els.memoInp.value.trim(),
     category: {

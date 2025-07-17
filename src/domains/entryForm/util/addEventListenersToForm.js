@@ -41,7 +41,7 @@ const addEventListenerToSubmitBtn = ({
     // 선택된 엔트리가 있다면 PUT 요청을 통해 업데이트
     const selectedEntry = selectedEntryStore.getState().selectedEntry;
     const data = generateFormData({
-      els: selectFormElements(formEl),
+      els: selectFormElements({ formEl }),
       existingId: selectedEntry ? selectedEntry.id : null,
     });
 

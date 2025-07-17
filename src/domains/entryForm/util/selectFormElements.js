@@ -1,5 +1,5 @@
 // 폼 요소들을 선택하는 함수
-export const selectFormElements = (formEl) => {
+export const selectFormElements = ({ formEl }) => {
   return {
     date: formEl.querySelector('#form-date'),
     signBtn: formEl.querySelector('#form-sign'),

@@ -1,7 +1,7 @@
 import { WEEKDAY } from '../../../shared/constants/time.js';
 
 // summary에 새로운 날짜 그룹(article Tag)을 추가할 때 사용할 HTML 템플릿
-export const dayGroupHTML = (date) => {
+export const dayGroupHTML = ({ date }) => {
   const d = new Date(date);
   // 커스텀 데이터 속성인 data-date에 날짜를 저장해서 날짜별 그룹을 관리
   return `

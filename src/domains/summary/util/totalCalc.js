@@ -10,6 +10,6 @@ const calcAccumulator = (acc, { sign, amount }) => {
 
 // reduce를 통해 총합 계산
 // reduce에서 { inc: 0, exp: 0, total: 0, count: 0 }을 초기값으로 사용
-export const calcTotals = (list) => {
+export const calcTotals = ({ list }) => {
   return list.reduce(calcAccumulator, { inc: 0, exp: 0, total: 0, count: 0 });
 };

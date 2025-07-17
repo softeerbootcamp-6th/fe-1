@@ -7,7 +7,7 @@ export const formatSummaryText = ({ calcResult }) => {
 
 // 전체 합계 업데이트
 export const updateTotalSummary = ({ summaryEl, entries }) => {
-  const totals = calcTotals(entries);
+  const totals = calcTotals({ list: entries });
   summaryEl.querySelector('.total.count').textContent =
     `전체 내역 ${totals.count}건`;
   summaryEl.querySelector('.total.income-spend').textContent =

@@ -1,4 +1,4 @@
-export const resetForm = (els) => {
+export const resetForm = ({ els }) => {
   // 폼 요소를 초기화
   els.memoInp.value = els.amtInp.value = '';
   els.catSel.selectedIndex = els.methSel.selectedIndex = 0;

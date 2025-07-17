@@ -15,7 +15,7 @@ export const updateDayTotals = ({ summaryEl, entries }) => {
     const dateEntries = entries.filter(
       (entry) => entry.date === group.dataset.date,
     );
-    const total = calcTotals(dateEntries);
+    const total = calcTotals({ list: dateEntries });
     group.querySelector('.day-total').textContent = formatSummaryText({
       calcResult: total,
     });
@@ -26,7 +26,7 @@ export const updateDayTotals = ({ summaryEl, entries }) => {
 export const ensureGroup = ({ summaryEl, date }) => {
   let group = summaryEl.querySelector(`[data-date="${date}"]`);
   if (!group) {
-    summaryEl.insertAdjacentHTML('beforeend', dayGroupHTML(date));
+    summaryEl.insertAdjacentHTML('beforeend', dayGroupHTML({ date }));
     group = summaryEl.lastElementChild;
   }
   return group;

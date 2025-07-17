@@ -10,11 +10,11 @@ export const fillFormWithSelectedEntryState = ({
   const selectedEntry = selectedEntryState.selectedEntry;
   if (!selectedEntry) return;
 
-  const els = selectFormElements(formEl);
+  const els = selectFormElements({ formEl });
   els.date.value = selectedEntry.date;
   els.signBtn.textContent = selectedEntry.sign;
   // 카테고리 옵션을 부호에 따라 채움
-  fillCats(els);
+  fillCats({ els });
 
   els.amtInp.value = selectedEntry.amount.toLocaleString('ko-KR');
   els.memoInp.value = selectedEntry.memo;
@@ -22,8 +22,8 @@ export const fillFormWithSelectedEntryState = ({
   els.catSel.value = selectedEntry.category.value;
 
   // 폼 요소가 입력될 때 유효성 검사를 수행하고, 유효한 경우에만 제출 버튼을 활성화
-  validateFormFields(
-    [els.date, els.amtInp, els.memoInp, els.methSel, els.catSel],
-    els.submit,
-  );
+  validateFormFields({
+    fields: [els.date, els.amtInp, els.memoInp, els.methSel, els.catSel],
+    btn: els.submit,
+  });
 };

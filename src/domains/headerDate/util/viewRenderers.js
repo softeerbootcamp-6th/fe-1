@@ -14,7 +14,7 @@ const renderDateDisplay = ({
 };
 
 // render 함수 팩토리
-export const createRenderFunction = (navEl) => {
+export const createRenderFunction = ({ navEl }) => {
   return (state) => {
     renderDateDisplay({
       yearElement: navEl.querySelector('.year'),

@@ -46,7 +46,7 @@ export const initDateNav = ({ navEl, dateStore }) => {
   });
 
   // render 함수 생성
-  const render = createRenderFunction(navEl);
+  const render = createRenderFunction({ navEl });
 
   // Store 상태 변경 구독
   dateStore.subscribe(render);
