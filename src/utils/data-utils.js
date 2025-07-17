@@ -6,7 +6,7 @@ import {
 import {
   updateHistoryList,
   cancelEditMode,
-} from "../pages/main/main-ui-utils.js";
+} from "../pages/main/utils/main-ui-utils.js";
 import { updateHeaderDate, updateInputDate } from "./date-utils.js";
 import { dateStore } from "../store/date-store.js";
 import { routingStore } from "../store/routing-store.js";
@@ -17,11 +17,51 @@ export function getFilteredData(initialData) {
     const itemDate = new Date(item.date);
     return (
       itemDate.getFullYear() === dateStore.getState().currentYear &&
-      itemDate.getMonth() === dateStore.getState().currentMonth - 1 // 1-12를 0-11로 변환
+      itemDate.getMonth() === dateStore.getState().currentMonth - 1 // 1를0로 변환
     );
   });
 }
 
+// 확장 가능한 필터링 함수 (필터링 조건을 파라미터로 받음)
+export function getFilteredDataWithCondition(
+  initialData,
+  filterCondition = null
+) {
+  return initialData.filter((item) => {
+    const itemDate = new Date(item.date);
+    const isCurrentMonth =
+      itemDate.getFullYear() === dateStore.getState().currentYear &&
+      itemDate.getMonth() === dateStore.getState().currentMonth - 1;
+
+    // 기본 월 필터링
+    if (!isCurrentMonth) return false;
+
+    // 추가 필터링 조건이 있으면 적용
+    if (filterCondition) {
+      return filterCondition(item);
+    }
+
+    return true;
+  });
+}
+
+// 현재 선택된 월의 지출(소비) 데이터만 필터링하는 함수
+export function getFilteredExpenseData(initialData) {
+  return getFilteredDataWithCondition(initialData, (item) => item.amount < 0);
+}
+
+// 현재 선택된 월의 특정 카테고리 지출 데이터만 필터링하는 함수
+export function getFilteredExpenseDataByCategory(initialData, category) {
+  return getFilteredDataWithCondition(
+    initialData,
+    (item) => item.amount < 0 && item.category === category
+  );
+}
+
+// 현재 선택된 월의 수입 데이터만 필터링하는 함수
+export function getFilteredIncomeData(initialData) {
+  return getFilteredDataWithCondition(initialData, (item) => item.amount > 0);
+}
 // 아이템 삭제 함수
 export async function deleteItemFromData(itemId) {
   if (confirm("정말 삭제하시겠습니까?")) {
@@ -67,6 +107,7 @@ export function processAmountSign(amount, currentToggleType) {
 
 // 새 아이템 생성 (API에 추가)
 export async function createNewItem(date, amount, content, method, category) {
+  const milliSecond = 100;
   const newItem = {
     date,
     category,
@@ -80,7 +121,8 @@ export async function createNewItem(date, amount, content, method, category) {
   try {
     await createTransaction(newItem);
     // JSON Server가 파일 쓰기를 완료할 시간을 준 뒤 업데이트(동시성 문제 해결)
-    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    await new Promise((resolve) => setTimeout(resolve, milliSecond));
     await updateHistoryList();
     return newItem;
   } catch (error) {
