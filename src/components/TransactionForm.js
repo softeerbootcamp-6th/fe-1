@@ -1,6 +1,3 @@
-import { addObservers, setState, state } from "../store.js";
-import { addEventListener } from "../utils/addEvent.js";
-import { categories } from "../constants/categories.js";
 import { renderTransactionForm } from "./TransactionFormView.js";
 import DateState from "../store/DateState.js";
 import {
