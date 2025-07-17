@@ -1,6 +1,26 @@
 import createDailyList from '../DailyInfo/List/index.js';
 import paymentDataStore from '../../store/paymentData.js';
 
+const filterState = {
+    income: true,
+    expense: true,
+
+    toggle(type) {
+        this[type] = !this[type];
+    },
+};
+
+const CheckboxIcon = {
+    checkbox: {
+        icon: '/assets/icons/checkbox.svg',
+        alt: 'Checkbox Icon',
+    },
+    uncheckbox: {
+        icon: '/assets/icons/uncheckbox.svg',
+        alt: 'Uncheckbox Icon',
+    },
+};
+
 export default function createMonthlyInfo() {
     const monthlyInfo = document.createElement('div');
     monthlyInfo.className = 'main-container';
@@ -9,14 +29,14 @@ export default function createMonthlyInfo() {
             <div class="monthly-info">
                 <div class="item-counter">
                     <span class="light-12">전체 내역</span>
-                    <span class="light-12">${paymentDataStore.paymentData.length}건</span>
+                    <span class="light-12 item-counter-text">${paymentDataStore.getPaymentDataCount()}건</span>
                 </div>
                 <div class="checkbox-buttons">
                     <div class="checkbox-button-container">
-                        <button class="checkbox-button">
+                        <button class="checkbox-button" id="income-checkbox">
                             <img
-                                src="/assets/icons/checkbox.svg"
-                                alt="Checkbox Icon"
+                                src="${CheckboxIcon.checkbox.icon}"
+                                alt="${CheckboxIcon.checkbox.alt}"
                                 width="16"
                                 height="16"
                             />
@@ -24,10 +44,10 @@ export default function createMonthlyInfo() {
                         <span class="light-12"> 수입 </span>
                     </div>
                     <div class="checkbox-button-container">
-                        <button class="checkbox-button">
+                        <button class="checkbox-button" id="expense-checkbox">
                             <img
-                                src="/assets/icons/uncheckbox.svg"
-                                alt="Uncheckbox Icon"
+                                src="${CheckboxIcon.checkbox.icon}"
+                                alt="${CheckboxIcon.checkbox.alt}"
                                 width="16"
                                 height="16"
                             />
@@ -44,25 +64,47 @@ export default function createMonthlyInfo() {
     const dailyListContainer = monthlyInfo.querySelector(
         '.daily-list-container'
     );
-    const itemCounterElement = monthlyInfo.querySelector(
-        '.item-counter span:last-child'
-    );
+    const itemCounterTextElement =
+        monthlyInfo.querySelector('.item-counter-text');
 
     const renderDailyLists = () => {
         dailyListContainer.innerHTML = '';
 
-        const groupedData = groupByDate(paymentDataStore.paymentData);
+        const paymentData = filterPaymentData({
+            data: paymentDataStore.getPaymentData(),
+            income: filterState.income,
+            expense: filterState.expense,
+        });
+
+        const groupedData = groupByDate(paymentData);
         groupedData.forEach((data) => {
             const dailyList = createDailyList(data);
             dailyListContainer.appendChild(dailyList);
         });
 
-        itemCounterElement.textContent = `${paymentDataStore.paymentData.length}건`;
+        itemCounterTextElement.textContent = `${paymentData.length}건`;
     };
 
     renderDailyLists();
 
     document.addEventListener('paymentDataUpdated', renderDailyLists);
+
+    const incomeCheckbox = monthlyInfo.querySelector('#income-checkbox');
+    const expenseCheckbox = monthlyInfo.querySelector('#expense-checkbox');
+    incomeCheckbox.addEventListener('click', () => {
+        filterState.toggle('income');
+        incomeCheckbox.querySelector('img').src = filterState.income
+            ? CheckboxIcon.checkbox.icon
+            : CheckboxIcon.uncheckbox.icon;
+        renderDailyLists();
+    });
+    expenseCheckbox.addEventListener('click', () => {
+        filterState.toggle('expense');
+        expenseCheckbox.querySelector('img').src = filterState.expense
+            ? CheckboxIcon.checkbox.icon
+            : CheckboxIcon.uncheckbox.icon;
+        renderDailyLists();
+    });
 
     return monthlyInfo;
 }
@@ -85,4 +127,19 @@ function groupByDate(data) {
     return Object.values(grouped).sort(
         (a, b) => new Date(b.date) - new Date(a.date)
     );
+}
+
+function filterPaymentData({ data, income, expense }) {
+    if (income && expense) {
+        return data;
+    }
+
+    if (income) {
+        return data.filter((item) => item.amount > 0);
+    }
+
+    if (expense) {
+        return data.filter((item) => item.amount < 0);
+    }
+    return [];
 }

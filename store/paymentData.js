@@ -6,6 +6,14 @@ const paymentDataStore = {
         this.notifyPaymentDataUpdated();
     },
 
+    getPaymentData() {
+        return this.paymentData;
+    },
+
+    getPaymentDataCount() {
+        return this.paymentData.length;
+    },
+
     deletePaymentData(id) {
         this.paymentData = this.paymentData.filter((data) => data.id !== id);
         this.notifyPaymentDataUpdated();
