@@ -1,12 +1,12 @@
 // js/index.js
-import { initCalendar } from "./js/function/calendarRender.js";
-import { initRenderDummyData } from "./js/function/renderDummyData.js";
+import { initDate } from "./components/header/dateRender.js";
+import { initRenderDummyData } from "./components/main/ledger/entries/renderDummyData.js";
 import { initInputFormListener } from "./components/inputForm/inputFormItems/totalListener.js";
-import { deleteEntries } from "./js/function/entry.js";
-import { initFilterButtons } from "./js/function/filterEntries.js";
-import { initViewSwitcher } from "./js/function/viewSwitcher.js";
-import { updateCalendarTotalAmount } from "./js/function/calendarTotalAmount.js";
-import createHeader from "./components/header.js";
+import { deleteEntries } from "./components/main/ledger/entries/entry.js";
+import { initFilterButtons } from "./components/main/ledger/entries/filterEntries.js";
+import { initViewSwitcher } from "./components/main/viewSwitcher.js";
+import { updateCalendarTotalAmount } from "./components/main/calendar/calendarTotalAmount.js";
+import createHeader from "./components/header/header.js";
 import createInputForm from "./components/inputForm/input-form.js";
 
 function render() {
@@ -23,7 +23,7 @@ function render() {
 }
 
 function initHeader() {
-  initCalendar();
+  initDate();
 }
 
 function initBody() {

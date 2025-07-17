@@ -1,16 +1,13 @@
 import { store } from "../../store/store.js";
-import { sharedState } from "../../js/state/state.js";
-import { updateTotalAmounts } from "../../js/function/totalAmount.js";
-import { currentMonth, currentYear } from "../../js/function/calendarRender.js";
+import { sharedState } from "../../store/state.js";
+import { updateTotalAmounts } from "../main/ledger/totalAmount/totalAmount.js";
+import { currentMonth, currentYear } from "../header/dateRender.js";
 import { category } from "../../setting/config.js";
-import {
-  saveEntriesToServer,
-  loadEntriesFromServer,
-} from "../../js/api/api.js";
+import { saveEntriesToServer, loadEntriesFromServer } from "../../api.js";
 import {
   updateDateSectionTotals,
   getDateFromServer,
-} from "../../js/function/entry.js";
+} from "../main/ledger/entries/entry.js";
 
 export function addEntry() {
   const entry = getEntryDate();

@@ -1,8 +1,14 @@
-import { deleteEntry } from "../api/api.js";
-import { sharedState } from "../state/state.js";
-import { renderCategoryOptions } from "./categoryRender.js";
-import { updateTotalAmounts } from "./totalAmount.js";
-import { createModal } from "../../components/modal.js";
+import { deleteEntry } from "../../../../api.js";
+import { sharedState } from "../../../../store/state.js";
+import { renderCategoryOptions } from "../../../inputForm/inputFormItems/categoryRender.js";
+import { updateTotalAmounts } from "../totalAmount/totalAmount.js";
+import { createModal } from "../../../modal.js";
+
+/*
+  여기에 deleteEntries 함수와 관련된 코드가 있습니다.
+  현재 문제 방생 삭제 모달 겹쳐서 뜸,
+  이벤트 리스너에 계속해서 리스너 등록된다
+*/
 
 export function deleteEntries() {
   //이벤트 위임 방식
@@ -47,7 +53,6 @@ export function deleteEntries() {
 
       return;
     }
-    console.log("삭제 버튼 클릭됨");
     deleteBtn.addEventListener("click", (e) => {
       createModal({
         title: "삭제하시겠습니까?",
@@ -83,7 +88,7 @@ export function deleteEntryConfirm(deleteBtn) {
 
   updateTotalAmounts();
 
-  import("./calendarTotalAmount.js").then((module) => {
+  import("../../calendar/calendarTotalAmount.js").then((module) => {
     module.updateCalendarTotalAmount();
   });
 }

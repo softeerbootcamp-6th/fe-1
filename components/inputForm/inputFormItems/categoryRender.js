@@ -1,5 +1,5 @@
-import { sharedState } from "../state/state.js";
-import { updateTotalAmounts } from "./totalAmount.js";
+import { sharedState } from "../../../store/state.js";
+import { updateTotalAmounts } from "../../main/ledger/totalAmount/totalAmount.js";
 
 export function renderCategoryOptions() {
   let isIncome = sharedState.isIncome; // 수입/지출 여부

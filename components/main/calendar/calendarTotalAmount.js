@@ -1,5 +1,5 @@
-import { sharedState } from "../state/state.js";
-import { currentMonth, currentYear } from "./calendarRender.js";
+import { sharedState } from "../../../store/state.js";
+import { currentMonth, currentYear } from "../../header/dateRender.js";
 
 export function updateCalendarTotalAmount() {
   // 현재 월에 해당하는 항목만 필터링

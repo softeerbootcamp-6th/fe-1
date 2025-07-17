@@ -1,6 +1,6 @@
 // 통계 뷰 구현
-import { sharedState } from "../state/state.js";
-import { currentMonth, currentYear } from "./calendarRender.js";
+import { sharedState } from "../../../store/state.js";
+import { currentMonth, currentYear } from "../../header/dateRender.js";
 
 export function initStatsView() {
   renderDonutChart();

@@ -1,5 +1,5 @@
-import { sharedState } from "../../../js/state/state.js";
-import { renderCategoryOptions } from "../../../js/function/categoryRender.js";
+import { sharedState } from "../../../store/state.js";
+import { renderCategoryOptions } from "./categoryRender.js";
 
 export function initToggleSignListener() {
   const toggleSign = document.getElementById("toggle-sign");
