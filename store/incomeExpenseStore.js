@@ -7,13 +7,13 @@ class IncomeExpenseStore {
   // incomeExpenseData 불러 오기
   // promise 반환
   loadIncomeExpenseData() {
-    const dataPromise = fetch('./data/incomeExpenseData.json')
-      .then(response => response.json())
-      .then(data => {
+    const dataPromise = fetch("./data/incomeExpenseData.json")
+      .then((response) => response.json())
+      .then((data) => {
         this.incomeExpenseData = data;
       })
-      .catch(error => {
-        console.error('데이터 로딩 실패:', error);
+      .catch((error) => {
+        console.error("데이터 로딩 실패:", error);
         this.incomeExpenseData = {};
       });
 
@@ -21,11 +21,11 @@ class IncomeExpenseStore {
   }
 
   filterByMonth({ year, month }) {
-    const currentKey = `${year}-${String(month).padStart(2, '0')}`;
+    const currentKey = `${year}-${String(month).padStart(2, "0")}`;
     const monthData = Object.fromEntries(
       Object.entries(this.incomeExpenseData)
         .filter(([key]) => key.startsWith(currentKey))
-        .sort((a, b) => new Date(a[0]) - new Date(b[0]))
+        .sort((a, b) => new Date(a[0]) - new Date(b[0])),
     );
 
     return monthData;
@@ -45,7 +45,7 @@ class IncomeExpenseStore {
     // item update
     if (newIncomeExpense.id != null) {
       const updateTarget = this.incomeExpenseData[dateInputValue].find(
-        data => data.id === newIncomeExpense.id
+        (data) => data.id === newIncomeExpense.id,
       );
       updateTarget.type = newIncomeExpense.type;
       updateTarget.money = newIncomeExpense.money;
@@ -66,6 +66,7 @@ class IncomeExpenseStore {
 
         // date 데이터 비어있을 때
       } else {
+        newIncomeExpense.id = 0;
         this.incomeExpenseData[dateInputValue] = [newIncomeExpense];
       }
     }
@@ -74,7 +75,7 @@ class IncomeExpenseStore {
 
   delIncomeExpenseData(date, targetDataID) {
     const newIncomeExpenseDailyData = this.incomeExpenseData[date].filter(
-      data => data.id !== targetDataID
+      (data) => data.id !== targetDataID,
     );
     if (newIncomeExpenseDailyData.length > 0) {
       this.incomeExpenseData[date] = newIncomeExpenseDailyData;
@@ -89,7 +90,7 @@ class IncomeExpenseStore {
   }
 
   notify() {
-    this.listenrs.forEach(listener => {
+    this.listenrs.forEach((listener) => {
       listener();
     });
   }

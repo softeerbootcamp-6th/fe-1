@@ -1,0 +1,58 @@
+@import "./colors.css";
+
+.select-box {
+  position: relative;
+  width: 6.5rem;
+  height: 2rem;
+  font-size: 0.75rem;
+}
+
+.select-button {
+  width: 100%;
+  height: 100%;
+  background-color: var(--grayscale-50);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-button-span {
+  display: flex;
+  align-items: start;
+  width: 5.25rem;
+}
+
+.option-list {
+  position: absolute;
+  z-index: 10;
+  list-style: none;
+  top: 100%;
+  width: 9.5rem;
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column;
+  background-color: var(--grayscale-50);
+  border: 0.0313rem solid var(--neutral-border-default);
+}
+
+.option-item {
+  width: 100%;
+  height: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--grayscale-50);
+}
+
+.option-item-span {
+  width: 4.5rem;
+  text-align: start;
+}
+
+.option-button {
+  width: 100%;
+  height: 3.5rem;
+  background-color: var(--grayscale-50);
+}
