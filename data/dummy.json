@@ -61,21 +61,6 @@
       }
     },
     {
-      "id": "60194394-9247-42f6-8689-631cf1c7c6af",
-      "date": "2025-07-03",
-      "sign": "-",
-      "amount": 1650,
-      "memo": "subway",
-      "category": {
-        "value": "transport",
-        "text": "교통"
-      },
-      "method": {
-        "value": "cash",
-        "text": "신용카드"
-      }
-    },
-    {
       "id": "5bdc4bed-d10c-4e8a-ae89-ecdcb7dce6c0",
       "date": "2025-07-17",
       "sign": "+",
