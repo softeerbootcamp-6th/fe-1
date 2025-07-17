@@ -3,7 +3,6 @@ import { render } from "../utils/routes.js";
 
 export function initHeader(container) {
   setupDateEventListeners(container);
-  updateNavigationActive();
 
   dateStore.subscribe(() => {
     updateDateInfo(container);
@@ -86,13 +85,12 @@ export function updateDateInfo(container) {
   if (monthName) monthName.textContent = dateStore.getMonthName();
 }
 
-export function updateNavigationActive() {
-  const currentPath = window.location.pathname;
+export function updateNavigationActive(path) {
   const navLinks = document.querySelectorAll("nav a");
 
   navLinks.forEach((link) => {
     const href = link.getAttribute("href");
-    if (href === currentPath) {
+    if (href === path) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");

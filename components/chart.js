@@ -3,6 +3,7 @@ import { dateStore, transactionStore } from "../store/index.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { totalExpenseData } from "../utils/transaction.js";
 import { renderLineChart } from "./lineChart.js";
+import { createTransactionRow } from "./transactionsList.js";
 
 // 카테고리별 지출 합계 및 퍼센트 구하기
 export function getExpenseByCategory(
@@ -62,6 +63,7 @@ function createLegend(categories, expenseByCategory, totalExpenseAmount) {
 // 최신 6개월(이번달 포함) 카테고리 별 지출 총합 계산 및 출력
 function logLast6MonthsTotalExpense(year, month, category) {
   const totalAmountByMonth = {};
+  const totalTransactionList = {};
 
   for (let i = 0; i < 6; i++) {
     // 월이 0 이하일 때 연도/월 보정
@@ -74,8 +76,9 @@ function logLast6MonthsTotalExpense(year, month, category) {
     );
     const { totalExpenseAmount } = totalExpenseData(transactions || []);
     totalAmountByMonth[calcMonth] = totalExpenseAmount;
+    totalTransactionList[calcMonth] = transactions;
   }
-  return totalAmountByMonth;
+  return { totalAmountByMonth, totalTransactionList };
 }
 
 export function renderLegend(
@@ -102,18 +105,85 @@ export function renderLegend(
           .textContent.trim();
         const year = dateStore.getYear();
         const month = dateStore.getMonth();
-        const totalAmountByMonth = logLast6MonthsTotalExpense(
-          year,
-          month,
-          categoryName
-        );
+        const { totalAmountByMonth, totalTransactionList } =
+          logLast6MonthsTotalExpense(year, month, categoryName);
         console.log(categoryName, totalAmountByMonth);
         const lineChartContainer = document.querySelector(
           "#line-chart-container"
         );
         lineChartContainer.style.display = "block";
         renderLineChart(lineChartContainer, totalAmountByMonth);
+        renderTransactionList(month, totalTransactionList);
       }
     });
+  }
+}
+
+export function createMonthlyExpenseTransactionList(
+  month,
+  totalTransactionList
+) {
+  // 1차원 배열에서 날짜별로 그룹핑
+  const transactionListByDate = totalTransactionList[month].reduce(
+    (acc, transaction) => {
+      const date = transaction.date;
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(transaction);
+      return acc;
+    },
+    {}
+  );
+  console.log(transactionListByDate);
+
+  // 날짜별로 섹션 생성
+  const sections = Object.entries(transactionListByDate).reduce(
+    (acc, [date, transactionList]) => {
+      const { totalExpenseAmount } = totalExpenseData(transactionList);
+
+      const header = `
+        <div class="flex-between serif-14">
+          <div>${date}</div>
+          <div> 
+          ${`지출 ${formatMoney(totalExpenseAmount)}원`}
+       </div>
+        </div>
+      `;
+
+      const rows = transactionList.reduce((rowAcc, transaction) => {
+        const row = createTransactionRow(transaction, false);
+        return rowAcc + row;
+      }, "");
+
+      return (
+        acc +
+        `
+        ${header}
+        <table>
+            <tbody class="tbody-border">
+                ${rows}
+            </tbody>
+        </table>
+      `
+      );
+    },
+    ""
+  );
+
+  return `
+      ${sections}
+  `;
+}
+
+export function renderTransactionList(month, totalTransactionList) {
+  const transactionListContainer = document.querySelector(
+    ".transaction-list-container"
+  );
+  if (transactionListContainer) {
+    transactionListContainer.innerHTML = createMonthlyExpenseTransactionList(
+      month,
+      totalTransactionList
+    );
   }
 }

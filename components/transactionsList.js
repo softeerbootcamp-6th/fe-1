@@ -60,7 +60,7 @@ function registerExternalClickHandler() {
   }
 }
 
-function createTransactionRow(transaction) {
+export function createTransactionRow(transaction, isDeleteButton = true) {
   return `
     <tr class="transaction-row" data-id="${transaction.id}">
       <td class="td-category light-12 category-${
@@ -72,14 +72,22 @@ function createTransactionRow(transaction) {
         transaction.amount > 0 ? "text-income" : "text-expense"
       }">
         ${formatMoney(transaction.amount)}원
-        <button 
-          class="delete-btn flex-row semibold-14" 
-          data-id="${transaction.id}">
-          <div class="delete-btn-icon">
-            <img src="../icons/closed.svg" alt="delete" />
-          </div>
-          <div>삭제</div>
-        </button>
+        ${
+          isDeleteButton
+            ? `<button
+              class="delete-btn flex-row semibold-14"
+              data-id="${transaction.id}"
+            >
+              <div class="delete-btn-icon">
+                <img
+                  src="../icons/closed.svg"
+                  alt="delete"
+                />
+              </div>
+              <div>삭제</div>
+            </button>`
+            : ""
+        }
       </td>
     </tr>
   `;

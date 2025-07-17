@@ -283,6 +283,7 @@ nav a.active {
 
 #main-container {
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .amount-toggle {

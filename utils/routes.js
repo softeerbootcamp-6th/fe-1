@@ -25,5 +25,5 @@ export function render() {
     container.innerHTML = "<h1>404 Not Found</h1>";
   }
 
-  updateNavigationActive();
+  updateNavigationActive(path);
 }

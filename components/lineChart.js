@@ -45,7 +45,7 @@ export function renderGrid(
     label.setAttribute("text-anchor", "middle");
     label.setAttribute("font-size", "12");
     label.setAttribute("fill", "#666");
-    label.textContent = month + 1;
+    label.textContent = month;
     gridGroup.appendChild(label);
   });
 }
