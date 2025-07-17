@@ -2,7 +2,10 @@ import {
   renderMonthlyInfo,
   renderTotalCount,
 } from "../components/main/monthlyInfo.js";
-import { renderInputBar } from "../components/main/inputBar.js";
+import {
+  initInputBar,
+  renderInputBar,
+} from "../components/main/inputBar.viewmodel.js";
 import { renderTransactionList } from "../components/main/transactionsList.js";
 import {
   getTotalIncomeData,
@@ -45,6 +48,7 @@ export function renderMainPage() {
   const inputBarContainer = mainContainer.querySelector("#input-bar-container");
   if (inputBarContainer) {
     renderInputBar(inputBarContainer);
+    initInputBar(inputBarContainer);
   }
 
   // monthlyInfo 렌더링
