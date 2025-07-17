@@ -7,12 +7,19 @@ import { initFilterButtons } from "./function/filterEntries.js";
 import { initViewSwitcher } from "./function/viewSwitcher.js";
 import { updateCalendarTotalAmount } from "./function/calendarTotalAmount.js";
 import createHeader from "../components/header.js";
+import createInputForm from "../components/input-form.js";
 
 function render() {
   const headerContainer = document.getElementById("header-container");
   headerContainer.innerHtml = "";
   const header = createHeader();
   headerContainer.appendChild(header);
+
+  const inputForm = createInputForm();
+
+  const inputFormContainer = document.getElementById("input-form-container");
+  inputFormContainer.innerHTML = "";
+  inputFormContainer.appendChild(inputForm);
 }
 // 헤더 초기화 (월 선택 기능)
 render();

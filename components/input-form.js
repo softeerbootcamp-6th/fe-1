@@ -1,5 +1,8 @@
-<section class="input-form">
-  <!-- <div class="inter-input-block">
+export default function createInputForm() {
+  const inputForm = document.createElement("div");
+  inputForm.className = "input-form";
+  inputForm.innerHTML = `
+      <div class="inter-input-block">
     <div>일자</div>
     <input type="date" id="date" class="date" />
   </div>
@@ -52,5 +55,8 @@
 
   <button id="add-btn">
     <img src="../assets/icons/check.svg" alt="확인" />
-  </button> -->
-</section>
+  </button>
+  `;
+
+  return inputForm;
+}
