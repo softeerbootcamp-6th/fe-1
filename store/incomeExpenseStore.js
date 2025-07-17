@@ -39,7 +39,7 @@ class IncomeExpenseStore {
     }
   }
 
-  // incomeExpenseData 업데이트
+  // incomeExpenseData 업데이트 -> TODO: addIncomeExpenseData로 변경
   updateIncomeExpenseData(dateInputValue, newIncomeExpense) {
     // 해당 일 데이터 가져오기
     const dateData = this.incomeExpenseData[dateInputValue];
@@ -54,6 +54,18 @@ class IncomeExpenseStore {
       // date 데이터 비어있을 때
     } else {
       this.incomeExpenseData[dateInputValue] = [newIncomeExpense];
+    }
+    this.notify();
+  }
+
+  delIncomeExpenseData(date, targetDataID) {
+    const newIncomeExpenseDailyData = this.incomeExpenseData[date].filter(
+      data => data.id !== targetDataID
+    );
+    if (newIncomeExpenseDailyData.length > 0) {
+      this.incomeExpenseData[date] = newIncomeExpenseDailyData;
+    } else {
+      delete this.incomeExpenseData[date];
     }
     this.notify();
   }

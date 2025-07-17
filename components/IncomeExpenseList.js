@@ -36,6 +36,7 @@ export function renderListItem(listContainer) {
   const currentMonthDataList = Object.entries(currentMonthData)
     .map(dailyData => dailyData[1])
     .flat();
+
   const monthlyNum = currentMonthDataList.length;
 
   const monthlyIncome = currentMonthDataList
@@ -119,9 +120,10 @@ export function renderListItem(listContainer) {
     expense: 'money-expense',
   };
 
-  const getListItemHTML = ({ type, money, description, payment, tag }) => {
+  const getListItemHTML = ({ id, type, money, description, payment, tag }) => {
     const li = document.createElement('li');
     li.className = 'list-item';
+    li.id = id;
 
     const tagSpan = document.createElement('span');
     tagSpan.classList.add('tag', 'light14', tagColorMap[tag]);
@@ -144,7 +146,7 @@ export function renderListItem(listContainer) {
     deleteDiv.className = 'delete';
     deleteDiv.style.display = 'none';
     deleteDiv.innerHTML = `
-    <div class="delete-icon"><img src='../assets/icons/delete-icon.svg'/></div>
+    <img class="delete-icon" src='../assets/icons/delete-icon.svg'/>
     <span class="delete-text semibold12">삭제</span>
     `;
 
@@ -165,7 +167,31 @@ export function renderListItem(listContainer) {
       li.classList.toggle('list-item-hover');
     });
 
+    li.addEventListener('click', e => {
+      handleListItemClick(e);
+    });
+
     return li;
+  };
+  // list 개별 요소 클릭
+  const handleListItemClick = ({ target }) => {
+    const clickedElement = target.closest('div');
+
+    // 삭제 버튼 클릭했을 경우
+    if (clickedElement.className == 'delete') {
+      const targetListItem = target.closest('li');
+
+      const targetListItemID = Number(targetListItem.id);
+      const targetListItemDate = targetListItem.closest('div').id;
+
+      incomeExpenseStore.delIncomeExpenseData(
+        targetListItemDate,
+        targetListItemID
+      );
+    } else {
+      // 삭제 버튼 아닌 곳 클릭했을 경우
+      console.log(clickedElement);
+    }
   };
 
   const monthlyInfoContainer = document.createElement('div');
@@ -184,11 +210,12 @@ export function renderListItem(listContainer) {
     dailyContainer.innerHTML = getDailyInfoHTML([date, dateData]);
 
     // 지출 내역 추가
-    const listItem = document.createElement('div');
-    listItem.className = 'list-item-container';
+    const listItemContainer = document.createElement('div');
+    listItemContainer.className = 'list-item-container';
+    listItemContainer.id = date;
     dateData.forEach(item => {
-      listItem.appendChild(getListItemHTML(item));
-      dailyContainer.appendChild(listItem);
+      listItemContainer.appendChild(getListItemHTML(item));
+      dailyContainer.appendChild(listItemContainer);
     });
     listContainer.appendChild(dailyContainer);
   });
