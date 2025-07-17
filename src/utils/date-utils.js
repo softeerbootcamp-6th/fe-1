@@ -43,11 +43,11 @@ export function updateInputDate() {
   const formattedDate = `${year}-${month}-${day}`;
 
   dateInputEl.value = formattedDate;
-
+  const milliSecond = 10;
   // 폼 유효성 검사 업데이트 (약간의 지연을 두어 DOM 업데이트 후 실행)
   setTimeout(() => {
     updateFormValidation();
-  }, 10);
+  }, milliSecond);
 }
 
 // 헤더 월/년 업데이트 함수

@@ -14,7 +14,7 @@ export function showModal(title, placeholder, onConfirm) {
   const backdrop = document.getElementById("modal-backdrop");
   const input = document.getElementById("modal-input");
   const confirmBtn = document.getElementById("modal-confirm-btn");
-
+  const milliSecond = 100;
   // 모달 내용 설정
   input.placeholder = placeholder;
   input.value = "";
@@ -25,7 +25,7 @@ export function showModal(title, placeholder, onConfirm) {
   // 입력 필드에 포커스
   setTimeout(() => {
     input.focus();
-  }, 100);
+  }, milliSecond);
 
   // 기존 이벤트 리스너 제거
   const newConfirmBtn = confirmBtn.cloneNode(true);

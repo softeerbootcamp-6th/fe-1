@@ -243,7 +243,6 @@ export function initializeRendering() {
   updateHistoryList();
 }
 
-
 // 히스토리 리스트 업데이트 함수
 export async function updateHistoryList() {
   try {
@@ -589,10 +588,10 @@ export function enterEditMode(itemId) {
       if (activeToggle) activeToggle.classList.add("active");
 
       charCountSpan.textContent = `${contentInput.value.length}/32`;
-
+      const milliSecond = 10;
       setTimeout(() => {
         updateFormValidation();
-      }, 10);
+      }, milliSecond);
     })
     .catch((error) => {
       console.error("거래 내역 조회 실패:", error);
@@ -636,12 +635,15 @@ export function cancelEditMode() {
     .forEach((item) => item.classList.remove("edit-mode"));
 }
 
-// 렌더링 함수 수정
-export async function renderHistoryList(transactions) {
+// 확장 가능한 렌더링 함수 (필터링 함수를 파라미터로 받음)
+export async function renderHistoryListWithFilter(
+  transactions,
+  filterFunction
+) {
   //랜더링 할 리스트
   const historyList = document.querySelector(".history-list");
   // 필터링된 데이터
-  const filteredData = getFilteredData(transactions);
+  const filteredData = filterFunction(transactions);
   // 그룹화된 데이터
   const grouped = {};
 
@@ -767,4 +769,9 @@ export async function renderHistoryList(transactions) {
       });
     }
   });
+}
+
+// 렌더링 함수 수정 (기존 호환성을 위해 유지)
+export async function renderHistoryList(transactions) {
+  return renderHistoryListWithFilter(transactions, getFilteredData);
 }
