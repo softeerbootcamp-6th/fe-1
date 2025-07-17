@@ -4,6 +4,7 @@ import { listStore } from "../../store/ListStore.js";
 import { formStore } from "../../store/FormStore.js";
 import { NumberManager } from "../../utils/NumberManager.js";
 import { Modal } from "../modal/index.js";
+import { Timer } from "../../utils/Timer.js";
 
 const BACKGROUND_COLOR = {
   생활: 90,
@@ -54,7 +55,9 @@ export const ListItem = (item) => {
         Modal.renderModal(
           "deleteListItem",
           () => {
-            listStore.dispatch("removeListItemByUID", uid);
+            Timer(1000, () => {
+              listStore.dispatch("removeListItemByUID", uid);
+            });
           },
           uidItem
         );
