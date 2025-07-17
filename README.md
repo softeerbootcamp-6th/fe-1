@@ -122,7 +122,6 @@
   - [x] 날짜별 요소 수정시 폼 입력 부분 제시
   - [x] 필터링 적용된 상태에서 삭제하면 originData 기준으로 렌더링되는 데이터 관리 문제 해결
   - [x] 날짜별 내역 추가시 String으로 숫자가 합쳐지는 문제 해결
-  - []
 
 ## 요구사항(mock data 준비)
 
@@ -150,6 +149,6 @@
 }
 ```
 
-- [] mock server 환경설정
+- [x] mock server 환경설정
 - [] mock server get 기능 구현
 - [] mock server post 기능 구현

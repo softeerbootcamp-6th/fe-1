@@ -1,0 +1,256 @@
+{
+  "list": [
+    {
+      "uid": "c6a94e5e-3b67-4a36-bd5c-0a8a7f108f6a",
+      "date": "2023-07-25T10:30:00.000Z",
+      "moneyType": "expense",
+      "money": 50000,
+      "content": "식료품 구매",
+      "payment": "신용카드",
+      "category": "생활"
+    },
+    {
+      "uid": "f6c4ae69-e6f6-4e2b-b79b-84240511ae5b",
+      "date": "2023-07-30T10:30:00.000Z",
+      "moneyType": "expense",
+      "money": 50000,
+      "content": "식료품 구매",
+      "payment": "신용카드",
+      "category": "생활"
+    },
+    {
+      "uid": "ab64dd13-b13d-45e1-a5f3-b15d83fa9c5f",
+      "date": "2023-08-01T11:00:00.000Z",
+      "moneyType": "income",
+      "money": 2000000,
+      "content": "월급",
+      "payment": "현금",
+      "category": "월급"
+    },
+    {
+      "uid": "a5f5b6f5-7295-457a-81cd-75cc1a91b00c",
+      "date": "2023-08-01T10:30:00.000Z",
+      "moneyType": "expense",
+      "money": 50000,
+      "content": "식료품 구매",
+      "payment": "신용카드",
+      "category": "생활"
+    },
+    {
+      "uid": "a1953fd0-7464-4c93-ae40-e858d5c81c70",
+      "date": "2023-08-02T12:00:00.000Z",
+      "moneyType": "expense",
+      "money": 12000,
+      "content": "점심 식사",
+      "payment": "신용카드",
+      "category": "식비"
+    },
+    {
+      "uid": "30c4e38c-e2a1-4999-86aa-719dbdd9605f",
+      "date": "2023-08-02T17:45:00.000Z",
+      "moneyType": "expense",
+      "money": 3500,
+      "content": "버스비",
+      "payment": "현금",
+      "category": "교통"
+    },
+    {
+      "uid": "6f1f40a3-fbfd-46fc-bf0c-10b06e8c6e38",
+      "date": "2023-08-03T15:00:00.000Z",
+      "moneyType": "expense",
+      "money": 89000,
+      "content": "옷 구매",
+      "payment": "신용카드",
+      "category": "쇼핑/뷰티"
+    },
+    {
+      "uid": "8cf61be1-d203-4f3f-a310-661fdab40a31",
+      "date": "2023-08-03T09:00:00.000Z",
+      "moneyType": "income",
+      "money": 50000,
+      "content": "용돈",
+      "payment": "현금",
+      "category": "용돈"
+    },
+    {
+      "uid": "14e34a6d-9dd6-43ee-ae6f-d8a1c011b0e1",
+      "date": "2023-08-04T19:00:00.000Z",
+      "moneyType": "expense",
+      "money": 25000,
+      "content": "영화 관람",
+      "payment": "신용카드",
+      "category": "문화/여가"
+    },
+    {
+      "uid": "b3fca0b5-8e17-4e2c-b75f-e4f6c3766311",
+      "date": "2023-08-04T14:30:00.000Z",
+      "moneyType": "expense",
+      "money": 7500,
+      "content": "커피 및 간식",
+      "payment": "현금",
+      "category": "식비"
+    },
+    {
+      "uid": "3cda4c50-7bce-472e-a24e-015d1f6a4a1f",
+      "date": "2023-08-05T09:45:00.000Z",
+      "moneyType": "expense",
+      "money": 45000,
+      "content": "병원 진료비",
+      "payment": "신용카드",
+      "category": "의료/건강"
+    },
+    {
+      "uid": "6844b12e-198e-4142-b1f2-c04abfa449b3",
+      "date": "2023-08-05T18:00:00.000Z",
+      "moneyType": "expense",
+      "money": 60000,
+      "content": "인터넷 요금",
+      "payment": "신용카드",
+      "category": "생활"
+    },
+    {
+      "uid": "3f6b6340-8b36-4d30-9b0d-174d5399a3e2",
+      "date": "2023-08-06T08:15:00.000Z",
+      "moneyType": "expense",
+      "money": 9000,
+      "content": "택시비",
+      "payment": "현금",
+      "category": "교통"
+    },
+    {
+      "uid": "369b22ab-2d84-46e0-9329-18fa1b11c878",
+      "date": "2023-08-06T10:00:00.000Z",
+      "moneyType": "income",
+      "money": 10000,
+      "content": "은행 이자",
+      "payment": "현금",
+      "category": "기타 수입"
+    },
+    {
+      "uid": "c28bb5b6-e18f-4f4c-8cd2-f14586ce2139",
+      "date": "2023-08-07T13:30:00.000Z",
+      "moneyType": "expense",
+      "money": 120000,
+      "content": "새 운동화 구매",
+      "payment": "신용카드",
+      "category": "쇼핑/뷰티"
+    },
+    {
+      "uid": "3be21234-4dd5-4f96-a159-76d2b7e99156",
+      "date": "2023-08-07T16:00:00.000Z",
+      "moneyType": "expense",
+      "money": 15000,
+      "content": "도서 구매",
+      "payment": "신용카드",
+      "category": "문화/여가"
+    },
+    {
+      "uid": "e2a74211-bef3-4fa6-a3ed-f9a3fc6a17b3",
+      "date": "2023-08-08T07:00:00.000Z",
+      "moneyType": "expense",
+      "money": 5000,
+      "content": "편의점 사용",
+      "payment": "현금",
+      "category": "미분류"
+    },
+    {
+      "uid": "303ea1ae-2f9f-46ee-81ef-e928fd8e4b4a",
+      "date": "2023-08-08T11:45:00.000Z",
+      "moneyType": "income",
+      "money": 30000,
+      "content": "중고물품 판매",
+      "payment": "현금",
+      "category": "기타 수입"
+    },
+    {
+      "uid": "d587c6a1-4a80-464b-b7e3-b75ee15acaf5",
+      "date": "2023-08-09T19:30:00.000Z",
+      "moneyType": "expense",
+      "money": 20000,
+      "content": "외식",
+      "payment": "신용카드",
+      "category": "식비"
+    },
+    {
+      "uid": "42094883-170b-43b6-ae78-cdbf9fd5e73d",
+      "date": "2023-08-09T08:00:00.000Z",
+      "moneyType": "expense",
+      "money": 2500,
+      "content": "지하철 요금",
+      "payment": "신용카드",
+      "category": "교통"
+    },
+    {
+      "uid": "48e1578b-9cf3-4fd0-b64f-9a18513a180c",
+      "date": "2023-08-10T14:00:00.000Z",
+      "moneyType": "expense",
+      "money": 70000,
+      "content": "피부과 방문",
+      "payment": "신용카드",
+      "category": "의료/건강"
+    },
+    {
+      "uid": "f8423b5e-78e5-430b-b7d4-19c254e72bcd",
+      "date": "2023-08-10T20:00:00.000Z",
+      "moneyType": "expense",
+      "money": 18000,
+      "content": "음악 스트리밍 구독",
+      "payment": "신용카드",
+      "category": "문화/여가"
+    },
+    {
+      "uid": "1e2dc8c1-e93c-4cf3-b1b8-c338f2398d5a",
+      "date": "2025-06-17T20:00:00.000Z",
+      "moneyType": "income",
+      "money": 18000,
+      "content": "음악 스트리밍 구독",
+      "payment": "신용카드",
+      "category": "문화/여가"
+    },
+    {
+      "uid": "c4996f64-7ad8-45e0-b063-02df9ffb178d",
+      "date": "2025-06-20T20:00:00.000Z",
+      "moneyType": "income",
+      "money": 18000,
+      "content": "음악 스트리밍 구독",
+      "payment": "신용카드",
+      "category": "문화/여가"
+    },
+    {
+      "uid": "9499df4c-5a53-4b2f-840e-7541bfe71343",
+      "date": "2025-07-17T20:00:00.000Z",
+      "moneyType": "income",
+      "money": 18000,
+      "content": "음악 스트리밍 구독",
+      "payment": "신용카드",
+      "category": "문화/여가"
+    },
+    {
+      "uid": "a8f79e13-fb77-4340-931e-ffbd1a61b338",
+      "date": "2025-07-17T19:30:00.000Z",
+      "moneyType": "expense",
+      "money": 20000,
+      "content": "외식",
+      "payment": "신용카드",
+      "category": "식비"
+    },
+    {
+      "uid": "58e2aa36-6901-4e8f-8756-8a7b1a0e4d32",
+      "date": "2025-07-20T08:00:00.000Z",
+      "moneyType": "expense",
+      "money": 2500,
+      "content": "지하철 요금",
+      "payment": "신용카드",
+      "category": "교통"
+    },
+    {
+      "uid": "31bb3cc1-f55a-44f3-9029-5b2c215acdd1",
+      "date": "2025-07-23T14:00:00.000Z",
+      "moneyType": "income",
+      "money": 70000,
+      "content": "피부과 방문",
+      "payment": "신용카드",
+      "category": "의료/건강"
+    }
+  ]
+}
