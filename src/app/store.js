@@ -1,3 +1,36 @@
+// 액션 타입별 핸들러 함수를 정의
+const actionHandlers = {
+    'ENTRY/ADD': (state, payload) => {
+        const entry = {...payload};
+        return {...state, entries: [...state.entries, entry]};
+    },
+
+    'ENTRY/REMOVE': (state, payload) => {
+        return {...state, entries: state.entries.filter(e => e.id !== payload.id)};
+    },
+
+    'ENTRY/UPDATE': (state, payload) => {
+        const updatedEntries = state.entries.map(entry => {
+            if (entry.id !== payload.id) return entry;
+            return JSON.parse(JSON.stringify(payload));
+        });
+        return {...state, entries: updatedEntries};
+    },
+
+    'ENTRY/SELECT': (state, payload) => {
+        const entry = {...payload};
+        return {...state, selectedEntry: entry};
+    },
+
+    'ENTRY/SELECT/CLEAR': (state) => {
+        return {...state, selectedEntry: null};
+    },
+
+    'DATE/SET': (state, payload) => {
+        return {...state, year: payload.year, month: payload.month};
+    }
+};
+
 export class Store {
     // constructor를 통해 초기 상태를 설정
     constructor(initialState) {
@@ -18,30 +51,12 @@ export class Store {
     };
     // 상태를 변경하는 함수
     dispatch = (type, payload) => {
-        switch (type) {
-            // store에 새로운 엔트리를 추가하는 액션
-            case 'ENTRY/ADD': {
-                // payload에 있는 데이터를 기반으로 새로운 엔트리를 생성, ...payload를 통해 얕은 복사를 수행해서 새 객체를 생성
-                const entry = {...payload};
-                // 현재 상태의 entries 배열에 새 엔트리를 추가
-                this.state = {...this.state, entries: [...this.state.entries, entry]};
-                break;
-            }
-            // store에서 엔트리를 삭제하는 액션
-            case 'ENTRY/REMOVE':
-                // payload에 있는 id를 가진 엔트리를 찾아서 삭제
-                this.state = {...this.state, entries: this.state.entries.filter(e => e.id !== payload.id)};
-                break;
+        const handler = actionHandlers[type];
 
-            // store의 날짜를 변경하는 액션
-            case 'DATE/SET':
-                // payload에 있는 연도와 월을 기반으로 상태를 업데이트
-                this.state = {...this.state, year: payload.year, month: payload.month};
-                break;
+        handler
+            ? this.state = handler(this.state, payload)
+            : console.warn('[Store] Unknown action:', type);
 
-            default:
-                console.warn('[Store] Unknown action:', type);
-        }
         // 상태가 변경되면 인자로 받았던 함수들을 호출
         this.listeners.forEach(fn => fn(this.state));
     };

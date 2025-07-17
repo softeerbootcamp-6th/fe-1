@@ -1,7 +1,7 @@
-const DUMMY_DATA_URL = 'http://localhost:1080/summaries';
+import { DUMMY_DATA_URL } from '../constants/jsonServerUrl.js';
 
 // 더미데이터를 로드하는 함수
-export const loadDummyData = () =>
+export const GetDummyData = () =>
     fetch(DUMMY_DATA_URL)
         .then(res => (res.ok ? res.json() : []))
         .catch(err => {
@@ -22,7 +22,19 @@ export const PostDummyData = (data) =>
             return Promise.reject(err);
         });
 
-// 더미데이터를 서버에 PUT이나 PATCH 요청으로 수정하는 함수, DELETE 요청으로 삭제하는 함수 구현 예정
+// 더미데이터를 서버에 PUT 요청으로 수정하는 함수
+export const PuTDummyData = (id, data) =>
+    fetch(`${DUMMY_DATA_URL}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(res => (res.ok ? res.json() : Promise.reject(res)))
+        .catch(err => {
+            return Promise.reject(err);
+        });
 
 
 // 더미데이터를 서버에 DELETE 요청으로 삭제하는 함수
