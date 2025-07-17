@@ -86,6 +86,14 @@ export const handleSubmitInputForm = (e, inputFormState) => {
 };
 
 export const handleClickTransactions = async (e, inputFormState) => {
+  // 필터 토글 이벤트
+  const $checkboxContainer = e.target.closest(".checkbox-container");
+  if ($checkboxContainer) {
+    const type = $checkboxContainer.dataset.type;
+    toggleFilter(type);
+    return;
+  }
+
   const $contentRow = e.target.closest(".daily-list__content-row");
   if (!$contentRow) return;
 
@@ -110,15 +118,7 @@ export const handleClickTransactions = async (e, inputFormState) => {
     category: $contentRow.querySelector(".category-tag").textContent,
   };
 
-  // 필터 토글 이벤트
   const itemId = $contentRow.dataset.id;
-  const $checkboxContainer = e.target.closest(".checkbox-container");
-  if ($checkboxContainer) {
-    const type = $checkboxContainer.dataset.type;
-    toggleFilter(type);
-    return;
-  }
-
   // 리스트 아이템 삭제 이벤트
   const $deleteButton = e.target.closest(".content-row__delete-button");
   if ($deleteButton) {
