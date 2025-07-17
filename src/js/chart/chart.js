@@ -1,2 +1,14 @@
-// 차트 페이지 로직
-console.log("차트 페이지가 로드되었습니다.");
+import { transactionState, monthState } from "../../stores/subjects/index.js";
+import { ChartObserver } from "../../stores/observers/index.js";
+import { ChartView } from "../../views/index.js";
+
+const init = async () => {
+  const { year, month } = monthState.getMonthInfo();
+  const chartView = new ChartView();
+  const chartObserver = new ChartObserver(chartView);
+  transactionState.subscribe(chartObserver);
+
+  await transactionState.loadMonthData(`${year}-${month}`);
+};
+
+init();

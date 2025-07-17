@@ -1,4 +1,4 @@
-import {monthState} from "../../stores/subjects/index.js";
+import { monthState } from "../../stores/subjects/index.js";
 
 class CalendarView {
   constructor() {

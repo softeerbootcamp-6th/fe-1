@@ -22,6 +22,9 @@ import DeleteModalTemplate from "./Modal/deleteModalTemplate.js";
 // Transactions
 import TransactionsView from "./Transactions/transactionsView.js";
 
+// Chart
+import ChartView from "./Chart/chartView.js";
+
 export {
   // Templates
   CalendarTemplate,
@@ -46,4 +49,7 @@ export {
 
   // Transactions
   TransactionsView,
+
+  // Chart
+  ChartView,
 };

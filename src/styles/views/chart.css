@@ -1,0 +1,7 @@
+.pie-chart,
+.bar-chart,
+.transactions {
+  width: 100%;
+  max-width: 84.6rem;
+  margin: 0 auto;
+}
