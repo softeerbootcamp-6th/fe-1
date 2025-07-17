@@ -1,5 +1,6 @@
 import { loadPage } from "./router.js";
 import { store } from "../store/store.js";
+import { recordStore } from "../store/recordStore.js";
 import { loadHeaderHTML, initializeHeader } from "./header.js";
 import {
   initToggleButton,
@@ -18,6 +19,7 @@ import {
   initDeleteEvent,
 } from "./records.js";
 import { subscribeStore } from "../store/subscribe.js";
+
 window.addEventListener("DOMContentLoaded", async () => {
   // 오늘 날짜 기준 연도와 월 추출
   const today = new Date();
@@ -36,10 +38,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   initInputChanges();
   getInputValues();
 
-  await store.init();
+  await recordStore.init();
   subscribeStore();
-  renderRecordHeader(year, month, store.getRecords());
-  renderRecords(year, month, store.getRecords());
+  renderRecordHeader(year, month, recordStore.getRecords());
+  renderRecords(year, month, recordStore.getRecords());
   initModifyEvent();
   initDeleteEvent();
 });

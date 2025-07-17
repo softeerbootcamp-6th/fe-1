@@ -205,7 +205,7 @@ export const getInputValues = () => {
     } else {
       // 추가
       addRecordsToServer(formInput).then(() => {
-        store.addRecordToStore(formInput);
+        recordStore.addRecordToStore(formInput);
         resetForm();
       });
     }
@@ -213,7 +213,9 @@ export const getInputValues = () => {
 };
 
 export async function handleRecordUpdate({ oldDateId, newDate, itemId, updatedItem }) {
-  const record = store.getRecords().find((record) => record.id.toString() === oldDateId.toString());
+  const record = recordStore
+    .getRecords()
+    .find((record) => record.id.toString() === oldDateId.toString());
 
   if (!record) return;
 
@@ -226,7 +228,7 @@ export async function handleRecordUpdate({ oldDateId, newDate, itemId, updatedIt
       itemId,
       updatedItem,
     }).then(() => {
-      store.updateRecordInStore({
+      recordStore.updateRecordInStore({
         dateId: oldDateId,
         itemId,
         updatedItem,
@@ -235,12 +237,12 @@ export async function handleRecordUpdate({ oldDateId, newDate, itemId, updatedIt
   } else {
     // 날짜가 바뀌는 경우: 기존 아이템 삭제 후 새로운 날짜 아이템 배열에 추가
     deleteRecordsFromServer(oldDateId, itemId).then(() => {
-      store.deleteRecordFromStore(oldDateId, itemId);
+      recordStore.deleteRecordFromStore(oldDateId, itemId);
     });
 
     // 새로운 날짜가 record에 이미 있는지에 따라 새로운 id 생성 여부 결정
     const newRecordId =
-      store.getRecords().find((r) => r.date === newDate)?.id || Date.now().toString();
+      recordStore.getRecords().find((r) => r.date === newDate)?.id || Date.now().toString();
 
     const newRecord = {
       recordId: newRecordId,
@@ -249,7 +251,7 @@ export async function handleRecordUpdate({ oldDateId, newDate, itemId, updatedIt
     };
 
     addRecordsToServer(newRecord).then(() => {
-      store.addRecordToStore(newRecord);
+      recordStore.addRecordToStore(newRecord);
     });
   }
 }
@@ -286,7 +288,7 @@ export function initModifyEvent() {
     };
     isEditMode = true;
 
-    const record = store.getRecords().find((r) => r.id.toString() === dateId.toString());
+    const record = recordStore.getRecords().find((r) => r.id.toString() === dateId.toString());
     const item = record.items.find((r) => r.id.toString() === itemId.toString());
 
     const amount = item.amount;

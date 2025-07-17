@@ -1,4 +1,4 @@
-import { store } from "../store/store.js";
+import { recordStore } from "../store/recordStore.js";
 
 const BASE_URL = "http://localhost:3001/records";
 
@@ -24,7 +24,7 @@ export function fetchRecords() {
 
 //
 export function addRecordsToServer({ date, recordId, item }) {
-  const records = store.getRecords();
+  const records = recordStore.getRecords();
   const found = records.find((record) => record.date.toString() === date.toString());
 
   if (found) {
@@ -47,8 +47,10 @@ export function addRecordsToServer({ date, recordId, item }) {
 }
 
 export function deleteRecordsFromServer(dateId, itemId) {
-  // store에서 해당 날짜의 record를 가져옴
-  const record = store.getRecords().find((record) => record.id.toString() === dateId.toString());
+  // recordStore에서 해당 날짜의 record를 가져옴
+  const record = recordStore
+    .getRecords()
+    .find((record) => record.id.toString() === dateId.toString());
 
   if (!record) return;
 
@@ -73,7 +75,9 @@ export function deleteRecordsFromServer(dateId, itemId) {
 }
 
 export function updateRecordInServer({ dateId, itemId, updatedItem }) {
-  const record = store.getRecords().find((record) => record.id.toString() === dateId.toString());
+  const record = recordStore
+    .getRecords()
+    .find((record) => record.id.toString() === dateId.toString());
 
   if (!record) return;
 

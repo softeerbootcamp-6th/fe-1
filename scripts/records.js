@@ -1,7 +1,7 @@
 // 입력받은 정보를 토대로 삽입 / 수정 / 삭제 기능을 담당하는 함수들을 다루는 파일
 import { deleteRecordsFromServer } from "../api/recordsApi.js";
 import { elements } from "./elements.js";
-import { store } from "../store/store.js";
+import { recordStore } from "../store/recordStore.js";
 import { validateForm } from "./input.js";
 // 상단 토글 버튼 상태를 위한 변수
 let incomeVisible = true;
@@ -19,7 +19,7 @@ export const renderRecords = (
   recordContainerEl.innerHTML = "";
 
   // 데이터 날짜순 정렬
-  const sortedRecords = store
+  const sortedRecords = recordStore
     .getRecords()
     .slice()
     .sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -56,7 +56,7 @@ export const renderRecordHeader = (currentYear, currentMonth, records) => {
         if (item.amount < 0) {
           totalOutcome += Math.abs(item.amount);
         } else {
-          totalIncome += item.amount;
+          totalIncome += Number(item.amount);
         }
         itemCount += 1;
       });
@@ -163,7 +163,7 @@ export const getTotalAmount = (items) => {
     if (item.amount < 0) {
       outcome += Math.abs(item.amount);
     } else {
-      income += item.amount;
+      income += Number(item.amount);
     }
   });
 
@@ -209,7 +209,7 @@ const toggleRecordVisibility = (type) => {
       }
       break;
   }
-  renderRecords(yearEl.textContent, monthEl.textContent, store.getRecords(), {
+  renderRecords(yearEl.textContent, monthEl.textContent, recordStore.getRecords(), {
     income: incomeVisible,
     outcome: outcomeVisible,
   });
@@ -238,7 +238,7 @@ export function initDeleteEvent() {
     const itemId = e.target.closest(".record-item").getAttribute("item-id");
 
     deleteRecordsFromServer(dateId, itemId).then(() => {
-      store.deleteRecordFromStore(dateId, itemId);
+      recordStore.deleteRecordFromStore(dateId, itemId);
     });
   });
 }
