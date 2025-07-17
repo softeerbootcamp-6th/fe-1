@@ -66,6 +66,8 @@ function createDonutText(
   expenseByCategory,
   svgNS
 ) {
+  const percent = expenseByCategory[cat].percent;
+
   const midAngle = startAngle + angle / 2;
   const textRadius = (r + innerR) / 2; // 바깥 반지름과 안쪽 반지름의 중간
   const textX = cx + textRadius * Math.cos(midAngle);
@@ -91,8 +93,13 @@ function createDonutText(
   percentText.setAttribute("fill", "#000");
   percentText.setAttribute("pointer-events", "none");
   percentText.classList.add("light-12", "donut-text");
-  percentText.textContent = `${expenseByCategory[cat].percent.toFixed(1)}%`;
+  percentText.textContent = `${percent.toFixed(1)}%`;
 
+  //percent가 3% 미만이면 텍스트 표시하지 않음
+  if (percent < 3) {
+    categoryText.setAttribute("fill", "none");
+    percentText.setAttribute("fill", "none");
+  }
   return [categoryText, percentText];
 }
 
@@ -109,7 +116,6 @@ export function renderDonutChartSVG(container) {
     totalExpenseTransactions,
     totalExpenseAmount
   );
-  console.log(expenseByCategory);
 
   const categories = Object.keys(expenseByCategory);
 

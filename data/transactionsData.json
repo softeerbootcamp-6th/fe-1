@@ -34,6 +34,228 @@
         "amount": 2500000
       }
     ],
+    "4": [
+      {
+        "id": 16,
+        "date": "2025-04-03",
+        "category": "생활",
+        "description": "관리비 납부",
+        "paymentMethod": "현대카드",
+        "amount": -120000
+      },
+      {
+        "id": 17,
+        "date": "2025-04-05",
+        "category": "식비",
+        "description": "저녁 외식",
+        "paymentMethod": "카드",
+        "amount": -32000
+      },
+      {
+        "id": 18,
+        "date": "2025-04-10",
+        "category": "교통",
+        "description": "버스비",
+        "paymentMethod": "현금",
+        "amount": -1450
+      },
+      {
+        "id": 19,
+        "date": "2025-04-12",
+        "category": "쇼핑/뷰티",
+        "description": "의류 구매",
+        "paymentMethod": "카드",
+        "amount": -67000
+      },
+      {
+        "id": 20,
+        "date": "2025-04-15",
+        "category": "의료/건강",
+        "description": "병원 진료비",
+        "paymentMethod": "현금",
+        "amount": -25000
+      },
+      {
+        "id": 21,
+        "date": "2025-04-20",
+        "category": "문화/여가",
+        "description": "공연 관람",
+        "paymentMethod": "현대카드",
+        "amount": -55000
+      },
+      {
+        "id": 22,
+        "date": "2025-04-25",
+        "category": "월급",
+        "description": "4월 급여",
+        "paymentMethod": "현금",
+        "amount": 2100000
+      },
+      {
+        "id": 38,
+        "date": "2025-04-01",
+        "category": "생활",
+        "description": "4월 월세",
+        "paymentMethod": "현대카드",
+        "amount": -500000
+      },
+      {
+        "id": 39,
+        "date": "2025-04-11",
+        "category": "생활",
+        "description": "4월 생필품 구입",
+        "paymentMethod": "카드",
+        "amount": -32000
+      }
+    ],
+    "5": [
+      {
+        "id": 9,
+        "date": "2025-05-15",
+        "category": "문화/여가",
+        "description": "영화관 티켓",
+        "paymentMethod": "현대카드",
+        "amount": -14000
+      },
+      {
+        "id": 23,
+        "date": "2025-05-02",
+        "category": "생활",
+        "description": "인터넷 요금",
+        "paymentMethod": "카드",
+        "amount": -35000
+      },
+      {
+        "id": 24,
+        "date": "2025-05-05",
+        "category": "식비",
+        "description": "가족 외식",
+        "paymentMethod": "현대카드",
+        "amount": -48000
+      },
+      {
+        "id": 25,
+        "date": "2025-05-08",
+        "category": "교통",
+        "description": "KTX",
+        "paymentMethod": "카드",
+        "amount": -52000
+      },
+      {
+        "id": 26,
+        "date": "2025-05-10",
+        "category": "쇼핑/뷰티",
+        "description": "신발 구매",
+        "paymentMethod": "현대카드",
+        "amount": -89000
+      },
+      {
+        "id": 27,
+        "date": "2025-05-12",
+        "category": "미분류",
+        "description": "기타 지출",
+        "paymentMethod": "현금",
+        "amount": -15000
+      },
+      {
+        "id": 28,
+        "date": "2025-05-25",
+        "category": "월급",
+        "description": "5월 급여",
+        "paymentMethod": "현금",
+        "amount": 2200000
+      },
+      {
+        "id": 40,
+        "date": "2025-05-01",
+        "category": "생활",
+        "description": "5월 월세",
+        "paymentMethod": "현대카드",
+        "amount": -500000
+      },
+      {
+        "id": 41,
+        "date": "2025-05-11",
+        "category": "생활",
+        "description": "5월 생필품 구입",
+        "paymentMethod": "카드",
+        "amount": -35000
+      }
+    ],
+    "6": [
+      {
+        "id": 7,
+        "date": "2025-06-30",
+        "category": "식비",
+        "description": "월말 저녁 식사",
+        "paymentMethod": "현대카드",
+        "amount": -25000
+      },
+      {
+        "id": 8,
+        "date": "2025-06-25",
+        "category": "교통",
+        "description": "택시비",
+        "paymentMethod": "현금",
+        "amount": -8000
+      },
+      {
+        "id": 29,
+        "date": "2025-06-03",
+        "category": "생활",
+        "description": "전기요금",
+        "paymentMethod": "카드",
+        "amount": -42000
+      },
+      {
+        "id": 30,
+        "date": "2025-06-07",
+        "category": "쇼핑/뷰티",
+        "description": "화장품 구매",
+        "paymentMethod": "현대카드",
+        "amount": -39000
+      },
+      {
+        "id": 31,
+        "date": "2025-06-10",
+        "category": "의료/건강",
+        "description": "약국",
+        "paymentMethod": "현금",
+        "amount": -12000
+      },
+      {
+        "id": 32,
+        "date": "2025-06-15",
+        "category": "문화/여가",
+        "description": "전시회 관람",
+        "paymentMethod": "카드",
+        "amount": -20000
+      },
+      {
+        "id": 33,
+        "date": "2025-06-25",
+        "category": "월급",
+        "description": "6월 급여",
+        "paymentMethod": "현금",
+        "amount": 2150000
+      },
+      {
+        "id": 42,
+        "date": "2025-06-01",
+        "category": "생활",
+        "description": "6월 월세",
+        "paymentMethod": "현대카드",
+        "amount": -500000
+      },
+      {
+        "id": 43,
+        "date": "2025-06-11",
+        "category": "생활",
+        "description": "6월 생필품 구입",
+        "paymentMethod": "카드",
+        "amount": -37000
+      }
+    ],
     "7": [
       {
         "id": 1,
@@ -90,34 +312,38 @@
         "description": "카페 라떼 2잔",
         "paymentMethod": "카드",
         "amount": -10000
-      }
-    ],
-    "6": [
-      {
-        "id": 7,
-        "date": "2025-06-30",
-        "category": "식비",
-        "description": "월말 저녁 식사",
-        "paymentMethod": "현대카드",
-        "amount": -25000
       },
       {
-        "id": 8,
-        "date": "2025-06-25",
-        "category": "교통",
-        "description": "택시비",
+        "id": 34,
+        "date": "2025-07-02",
+        "category": "의료/건강",
+        "description": "치과 진료",
         "paymentMethod": "현금",
-        "amount": -8000
-      }
-    ],
-    "5": [
+        "amount": -80000
+      },
       {
-        "id": 9,
-        "date": "2025-05-15",
-        "category": "문화/여가",
-        "description": "영화관 티켓",
+        "id": 35,
+        "date": "2025-07-03",
+        "category": "쇼핑/뷰티",
+        "description": "여름 옷 구매",
+        "paymentMethod": "카드",
+        "amount": -65000
+      },
+      {
+        "id": 36,
+        "date": "2025-07-05",
+        "category": "미분류",
+        "description": "기타 지출",
         "paymentMethod": "현대카드",
-        "amount": -14000
+        "amount": -12000
+      },
+      {
+        "id": 37,
+        "date": "2025-07-25",
+        "category": "월급",
+        "description": "7월 추가 급여",
+        "paymentMethod": "현금",
+        "amount": 500000
       }
     ]
   },
