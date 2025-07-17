@@ -21,19 +21,16 @@ function render() {
   inputFormContainer.innerHTML = "";
   inputFormContainer.appendChild(inputForm);
 }
-// 헤더 초기화 (월 선택 기능)
+
 render();
 
 initCalendar();
 
-// 기본 기능 초기화
 initInputForm();
 initListener();
-deleteEntries(); // 삭제 기능 초기화
-initFilterButtons(); // 필터링 기능 초기화
+deleteEntries();
+initFilterButtons();
 
-// 뷰 전환 기능 초기화
 initViewSwitcher();
 
-// Initialize calendar totals
 updateCalendarTotalAmount();
