@@ -93,8 +93,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 .detail-form {
@@ -174,7 +174,7 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px;
+    padding: 0;
     margin-top: 40px;
 }
 
@@ -249,7 +249,7 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px;
+    padding: 0;
     margin-top: 40px;
 }
 
@@ -278,7 +278,7 @@ article>ul {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0px;
+    padding: 0;
     margin-top: 20px;
     border-top: 0.5px solid black;
     border-bottom: 0.5px solid black;
