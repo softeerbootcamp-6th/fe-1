@@ -1,6 +1,7 @@
 import { renderRecordHeader, renderRecords } from "./records.js";
 import { elements } from "./elements.js";
 import { store } from "./store.js";
+
 export async function loadHeaderHTML() {
   const headerEl = elements.headerEl();
   const res = await fetch("./components/header.html");
@@ -9,16 +10,42 @@ export async function loadHeaderHTML() {
 }
 
 export function initializeHeader() {
-  const headerEl = document.querySelector("header");
+  const headerEl = elements.headerEl();
 
   const prevBtn = headerEl.querySelector(".prev-month");
   const nextBtn = headerEl.querySelector(".next-month");
+
+  prevBtn.addEventListener("click", () => {
+    const { year, month } = store.getDate();
+
+    if (month === 1) {
+      store.setDate(year - 1, 12);
+    } else {
+      store.setDate(year, month - 1);
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    const { year, month } = store.getDate();
+
+    if (month === 12) {
+      store.setDate(year + 1, 1);
+    } else {
+      store.setDate(year, month + 1);
+    }
+  });
+
+  // 초기 렌더링
+  const { year, month } = store.getDate();
+  updateHeaderDateUI(year, month);
+}
+
+export function updateHeaderDateUI(year, month) {
+  const headerEl = elements.headerEl();
   const yearEl = headerEl.querySelector(".year");
   const monthEl = headerEl.querySelector(".month");
   const monthEnEl = headerEl.querySelector(".month-en");
 
-  let currentYear = yearEl.textContent;
-  let currentMonth = monthEl.textContent;
   const monthNames = [
     "",
     "January",
@@ -35,35 +62,7 @@ export function initializeHeader() {
     "December",
   ];
 
-  function updateDisplay() {
-    yearEl.textContent = currentYear;
-    monthEl.textContent = currentMonth;
-    monthEnEl.textContent = monthNames[currentMonth];
-  }
-
-  prevBtn.addEventListener("click", () => {
-    if (currentMonth === 1) {
-      currentMonth = 12;
-      currentYear--;
-    } else {
-      currentMonth--;
-    }
-
-    updateDisplay();
-    renderRecordHeader(currentYear, currentMonth, store.getRecords());
-    renderRecords(currentYear, currentMonth, store.getRecords());
-  });
-
-  nextBtn.addEventListener("click", () => {
-    if (currentMonth === 12) {
-      currentMonth = 1;
-      currentYear++;
-    } else {
-      currentMonth++;
-    }
-
-    updateDisplay();
-    renderRecordHeader(currentYear, currentMonth, store.getRecords());
-    renderRecords(currentYear, currentMonth, store.getRecords());
-  });
+  yearEl.textContent = year;
+  monthEl.textContent = month;
+  monthEnEl.textContent = monthNames[month];
 }
