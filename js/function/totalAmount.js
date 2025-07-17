@@ -55,6 +55,4 @@ export function updateTotalAmounts(){
 
     sharedState.totalIncome = totalIncome; // 상태 업데이트
     sharedState.totalExpense = totalExpense; // 상태 업데이트
-    console.log("Total Income:", totalIncome);
-    console.log("Total Expense:", totalExpense);
 }
