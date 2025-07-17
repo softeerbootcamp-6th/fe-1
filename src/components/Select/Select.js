@@ -1,4 +1,4 @@
-import { createHTML } from "../../utils/dom.js";
+import { selectTemplate } from "./SelectTemplate.js";
 
 const renderSelectItem = ({ option, isEditable }) => {
   const listItem = document.createElement("li");
@@ -41,9 +41,10 @@ const Select = async ({
   selected = "",
 }) => {
   try {
-    const selectElement = await createHTML(
-      "/src/components/Select/Select.html"
-    );
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = selectTemplate;
+    const selectElement = tempDiv.firstElementChild;
+
     // 라벨 설정
     const labelElement = selectElement.querySelector(".select__label");
     labelElement.textContent = label;
@@ -103,6 +104,7 @@ const Select = async ({
 
     return selectElement;
   } catch (error) {
+    console.error(error);
     return null;
   }
 };

@@ -1,4 +1,6 @@
+export const homeTemplate = `
 <main class="main">
   <div class="input-form"></div>
   <section class="transactions"></section>
 </main>
+`;

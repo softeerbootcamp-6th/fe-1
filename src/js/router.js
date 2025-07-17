@@ -1,4 +1,7 @@
 import Header from "../views/Header/Header.js";
+import { homeTemplate } from "../views/homeTemplate.js";
+import { calendarTemplate } from "../views/calendarTemplate.js";
+import { chartTemplate } from "../views/chartTemplate.js";
 
 class Router {
   constructor() {
@@ -41,30 +44,18 @@ class Router {
     }
   }
 
-  // HTML 템플릿을 로드하고 main 내용만 추출
-  async loadTemplate(templatePath) {
-    try {
-      const response = await fetch(templatePath);
-      if (!response.ok) {
-        throw new Error(`Failed to load template: ${response.status}`);
-      }
+  // 템플릿 가져오기 (이제 import로 직접 가져옴)
+  getTemplate(templateName) {
+    const templates = {
+      home: homeTemplate,
+      calendar: calendarTemplate,
+      chart: chartTemplate,
+    };
 
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-
-      // main 태그 내용만 추출
-      const mainElement = doc.querySelector("main");
-      if (mainElement) {
-        return mainElement.outerHTML;
-      } else {
-        // main 태그가 없으면 전체 내용 반환
-        return html;
-      }
-    } catch (error) {
-      console.error("Error loading template:", error);
-      return "<main><div>페이지를 로드할 수 없습니다.</div></main>";
-    }
+    return (
+      templates[templateName] ||
+      "<main><div>페이지를 로드할 수 없습니다.</div></main>"
+    );
   }
 
   // JavaScript 모듈을 동적으로 로드하고 실행
@@ -128,8 +119,8 @@ class Router {
       };
       this.renderHeader(navMap[path] || "home");
 
-      // HTML 템플릿 로드 (main 부분만)
-      const template = await this.loadTemplate(route.template);
+      // HTML 템플릿 가져오기
+      const template = this.getTemplate(route.template);
       const mainContainer = document.getElementById("main-container");
       mainContainer.innerHTML = template;
 
@@ -185,19 +176,19 @@ const router = new Router();
 
 // 라우트 설정
 router.addRoute("/", {
-  template: "/src/views/home.html",
+  template: "home",
   module: "/src/js/home.js",
   title: "Wise Wallet - 홈",
 });
 
 router.addRoute("/calendar", {
-  template: "/src/views/calendar.html",
+  template: "calendar",
   module: "/src/js/calendar.js",
   title: "Wise Wallet - 캘린더",
 });
 
 router.addRoute("/chart", {
-  template: "/src/views/chart.html",
+  template: "chart",
   module: "/src/js/chart.js",
   title: "Wise Wallet - 차트",
 });

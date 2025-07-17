@@ -1,4 +1,6 @@
+export const calendarTemplate = `
 <main class="main">
   <div class="calendar-container"></div>
   <footer class="calendar-footer"></footer>
 </main>
+`;
