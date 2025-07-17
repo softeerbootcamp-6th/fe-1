@@ -8,9 +8,9 @@ export function createForm(form, formItemsConfig) {
         throw new Error('formItemsConfig is required');
     }
 
-    formItemsConfig.forEach((createItem) => {
-        const item = createItem();
-        form.appendChild(item);
+    formItemsConfig.forEach((item) => {
+        const itemElement = item.createElement();
+        form.appendChild(itemElement);
     });
 
     initForm(form);

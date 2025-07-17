@@ -8,12 +8,36 @@ import createCategory from './InputItems/category.js';
 import createSubmitButton from './submitButton.js';
 
 const DEFAULT_FORM_ITEMS_CONFIG = [
-    createDate,
-    createAmount,
-    createDescription,
-    createPaymentMethod,
-    createCategory,
-    createSubmitButton,
+    {
+        name: 'date',
+        createElement: createDate,
+        defaultValue: new Date().toISOString().split('T')[0],
+    },
+    {
+        name: 'amount',
+        createElement: createAmount,
+        defaultValue: '',
+    },
+    {
+        name: 'description',
+        createElement: createDescription,
+        defaultValue: '',
+    },
+    {
+        name: 'paymentMethod',
+        createElement: createPaymentMethod,
+        defaultValue: '',
+    },
+    {
+        name: 'category',
+        createElement: createCategory,
+        defaultValue: '',
+        placeholder: '선택하세요',
+    },
+    {
+        name: 'submitButton',
+        createElement: createSubmitButton,
+    },
 ];
 
 export default function createInputBar() {
