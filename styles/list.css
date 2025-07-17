@@ -39,9 +39,12 @@
   height: 3.5rem;
 }
 
+.list-item-hover {
+  background-color: var(--neutral-surface-point);
+}
+
 .tag {
   width: 5.75rem;
-  background-color: aqua; /*임시색상*/
   display: flex;
   align-items: center;
   justify-content: center;

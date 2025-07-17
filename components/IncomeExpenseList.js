@@ -157,10 +157,12 @@ export function renderListItem(listContainer) {
     // hover 이벤트 추가
     li.addEventListener('mouseenter', () => {
       deleteDiv.style.display = 'flex';
+      li.classList.toggle('list-item-hover');
     });
 
     li.addEventListener('mouseleave', () => {
       deleteDiv.style.display = 'none';
+      li.classList.toggle('list-item-hover');
     });
 
     return li;
