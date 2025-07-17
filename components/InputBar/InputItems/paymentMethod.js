@@ -44,6 +44,10 @@ const createPaymentMethod = () => {
         true
     );
 
+    document.addEventListener('paymentMethodOptionsAdded', (event) => {
+        dropdownOptions.createNewOption(event.detail.newPaymentMethod);
+    });
+
     paymentMethodItem.appendChild(dropdownOptions);
 
     const addPaymentMethodButton = document.createElement('button');

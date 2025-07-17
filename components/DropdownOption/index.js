@@ -83,13 +83,12 @@ const createDropdownOptions = (options, onSelect, deleteOption) => {
         }
     });
 
-    document.addEventListener('paymentMethodOptionsAdded', (event) => {
-        const newOptions = createDropdownOption(
-            event.detail.newPaymentMethod,
-            deleteOption
-        );
-        optionsList.appendChild(newOptions);
-    });
+    const createNewOption = (option) => {
+        const newOption = createDropdownOption(option, deleteOption);
+        optionsList.appendChild(newOption);
+    };
+
+    optionsContainer.createNewOption = createNewOption;
 
     return optionsContainer;
 };
