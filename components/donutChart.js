@@ -48,13 +48,14 @@ export function renderDonutChartSVG(container) {
       }
   
       .donut-slice:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
     `;
   document.head.appendChild(style);
 
   let startAngle = -Math.PI / 2;
 
+  // 먼저 모든 path(도넛 슬라이스)를 그리기
   categories.forEach((cat) => {
     const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
     const endAngle = startAngle + angle;
@@ -102,6 +103,42 @@ export function renderDonutChartSVG(container) {
     svg.appendChild(path);
 
     startAngle = endAngle;
+  });
+
+  // 텍스트 추가
+  startAngle = -Math.PI / 2;
+  categories.forEach((cat) => {
+    const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
+    const midAngle = startAngle + angle / 2;
+    const textRadius = (r + innerR) / 2; // 바깥 반지름과 안쪽 반지름의 중간
+    const textX = cx + textRadius * Math.cos(midAngle);
+    const textY = cy + textRadius * Math.sin(midAngle);
+
+    // 카테고리명 텍스트
+    const categoryText = document.createElementNS(svgNS, "text");
+    categoryText.setAttribute("x", textX);
+    categoryText.setAttribute("y", textY - 5);
+    categoryText.setAttribute("text-anchor", "middle");
+    categoryText.setAttribute("dominant-baseline", "middle");
+    categoryText.setAttribute("fill", "#000");
+    categoryText.setAttribute("pointer-events", "none");
+    categoryText.classList.add("light-12");
+    categoryText.textContent = cat;
+    svg.appendChild(categoryText);
+
+    // 퍼센트 텍스트
+    const percentText = document.createElementNS(svgNS, "text");
+    percentText.setAttribute("x", textX);
+    percentText.setAttribute("y", textY + 10);
+    percentText.setAttribute("text-anchor", "middle");
+    percentText.setAttribute("dominant-baseline", "middle");
+    percentText.setAttribute("fill", "#000");
+    percentText.setAttribute("pointer-events", "none");
+    percentText.classList.add("light-12");
+    percentText.textContent = `${expenseByCategory[cat].percent.toFixed(1)}%`;
+    svg.appendChild(percentText);
+
+    startAngle += angle;
   });
 
   svgContainer.appendChild(svg);

@@ -1,7 +1,6 @@
 import { formatMoney } from "../utils/format.js";
 import { dateStore, transactionStore } from "../store/index.js";
 import { CATEGORY_NAME } from "../constants/category.js";
-import { getCategoryColor } from "../utils/style.js";
 import { totalExpenseData } from "../utils/transaction.js";
 
 // 카테고리별 지출 합계 및 퍼센트 구하기

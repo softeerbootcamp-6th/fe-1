@@ -1,4 +1,3 @@
-import { renderDonutChart } from "../components/chart.js";
 import { renderDonutChartSVG } from "../components/donutChart.js";
 
 export function createChartPage() {
@@ -26,6 +25,5 @@ export function renderChartPage() {
       "#donut-chart-container"
     );
     renderDonutChartSVG(donutContainer);
-    //renderDonutChart(donutContainer);
   }
 }
