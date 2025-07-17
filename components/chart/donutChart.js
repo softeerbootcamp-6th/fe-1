@@ -8,7 +8,17 @@ import {
 } from "./chart.js";
 
 // 도넛 슬라이스 생성 함수
-function createDonutSlice(cat, startAngle, angle, cx, cy, r, innerR, svgNS) {
+function createDonutSlice(
+  cat,
+  startAngle,
+  angle,
+  cx,
+  cy,
+  r,
+  innerR,
+  svgNS,
+  index
+) {
   const endAngle = startAngle + angle;
   const path = document.createElementNS(svgNS, "path");
 
@@ -51,6 +61,19 @@ function createDonutSlice(cat, startAngle, angle, cx, cy, r, innerR, svgNS) {
 
   path.setAttribute("fill", getCategoryColor(cat));
   path.classList.add("donut-slice");
+
+  // animation
+  path.style.transformOrigin = `${cx}px ${cy}px`;
+  path.style.transform = "scale(0)";
+  path.style.opacity = "0";
+  path.style.animation = `donut-appear 0.6s ease-out ${index * 0.05}s forwards`;
+
+  path.addEventListener("animationend", () => {
+    path.style.transform = "";
+    path.style.opacity = "";
+    path.style.animation = "";
+  });
+
   return path;
 }
 
@@ -145,17 +168,13 @@ export function renderDonutChartSVG(container) {
         transition: transform 0.3s ease;
         cursor: pointer;
       }
-  
-      .donut-slice:hover {
-        transform: scale(1.05);
-      }
     `;
   document.head.appendChild(style);
 
   let startAngle = -Math.PI / 2;
 
   // 모든 path(도넛 슬라이스)를 그리기
-  categories.forEach((cat) => {
+  categories.forEach((cat, index) => {
     const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
     const path = createDonutSlice(
       cat,
@@ -165,7 +184,8 @@ export function renderDonutChartSVG(container) {
       cy,
       r,
       innerR,
-      svgNS
+      svgNS,
+      index
     );
     path.setAttribute("data-category", cat);
     svg.appendChild(path);

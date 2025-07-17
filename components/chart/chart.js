@@ -115,7 +115,6 @@ export function renderLineChartAndTransactionList(categoryName) {
   const { totalAmountByMonth, totalTransactionList } =
     logLast6MonthsTotalExpense(year, month, categoryName);
   const lineChartContainer = document.querySelector("#line-chart-container");
-  lineChartContainer.style.display = "block";
   renderLineChart(lineChartContainer, totalAmountByMonth);
   renderTransactionList(month, totalTransactionList);
 }

@@ -52,6 +52,7 @@ export function renderGrid(
 }
 
 export function renderLineChart(container, totalAmountByMonth) {
+  container.style.display = "block";
   // 기존 svg 제거
   Array.from(container.querySelectorAll("svg")).forEach((el) => el.remove());
 
