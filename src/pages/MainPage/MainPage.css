@@ -16,16 +16,19 @@
 
 .input-bar label {
     font-weight: 300;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 4px;
     height: 24px;
+    align-items: center;
+    display: flex;
 }
 
 .input-bar input {
-    /* border: none; */
+    border: none;
     outline: none;
     font-weight: 600;
     font-size: 12px;
+    font-family: 'Ownglyph_corncorn-Rg', sans-serif;
 }
 
 .input-count-text {
@@ -39,6 +42,10 @@
     outline: none;
     font-weight: 600;
     font-size: 12px;
+}
+
+.content-field {
+    width: 160px;
 }
 
 .text-align-right {
@@ -59,13 +66,17 @@
 
 .main-page-body {
     padding: 0 24px;
-    background-color: #FFC0CB;
+    /* background-color: #FFC0CB; */
+}
+
+.monthly-income-expense-text span {
+    font-size: 14px;
 }
 
 /* Daily List Styles */
 .daily-list {
     margin-top: 40px;
-    border: 2px solid #4c88ef;
+    /* border: 2px solid #4c88ef; */
 }
 
 .daily-list-content {
