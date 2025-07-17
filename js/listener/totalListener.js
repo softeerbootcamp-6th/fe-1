@@ -19,13 +19,13 @@ export function initListener() {
 
   let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
 
-  const display = getElementById("dropdown-display"); // sharedState에서 dropdownDisplay 요소를 가져옴
-  const panel = sharedState.dropdownPanel; // sharedState에서 dropdownPanel 요소를 가져옴
+  const display = document.getElementById("dropdown-display"); // sharedState에서 dropdownDisplay 요소를 가져옴
+  const panel = document.getElementById("dropdown-panel"); // sharedState에서 dropdownPanel 요소를 가져옴
   const dropAddBtn = document.getElementById("dropdown-add"); // sharedState에서 dropdownAddBtn
 
-  const methodWrapper = sharedState.methodWrapper; // sharedState에서 methodWrapper 요소를 가져옴
+  const methodWrapper = document.getElementById("method-wrapper"); // sharedState에서 methodWrapper 요소를 가져옴
 
-  //결제수단 드롭박스
+  // 결제수단 드롭박스
   display.addEventListener("click", () => {
     panel.classList.toggle("hidden");
   });
