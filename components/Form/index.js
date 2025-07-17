@@ -35,6 +35,13 @@ function setInitialState(form) {
         dateInput.value = new Date().toISOString().split('T')[0];
     }
 
+    const descriptionLengthCount = form.querySelector(
+        '.description-length-count'
+    );
+    if (descriptionLengthCount) {
+        descriptionLengthCount.textContent = '0';
+    }
+
     const paymentMethodInput = form.querySelector(
         'input[name="paymentMethod"]'
     );
