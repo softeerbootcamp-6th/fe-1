@@ -692,3 +692,31 @@ table {
   width: 100px;
   text-align: right;
 }
+
+/* 차트 포인트 호버 효과 */
+.chart-point {
+  transition: r 0.2s ease-in-out, fill 0.2s ease-in-out;
+}
+
+.chart-point:hover {
+  r: 6;
+  fill: #333;
+}
+
+/* 차트 라벨 호버 효과 */
+.chart-label {
+  transition: font-size 0.2s ease-in-out;
+}
+
+.chart-point-group:hover .chart-label {
+  font-size: 14px;
+}
+
+/* 도넛 슬라이스 호버 효과 */
+.donut-slice:hover {
+  transform: scale(1.05);
+}
+
+.donut-text {
+  transition: font-size 0.2s ease-in-out;
+}

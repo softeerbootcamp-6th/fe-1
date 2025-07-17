@@ -103,20 +103,21 @@ export function renderLegend(
         const categoryName = legendItem
           .querySelector(".td-category")
           .textContent.trim();
-        const year = dateStore.getYear();
-        const month = dateStore.getMonth();
-        const { totalAmountByMonth, totalTransactionList } =
-          logLast6MonthsTotalExpense(year, month, categoryName);
-        console.log(categoryName, totalAmountByMonth);
-        const lineChartContainer = document.querySelector(
-          "#line-chart-container"
-        );
-        lineChartContainer.style.display = "block";
-        renderLineChart(lineChartContainer, totalAmountByMonth);
-        renderTransactionList(month, totalTransactionList);
+        renderLineChartAndTransactionList(categoryName);
       }
     });
   }
+}
+
+export function renderLineChartAndTransactionList(categoryName) {
+  const year = dateStore.getYear();
+  const month = dateStore.getMonth();
+  const { totalAmountByMonth, totalTransactionList } =
+    logLast6MonthsTotalExpense(year, month, categoryName);
+  const lineChartContainer = document.querySelector("#line-chart-container");
+  lineChartContainer.style.display = "block";
+  renderLineChart(lineChartContainer, totalAmountByMonth);
+  renderTransactionList(month, totalTransactionList);
 }
 
 export function createMonthlyExpenseTransactionList(
@@ -135,7 +136,6 @@ export function createMonthlyExpenseTransactionList(
     },
     {}
   );
-  console.log(transactionListByDate);
 
   // 날짜별로 섹션 생성
   const sections = Object.entries(transactionListByDate).reduce(

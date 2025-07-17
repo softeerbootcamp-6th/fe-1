@@ -1,7 +1,11 @@
 import { dateStore, transactionStore } from "../store/index.js";
 import { totalExpenseData } from "../utils/transaction.js";
 import { getCategoryColor } from "../utils/style.js";
-import { renderLegend, getExpenseByCategory } from "./chart.js";
+import {
+  renderLegend,
+  getExpenseByCategory,
+  renderLineChartAndTransactionList,
+} from "./chart.js";
 
 // 도넛 슬라이스 생성 함수
 function createDonutSlice(cat, startAngle, angle, cx, cy, r, innerR, svgNS) {
@@ -75,7 +79,7 @@ function createDonutText(
   categoryText.setAttribute("dominant-baseline", "middle");
   categoryText.setAttribute("fill", "#000");
   categoryText.setAttribute("pointer-events", "none");
-  categoryText.classList.add("light-12");
+  categoryText.classList.add("light-12", "donut-text");
   categoryText.textContent = cat;
 
   // 퍼센트 텍스트
@@ -86,7 +90,7 @@ function createDonutText(
   percentText.setAttribute("dominant-baseline", "middle");
   percentText.setAttribute("fill", "#000");
   percentText.setAttribute("pointer-events", "none");
-  percentText.classList.add("light-12");
+  percentText.classList.add("light-12", "donut-text");
   percentText.textContent = `${expenseByCategory[cat].percent.toFixed(1)}%`;
 
   return [categoryText, percentText];
@@ -144,7 +148,7 @@ export function renderDonutChartSVG(container) {
 
   let startAngle = -Math.PI / 2;
 
-  // 먼저 모든 path(도넛 슬라이스)를 그리기
+  // 모든 path(도넛 슬라이스)를 그리기
   categories.forEach((cat) => {
     const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
     const path = createDonutSlice(
@@ -157,12 +161,14 @@ export function renderDonutChartSVG(container) {
       innerR,
       svgNS
     );
+    path.setAttribute("data-category", cat);
     svg.appendChild(path);
     startAngle += angle;
   });
 
-  // 그 다음에 모든 텍스트를 추가 (맨 위에 표시)
+  // 모든 텍스트를 추가 (맨 위에 표시)
   startAngle = -Math.PI / 2;
+  const textElements = [];
   categories.forEach((cat) => {
     const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
     const [categoryText, percentText] = createDonutText(
@@ -176,9 +182,36 @@ export function renderDonutChartSVG(container) {
       expenseByCategory,
       svgNS
     );
+    categoryText.setAttribute("data-category", cat);
+    percentText.setAttribute("data-category", cat);
+    textElements.push({ category: cat, elements: [categoryText, percentText] });
     svg.appendChild(categoryText);
     svg.appendChild(percentText);
     startAngle += angle;
+  });
+
+  // 호버 이벤트 추가
+  const slices = svg.querySelectorAll(".donut-slice");
+  slices.forEach((slice) => {
+    const category = slice.getAttribute("data-category");
+    const relatedTexts = textElements
+      .filter((item) => item.category === category)
+      .flatMap((item) => item.elements);
+
+    slice.addEventListener("click", () => {
+      renderLineChartAndTransactionList(category);
+    });
+    slice.addEventListener("mouseenter", () => {
+      relatedTexts.forEach((text) => {
+        text.style.fontSize = "14px";
+      });
+    });
+
+    slice.addEventListener("mouseleave", () => {
+      relatedTexts.forEach((text) => {
+        text.style.fontSize = "12px";
+      });
+    });
   });
 
   svgContainer.appendChild(svg);

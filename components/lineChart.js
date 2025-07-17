@@ -125,6 +125,10 @@ export function renderLineChart(container, totalAmountByMonth) {
 
   // 2. 텍스트와 원 그리기
   points.forEach(({ x, y, value }) => {
+    // 그룹 생성
+    const group = document.createElementNS(svgNS, "g");
+    group.setAttribute("class", "chart-point-group");
+
     // 금액 라벨 추가
     // 배경 텍스트
     const outline = document.createElementNS(svgNS, "text");
@@ -135,6 +139,7 @@ export function renderLineChart(container, totalAmountByMonth) {
     outline.setAttribute("stroke", "#fff");
     outline.setAttribute("stroke-width", "3");
     outline.setAttribute("fill", "#fff");
+    outline.setAttribute("class", "chart-label chart-label-outline");
     outline.textContent = `${formatMoney(value)}원`;
 
     // 앞에 올 글자 (실제 텍스트 색)
@@ -144,11 +149,8 @@ export function renderLineChart(container, totalAmountByMonth) {
     label.setAttribute("text-anchor", "middle");
     label.setAttribute("font-size", "12");
     label.setAttribute("fill", "#000");
+    label.setAttribute("class", "chart-label chart-label-text");
     label.textContent = `${formatMoney(value)}원`;
-
-    // svg에 추가 (먼저 outline, 그 다음 실제 label)
-    svg.appendChild(outline);
-    svg.appendChild(label);
 
     // 원 추가
     const circle = document.createElementNS(svgNS, "circle");
@@ -156,7 +158,16 @@ export function renderLineChart(container, totalAmountByMonth) {
     circle.setAttribute("cy", y);
     circle.setAttribute("r", 4);
     circle.setAttribute("fill", "#000");
-    svg.appendChild(circle);
+    circle.setAttribute("cursor", "pointer");
+    circle.setAttribute("class", "chart-point");
+
+    // 그룹에 요소들 추가
+    group.appendChild(outline);
+    group.appendChild(label);
+    group.appendChild(circle);
+
+    // 그룹을 svg에 추가
+    svg.appendChild(group);
   });
 
   container.appendChild(svg);
