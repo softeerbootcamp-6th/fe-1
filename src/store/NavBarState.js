@@ -12,6 +12,10 @@ class NavBarState extends Observable {
   getNavBarState() {
     return this.navBarState;
   }
+
+  initNavBarState() {
+    this.notify();
+  }
 }
 
 export default new NavBarState();

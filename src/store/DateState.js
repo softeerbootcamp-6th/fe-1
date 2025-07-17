@@ -13,6 +13,10 @@ class DateState extends Observable {
   getDate() {
     return this.curDate;
   }
+
+  initDate() {
+    this.notify();
+  }
 }
 
 export default new DateState();
