@@ -41,6 +41,12 @@ body {
     justify-content: center;
 }
 
+.button {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
 .arrow-icon {
     /* background-color: transparent; */
     cursor: pointer;
@@ -71,8 +77,12 @@ body {
 }
 
 .daily-list-block:hover {
-    background-color: #F1F4F8;
+    background-color: #e7e7e7;
     cursor: pointer;
+}
+
+.daily-list-block.selected {
+    background-color: #F1F4F8;
 }
 
 .daily-list-block__content-row {

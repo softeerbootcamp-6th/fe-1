@@ -1,7 +1,7 @@
 import Header from './layout/Header.js';
 import MainPage from './pages/MainPage/MainPage.js';
-import dateStore from '../store/dateStore.js';
-import incomeExpenseStore from '../store/incomeExpenseStore.js';
+import dateStore from './store/dateStore.js';
+import incomeExpenseStore from './store/incomeExpenseStore.js';
 
 function App() {
     const header = Header();

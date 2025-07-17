@@ -1,20 +1,15 @@
 import { loadCSS } from '../../utils/cssLoader.js';
 import InputBar from './components/InputBar.js';
 import DailyList from './components/DailyList.js';
-import dataStore from '../../../store/dateStore.js';
+import dataStore from '../../store/dateStore.js';
 import { calculateTotal, calculateFieldLength } from '../../utils/calculate.js';
-import incomeExpenseStore from '../../../store/incomeExpenseStore.js';
+import incomeExpenseStore from '../../store/incomeExpenseStore.js';
 
 function MainPage() {
     // MainPage CSS 로드
     loadCSS('./src/pages/MainPage/MainPage.css', 'mainpage-css');
 
-    const handleFormSubmit = (formData) => {
-        // dailyListArray.push(formData);
-        incomeExpenseStore.updateAllDummyData(formData);
-    };
-
-    const inputBar = InputBar(handleFormSubmit);
+    const inputBar = InputBar();
 
     let total = 0;
     let totalIncome = 0;
