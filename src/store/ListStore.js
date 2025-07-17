@@ -57,6 +57,7 @@ class ListStore extends Store {
           this.moneyTypeFilter.expense = !this.moneyTypeFilter.expense;
         }
         this.viewData = this.#getViewDataFromData(this.data);
+        console.log(this.moneyTypeFilter);
         break;
       }
     }
