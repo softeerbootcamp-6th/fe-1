@@ -41,6 +41,13 @@ class ListStore extends Store {
         this.viewData = this.#getViewDataFromData(this.data);
         break;
       }
+      case "updateListItem": {
+        this.data = this.data.map((item) =>
+          item.uid === newItem.uid ? newItem : item
+        );
+        this.viewData = this.#getViewDataFromData(this.data);
+        break;
+      }
       case "removeListItemByUID": {
         this.data = this.data.filter((item) => item.uid !== newItem);
         this.viewData = this.#getViewDataFromData(this.data);

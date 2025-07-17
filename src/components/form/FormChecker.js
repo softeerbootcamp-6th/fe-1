@@ -22,13 +22,21 @@ export const FormChecker = () => {
         formStore.data
       );
       if (isFullCorrectType) {
-        listStore.dispatch("addListItem", {
-          ...formStore.data,
-          date: new Date(formStore.data.date),
-          uid: crypto.randomUUID(),
-        });
+        if (formStore.data.mode === "edit") {
+          console.log("edit mode");
+          listStore.dispatch("updateListItem", {
+            ...formStore.data,
+            date: new Date(formStore.data.date),
+          });
+        } else {
+          listStore.dispatch("addListItem", {
+            ...formStore.data,
+            date: new Date(formStore.data.date),
+            uid: crypto.randomUUID(),
+          });
+        }
       } else {
-        console.log("no");
+        console.error("입력이 완료되지 못했습니다.");
       }
     },
   });
