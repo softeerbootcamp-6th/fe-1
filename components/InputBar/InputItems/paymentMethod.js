@@ -44,11 +44,19 @@ const createPaymentMethod = () => {
         true
     );
 
+    paymentMethodItem.appendChild(dropdownOptions);
+
     document.addEventListener('paymentMethodOptionsAdded', (event) => {
         dropdownOptions.createNewOption(event.detail.newPaymentMethod);
     });
 
-    paymentMethodItem.appendChild(dropdownOptions);
+    selectContainer.addEventListener('click', () => {
+        toggle(dropdownOptions);
+    });
+
+    //
+    //  결제 수단 추가 버튼
+    //
 
     const addPaymentMethodButton = document.createElement('button');
     addPaymentMethodButton.className = 'add-payment-method-button';
@@ -57,9 +65,9 @@ const createPaymentMethod = () => {
     `;
     dropdownOptions.appendChild(addPaymentMethodButton);
 
-    selectContainer.addEventListener('click', () => {
-        toggle(dropdownOptions);
-    });
+    //
+    //  결제 수단 추가 모달
+    //
 
     const modal = createModal({
         okText: '추가',
