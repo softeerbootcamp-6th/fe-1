@@ -1,8 +1,8 @@
 // 입력받은 정보를 토대로 삽입 / 수정 / 삭제 기능을 담당하는 함수들을 다루는 파일
 import { deleteRecordsFromServer } from "../api/recordsApi.js";
 import { elements } from "./elements.js";
-import { store } from "./store.js";
-
+import { store } from "../store/store.js";
+import { validateForm } from "./input.js";
 // 상단 토글 버튼 상태를 위한 변수
 let incomeVisible = true;
 let outcomeVisible = true;
@@ -18,8 +18,13 @@ export const renderRecords = (
   const recordContainerEl = elements.recordContainerEl();
   recordContainerEl.innerHTML = "";
 
-  // 현재 헤더의 날짜에 해당하는 date값만 함수 호출
-  records.forEach((record) => {
+  // 데이터 날짜순 정렬
+  const sortedRecords = store
+    .getRecords()
+    .slice()
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  sortedRecords.forEach((record) => {
     const date = record.date;
     //"YYYY-MM-DD" 에서 YYYY와 MM 추출 후 헤더의 날짜와 비교해서 같은 값만 호출
     let year = date.split("-")[0];
