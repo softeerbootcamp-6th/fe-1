@@ -1,7 +1,7 @@
 // js/index.js
 import { initCalendar } from "./function/calendarRender.js";
 import { initRenderDummyData } from "./function/renderDummyData.js";
-import { initListener } from "./listener/totalListener.js";
+import { initInputFormListener } from "../components/inputForm/inputFormItems/totalListener.js";
 import { deleteEntries } from "./function/entry/entry.js";
 import { initFilterButtons } from "./function/filterEntries.js";
 import { initViewSwitcher } from "./function/viewSwitcher.js";
@@ -26,22 +26,21 @@ function initHeader() {
   initCalendar();
 }
 
-function initbody() {
+function initBody() {
   initRenderDummyData();
 
-  initListener();
+  initInputFormListener();
   deleteEntries();
   initFilterButtons();
 
-  initViewSwitcher();
-
   updateCalendarTotalAmount();
+  initViewSwitcher();
 }
 
 function init() {
   render();
   initHeader();
-  initbody();
+  initBody();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

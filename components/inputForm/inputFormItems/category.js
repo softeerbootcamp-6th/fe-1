@@ -1,4 +1,4 @@
-import { store } from "../state/store.js";
+import { store } from "../../../js/state/store.js";
 
 export function initCategoryListener() {
   const categoryWrapper = document.getElementById("category-wrapper");

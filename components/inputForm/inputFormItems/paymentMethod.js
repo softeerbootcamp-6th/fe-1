@@ -1,24 +1,8 @@
-import { sharedState } from "../state/state.js";
-import { initCategoryListener } from "./category.js";
-import { initDescriptionListener } from "./description.js";
-import { initAmountListener } from "./amount.js";
-import { initToggleSignListener } from "./toggleSign.js";
-import { createModal } from "../../components/modal.js";
-import { store } from "../state/store.js";
+import { store } from "../../../js/state/store.js";
+import { createModal } from "../../modal.js";
 
-//리스너 등록
-function initTotalListener() {
-  initCategoryListener();
-  initDescriptionListener();
-  initAmountListener();
-  initToggleSignListener();
-}
-
-// 이벤트 위임 방식으로 처리하면 좋아 보임
-export function initListener() {
-  initTotalListener();
-
-  let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
+export function initPaymentMethodListener() {
+  let selectedMethod = store.getState().selectedMethod;
 
   const display = document.getElementById("dropdown-display"); // sharedState에서 dropdownDisplay 요소를 가져옴
   const panel = document.getElementById("dropdown-panel"); // sharedState에서 dropdownPanel 요소를 가져옴
