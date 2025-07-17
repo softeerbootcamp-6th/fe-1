@@ -169,9 +169,13 @@ const entries = sharedState.entries;
 export async function loadDummyEntries(currentDate) {
   const entriesFromServer = await loadEntriesFromServer(currentDate);
 
-  if (!Array.isArray(entriesFromServer)) {
+  if (entriesFromServer.length === 0) {
+    sharedState.totalExpense = 0;
+    sharedState.totalIncome = 0;
+    updateTotalAmounts();
     return;
   }
+
   entriesFromServer.forEach((entry) => {
     getDateFromServer(entry);
     entries.push(entry);

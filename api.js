@@ -10,6 +10,9 @@ export async function saveEntriesToServer(yearMonth, entry) {
 // 불러오기
 export async function loadEntriesFromServer(yearMonth) {
   const res = await fetch(`http://localhost:3000/api/entry/${yearMonth}`);
+  if (res.status !== 200) {
+    return [];
+  }
   const data = await res.json();
   return data;
 }
