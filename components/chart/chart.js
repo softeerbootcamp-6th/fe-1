@@ -175,6 +175,20 @@ export function createMonthlyExpenseTransactionList(
   `;
 }
 
+export function initChart() {
+  injectChartStyle();
+}
+
+function injectChartStyle() {
+  if (document.getElementById("chart-style-link")) return;
+
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "./components/chart/chart.style.css";
+  link.id = "chart-style-link";
+  document.head.appendChild(link);
+}
+
 export function renderTransactionList(month, totalTransactionList) {
   const transactionListContainer = document.querySelector(
     ".transaction-list-container"

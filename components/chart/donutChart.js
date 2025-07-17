@@ -169,16 +169,19 @@ export function renderDonutChartSVG(container) {
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.style.overflow = "visible"; // 확장 시 잘림 방지
 
-  // 기본 스타일 삽입
-  const style = document.createElement("style");
-  style.textContent = `
+  const styleId = "donut-slice-style";
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement("style");
+    style.id = styleId;
+    style.textContent = `
       .donut-slice {
         transform-origin: ${cx}px ${cy}px;
         transition: transform 0.3s ease;
         cursor: pointer;
       }
     `;
-  document.head.appendChild(style);
+    document.head.appendChild(style);
+  }
 
   let startAngle = -Math.PI / 2;
 

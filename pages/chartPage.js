@@ -1,3 +1,4 @@
+import { initChart } from "../components/chart/chart.js";
 import { renderDonutChartSVG } from "../components/chart/donutChart.js";
 
 export function createChartPage() {
@@ -9,6 +10,7 @@ export function createChartPage() {
 }
 
 export function renderChartPage() {
+  initChart();
   const mainContainer = document.getElementById("main-container");
   if (mainContainer) {
     mainContainer.innerHTML = `

@@ -66,6 +66,10 @@ function registerExternalClickHandler() {
   }
 }
 
+export function initTransactionList() {
+  registerExternalClickHandler();
+}
+
 export function createTransactionRow(transaction, isDeleteButton = true) {
   return `
     <tr class="transaction-row" data-id="${transaction.id}">

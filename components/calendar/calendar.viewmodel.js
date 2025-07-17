@@ -45,7 +45,23 @@ export function getDailySummary(transactions) {
   return { income, expense, total };
 }
 
+export function initCalendar() {
+  injectCalendarStyle();
+}
+
+function injectCalendarStyle() {
+  // 이미 추가된 경우 중복 삽입 방지
+  if (document.getElementById("calendar-style-link")) return;
+
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "./components/calendar/calendar.style.css";
+  link.id = "calendar-style-link";
+  document.head.appendChild(link);
+}
+
 export function renderCalendar(container) {
+  initCalendar();
   container.innerHTML = `
     ${createCalendarHeader()}
     ${createCalendarBody(
