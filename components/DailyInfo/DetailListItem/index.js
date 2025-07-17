@@ -1,10 +1,18 @@
 import { formatNumberWithCommas } from '../../../lib/utils.js';
 import { categoryConfig } from './categoryConfig.js';
+import paymentDataStore from '../../../store/paymentData.js';
+import createModal from '../../Modal/index.js';
 
-function createDetailListItem({ category, description, payment, value }) {
+function createDetailListItem({
+    id,
+    category,
+    description,
+    paymentMethod,
+    amount,
+}) {
     const categoryLabel = categoryConfig[category].text || '미분류';
     const categoryColor = categoryConfig[category].color;
-    const isIncome = value > 0 ? 'income-value' : 'expense-value';
+    const isIncome = amount > 0 ? 'income' : 'expense';
 
     const itemElement = document.createElement('li');
     itemElement.className = 'daily-info-detail-list-item';
@@ -13,9 +21,9 @@ function createDetailListItem({ category, description, payment, value }) {
             <span class="light-12">${categoryLabel}</span>
         </div>
         <span class="description light-14">${description}</span>
-        <span class="payment light-14">${payment}</span>
-        <span class="value ${isIncome} light-14">
-            ${formatNumberWithCommas(value)}원
+        <span class="payment-method light-14">${paymentMethod}</span>
+        <span class="amount ${isIncome} light-14">
+            ${formatNumberWithCommas(amount)}원
         </span>
         <button class="delete-button">
             <div class="delete-button-icon"></div>
@@ -23,19 +31,34 @@ function createDetailListItem({ category, description, payment, value }) {
         </button>
     `;
 
-    function deleteItemElement() {
-        itemElement.remove();
-    }
+    const modal = createModal({
+        okText: '삭제',
+        onOk: () => {
+            paymentDataStore.deletePaymentData(id);
+            itemElement.remove();
+        },
+        okTextColor: 'var(--danger-text-default)',
+        content: `
+            <span class="light-16">해당 내역을 삭제하시겠습니까?</span>
+            <span class="light-12">
+                · 카테고리: ${isIncome ? '수입' : '지출'} / ${categoryLabel}
+            </span>
+            <span class="light-12">
+                · 내용: ${description}
+            </span>
+            <span class="light-12">
+                · 결제 수단: ${paymentMethod}
+            </span>
+            <span class="light-12">
+                · 금액: ${formatNumberWithCommas(amount)}원
+            </span>
+        `,
+    });
 
-    function init() {
-        const deleteButtonElement = itemElement.querySelector('.delete-button');
-        deleteButtonElement.addEventListener('click', () => {
-            // 여기에다가 Modal 띄우는거 구현하기
-            deleteItemElement();
-        });
-    }
-
-    init();
+    const deleteButtonElement = itemElement.querySelector('.delete-button');
+    deleteButtonElement.addEventListener('click', () => {
+        modal.open();
+    });
 
     return itemElement;
 }

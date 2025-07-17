@@ -1,4 +1,6 @@
-import { extractNumbersOnly } from '../../lib/utils.js';
+import { extractNumbersOnly, getUUID } from '../../lib/utils.js';
+import formStore from '../../store/form.js';
+import paymentDataStore from '../../store/paymentData.js';
 
 export default function createInputBar(formItemsConfig) {
     if (!formItemsConfig) {
@@ -63,17 +65,25 @@ function handleFormSubmit(event) {
         return;
     }
 
+    paymentDataStore.addPaymentData(formData);
     resetForm(event.target);
 }
 
 function collectFormData(form) {
     const formData = new FormData(form);
+    const formAmount = parseFloat(extractNumbersOnly(formData.get('amount')));
+    const isIncomeMode = formStore.getIsIncomeMode();
+    const amount = isIncomeMode ? formAmount : -formAmount;
+
     return {
-        date: formData.get('date') || new Date().toISOString().split('T')[0],
-        amount: parseFloat(extractNumbersOnly(formData.get('amount'))) || 0,
-        content: formData.get('content') || '',
-        paymentMethod: formData.get('paymentMethod') || '',
+        id: getUUID(),
         category: formData.get('category') || '',
+        description: formData.get('description') || '',
+        paymentMethod: formData.get('paymentMethod') || '',
+        amount: amount,
+        paidAt: formData.get('date') || new Date().toISOString().split('T')[0],
+        createdAt:
+            formData.get('date') || new Date().toISOString().split('T')[0],
     };
 }
 
@@ -82,7 +92,7 @@ function validateFormData(data) {
         return false;
     }
 
-    if (!data.content.trim()) {
+    if (!data.description.trim()) {
         return false;
     }
 

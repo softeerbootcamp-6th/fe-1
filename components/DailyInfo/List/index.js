@@ -9,8 +9,8 @@ import { formatDate, formatNumberWithCommas } from '../../../lib/utils.js';
             {
                 category: 'food',
                 description: '편의점 간식 구매',
-                payment: 'KB국민카드',
-                value: -4500,
+                paymentMethod: 'KB국민카드',
+                amount: -4500,
                 paidAt: '2025-07-11',
                 createdAt: '2025-07-11',
             },
@@ -20,18 +20,16 @@ import { formatDate, formatNumberWithCommas } from '../../../lib/utils.js';
 */
 
 const createDailyList = (data) => {
-    let expenseValue = 0;
-    let incomeValue = 0;
+    let expense = 0;
+    let income = 0;
 
-    const getValue = () => {
-        data.records.map(({ value }) => {
-            value > 0
-                ? (incomeValue += value)
-                : (expenseValue += Math.abs(value));
+    const getAmount = () => {
+        data.records.map(({ amount }) => {
+            amount > 0 ? (income += amount) : (expense += Math.abs(amount));
         });
     };
 
-    getValue();
+    getAmount();
 
     const dailyListItem = document.createElement('li');
     dailyListItem.className = 'daily-list';
@@ -43,21 +41,21 @@ const createDailyList = (data) => {
                 )}</span>
                 <div>
                     ${
-                        incomeValue > 0
+                        income > 0
                             ? `
                                 <span class="serif-14">수입</span>
                                 <span class="serif-14">${formatNumberWithCommas(
-                                    incomeValue
+                                    income
                                 )}원</span>
                             `
                             : ''
                     }
                     ${
-                        expenseValue > 0
+                        expense > 0
                             ? `
                                 <span class="serif-14">지출</span>
                                 <span class="serif-14">${formatNumberWithCommas(
-                                    expenseValue
+                                    expense
                                 )}원</span>
                             `
                             : ''

@@ -1,3 +1,5 @@
+import dateStore from '../../store/date.js';
+import { formatMonthName } from '../../lib/utils.js'; 
 const NavItemIcon = [
     {
         href: '/',
@@ -17,12 +19,14 @@ const NavItemIcon = [
 ];
 
 export default function createHeader() {
+    const { year, month } = dateStore;
+
     const header = document.createElement('div');
     header.className = 'header-container';
     header.innerHTML = `
         <a href="/" class="logo-text serif-24">Wise Wallet</a>
         <div class="date">
-            <button class="month-control-button">
+            <button class="prev-month-button">
                 <img
                     width="32"
                     height="32"
@@ -31,11 +35,11 @@ export default function createHeader() {
                 />
             </button>
             <div class="date-container">
-                <span class="year light-14">2023</span>
-                <span class="month-number serif-48">8</span>
-                <span class="month-name light-14">August</span>
+                <span class="year light-14">${year}</span>
+                <span class="month-number serif-48">${month}</span>
+                <span class="month-name light-14">${formatMonthName(month)}</span>
             </div>
-            <button class="month-control-button">
+            <button class="next-month-button">
                 <img
                     width="32"
                     height="32"
@@ -69,6 +73,21 @@ export default function createHeader() {
             </ul>
         </nav>
     `;
+
+    header.querySelector('.prev-month-button')?.addEventListener('click', () => {
+        dateStore.decreaseMonth();
+    });
+
+    header.querySelector('.next-month-button')?.addEventListener('click', () => {
+        dateStore.increaseMonth();
+    });
+
+    document.addEventListener('dateChanged', (e) => {
+        const { year, month } = e.detail;
+        header.querySelector('.year').textContent = year;
+        header.querySelector('.month-number').textContent = month;
+        header.querySelector('.month-name').textContent = formatMonthName(month);
+    });
 
     return header;
 }

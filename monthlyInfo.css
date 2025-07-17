@@ -91,20 +91,20 @@
     width: 400px;
 }
 
-.payment {
+.payment-method {
     width: 104px;
 }
 
-.value {
+.amount {
     text-align: right;
     flex-grow: 1;
 }
 
-.expense-value {
+.expense {
     color: var(--brand-text-expense);
 }
 
-.income-value {
+.income {
     color: var(--brand-text-income);
 }
 

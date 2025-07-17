@@ -1,7 +1,9 @@
 import { close } from '../../lib/utils.js';
+import formStore from '../../store/form.js';
+import createModal from '../Modal/index.js';
 
 const createDropdownOption = (option, deleteOption) => {
-    const optionContainer = document.createElement('div');
+    const optionContainer = document.createElement('li');
     optionContainer.className = 'dropdown-option-container';
 
     optionContainer.innerHTML = `
@@ -23,32 +25,52 @@ const createDropdownOption = (option, deleteOption) => {
         </div>
     `;
 
+    const modal = createModal({
+        okText: '삭제',
+        onOk: () => {
+            optionContainer.remove();
+            formStore.deletePaymentMethod(option.value);
+        },
+        okTextColor: 'var(--danger-text-default)',
+        content: `
+            <span class="light-16">해당 결제 수단을 삭제하시겠습니까?</span>
+            <input
+                class="semibold-12 input-payment-method"
+                type="text"
+                disabled
+                placeholder="${option.label}"
+            />
+        `,
+    });
+
+    if (deleteOption) {
+        const deleteButton = optionContainer.querySelector(
+            '.option-delete-button'
+        );
+        deleteButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            modal.open();
+        });
+    }
+
     return optionContainer;
 };
 
 const createDropdownOptions = (options, onSelect, deleteOption) => {
     const optionsContainer = document.createElement('div');
-    optionsContainer.className = 'dropdown-options';
+    optionsContainer.className = 'dropdown-container';
     optionsContainer.style.display = 'none';
+
+    const optionsList = document.createElement('ul');
+    optionsList.className = 'dropdown-options-list';
+    optionsContainer.appendChild(optionsList);
 
     options.forEach((option) => {
         const optionElement = createDropdownOption(option, deleteOption);
-        optionsContainer.appendChild(optionElement);
+        optionsList.appendChild(optionElement);
     });
 
     optionsContainer.addEventListener('click', (event) => {
-        if (
-            deleteOption &&
-            event.target.classList.contains('option-delete-button')
-        ) {
-            event.stopPropagation();
-            close(optionsContainer);
-            deleteDropdownOption(
-                event.target.closest('.dropdown-option').dataset.value
-            );
-            return;
-        }
-
         const optionElement = event.target.closest('.dropdown-option');
         if (optionElement) {
             const value = optionElement.dataset.value;
@@ -61,14 +83,13 @@ const createDropdownOptions = (options, onSelect, deleteOption) => {
         }
     });
 
-    function deleteDropdownOption(value) {
-        const optionElement = optionsContainer.querySelector(
-            `.dropdown-option[data-value="${value}"]`
+    document.addEventListener('paymentMethodOptionsAdded', (event) => {
+        const newOptions = createDropdownOption(
+            event.detail.newPaymentMethod,
+            deleteOption
         );
-        if (optionElement) {
-            optionElement.remove();
-        }
-    }
+        optionsList.appendChild(newOptions);
+    });
 
     return optionsContainer;
 };
