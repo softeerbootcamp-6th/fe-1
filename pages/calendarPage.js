@@ -1,4 +1,7 @@
-import { renderCalendar, renderCalendarInfo } from "../components/calendar.js";
+import {
+  renderCalendar,
+  renderCalendarInfo,
+} from "../components/calendar/calendar.js";
 
 export function createCalendarPage() {
   return `

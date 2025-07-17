@@ -2,7 +2,7 @@ export function getTotalAmount(transactions) {
   return transactions.reduce((sum, transaction) => sum + transaction.amount, 0);
 }
 
-export function totalIncomeData(transactions) {
+export function getTotalIncomeData(transactions) {
   const totalIncomeTransactions = transactions.filter(
     (transaction) => transaction.amount > 0
   );
@@ -16,7 +16,7 @@ export function totalIncomeData(transactions) {
   };
 }
 
-export function totalExpenseData(transactions) {
+export function getTotalExpenseData(transactions) {
   const totalExpenseTransactions = transactions.filter(
     (transaction) => transaction.amount < 0
   );

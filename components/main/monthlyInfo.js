@@ -1,12 +1,12 @@
 import {
   getTotalIncomeData,
   getTotalExpenseData,
-} from "../utils/transaction.js";
-import { transactionStore } from "../store/index.js";
-import { setFilteringState } from "../pages/mainPage.js";
+} from "../../utils/transaction.js";
+import { transactionStore } from "../../store/index.js";
+import { setFilteringState } from "../../pages/mainPage.js";
 import { renderTransactionList } from "./transactionsList.js";
-import { formatMoney } from "../utils/format.js";
-import { dateStore } from "../store/index.js";
+import { formatMoney } from "../../utils/format.js";
+import { dateStore } from "../../store/index.js";
 
 // totalCount 텍스트를 생성하는 함수
 function createTotalCountText(

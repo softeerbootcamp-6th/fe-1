@@ -1,4 +1,4 @@
-import { renderDonutChartSVG } from "../components/donutChart.js";
+import { renderDonutChartSVG } from "../components/chart/donutChart.js";
 
 export function createChartPage() {
   return `

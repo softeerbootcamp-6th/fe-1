@@ -1,9 +1,9 @@
-import { formatMoney } from "../utils/format.js";
-import { dateStore, transactionStore } from "../store/index.js";
-import { CATEGORY_NAME } from "../constants/category.js";
-import { totalExpenseData } from "../utils/transaction.js";
+import { formatMoney } from "../../utils/format.js";
+import { dateStore, transactionStore } from "../../store/index.js";
+import { CATEGORY_NAME } from "../../constants/category.js";
+import { getTotalExpenseData } from "../../utils/transaction.js";
 import { renderLineChart } from "./lineChart.js";
-import { createTransactionRow } from "./transactionsList.js";
+import { createTransactionRow } from "../main/transactionsList.js";
 
 // 카테고리별 지출 합계 및 퍼센트 구하기
 export function getExpenseByCategory(
@@ -74,7 +74,7 @@ function logLast6MonthsTotalExpense(year, month, category) {
       calcMonth,
       category
     );
-    const { totalExpenseAmount } = totalExpenseData(transactions || []);
+    const { totalExpenseAmount } = getTotalExpenseData(transactions || []);
     totalAmountByMonth[calcMonth] = totalExpenseAmount;
     totalTransactionList[calcMonth] = transactions;
   }
@@ -140,7 +140,7 @@ export function createMonthlyExpenseTransactionList(
   // 날짜별로 섹션 생성
   const sections = Object.entries(transactionListByDate).reduce(
     (acc, [date, transactionList]) => {
-      const { totalExpenseAmount } = totalExpenseData(transactionList);
+      const { totalExpenseAmount } = getTotalExpenseData(transactionList);
 
       const header = `
         <div class="flex-between serif-14">

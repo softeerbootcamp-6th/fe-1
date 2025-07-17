@@ -1,6 +1,6 @@
-import { dateStore, transactionStore } from "../store/index.js";
-import { totalExpenseData } from "../utils/transaction.js";
-import { getCategoryColor } from "../utils/style.js";
+import { dateStore, transactionStore } from "../../store/index.js";
+import { getTotalExpenseData } from "../../utils/transaction.js";
+import { getCategoryColor } from "../../utils/style.js";
 import {
   renderLegend,
   getExpenseByCategory,
@@ -110,7 +110,7 @@ export function renderDonutChartSVG(container) {
   const transactions = transactionStore.getTransactionsByYearMonth(year, month);
 
   const { totalExpenseTransactions, totalExpenseAmount } =
-    totalExpenseData(transactions);
+    getTotalExpenseData(transactions);
 
   const { expenseByCategory } = getExpenseByCategory(
     totalExpenseTransactions,

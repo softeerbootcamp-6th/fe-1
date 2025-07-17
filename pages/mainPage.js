@@ -1,9 +1,9 @@
 import {
   renderMonthlyInfo,
   renderTotalCount,
-} from "../components/monthlyInfo.js";
-import { renderInputBar } from "../components/inputBar.js";
-import { renderTransactionList } from "../components/transactionsList.js";
+} from "../components/main/monthlyInfo.js";
+import { renderInputBar } from "../components/main/inputBar.js";
+import { renderTransactionList } from "../components/main/transactionsList.js";
 import {
   getTotalIncomeData,
   getTotalExpenseData,

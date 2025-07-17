@@ -1,8 +1,8 @@
-import { dateStore, transactionStore } from "../store/index.js";
+import { dateStore, transactionStore } from "../../store/index.js";
 import {
   INCOME_CATEGORIES,
   EXPENSE_CATEGORIES,
-} from "../constants/category.js";
+} from "../../constants/category.js";
 
 // 수정 모드 상태 관리
 let isEditMode = false;

@@ -1,4 +1,4 @@
-import { renderHeader, initHeader } from "./components/header.js";
+import { renderHeader, initHeader } from "./components/header/header.js";
 import { render, navigate } from "./utils/routes.js";
 import { initStore } from "./store/index.js";
 

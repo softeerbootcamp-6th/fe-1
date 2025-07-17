@@ -1,4 +1,4 @@
-import { formatMoney } from "../utils/format.js";
+import { formatMoney } from "../../utils/format.js";
 
 export function renderGrid(
   svgNS,
