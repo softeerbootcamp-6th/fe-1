@@ -36,17 +36,25 @@ function deleteItem(itemId) {
 function createTransactionItemInnerHtml(item) {
   const amount = Number(item.amount);
   return `
-      <div class="flex-row-between item" data-id="${item.id}">
-        <div class="category">${item.category}</div>
-        <p class="description">${item.description}</p>
-        <p class="method">${item.method}</p>
+      <div class="item data-id="${item.id}">
+        <div class="item-category-tag item-category-${
+          item.category
+        } font-light-14">${item.category}</div>
+    <div class="item-content">
+        <p class="item-description font-light-14">${item.description}</p>
+        <p class="item-method font-light-14">${item.method}</p>
         <div class="flex-row-between">
-        <div class="amount ${item.type === "withdraw" ? "minus" : "plus"}">
+        <div class="item-amount ${
+          item.type === "withdraw" ? "minus" : "plus"
+        } font-light-14">
           ${item.type === "withdraw" ? "-" : "+"}${amount.toLocaleString()}원
         </div>
-        <button class="delete-btn">삭제</button>
+        <button class="delete-btn">
+        <img src="src/assets/icons/closed.svg"/>
+        </button>
         </div>
       </div>
+    </div>
     `;
 }
 
@@ -66,7 +74,7 @@ function createDaySectionInnerHtml(dateStr, items) {
 
   return `
       <div class="day-section">
-        <div class="day-header">
+        <div class="day-header font-serif-14">
           <span class="date">${dateTitle}</span>
           <span class="summary">${summaryText}</span>
         </div>

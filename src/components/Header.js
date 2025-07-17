@@ -1,13 +1,16 @@
 import { renderHeader } from "./headerView.js";
-import { addObservers, state } from "../store.js";
+import DateState from "../store/DateState.js";
 import { addHeaderEvents } from "../controllers/headerController.js";
+import NavBarState from "../store/NavBarState.js";
+import HeaderObserver from "../observers/headerObserver.js";
 
 export function initHeader() {
-  renderHeader(state);
-
-  addObservers((state) => {
-    renderHeader(state);
+  renderHeader({
+    curDate: DateState.getDate(),
+    navBarState: NavBarState.getNavBarState(),
   });
+
+  HeaderObserver;
 
   addHeaderEvents();
 }
