@@ -6,6 +6,13 @@ import {
   getExpenseByCategory,
   renderLineChartAndTransactionList,
 } from "./chart.js";
+import {
+  TINY_NUMBER,
+  PI,
+  ANIMATION_DURATION,
+  ANIMATION_DELAY,
+  DONUT_CHART,
+} from "../../constants/number.js";
 
 // 도넛 슬라이스 생성 함수
 function createDonutSlice(
@@ -23,7 +30,7 @@ function createDonutSlice(
   const path = document.createElementNS(svgNS, "path");
 
   // 360도(2π)와 거의 같은 경우(소수점 오차 포함)
-  if (Math.abs(angle - Math.PI * 2) < 1e-6) {
+  if (Math.abs(angle - PI * 2) < TINY_NUMBER) {
     // 외부 원호(반원 2번)
     const d = [
       `M ${cx} ${cy - r}`,
@@ -36,7 +43,7 @@ function createDonutSlice(
     ].join(" ");
     path.setAttribute("d", d);
   } else {
-    const largeArcFlag = angle > Math.PI ? 1 : 0;
+    const largeArcFlag = angle > PI ? 1 : 0;
     // x1, y1: 외부 원호 시작점 (startAngle, 바깥 반지름)
     const x1 = cx + r * Math.cos(startAngle);
     const y1 = cy + r * Math.sin(startAngle);
@@ -66,7 +73,9 @@ function createDonutSlice(
   path.style.transformOrigin = `${cx}px ${cy}px`;
   path.style.transform = "scale(0)";
   path.style.opacity = "0";
-  path.style.animation = `donut-appear 0.6s ease-out ${index * 0.05}s forwards`;
+  path.style.animation = `donut-appear ${ANIMATION_DURATION}s ease-out ${
+    index * ANIMATION_DELAY
+  }s forwards`;
 
   path.addEventListener("animationend", () => {
     path.style.transform = "";
@@ -146,12 +155,12 @@ export function renderDonutChartSVG(container) {
   const legendContainer = container.querySelector("#donut-chart-legend");
   svgContainer.innerHTML = "";
 
-  const width = 420;
-  const height = 420;
-  const cx = width / 2;
-  const cy = height / 2;
-  const r = 127;
-  const innerR = 80;
+  const width = DONUT_CHART.width;
+  const height = DONUT_CHART.height;
+  const cx = DONUT_CHART.cx;
+  const cy = DONUT_CHART.cy;
+  const r = DONUT_CHART.r;
+  const innerR = DONUT_CHART.innerR;
 
   const svgNS = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(svgNS, "svg");
@@ -175,7 +184,7 @@ export function renderDonutChartSVG(container) {
 
   // 모든 path(도넛 슬라이스)를 그리기
   categories.forEach((cat, index) => {
-    const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
+    const angle = (expenseByCategory[cat].percent / 100) * PI * 2;
     const path = createDonutSlice(
       cat,
       startAngle,
@@ -193,10 +202,10 @@ export function renderDonutChartSVG(container) {
   });
 
   // 모든 텍스트를 추가 (맨 위에 표시)
-  startAngle = -Math.PI / 2;
+  startAngle = -PI / 2;
   const textElements = [];
   categories.forEach((cat) => {
-    const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
+    const angle = (expenseByCategory[cat].percent / 100) * PI * 2;
     const [categoryText, percentText] = createDonutText(
       cat,
       startAngle,

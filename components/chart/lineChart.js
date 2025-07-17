@@ -1,4 +1,5 @@
 import { formatMoney } from "../../utils/format.js";
+import { LINE_CHART } from "../../constants/number.js";
 
 export function renderGrid(
   svgNS,
@@ -56,12 +57,12 @@ export function renderLineChart(container, totalAmountByMonth) {
   // 기존 svg 제거
   Array.from(container.querySelectorAll("svg")).forEach((el) => el.remove());
 
-  const width = 840;
-  const height = 452;
-  const chartHeight = 400;
-  const chartWidth = 700;
-  const offsetX = 70;
-  const offsetY = 26;
+  const width = LINE_CHART.width;
+  const height = LINE_CHART.height;
+  const chartHeight = LINE_CHART.chartHeight;
+  const chartWidth = LINE_CHART.chartWidth;
+  const offsetX = LINE_CHART.offsetX;
+  const offsetY = LINE_CHART.offsetY;
 
   const svgNS = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(svgNS, "svg");
