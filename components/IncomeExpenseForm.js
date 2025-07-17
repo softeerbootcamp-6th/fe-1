@@ -13,7 +13,7 @@ export function renderIncomeExpenseForm() {
   const maxDescriptionLength = 32;
   let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
-  const incomeTags = ['용돈', '월급'];
+  const incomeTags = ['월급', '용돈', '기타 수입'];
   const expenseTags = [
     '생활',
     '의료/건강',
