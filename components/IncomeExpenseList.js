@@ -33,10 +33,18 @@ export function renderListItem(listContainer) {
     currentMonth,
   ]);
 
-  // TODO: 계산 로직 작성
-  const monthlyNum = 0;
-  const monthlyIncome = 0;
-  const monthlyExpense = 0;
+  const currentMonthDataList = Object.entries(currentMonthData)
+    .map(dailyData => dailyData[1])
+    .flat();
+  const monthlyNum = currentMonthDataList.length;
+
+  const monthlyIncome = currentMonthDataList
+    .filter(data => data.type == 'income')
+    .reduce((income, data) => income + data.money, 0);
+
+  const monthlyExpense = currentMonthDataList
+    .filter(data => data.type == 'expense')
+    .reduce((expense, data) => expense - data.money, 0);
 
   // 기존 내용 지우기
   while (listContainer.firstChild) {
@@ -86,8 +94,8 @@ export function renderListItem(listContainer) {
     <div class="daily-info-container">
       <span>${month}월 ${date}일 ${dayStringList[dayStringIndex]}요일</span>
       <div>
-        <span>수입 ${dailyIncome}원</span>
-        <span>지출 ${dailyExpense}원</span>
+        ${dailyIncome ? `<span>수입 ${dailyIncome}원</span>` : ''}
+        ${dailyExpense ? `<span>지출 ${dailyExpense}원</span>` : ''}
       </div>
     </div>
     `;
