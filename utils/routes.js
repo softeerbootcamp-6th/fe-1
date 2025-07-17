@@ -1,7 +1,7 @@
 import { renderMainPage } from "../pages/mainPage.js";
 import { renderCalendarPage } from "../pages/calendarPage.js";
 import { renderChartPage } from "../pages/chartPage.js";
-import { updateNavigationActive } from "../components/header/tab.js";
+import { pathStore } from "../store/index.js";
 
 const routes = {
   "/": renderMainPage,
@@ -15,7 +15,7 @@ export function navigate(url) {
 }
 
 export function render() {
-  const path = window.location.pathname;
+  const path = pathStore.getPath();
   const container = document.getElementById("main-container");
   const routeFunction = routes[path];
 
@@ -24,6 +24,4 @@ export function render() {
   } else {
     container.innerHTML = "<h1>404 Not Found</h1>";
   }
-
-  updateNavigationActive(path);
 }

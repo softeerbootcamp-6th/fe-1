@@ -1,6 +1,6 @@
 import { Subject } from "./observer.js";
 
-class PathStore extends Subject {
+export class PathStore extends Subject {
   constructor() {
     super();
     this.path = window.location.pathname;
@@ -15,5 +15,3 @@ class PathStore extends Subject {
     this.notify(this.path);
   }
 }
-
-export const pathStore = new PathStore();
