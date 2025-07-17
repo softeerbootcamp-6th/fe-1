@@ -1,8 +1,7 @@
-import Observer from "../../utils/observers/Observer.js";
-import monthStore from "../../stores/MonthStore.js";
+import monthState from "../../stores/subjects/MonthState.js";
 import DailyHistory from "../../components/DailyHistory/DailyHistory.js";
 
-const { year, month } = monthStore.getMonthInfo();
+const { year, month } = monthState.getMonthInfo();
 
 const getSortedDailyData = (transactions, filterState) => {
   const filteredTransactions = transactions.filter((transaction) => {
@@ -43,9 +42,8 @@ const sumAmount = (transactions, type) => {
   }, 0);
 };
 
-export class TransactionsView extends Observer {
+export class TransactionsView {
   constructor() {
-    super();
     this.$root = document.querySelector(".transactions");
   }
 

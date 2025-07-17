@@ -11,6 +11,7 @@ const DailyHistory = ({ date = "", items = [] } = {}) => {
 
   const article = document.createElement("article");
   article.className = "history__daily-list";
+  article.dataset.date = date;
 
   // 헤더 생성
   const header = document.createElement("header");
@@ -65,6 +66,7 @@ const DailyHistory = ({ date = "", items = [] } = {}) => {
   items.forEach((item, index) => {
     const li = document.createElement("li");
     li.className = "daily-list__content-row font-light-14";
+    li.dataset.id = item.id;
 
     const categoryDiv = CategoryTag({
       label: item.category,
@@ -93,28 +95,9 @@ const DailyHistory = ({ date = "", items = [] } = {}) => {
       icon: "/src/assets/icons/delete.svg",
       label: "삭제",
       size: "small",
-      onClick: () => {
-        li.remove();
-        if (ul.children.length === 0) {
-          article.remove();
-        }
-
-        const transactionsData = localStorage.getItem("transactionsData");
-        const transactions = transactionsData
-          ? JSON.parse(transactionsData)
-          : {};
-
-        const monthKey =
-          item.date.split("-")[0] + "-" + item.date.split("-")[1];
-
-        transactions[monthKey] = transactions[monthKey].filter(
-          (transaction) => transaction.id !== item.id
-        );
-
-        localStorage.setItem("transactionsData", JSON.stringify(transactions));
-      },
     });
-    deleteButton.className = "content-row__delete-button font-semibold-12";
+    deleteButton.className = `content-row__delete-button font-semibold-12`;
+    deleteButton.dataset.type = "delete-button";
 
     infoDiv.append(description, method, amount, deleteButton);
     li.append(categoryDiv, infoDiv);

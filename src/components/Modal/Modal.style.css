@@ -1,6 +1,5 @@
 .modal {
   width: 38.4rem;
-  height: 20rem;
   top: calc(50% - 10rem);
   left: calc(50% - 19.2rem);
 }
@@ -19,8 +18,9 @@
   gap: 1px;
 }
 
-.modal__content {
+.modal__main {
   width: 100%;
+  min-height: 14.4rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
