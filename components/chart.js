@@ -2,6 +2,7 @@ import { formatMoney } from "../utils/format.js";
 import { dateStore, transactionStore } from "../store/index.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { totalExpenseData } from "../utils/transaction.js";
+import { renderLineChart } from "./lineChart.js";
 
 // 카테고리별 지출 합계 및 퍼센트 구하기
 export function getExpenseByCategory(
@@ -115,44 +116,4 @@ export function renderLegend(
       }
     });
   }
-}
-
-function renderLineChart(container, totalAmountByMonth) {
-  // 기존에 있던 canvas 모두 제거
-  Array.from(container.querySelectorAll("canvas")).forEach((el) => el.remove());
-
-  const lineChart = document.createElement("canvas");
-  lineChart.width = 840;
-  lineChart.height = 572;
-  container.appendChild(lineChart);
-  const ctx = lineChart.getContext("2d");
-
-  const values = Object.values(totalAmountByMonth);
-  const months = Object.keys(totalAmountByMonth);
-  const maxValue = Math.max(...values);
-  const minValue = Math.min(...values);
-  const range = maxValue - minValue || 1; // 0 방지
-  const chartHeight = 500;
-  const chartWidth = 700;
-  const offsetX = 70;
-  const offsetY = 36;
-  const pointGap = chartWidth / (months.length - 1);
-
-  // y좌표: (value - minValue) * scale
-  const scale = chartHeight / range;
-
-  ctx.beginPath();
-  months.forEach((month, index) => {
-    const value = totalAmountByMonth[month];
-    const x = offsetX + index * pointGap;
-    const y = offsetY + chartHeight - (value - minValue) * scale;
-    if (index === 0) {
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
-    }
-  });
-  ctx.strokeStyle = "#36A2EB";
-  ctx.lineWidth = 2;
-  ctx.stroke();
 }

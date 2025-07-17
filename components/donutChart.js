@@ -3,6 +3,95 @@ import { totalExpenseData } from "../utils/transaction.js";
 import { getCategoryColor } from "../utils/style.js";
 import { renderLegend, getExpenseByCategory } from "./chart.js";
 
+// 도넛 슬라이스 생성 함수
+function createDonutSlice(cat, startAngle, angle, cx, cy, r, innerR, svgNS) {
+  const endAngle = startAngle + angle;
+  const path = document.createElementNS(svgNS, "path");
+
+  // 360도(2π)와 거의 같은 경우(소수점 오차 포함)
+  if (Math.abs(angle - Math.PI * 2) < 1e-6) {
+    // 외부 원호(반원 2번)
+    const d = [
+      `M ${cx} ${cy - r}`,
+      `A ${r} ${r} 0 1 1 ${cx} ${cy + r}`,
+      `A ${r} ${r} 0 1 1 ${cx} ${cy - r}`,
+      `L ${cx} ${cy - innerR}`,
+      `A ${innerR} ${innerR} 0 1 0 ${cx} ${cy + innerR}`,
+      `A ${innerR} ${innerR} 0 1 0 ${cx} ${cy - innerR}`,
+      "Z",
+    ].join(" ");
+    path.setAttribute("d", d);
+  } else {
+    const largeArcFlag = angle > Math.PI ? 1 : 0;
+    // x1, y1: 외부 원호 시작점 (startAngle, 바깥 반지름)
+    const x1 = cx + r * Math.cos(startAngle);
+    const y1 = cy + r * Math.sin(startAngle);
+    // x2, y2: 외부 원호 끝점 (endAngle, 바깥 반지름)
+    const x2 = cx + r * Math.cos(endAngle);
+    const y2 = cy + r * Math.sin(endAngle);
+    // x3, y3: 내부 원호 끝점 (endAngle, 안쪽 반지름)
+    const x3 = cx + innerR * Math.cos(endAngle);
+    const y3 = cy + innerR * Math.sin(endAngle);
+    // x4, y4: 내부 원호 시작점 (startAngle, 안쪽 반지름)
+    const x4 = cx + innerR * Math.cos(startAngle);
+    const y4 = cy + innerR * Math.sin(startAngle);
+    const d = [
+      `M ${x1} ${y1}`,
+      `A ${r} ${r} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
+      `L ${x3} ${y3}`,
+      `A ${innerR} ${innerR} 0 ${largeArcFlag} 0 ${x4} ${y4}`,
+      "Z",
+    ].join(" ");
+    path.setAttribute("d", d);
+  }
+
+  path.setAttribute("fill", getCategoryColor(cat));
+  path.classList.add("donut-slice");
+  return path;
+}
+
+// 도넛 텍스트 생성 함수
+function createDonutText(
+  cat,
+  startAngle,
+  angle,
+  cx,
+  cy,
+  r,
+  innerR,
+  expenseByCategory,
+  svgNS
+) {
+  const midAngle = startAngle + angle / 2;
+  const textRadius = (r + innerR) / 2; // 바깥 반지름과 안쪽 반지름의 중간
+  const textX = cx + textRadius * Math.cos(midAngle);
+  const textY = cy + textRadius * Math.sin(midAngle);
+
+  // 카테고리명 텍스트
+  const categoryText = document.createElementNS(svgNS, "text");
+  categoryText.setAttribute("x", textX);
+  categoryText.setAttribute("y", textY - 5);
+  categoryText.setAttribute("text-anchor", "middle");
+  categoryText.setAttribute("dominant-baseline", "middle");
+  categoryText.setAttribute("fill", "#000");
+  categoryText.setAttribute("pointer-events", "none");
+  categoryText.classList.add("light-12");
+  categoryText.textContent = cat;
+
+  // 퍼센트 텍스트
+  const percentText = document.createElementNS(svgNS, "text");
+  percentText.setAttribute("x", textX);
+  percentText.setAttribute("y", textY + 10);
+  percentText.setAttribute("text-anchor", "middle");
+  percentText.setAttribute("dominant-baseline", "middle");
+  percentText.setAttribute("fill", "#000");
+  percentText.setAttribute("pointer-events", "none");
+  percentText.classList.add("light-12");
+  percentText.textContent = `${expenseByCategory[cat].percent.toFixed(1)}%`;
+
+  return [categoryText, percentText];
+}
+
 export function renderDonutChartSVG(container) {
   const year = dateStore.getYear();
   const month = dateStore.getMonth();
@@ -58,86 +147,37 @@ export function renderDonutChartSVG(container) {
   // 먼저 모든 path(도넛 슬라이스)를 그리기
   categories.forEach((cat) => {
     const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
-    const endAngle = startAngle + angle;
-    const path = document.createElementNS(svgNS, "path");
-
-    // 360도(2π)와 거의 같은 경우(소수점 오차 포함)
-    if (Math.abs(angle - Math.PI * 2) < 1e-6) {
-      // 외부 원호(반원 2번)
-      const d = [
-        `M ${cx} ${cy - r}`,
-        `A ${r} ${r} 0 1 1 ${cx} ${cy + r}`,
-        `A ${r} ${r} 0 1 1 ${cx} ${cy - r}`,
-        `L ${cx} ${cy - innerR}`,
-        `A ${innerR} ${innerR} 0 1 0 ${cx} ${cy + innerR}`,
-        `A ${innerR} ${innerR} 0 1 0 ${cx} ${cy - innerR}`,
-        "Z",
-      ].join(" ");
-      path.setAttribute("d", d);
-    } else {
-      const largeArcFlag = angle > Math.PI ? 1 : 0;
-      // x1, y1: 외부 원호 시작점 (startAngle, 바깥 반지름)
-      const x1 = cx + r * Math.cos(startAngle);
-      const y1 = cy + r * Math.sin(startAngle);
-      // x2, y2: 외부 원호 끝점 (endAngle, 바깥 반지름)
-      const x2 = cx + r * Math.cos(endAngle);
-      const y2 = cy + r * Math.sin(endAngle);
-      // x3, y3: 내부 원호 끝점 (endAngle, 안쪽 반지름)
-      const x3 = cx + innerR * Math.cos(endAngle);
-      const y3 = cy + innerR * Math.sin(endAngle);
-      // x4, y4: 내부 원호 시작점 (startAngle, 안쪽 반지름)
-      const x4 = cx + innerR * Math.cos(startAngle);
-      const y4 = cy + innerR * Math.sin(startAngle);
-      const d = [
-        `M ${x1} ${y1}`,
-        `A ${r} ${r} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
-        `L ${x3} ${y3}`,
-        `A ${innerR} ${innerR} 0 ${largeArcFlag} 0 ${x4} ${y4}`,
-        "Z",
-      ].join(" ");
-      path.setAttribute("d", d);
-    }
-
-    path.setAttribute("fill", getCategoryColor(cat));
-    path.classList.add("donut-slice");
+    const path = createDonutSlice(
+      cat,
+      startAngle,
+      angle,
+      cx,
+      cy,
+      r,
+      innerR,
+      svgNS
+    );
     svg.appendChild(path);
-
-    startAngle = endAngle;
+    startAngle += angle;
   });
 
-  // 텍스트 추가
+  // 그 다음에 모든 텍스트를 추가 (맨 위에 표시)
   startAngle = -Math.PI / 2;
   categories.forEach((cat) => {
     const angle = (expenseByCategory[cat].percent / 100) * Math.PI * 2;
-    const midAngle = startAngle + angle / 2;
-    const textRadius = (r + innerR) / 2; // 바깥 반지름과 안쪽 반지름의 중간
-    const textX = cx + textRadius * Math.cos(midAngle);
-    const textY = cy + textRadius * Math.sin(midAngle);
-
-    // 카테고리명 텍스트
-    const categoryText = document.createElementNS(svgNS, "text");
-    categoryText.setAttribute("x", textX);
-    categoryText.setAttribute("y", textY - 5);
-    categoryText.setAttribute("text-anchor", "middle");
-    categoryText.setAttribute("dominant-baseline", "middle");
-    categoryText.setAttribute("fill", "#000");
-    categoryText.setAttribute("pointer-events", "none");
-    categoryText.classList.add("light-12");
-    categoryText.textContent = cat;
+    const [categoryText, percentText] = createDonutText(
+      cat,
+      startAngle,
+      angle,
+      cx,
+      cy,
+      r,
+      innerR,
+      expenseByCategory,
+      svgNS
+    );
     svg.appendChild(categoryText);
-
-    // 퍼센트 텍스트
-    const percentText = document.createElementNS(svgNS, "text");
-    percentText.setAttribute("x", textX);
-    percentText.setAttribute("y", textY + 10);
-    percentText.setAttribute("text-anchor", "middle");
-    percentText.setAttribute("dominant-baseline", "middle");
-    percentText.setAttribute("fill", "#000");
-    percentText.setAttribute("pointer-events", "none");
-    percentText.classList.add("light-12");
-    percentText.textContent = `${expenseByCategory[cat].percent.toFixed(1)}%`;
     svg.appendChild(percentText);
-
     startAngle += angle;
   });
 
