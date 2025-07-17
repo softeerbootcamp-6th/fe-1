@@ -13,7 +13,7 @@ export function initCalendarView() {
 }
 
 // 캘린더 그리기
-function renderCalendar(year, month) {
+export function renderCalendar(year, month) {
   const calendarGrid = document.getElementById("calendar-grid");
   calendarGrid.innerHTML = "";
 
