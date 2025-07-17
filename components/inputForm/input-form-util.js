@@ -1,8 +1,8 @@
-import { store } from "../../js/state/store.js";
+import { store } from "../../store/store.js";
 import { sharedState } from "../../js/state/state.js";
 import { updateTotalAmounts } from "../../js/function/totalAmount.js";
 import { currentMonth, currentYear } from "../../js/function/calendarRender.js";
-import { category } from "../../js/state/data.js";
+import { category } from "../../setting/config.js";
 import {
   saveEntriesToServer,
   loadEntriesFromServer,
@@ -10,7 +10,7 @@ import {
 import {
   updateDateSectionTotals,
   getDateFromServer,
-} from "../../js/function/entry/entry.js";
+} from "../../js/function/entry.js";
 
 export function addEntry() {
   const entry = getEntryDate();

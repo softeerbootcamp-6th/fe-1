@@ -1,4 +1,4 @@
-import { store } from "../../../js/state/store.js";
+import { store } from "../../../store/store.js";
 import { createModal } from "../../modal.js";
 
 export function initPaymentMethodListener() {

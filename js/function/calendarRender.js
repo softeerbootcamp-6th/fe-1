@@ -1,8 +1,6 @@
 import { sharedState } from "../state/state.js";
 import { loadEntriesFromServer } from "../api/api.js";
-import { getDateFromServer } from "./entry/entry.js";
-
-
+import { getDateFromServer } from "./entry.js";
 
 /*
   여기서 year과 month를 store로 관리하는 것이 좋을 것 같습니다.
@@ -16,16 +14,27 @@ export function initCalendar() {
   const monthEl = document.getElementById("month");
   const monthLabelEl = document.getElementById("month-label");
 
-  const monthNames = ["", "January", "February", "March", "April", "May", "June",
-                      "July", "August", "September", "October", "November", "December"];
+  const monthNames = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   function updateCalendar() {
     yearEl.textContent = currentYear;
     monthEl.textContent = currentMonth;
     monthLabelEl.textContent = monthNames[currentMonth];
   }
-
- 
 
   document.getElementById("prev-month").addEventListener("click", () => {
     currentMonth--;
@@ -51,16 +60,16 @@ export function initCalendar() {
 }
 
 export async function clearWebPage(currentMonth, currentYear) {
-    const entryList = document.getElementById("entry-list");
-    entryList.innerHTML = ""; // 기존 항목들을 모두 제거
-    sharedState.entries = []; // sharedState의 entries 배열 초기화
-    const currentDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}`;
-    // 서버에서 해당 월의 항목들을 불러오는
-    const serverData = await loadEntriesFromServer(currentDate);
-    console.log("Server data:", serverData);
-    
-    serverData.forEach(entry => {
-      getDateFromServer(entry);
-      sharedState.entries.push(entry); // sharedState에 항목 추가
-    });
-  }
+  const entryList = document.getElementById("entry-list");
+  entryList.innerHTML = ""; // 기존 항목들을 모두 제거
+  sharedState.entries = []; // sharedState의 entries 배열 초기화
+  const currentDate = `${currentYear}-${String(currentMonth).padStart(2, "0")}`;
+  // 서버에서 해당 월의 항목들을 불러오는
+  const serverData = await loadEntriesFromServer(currentDate);
+  console.log("Server data:", serverData);
+
+  serverData.forEach((entry) => {
+    getDateFromServer(entry);
+    sharedState.entries.push(entry); // sharedState에 항목 추가
+  });
+}

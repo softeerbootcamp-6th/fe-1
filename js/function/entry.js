@@ -1,8 +1,8 @@
-import { deleteEntry } from "../../api/api.js";
-import { sharedState } from "../../state/state.js";
-import { renderCategoryOptions } from "../categoryRender.js";
-import { updateTotalAmounts } from "../totalAmount.js";
-import { createModal } from "../../../components/modal.js";
+import { deleteEntry } from "../api/api.js";
+import { sharedState } from "../state/state.js";
+import { renderCategoryOptions } from "./categoryRender.js";
+import { updateTotalAmounts } from "./totalAmount.js";
+import { createModal } from "../../components/modal.js";
 
 export function deleteEntries() {
   //이벤트 위임 방식
@@ -83,7 +83,7 @@ export function deleteEntryConfirm(deleteBtn) {
 
   updateTotalAmounts();
 
-  import("../calendarTotalAmount.js").then((module) => {
+  import("./calendarTotalAmount.js").then((module) => {
     module.updateCalendarTotalAmount();
   });
 }
