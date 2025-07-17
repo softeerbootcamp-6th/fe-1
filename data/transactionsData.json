@@ -82,6 +82,14 @@
         "description": "7월 월세",
         "paymentMethod": "현대카드",
         "amount": -500000
+      },
+      {
+        "id": 7,
+        "date": "2025-07-09",
+        "category": "식비",
+        "description": "카페 라떼 2잔",
+        "paymentMethod": "카드",
+        "amount": -10000
       }
     ],
     "6": [
