@@ -1,4 +1,4 @@
-import { Observer } from "../../utils/index.js";
+import { Observer, groupByDate, sortByDate } from "../../utils/index.js";
 
 const getSortedDailyData = (transactions, filterState) => {
   const filteredTransactions = transactions.filter((transaction) => {
@@ -11,21 +11,8 @@ const getSortedDailyData = (transactions, filterState) => {
     return false;
   });
 
-  const groupByDate = filteredTransactions.reduce((acc, curr) => {
-    const date = curr.date.split("-")[2];
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push(curr);
-    return acc;
-  }, {});
-
-  const sortedDailyData = Object.keys(groupByDate)
-    .sort((a, b) => Number(b) - Number(a))
-    .map((date) => ({
-      date,
-      transactions: groupByDate[date],
-    }));
+  const groupedByDate = groupByDate(filteredTransactions);
+  const sortedDailyData = sortByDate(groupedByDate);
 
   return sortedDailyData;
 };
