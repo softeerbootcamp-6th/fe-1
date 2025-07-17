@@ -168,6 +168,7 @@ export function renderListItem(listContainer) {
     });
 
     li.addEventListener('click', e => {
+      e.stopPropagation();
       handleListItemClick(e);
     });
 

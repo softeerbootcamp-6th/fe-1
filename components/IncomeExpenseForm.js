@@ -137,6 +137,7 @@ export function renderIncomeExpenseForm() {
   const addButton = form.querySelector('.add-button');
 
   moneyButton.addEventListener('click', e => {
+    e.stopPropagation();
     e.preventDefault();
     isIncome = !isIncome;
     moneyButtonIcon.src = isIncome
@@ -153,6 +154,10 @@ export function renderIncomeExpenseForm() {
     target.value = formattedValue; // 입력 필드에 포맷된 값 설정
   });
 
+  moneyInput.addEventListener('click', e => {
+    e.stopPropagation();
+  });
+
   // 입력 시 기본값 0 제거
   moneyInput.addEventListener('focus', ({ target }) => {
     if (target.value === '0') {
@@ -164,6 +169,18 @@ export function renderIncomeExpenseForm() {
     descriptionLength = target.value.length;
     const lengthSpan = form.querySelector('.description-length');
     lengthSpan.textContent = `${descriptionLength}/32`;
+  });
+
+  descriptionInput.addEventListener('click', e => {
+    e.stopPropagation();
+  });
+
+  tagSelect.addEventListener('click', e => {
+    e.stopPropagation();
+  });
+
+  paymentSelect.addEventListener('click', e => {
+    e.stopPropagation();
   });
 
   // keyup, select 이벤트 발생 시 유효성 검사
@@ -191,7 +208,9 @@ export function renderIncomeExpenseForm() {
   );
 
   addButton.addEventListener('click', e => {
+    e.stopPropagation();
     e.preventDefault();
+
     const incomeExpenseListContainer = document.querySelector(
       '.income-expense-list-container'
     );
@@ -212,6 +231,21 @@ export function renderIncomeExpenseForm() {
   document.addEventListener('edit-item', e => {
     const data = e.detail;
     setItemToForm(data);
+  });
+
+  // 바깔부분 클릭하면 edit 해제
+  document.body.addEventListener('click', event => {
+    // 특정 요소 안에서 클릭했는지 확인
+    const isInsideList = event.target.closest('li');
+    if (!isInsideList) {
+      formInit(
+        dateInput,
+        moneyInput,
+        descriptionInput,
+        paymentSelect,
+        tagSelect
+      );
+    }
   });
 
   const updateTagSelect = (incomeTags, expenseTags) => {
