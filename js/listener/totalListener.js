@@ -4,6 +4,7 @@ import { initDescriptionListener } from "./description.js";
 import { initAmountListener } from "./amount.js";
 import { initToggleSignListener } from "./toggleSign.js";
 import { createModal } from "../../components/modal.js";
+import { store } from "../state/store.js";
 
 //리스너 등록
 function initTotalListener() {
@@ -60,8 +61,8 @@ export function initListener() {
     panel.insertBefore(option, dropAddBtn);
 
     display.textContent = newMethod;
-    selectedMethod = newMethod;
-    sharedState.selectedMethod = selectedMethod; // sharedState에 selectedMethod 업데이트
+    const selectedMethod = newMethod;
+    store.setState({ selectedMethod });
   }
 
   document.addEventListener("click", (e) => {

@@ -10,63 +10,14 @@ import {
 import { currentMonth, currentYear } from "./header.js";
 import { getDateFromServer, updateDateSectionTotals } from "./entry/entry.js";
 import { category } from "../state/data.js";
-import { dateStore } from "../state/store.js";
+import { store } from "../state/store.js";
+
+const entries = sharedState.entries;
 
 export function initInputForm() {
-  let selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
-  let selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
-  let isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
-
   const addBtn = document.getElementById("add-btn");
 
-  const display = document.getElementById("dropdown-display");
-  const categoryDisplay = document.getElementById("category-display");
-
-  const entries = sharedState.entries; // 서버에서 가져온 항목들을 저장할 배열
-
-  addBtn.addEventListener("click", () => {
-    let id = null;
-    if (sharedState.entryId) {
-      id = sharedState.entryId; // 수정 중인 항목의 ID를 가져옴
-      sharedState.entryId = null; // 수정 후 ID 초기화
-    }
-
-    const date = document.getElementById("date").value;
-    const rawAmount = document.getElementById("amount").value.replace(/,/g, "");
-    const amount = Number(rawAmount);
-    const desc = document.getElementById("desc").value;
-    isIncome = sharedState.isIncome; // 수입/지출 여부를 sharedState에서 가져옴
-    selectedCategory = sharedState.selectedCategory; // sharedState에서 selectedCategory 요소를 가져옴
-    selectedMethod = sharedState.selectedMethod; // sharedState에서 selectedMethod 요소를 가져옴
-    if (!date || !amount || !desc) {
-      alert("모든 항목을 정확히 입력해주세요!");
-      return;
-    }
-    if (id === null) {
-      id = Date.now() + amount; // 수정 중이 아닐 때 ID 생성
-    }
-    const entry = {
-      date,
-      amount,
-      desc,
-      method: selectedMethod,
-      category: selectedCategory,
-      isIncome: isIncome, // 수입/지출 여부 저장
-      id: id,
-    };
-    entries.push(entry);
-    addEntryToDOM(entry);
-    updateTotalAmounts();
-
-    document.getElementById("date").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("desc").value = "";
-    document.getElementById("amount").placeholder = "0";
-    selectedMethod = null;
-    selectedCategory = null;
-    display.textContent = "선택하세요";
-    categoryDisplay.textContent = "선택하세요";
-  });
+  addBtn.addEventListener("click", () => addEntry());
 
   // 초기 더미 데이터 로드
   async function loadDummyEntries(currentDate) {
@@ -78,7 +29,7 @@ export function initInputForm() {
     }
     entriesFromServer.forEach((entry) => {
       getDateFromServer(entry);
-      sharedState.entries.push(entry);
+      entries.push(entry);
     });
     updateTotalAmounts();
 
@@ -93,6 +44,56 @@ export function initInputForm() {
   renderCategoryOptions();
 }
 
+function addEntry() {
+  const entry = getEntryDate();
+  sharedState.entries.push(entry);
+  addEntryToDOM(entry);
+  updateTotalAmounts();
+
+  document.getElementById("date").value = "";
+  document.getElementById("amount").value = "";
+  document.getElementById("desc").value = "";
+  document.getElementById("amount").placeholder = "0";
+
+  const { isIncome, selectedCategory, selectedMethod } = store.getState();
+  store.setState({
+    selectedMethod: null,
+    selectedCategory: null,
+  });
+  const display = document.getElementById("dropdown-display");
+  display.textContent = "결제수단 선택";
+  const categoryDisplay = document.getElementById("category-display");
+  categoryDisplay.textContent = "선택하세요";
+}
+
+function getEntryDate() {
+  const {
+    isIncome,
+    selectedCategory,
+    selectedMethod,
+    entryId: id,
+  } = store.getState();
+
+  const date = document.getElementById("date").value;
+  const rawAmount = document.getElementById("amount").value.replace(/,/g, "");
+  const amount = Number(rawAmount);
+  const desc = document.getElementById("desc").value;
+  if (!date || !amount || !desc) {
+    alert("모든 항목을 정확히 입력해주세요!");
+    return;
+  }
+  store.setState({ entryId: null }); // 수정 ID 초기화
+  return {
+    id,
+    date,
+    amount,
+    desc,
+    method: selectedMethod,
+    category: selectedCategory,
+    isIncome: isIncome, // 수입/지출 여부 저장
+  };
+}
+
 function isExistingEntry(entry) {
   return sharedState.entries.some(
     (existingEntry) => existingEntry.id === entry.id
@@ -102,25 +103,25 @@ function isExistingEntry(entry) {
 //--------------------
 
 export async function addEntryToDOM(entry) {
-  if (isExistingEntry(entry)) {
-    // 이미 존재하는 항목이면 업데이트만 수행
-    const existingItem = document.querySelector(
-      `.entry-row[data-id="${entry.id}"]`
-    );
-    console.log("Existing item:", existingItem);
-    if (existingItem) {
-      existingItem.querySelector(".entry-category").textContent =
-        entry.category;
-      //카테고리 색상 업데이트
+  // if (isExistingEntry(entry)) {
+  //   // 이미 존재하는 항목이면 업데이트만 수행
+  //   const existingItem = document.querySelector(
+  //     `.entry-row[data-id="${entry.id}"]`
+  //   );
+  //   if (existingItem) {
+  //     existingItem.querySelector(".entry-category").textContent =
+  //       entry.category;
+  //     //카테고리 색상 업데이트
 
-      const date = new Date(entry.date);
-      const yearMonth =
-        date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0");
-      updateDataToServer(yearMonth, entry);
-      location.reload(); // 페이지 새로고침
-      return;
-    }
-  }
+  //     const date = new Date(entry.date);
+  //     const yearMonth =
+  //       date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0");
+  //     updateDataToServer(yearMonth, entry);
+  //     location.reload(); // 페이지 새로고침
+  //     return;
+  //   }
+  // }
+  console.log("entry", entry);
 
   const entryList = document.getElementById("entry-list");
 

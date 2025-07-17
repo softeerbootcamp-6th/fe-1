@@ -18,9 +18,3 @@ export const sharedState = {
   calendarInitialized: false,
   statsInitialized: false,
 };
-
-import { DateStore } from "./store.js";
-export const dateStore = new DateStore({
-  year: new Date().getFullYear(),
-  month: new Date().getMonth() + 1,
-});

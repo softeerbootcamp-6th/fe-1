@@ -1,21 +1,31 @@
-class DateStore {
-  constructor() {
-    this.state = {
-      selectedCategory: null,
-      selectedMethod: null,
-    };
+export class Store {
+  constructor(initialState = {}) {
+    this.state = { ...initialState };
     this.listeners = [];
   }
-  subscribe(li) {
-    this.listeners.push(li);
+
+  subscribe(listener) {
+    this.listeners.push(listener);
   }
+
   setState(newState) {
     this.state = { ...this.state, ...newState };
-    this.listeners.forEach((listener) => listener(this.state));
+    this.listeners.forEach((fn) => fn(this.state));
   }
-  setCategory(category) {
-    this.setState({ selectedCategory: category });
+
+  getState() {
+    return { ...this.state };
+  }
+
+  reset(key) {
+    if (key in this.state) {
+      this.setState({ [key]: null });
+    }
   }
 }
-
-export const dateStore = new DateStore();
+export const store = new Store({
+  selctedMethod: null,
+  selectedCategory: null,
+  isIncome: true,
+  entryId: null,
+});
