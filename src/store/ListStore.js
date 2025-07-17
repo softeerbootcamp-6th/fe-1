@@ -1,3 +1,4 @@
+import { ListApi } from "../api/ListApi.js";
 import { DummyList } from "../mocks/DummyList.js";
 import { ListFilter } from "../utils/ListFilter.js";
 import { dateStore } from "./DateStore.js";
@@ -5,12 +6,14 @@ import { Store } from "./store.js";
 
 class ListStore extends Store {
   constructor(initData) {
-    super(initData);
+    super([...initData]);
     this.moneyTypeFilter = {
       expense: true,
       income: true,
     };
-    this.viewData = this.#getViewDataFromData(initData);
+    this.viewData = this.#getViewDataFromData([...initData]);
+    console.log(this.data);
+    console.log(this.viewData);
   }
 
   #getViewDataFromData(data) {
@@ -33,6 +36,7 @@ class ListStore extends Store {
           expense: true,
           income: true,
         };
+        if (newItem) this.data = [...newItem];
         this.viewData = this.#getViewDataFromData(this.data);
         break;
       }
@@ -64,13 +68,16 @@ class ListStore extends Store {
         break;
       }
     }
-
-    console.log("viewData (렌더링 대상):", this.viewData);
     this.notify("viewData");
   }
 }
 
 export const listStore = new ListStore(DummyList);
+// ListApi.getList().then((data) => {
+//   if (data) {
+//     listStore.dispatch("initListItem", data);
+//   }
+// });
 dateStore.subscribe(() => {
   listStore.dispatch("initListItem");
 });
