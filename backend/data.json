@@ -129,6 +129,22 @@
             "description": "넷플릭스 정기결제",
             "paymentMethod": "신용카드",
             "amount": 14500
+          },
+          {
+            "date": 20,
+            "amount": 300000,
+            "type": "expense",
+            "description": "베트남 다낭 항공비 왕복",
+            "paymentMethod": "신용카드",
+            "category": "교통"
+          },
+          {
+            "date": 16,
+            "amount": 3000,
+            "type": "expense",
+            "description": "버스 교통 요금",
+            "paymentMethod": "신용카드",
+            "category": "교통"
           }
         ]
       },

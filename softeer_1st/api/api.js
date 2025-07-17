@@ -122,11 +122,24 @@ export async function getExpenseByCategory(year, month, category) {
 }
 
 export async function getRecentMonthCategoryData(year, month, category) {
+    //목표: date, items만 넘겨주기. items는 expense중 특정 카테고리만.
     const monthData = await getMonthData(year, month);
-    const categoryData = monthData.filter((item) => item.category === category);
-    const total = categoryData.reduce((sum, item) => sum + item.amount, 0);
-    return {
-        data: categoryData,
-        total: total,
-    };
+    const categoryData = monthData.filter((item) => item.category === category && item.type === "expense");
+    const grouped = {};
+    categoryData.forEach((item) => {
+        const dateKey = `${item.date}`;
+        if (!grouped[dateKey]) {
+            grouped[dateKey] = [];
+        }
+        const {date, ...itemsWithoutDate} = item;
+        grouped[dateKey].push(itemsWithoutDate);
+    });
+    const processedData = [];
+    Object.keys(grouped).forEach((date) => {
+        processedData.push({
+            date: Number(date),
+            items: grouped[date],
+        });
+    });
+    return processedData;
 }

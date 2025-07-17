@@ -38,12 +38,13 @@ export function renderStats() {
     });
     section.addEventListener('category-selected', async (e) => {
         dotChartContainer.innerHTML = "";
+        costListContainer.innerHTML = "";
         const { category } = e.detail;
         const currentYear = dateStore.year;
         const currentMonth = dateStore.month;
 
         await renderDotChart(currentYear, currentMonth, category);
-        // await renderCostList(currentYear, currentMonth, category);
+        await renderCostList(currentYear, currentMonth, category);
     })
 
     async function renderDonutChart(year, month) {
@@ -53,10 +54,17 @@ export function renderStats() {
     }
     async function renderDotChart(year, month, category) {
         const dotChartData = await getExpenseByCategory(year, month, category);
-        console.log(dotChartData);
         const dotChart = DotChart(dotChartData)
         dotChartContainer.appendChild(dotChart);
         
+    }
+    async function renderCostList(year, month, category) {
+        const costListData = await getRecentMonthCategoryData(year, month, category);
+        console.log(costListData);
+        costListData.forEach((item) =>{
+            const costList = CostList(year, month, item);
+            costListContainer.appendChild(costList);
+        })
     }
     //dotChart, CostList는 donutChart 내 각 카테고리 버튼을 클릭했을 때만 렌더. 거기서 이벤트를 쏘고, 여기서 받아와서 렌더링하기
     return section;

@@ -42,6 +42,47 @@
     padding: 24px;
     height: 100%;
 }
+.donut-legend-categories{
+    border-top: 1px solid var(--neutral-border-default);
+    border-bottom: 1px solid var(--neutral-border-default);
+}
+/* <div class="colorchip" id="donut-legend-title" style="background-color: ${backgrounds[item.category]}">${item.category}</div>
+<div class="light-14" id="donut-legend-percentage">${Math.round(item.amount / total * 100)}%</div>
+<div class="light-14" id="donut-legend-total-amount">${item.amount.toLocaleString()}원</div>
+ */
+
+.donut-legend-item{
+    height: 56px;
+}
+.donut-legend-item:hover{
+    background-color: var(--neutral-surface-point);
+}
+.donut-legend-item > .donut-legend-wrapper{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 16px;
+    gap: 16px;
+    justify-content: space-between;
+}
+.donut-legend-item > #donut-legend-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 92px;
+    height: 100%;
+    font-family: "Pretendard", sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+}
+.donut-legend-wrapper > #donut-legend-percentage{
+    text-align: left;
+}
+.donut-legend-wrapper > #donut-legend-total-amount{
+    text-align: right;
+    flex-grow: 1;
+}
 .dot-chart-container{
     display: flex;
     flex-direction: column;
