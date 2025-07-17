@@ -69,6 +69,10 @@ class ChartView {
       pieCircle.style.background = gradient;
     }
   }
+
+  renderDetail(data) {
+    const { groupedByCategory } = data;
+  }
 }
 
 export default ChartView;
