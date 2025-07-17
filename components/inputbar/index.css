@@ -9,8 +9,7 @@
 }
 
 .input-box > div {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0px 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -125,4 +124,130 @@ input[type='date'] {
 .add-button:enabled:hover {
     opacity: 80%;
     cursor: pointer;
+}
+
+.dropdown-main {
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.dropdown-category {
+    position: relative;
+}
+
+.dropdown-category button {
+    all: unset;
+}
+
+.select-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-list-category {
+    position: absolute;
+    top: 60px;
+    left: -25px;
+    width: 145px;
+    border: 1px solid var(--grayscale-400);
+    background-color: var(--grayscale-50);
+    z-index: 10;
+}
+
+.dropdown-list-category li {
+    position: relative;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 25px;
+    align-items: center;
+    background-color: inherit;
+}
+
+.dropdown-list-category li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    width: 70%;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.dropdown-list-category li:last-of-type::after {
+    content: none;
+}
+
+.dropdown-list-category img {
+    cursor: pointer;
+}
+
+.select-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 1;
+    cursor: default;
+}
+
+.dropdown-payment {
+    position: relative;
+}
+
+.dropdown-payment button {
+    all: unset;
+}
+
+.select-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-list-payment {
+    position: absolute;
+    top: 60px;
+    left: -25px;
+    width: 145px;
+    border: 1px solid var(--grayscale-400);
+    background-color: var(--grayscale-50);
+    z-index: 10;
+}
+
+.dropdown-list-payment li {
+    position: relative;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 25px;
+    align-items: center;
+    background-color: inherit;
+}
+
+.dropdown-list-payment li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    width: 70%;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.dropdown-list-payment li:last-of-type::after {
+    content: none;
+}
+
+.dropdown-list-payment img {
+    cursor: pointer;
+}
+
+#payment-add-button {
+    width: 100%;
+    height: 100%;
 }
