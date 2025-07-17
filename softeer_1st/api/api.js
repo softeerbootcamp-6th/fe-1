@@ -1,7 +1,8 @@
 const address = "http://localhost:3000/api/data";
+// const address = '/transactions';
 
 export async function getMonthData(year, month) {
-    return fetch(`${address}?year=${year}&month=${month}`)
+    return fetch(`${address}/${year}/${month}`)
         .then((response) => response.json())
         .catch((error) => {
             console.error("Error fetching month data:", error);
@@ -9,12 +10,13 @@ export async function getMonthData(year, month) {
         });
 }
 export async function putMonthData(data) {
-    return fetch(`${address}`, {
+    const {year, month, ...rest} = data
+    return fetch(`${address}/${year}/${month}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(rest),
     })
         .then((response) => {
             if (!response.ok) {
@@ -28,12 +30,13 @@ export async function putMonthData(data) {
         });
 }
 export async function postMonthData(data) {
-    return fetch(`${address}`, {
+    const {year, month, ...rest} = data
+    return fetch(`${address}/${year}/${month}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(rest),
     })
         .then((response) => {
             if (!response.ok) {
@@ -47,12 +50,13 @@ export async function postMonthData(data) {
         });
 }
 export async function deleteMonthData(data) {
-    return fetch(`${address}`, {
+    const {year, month, ...rest} = data
+    return fetch(`${address}/${year}/${month}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(rest),
     })
         .then((response) => {
             if (!response.ok) {

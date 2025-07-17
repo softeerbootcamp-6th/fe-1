@@ -7,6 +7,7 @@ export function renderCalender() {
     const todayYear = today.getFullYear();
     const todayMonth = today.getMonth() + 1; // 월은 0부터
     const todayDate = today.getDate();
+    // 1. 기본 구조 완성 및 초기 렌더, 이벤트 발생 후 리렌더 로직 발생 명시
     const section = createElement("section", {
         className: "calender-page",
         id: "calender-page",
@@ -27,7 +28,7 @@ export function renderCalender() {
         stats.innerHTML = "";
         renderCalenderCell(year, month, {todayYear, todayMonth, todayDate});
     });
-
+    // 2. 리렌더 함수 정의
     async function renderCalenderCell(year, month, {todayYear, todayMonth, todayDate}) {
         const koreanDays = ["일", "월", "화", "수", "목", "금", "토"];
         koreanDays.forEach((day) => {
