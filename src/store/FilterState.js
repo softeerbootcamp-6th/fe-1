@@ -1,9 +1,5 @@
+import { getCurrentYearMonth } from "../utils/date.js";
 import Observable from "./Observable.js";
-
-function getCurrentYearMonth() {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-}
 
 class FilterState extends Observable {
   constructor() {
