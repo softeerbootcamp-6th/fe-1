@@ -1,11 +1,15 @@
 export const ListFilter = {
-  groupTransactionsByMonth: (transactions, month) => {
+  groupTransactionsByMonth: (transactions, date) => {
     return transactions
-      .filter((transaction) => transaction.date.getMonth() + 1 === month)
+      .filter(
+        (transaction) =>
+          transaction.date.getMonth() + 1 === date.month &&
+          transaction.date.getFullYear() === date.year
+      )
       .sort((a, b) => b.date - a.date)
-      .map((item, index) => ({
+      .map((item) => ({
         ...item,
-        uid: `uid-${item.date.getTime()}-${index}`,
+        uid: crypto.randomUUID(),
       }));
   },
   groupTransactionsByDate: (transactions) => {
@@ -28,9 +32,9 @@ export const ListFilter = {
   groupTransactionsByMoneyType: (transactions, moneyTypeFilter) => {
     return transactions.filter((transaction) => {
       if (transaction.moneyType === "income") {
-        return moneyTypeFilter.isIncomeTypeOpen;
+        return moneyTypeFilter.income;
       } else {
-        return moneyTypeFilter.isExpenseTypeOpen;
+        return moneyTypeFilter.expense;
       }
     });
   },

@@ -1,3 +1,4 @@
+import { formStore } from "../../store/FormStore.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 
 export const ContentForm = (input) => {
@@ -6,15 +7,19 @@ export const ContentForm = (input) => {
   contentForm.innerHTML = `
   <label for="content" class="light-12">내용</label>
   <input type="text" id="content" name="content" placeholder="입력하세요" maxlength="32" value="${input.content}">
-  <div class="light-12">0/32</div>
+  <div class="light-12"><span class="form-content-length">0</span>/${maxLength}</div>
   `;
 
-  const contentInput = contentForm.querySelector("input");
-  const contentInputLength = contentForm.querySelector("div");
-  contentInput.addEventListener("input", (e) => {
-    input.content = e.target.value;
-    contentInputLength.textContent = input.content.length + "/" + maxLength;
-    console.log("a");
+  formStore.subscribe((newData) => {
+    // 내용 반영
+    const contentInput = contentForm.querySelector("#content");
+    contentInput.value = newData.content;
+
+    // 내용 글자수 반영
+    const contentInputLength = contentForm.querySelector(
+      ".form-content-length"
+    );
+    contentInputLength.textContent = newData.content.length;
   });
   return contentForm;
 };

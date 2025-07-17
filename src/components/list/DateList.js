@@ -1,4 +1,4 @@
-import { DateManager } from "../../utils/DateManager.js";
+import { DateStore } from "../../store/DateStore.js";
 import { ElementManager } from "../../utils/ElementManager.js";
 import { NumberManager } from "../../utils/NumberManager.js";
 import { ListItem } from "./ListItem.js";
@@ -15,7 +15,7 @@ export const DateList = (date, data) => {
   dateOverview.innerHTML = `
   <div class="date">
     <span>${month}월 ${day}일</span>
-    <span>${DateManager.renderDay(date)}요일</span>
+    <span>${DateStore.parseDateToDay(date)}요일</span>
   </div>
   <div class="money-counter">
     <div>

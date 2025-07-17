@@ -92,17 +92,22 @@ input#money {
   position: relative;
 }
 
-button#category,
-button#payment {
+.form-input-wrapper {
   width: 100%;
   display: flex;
   flex-direction: row;
+  gap: 4px;
   justify-content: space-between;
   align-items: center;
   border: none;
   outline: none;
   background: none;
   padding: 0;
+}
+
+.form-input-wrapper > input {
+  padding: 0;
+  width: 84px;
 }
 
 .drop-down {
@@ -246,6 +251,10 @@ button#payment {
   border-bottom: 0.5px solid var(--nuetral-border-default);
 }
 
+.list-item:hover {
+  background-color: var(--nuetral-surface-point);
+}
+
 .list-item .category {
   display: flex;
   justify-content: center;
@@ -253,7 +262,6 @@ button#payment {
   width: 92px;
   min-width: 92px;
   padding: 16px 23px;
-  background-color: var(--colorchip-10);
 }
 
 .list-item .content {

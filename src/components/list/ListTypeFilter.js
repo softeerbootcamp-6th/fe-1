@@ -1,15 +1,9 @@
-import { EventDispatcher } from "../../store/EventBusStore.js";
+import { EventDispatcher } from "../../utils/EventDispatcher.js";
 import { ElementManager } from "../../utils/ElementManager.js";
-import { ListFilter } from "../../utils/ListFilter.js";
 import { NumberManager } from "../../utils/NumberManager.js";
+import { listStore } from "../../store/ListStore.js";
 
-export const ListTypeFilter = (
-  type,
-  totalMoney,
-  groupedListByMonth,
-  entireFilter,
-  renderListWrapper
-) => {
+export const ListTypeFilter = (type, totalMoney) => {
   const listTypeFilter = ElementManager.renderElement(
     "div",
     `list-type-${type}`
@@ -24,34 +18,14 @@ export const ListTypeFilter = (
     eventType: "click",
     selector: `list-type-${type}`,
     handler: () => {
+      // 전체 내역 리스트 화면 업데이트
+      listStore.dispatch("filterList", type);
+
       // 필터링 화면 업데이트
-      let isActive = false;
-      if (type === "income") {
-        entireFilter.isIncomeTypeOpen = !entireFilter.isIncomeTypeOpen;
-        isActive = entireFilter.isIncomeTypeOpen;
-      } else {
-        entireFilter.isExpenseTypeOpen = !entireFilter.isExpenseTypeOpen;
-        isActive = entireFilter.isExpenseTypeOpen;
-      }
       const listTypeFilterImg = listTypeFilter.querySelector("img");
       listTypeFilterImg.src = `./src/assets/${
-        isActive ? "checkbox" : "uncheckbox"
+        listStore.moneyTypeFilter[type] ? "checkbox" : "uncheckbox"
       }.png`;
-
-      // 내역 데이터 업데이트
-      const updatedTransactioin = ListFilter.groupTransactionsByMoneyType(
-        groupedListByMonth,
-        entireFilter
-      );
-
-      // 내역 개요 화면 업데이트
-      const listOverviewCounter = document.querySelector(
-        ".list-overview > .list-counter > .total-count"
-      );
-      listOverviewCounter.textContent = updatedTransactioin.length + "건";
-
-      // 내역 화면 업데이트
-      renderListWrapper(updatedTransactioin);
     },
   });
 

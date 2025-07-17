@@ -3,6 +3,7 @@ export const InputValidator = {
     let isFullFilled = true;
     const inputKeys = Object.keys(input);
     inputKeys.map((inputKey) => {
+      if (inputKey === "uid") return;
       if (!input[inputKey]) isFullFilled = false;
     });
     return isFullFilled;

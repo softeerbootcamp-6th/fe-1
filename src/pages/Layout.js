@@ -1,21 +1,11 @@
 import { renderHeader } from "./Header.js";
 import { renderMain } from "./Main.js";
-import { DateManager } from "../utils/DateManager.js";
 
 export const createLayout = () => {
   const app = document.getElementById("app");
 
-  // 전역 상태 관리 시스템 구현 필요 ⚠️
-  const date = {
-    year: 2023,
-    month: 8,
-    monthEng: "August",
-  };
-
-  const header = renderHeader(date);
+  const header = renderHeader();
   const main = renderMain();
   app.appendChild(header);
   app.appendChild(main);
-
-  DateManager.init(date);
 };

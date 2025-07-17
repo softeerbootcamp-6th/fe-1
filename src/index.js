@@ -1,5 +1,5 @@
 import { createLayout } from "./pages/Layout.js";
-import { EventDispatcher } from "./store/EventBusStore.js";
+import { EventDispatcher } from "./utils/EventDispatcher.js";
 import { Router } from "./utils/router.js";
 
 document.addEventListener("DOMContentLoaded", () => {
