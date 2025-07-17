@@ -28,6 +28,7 @@ export default function createSummitButton() {
     $btn.addEventListener('click', () => {
         if (!formData.isValid) return;
         dailyData.uploadDailyData(formData);
+
         const { year: nowYear, month: nowMonth } = dateData;
         const [year, month] = formData.date.split('-');
         if (nowYear == year && month == nowMonth)
@@ -41,7 +42,7 @@ export default function createSummitButton() {
         if (isValid) {
             $btn.removeAttribute('disabled');
         } else {
-            $btn.setAttribute('disabled', '');
+            $btn.disabled = true;
         }
     });
 
