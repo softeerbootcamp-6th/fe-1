@@ -24,8 +24,8 @@ app.use(express.json());
 const DB_FILE = "./data.json";
 
 // 데이터 전체 조회 API
-app.get("/api/data", async (req, res) => {
-    const {year, month} = req.query;
+app.get("/api/data/:year/:month", async (req, res) => {
+    const {year, month} = req.params;
     if(year && month){
         try {
             const data = JSON.parse(await fs.readFile(DB_FILE, "utf-8"));
@@ -56,7 +56,8 @@ app.get("/api/data", async (req, res) => {
 
 
 // 데이터 추가 API
-app.post("/api/data", async (req, res) => {
+app.post("/api/data/:year/:month", async (req, res) => {
+    const { year, month } = req.params;
     const newData = req.body; //request body에서 새 데이터 가져오기
     try {
         // 파일 읽기 (fs.readFile 사용)
@@ -64,21 +65,19 @@ app.post("/api/data", async (req, res) => {
         const currentData = JSON.parse(fileContent);
 
         // year 찾기
-        const yearData = currentData.find((item) => item.year === newData.year);
+        const yearData = currentData.find((item) => item.year === parseInt(year));
         if (!yearData) return res.status(404).send("Year not found");
 
         // month 찾기
         let monthData = yearData.months.find(
-            (item) => item.month === newData.month
+            (item) => item.month === parseInt(month)
         );
         if (!monthData) {
-            monthData = { month: newData.month, list: [] };
+            monthData = { month: parseInt(month), list: [] };
             yearData.months.push(monthData);
         }
 
-        // year, month 제외하고 list에 추가
-        const { year, month, ...rest } = newData;
-        monthData.list.push(rest);
+        monthData.list.push(newData);
 
         // 파일 쓰기
         await fs.writeFile(DB_FILE, JSON.stringify(currentData, null, 2));
@@ -91,15 +90,16 @@ app.post("/api/data", async (req, res) => {
 });
 
 // 데이터 삭제
-app.delete("/api/data", async (req, res) => {
+app.delete("/api/data/:year/:month", async (req, res) => {
+    const { year, month } = req.params;
     const target = req.body;
 
     const data = JSON.parse(await fs.readFile(DB_FILE, "utf-8"));
 
-    const yearData = data.find((item) => item.year === target.year);
+    const yearData = data.find((item) => item.year === year);
     if (!yearData) return res.status(404).send("Year not found");
 
-    const monthData = yearData.months.find((m) => m.month === target.month);
+    const monthData = yearData.months.find((m) => m.month === month);
     if (!monthData) return res.status(404).send("Month not found");
 
     const beforeLength = monthData.list.length;
@@ -127,7 +127,8 @@ app.delete("/api/data", async (req, res) => {
 });
 
 // 데이터 수정
-app.put("/api/data", async (req, res) => {
+app.put("/api/data/:year/:month", async (req, res) => {
+    const { year, month } = req.params;
     const { originalData, ...updatedData } = req.body;
 
     try {
@@ -157,13 +158,10 @@ app.put("/api/data", async (req, res) => {
         if (itemIndex === -1) {
             return res.status(404).send("Item not found");
         }
-
-        // year, month 제외하고 새로운 데이터로 교체
-        const { year, month, ...newItemData } = updatedData;
-        monthData.list[itemIndex] = newItemData;
+        monthData.list[itemIndex] = updatedData;
 
         await fs.writeFile(DB_FILE, JSON.stringify(data, null, 2));
-        res.json({ message: "Updated successfully", data: newItemData });
+        res.json({ message: "Updated successfully", data: updatedData });
     } catch (error) {
         console.error("Error updating data:", error);
         res.status(500).json({ error: "Internal Server Error" });

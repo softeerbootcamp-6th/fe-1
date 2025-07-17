@@ -6,7 +6,7 @@ export function DotChart({ category, max, min, items }) {
     });
     const title = createElement("h2", {
         className: "dot-chart-title light-16",
-        innerText: `${category} 카테고리의 지출 내역`,
+        textContent: `${category} 카테고리의 지출 내역`,
     });
     container.appendChild(title);
     
@@ -14,23 +14,57 @@ export function DotChart({ category, max, min, items }) {
         "http://www.w3.org/2000/svg",
         "svg"
     );
+    chartContainer.classList.add("dot-chart-svg");
     const width = 750;
-    const height = 297;
+    const height = 320;
     const padding = 40;
     const points = [];
     const dotRadius = 4;
     const totalMonths = 12;
+
+    const leftMargin = 20; // 왼쪽 여백
+    const rightMargin = 20; // 오른쪽 여백
+    const viewBoxWidth = width + leftMargin + rightMargin; // 전체 너비에 여백 추가
     
     chartContainer.setAttribute("width", width);
     chartContainer.setAttribute("height", height);
+    chartContainer.setAttribute("viewBox", `-${leftMargin} 0 ${viewBoxWidth} ${height}`);
     chartContainer.setAttribute("class", "dot-chart");
     
     // X축 간격 계산 (1-12월을 균등하게 배치)
-    const xStep = (width - padding * 2) / (totalMonths - 1);
+    const xStep = (width) / (totalMonths - 1);
+    const chartHeight = height - padding * 2;
+    const gridGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    gridGroup.setAttribute("class", "grid");
+    //세로 격자선
+    for(let i = 0; i < totalMonths * 2; i++) {
+        const x = i * xStep / 2;
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", x);
+        line.setAttribute("y1", padding / 2 - 2);
+        line.setAttribute("x2", x);
+        line.setAttribute("y2", height - padding);
+        line.setAttribute("stroke", "#e0e0e0");
+        line.setAttribute("stroke-width", "1");
+        gridGroup.appendChild(line);
+    }
+    //가로 격자선
+    for(let i = 0; i <= totalMonths; i++) {
+        const y = height - padding - (i * chartHeight) / (totalMonths-1);
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", 0);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", width - 0);
+        line.setAttribute("y2", y);
+        line.setAttribute("stroke", "#e0e0e0");
+        line.setAttribute("stroke-width", "1");
+        gridGroup.appendChild(line);
+    }
+    chartContainer.appendChild(gridGroup);
     
     items.forEach((item, index) => {
         // 각 점의 X 좌표 (1월부터 시작)
-        const x = padding + index * xStep;
+        const x = index * xStep;
         
         // Y 좌표 계산 (min-max 범위에서 정규화)
         const y = height - padding - ((item - min) / (max - min)) * (height - padding * 2);
@@ -74,7 +108,7 @@ export function DotChart({ category, max, min, items }) {
 
     // X축 라벨 (1-12월)
     for (let i = 0; i < totalMonths; i++) {
-        const x = padding + i * xStep;
+        const x = i * xStep;
         const label = document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"

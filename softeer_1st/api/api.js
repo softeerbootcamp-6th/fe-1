@@ -1,7 +1,8 @@
 const address = "http://localhost:3000/api/data";
+// const address = '/transactions';
 
 export async function getMonthData(year, month) {
-    return fetch(`${address}?year=${year}&month=${month}`)
+    return fetch(`${address}/${year}/${month}`)
         .then((response) => response.json())
         .catch((error) => {
             console.error("Error fetching month data:", error);
@@ -9,12 +10,13 @@ export async function getMonthData(year, month) {
         });
 }
 export async function putMonthData(data) {
-    return fetch(`${address}`, {
+    const {year, month, ...rest} = data
+    return fetch(`${address}/${year}/${month}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(rest),
     })
         .then((response) => {
             if (!response.ok) {
@@ -28,12 +30,13 @@ export async function putMonthData(data) {
         });
 }
 export async function postMonthData(data) {
-    return fetch(`${address}`, {
+    const {year, month, ...rest} = data
+    return fetch(`${address}/${year}/${month}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(rest),
     })
         .then((response) => {
             if (!response.ok) {
@@ -47,12 +50,13 @@ export async function postMonthData(data) {
         });
 }
 export async function deleteMonthData(data) {
-    return fetch(`${address}`, {
+    const {year, month, ...rest} = data
+    return fetch(`${address}/${year}/${month}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(rest),
     })
         .then((response) => {
             if (!response.ok) {
@@ -99,16 +103,21 @@ export async function getExpenseByCategory(year, month, category) {
     });
     yearMonthStack.reverse();
     const targetCategoryStack = Array.from({ length: 7 }, async (_, i) => {
-        const {year, month} = yearMonthStack[i];
-        const monthData = await getMonthData(year, month);
-        const categoryExpenses = monthData.filter(
-            (item) => item.type === "expense" && item.category === category
-        );
-        const total = categoryExpenses.reduce(
-            (sum, item) => sum + item.amount,
-            0
-        );
-        return total;
+        const { year, month } = yearMonthStack[i];
+        try {
+            const monthData = await getMonthData(year, month);
+            const categoryExpenses = monthData.filter(
+                (item) => item.type === "expense" && item.category === category
+            );
+            const total = categoryExpenses.reduce(
+                (sum, item) => sum + item.amount,
+                0
+            );
+            return total;
+        } catch (error) {
+            console.error(`No data found for ${year}-${month}:`, error);
+            return 0; // Return 0 if there's an error
+        }
     });
     const items = await Promise.all(targetCategoryStack);
     const max = Math.max(...items);
@@ -117,11 +126,24 @@ export async function getExpenseByCategory(year, month, category) {
 }
 
 export async function getRecentMonthCategoryData(year, month, category) {
+    //목표: date, items만 넘겨주기. items는 expense중 특정 카테고리만.
     const monthData = await getMonthData(year, month);
-    const categoryData = monthData.filter((item) => item.category === category);
-    const total = categoryData.reduce((sum, item) => sum + item.amount, 0);
-    return {
-        data: categoryData,
-        total: total,
-    };
+    const categoryData = monthData.filter((item) => item.category === category && item.type === "expense");
+    const grouped = {};
+    categoryData.forEach((item) => {
+        const dateKey = `${item.date}`;
+        if (!grouped[dateKey]) {
+            grouped[dateKey] = [];
+        }
+        const {date, ...itemsWithoutDate} = item;
+        grouped[dateKey].push(itemsWithoutDate);
+    });
+    const processedData = [];
+    Object.keys(grouped).forEach((date) => {
+        processedData.push({
+            date: Number(date),
+            items: grouped[date],
+        });
+    });
+    return processedData;
 }
