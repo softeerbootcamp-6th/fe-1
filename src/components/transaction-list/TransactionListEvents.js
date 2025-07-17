@@ -21,7 +21,7 @@ function handleFilterList(e) {
   if (e.target.matches(".filter-checkbox input")) {
     const label = e.target.closest(".filter-checkbox");
     if (label) {
-      const type = label.textContent.includes("수입") ? "income" : "expense";
+      const type = label.textContent.includes("수입") ? "deposit" : "withdraw";
       FilterState.setFilter({ [type]: e.target.checked });
     }
     return;

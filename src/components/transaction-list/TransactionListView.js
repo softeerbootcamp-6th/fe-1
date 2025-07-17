@@ -8,15 +8,17 @@ import { formatDate } from "../../utils/date.js";
 function createTransactionItemsFilterBar() {
   const filter = FilterState.getFilter();
   const filteredItems = ItemsState.getItems().filter((item) => {
-    if (item.type === "deposit" && !filter.income) return false;
-    if (item.type === "withdraw" && !filter.expense) return false;
-    if (!item.date.startsWith(filter.month)) return false;
+    const itemMonth = item.date.slice(0, 7);
+    if (item.type === "deposit" && !filter.deposit) return false;
+    if (item.type === "withdraw" && !filter.withdraw) return false;
+    if (itemMonth !== filter.month) return false;
     return true;
   });
+
   const totalCount = filteredItems.length;
   const summary = calculateSummary(filteredItems);
-  const income = summary.deposit.toLocaleString();
-  const expense = summary.withdraw.toLocaleString();
+  const deposit = summary.deposit.toLocaleString();
+  const withdraw = summary.withdraw.toLocaleString();
 
   return `
     <div class="transaction-filter-bar font-light-12">
@@ -26,16 +28,16 @@ function createTransactionItemsFilterBar() {
       </div>
       <div class="filter-bar-right">
         <label class="filter-checkbox">
-          <input type="checkbox" ${filter.income ? "checked" : ""} />
+          <input type="checkbox" ${filter.deposit ? "checked" : ""} />
           <span class="check-icon"></span>
           <span>수입</span>
-          <span class="filter-income-amount">${income}원</span>
+          <span class="filter-deposit-amount">${deposit}원</span>
         </label>
         <label class="filter-checkbox">
-          <input type="checkbox" ${filter.expense ? "checked" : ""} />
+          <input type="checkbox" ${filter.withdraw ? "checked" : ""} />
           <span class="check-icon"></span>
           <span>지출</span>
-          <span class="filter-expense-amount">${expense}원</span>
+          <span class="filter-withdraw-amount">${withdraw}원</span>
         </label>
       </div>
     </div>
@@ -97,8 +99,8 @@ function createDaySectionInnerHtml(dateStr, items) {
 function createDaySectionListInnerHtml() {
   const filter = FilterState.getFilter();
   const items = ItemsState.getItems().filter((item) => {
-    if (item.type === "deposit" && !filter.income) return false;
-    if (item.type === "withdraw" && !filter.expense) return false;
+    if (item.type === "deposit" && !filter.deposit) return false;
+    if (item.type === "withdraw" && !filter.withdraw) return false;
     if (!item.date.startsWith(filter.month)) return false;
     return true;
   });
