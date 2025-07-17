@@ -20,13 +20,15 @@ export const dailyData = {
 
     uploadDailyData(data) {
         const { amount, category, date, description, payment, sign } = data;
-        if (!sign) amount *= -1;
+        let calcAmount = 0;
+
+        if (!sign) calcAmount = Math.abs(amount) * -1;
         const newItems = {
             id: crypto.randomUUID(),
             category,
             description,
             payment,
-            amount,
+            amount: calcAmount,
             createAt: new Date().toISOString(),
         };
 
