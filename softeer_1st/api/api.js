@@ -99,16 +99,21 @@ export async function getExpenseByCategory(year, month, category) {
     });
     yearMonthStack.reverse();
     const targetCategoryStack = Array.from({ length: 7 }, async (_, i) => {
-        const {year, month} = yearMonthStack[i];
-        const monthData = await getMonthData(year, month);
-        const categoryExpenses = monthData.filter(
-            (item) => item.type === "expense" && item.category === category
-        );
-        const total = categoryExpenses.reduce(
-            (sum, item) => sum + item.amount,
-            0
-        );
-        return total;
+        const { year, month } = yearMonthStack[i];
+        try {
+            const monthData = await getMonthData(year, month);
+            const categoryExpenses = monthData.filter(
+                (item) => item.type === "expense" && item.category === category
+            );
+            const total = categoryExpenses.reduce(
+                (sum, item) => sum + item.amount,
+                0
+            );
+            return total;
+        } catch (error) {
+            console.error(`No data found for ${year}-${month}:`, error);
+            return 0; // Return 0 if there's an error
+        }
     });
     const items = await Promise.all(targetCategoryStack);
     const max = Math.max(...items);
