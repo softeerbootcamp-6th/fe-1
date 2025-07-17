@@ -85,6 +85,7 @@ export function updateDateInfo(container) {
   if (monthName) monthName.textContent = dateStore.getMonthName();
 }
 
+//TODO: 네이베이션 파일 분리
 export function updateNavigationActive(path) {
   const navLinks = document.querySelectorAll("nav a");
 

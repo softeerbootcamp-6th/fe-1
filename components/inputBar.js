@@ -27,7 +27,7 @@ function createCategoryOptions(isIncome) {
 }
 
 export function createInputBar() {
-  const today = new Date().toISOString().split("T")[0];
+  const today = dateStore.getDate().toISOString().split("T")[0];
   return `
   <form class="input-bar flex-row" id="inputBarForm">
     <label class="flex-column input-section">
@@ -126,12 +126,13 @@ function updateAmountToggleIcon(toggle, isPositive) {
 
 function resetForm(form, elements) {
   form.reset();
-  updateAmountToggleIcon(elements.amountToggle, true);
   validateForm(getRequiredFields(elements), elements.submitButton);
 }
 
+//TODO: 폼 데이터 처리 방식 고민해보기. formData 객체 활용
 function processFormData(formData, amountToggle) {
   const data = Object.fromEntries(formData.entries());
+  console.log(data, formData, formData.entries());
   data.amount =
     amountToggle.dataset.sign === "-"
       ? -Math.abs(+data.amount)
@@ -188,6 +189,7 @@ export function renderInputBar(container) {
   const elements = getFormElements(form);
   const fields = getRequiredFields(elements);
 
+  //TODO: 모든 필드에 대해 이벤트 리스너 이벤트 위임 방식 고민해보기
   Object.values(fields).forEach((field) => {
     const type = field.tagName === "SELECT" ? "change" : "input";
     field.addEventListener(type, () =>
@@ -225,9 +227,6 @@ export function renderInputBar(container) {
         dateStore.getMonth(),
         data
       );
-      document
-        .querySelectorAll(".transaction-row.selected")
-        .forEach((row) => row.classList.remove("selected"));
     }
 
     resetForm(form, elements);

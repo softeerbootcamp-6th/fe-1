@@ -1,8 +1,9 @@
+import { formatMoney } from "../utils/format.js";
+
 export function renderGrid(
   svgNS,
   gridGroup,
   minValue,
-  maxValue,
   range,
   scale,
   offsetX,
@@ -80,7 +81,6 @@ export function renderLineChart(container, totalAmountByMonth) {
     svgNS,
     svg,
     minValue,
-    maxValue,
     range,
     scale,
     offsetX,
@@ -90,9 +90,10 @@ export function renderLineChart(container, totalAmountByMonth) {
     months,
     pointGap
   );
-  // path와 point 생성
+  // path 데이터 생성
   let pathData = "";
   let hasData = false;
+  const points = [];
 
   months.forEach((month, index) => {
     let value = totalAmountByMonth[month];
@@ -109,16 +110,10 @@ export function renderLineChart(container, totalAmountByMonth) {
       pathData += ` L ${x} ${y}`;
     }
 
-    // 원 추가
-    const circle = document.createElementNS(svgNS, "circle");
-    circle.setAttribute("cx", x);
-    circle.setAttribute("cy", y);
-    circle.setAttribute("r", 4);
-    circle.setAttribute("fill", "#000");
-    svg.appendChild(circle);
+    points.push({ x, y, value });
   });
 
-  // 데이터가 있을 때만 선 추가
+  // 1. 선 그리기
   if (hasData) {
     const path = document.createElementNS(svgNS, "path");
     path.setAttribute("d", pathData);
@@ -127,6 +122,42 @@ export function renderLineChart(container, totalAmountByMonth) {
     path.setAttribute("fill", "none");
     svg.appendChild(path);
   }
+
+  // 2. 텍스트와 원 그리기
+  points.forEach(({ x, y, value }) => {
+    // 금액 라벨 추가
+    // 배경 텍스트
+    const outline = document.createElementNS(svgNS, "text");
+    outline.setAttribute("x", x);
+    outline.setAttribute("y", y - 15);
+    outline.setAttribute("text-anchor", "middle");
+    outline.setAttribute("font-size", "12");
+    outline.setAttribute("stroke", "#fff");
+    outline.setAttribute("stroke-width", "3");
+    outline.setAttribute("fill", "#fff");
+    outline.textContent = `${formatMoney(value)}원`;
+
+    // 앞에 올 글자 (실제 텍스트 색)
+    const label = document.createElementNS(svgNS, "text");
+    label.setAttribute("x", x);
+    label.setAttribute("y", y - 15);
+    label.setAttribute("text-anchor", "middle");
+    label.setAttribute("font-size", "12");
+    label.setAttribute("fill", "#000");
+    label.textContent = `${formatMoney(value)}원`;
+
+    // svg에 추가 (먼저 outline, 그 다음 실제 label)
+    svg.appendChild(outline);
+    svg.appendChild(label);
+
+    // 원 추가
+    const circle = document.createElementNS(svgNS, "circle");
+    circle.setAttribute("cx", x);
+    circle.setAttribute("cy", y);
+    circle.setAttribute("r", 4);
+    circle.setAttribute("fill", "#000");
+    svg.appendChild(circle);
+  });
 
   container.appendChild(svg);
 }
