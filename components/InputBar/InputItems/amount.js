@@ -59,6 +59,15 @@ const createAmount = () => {
         event.target.value = formatNumberInput(event.target.value);
     });
 
+    amountItem.reset = () => {
+        amountInput.value = '';
+    };
+
+    amountItem.validate = () => {
+        const value = parseFloat(amountInput.value.replace(/,/g, ''));
+        return !isNaN(value) && value > 0;
+    };
+
     return amountItem;
 };
 

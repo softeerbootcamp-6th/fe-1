@@ -1,16 +1,6 @@
-import { extractNumbersOnly, getUUID } from '../../lib/utils.js';
-import formStore from '../../store/form.js';
-import paymentDataStore from '../../store/paymentData.js';
-
-// 껍데기만 만드는 함수
-export function createForm(form, formItemsConfig) {
-    if (!formItemsConfig) {
-        throw new Error('formItemsConfig is required');
-    }
-
-    formItemsConfig.forEach((item) => {
-        const itemElement = item.createElement();
-        form.appendChild(itemElement);
+export function createForm(form) {
+    form._formItemsConfig.forEach((item) => {
+        form.appendChild(item.element);
     });
 
     initForm(form);
@@ -19,54 +9,9 @@ export function createForm(form, formItemsConfig) {
 }
 
 function initForm(form) {
-    // 초기화도 달고
-    setInitialState(form);
-
-    // 실시간 검증도 달고
+    resetForm(form);
     setupRealTimeValidation(form);
-
-    // 이벤트도 달고
     form.addEventListener('submit', handleFormSubmit);
-}
-
-function setInitialState(form) {
-    const dateInput = form.querySelector('input[name="date"]');
-    if (dateInput && !dateInput.value) {
-        dateInput.value = new Date().toISOString().split('T')[0];
-    }
-
-    const descriptionLengthCount = form.querySelector(
-        '.description-length-count'
-    );
-    if (descriptionLengthCount) {
-        descriptionLengthCount.textContent = '0';
-    }
-
-    const paymentMethodInput = form.querySelector(
-        'input[name="paymentMethod"]'
-    );
-    if (paymentMethodInput) {
-        paymentMethodInput.value = '';
-        const paymentMethodContainer =
-            paymentMethodInput.closest('.input-bar-item');
-        const paymentMethodLabel =
-            paymentMethodContainer.querySelector('.select-label');
-        if (paymentMethodLabel) {
-            paymentMethodLabel.textContent = '선택하세요';
-            paymentMethodLabel.style.color = 'var(--neutral-text-weak)';
-        }
-    }
-
-    const categoryInput = form.querySelector('input[name="category"]');
-    if (categoryInput) {
-        categoryInput.value = '';
-        const categoryContainer = categoryInput.closest('.input-bar-item');
-        const categoryLabel = categoryContainer.querySelector('.select-label');
-        if (categoryLabel) {
-            categoryLabel.textContent = '선택하세요';
-            categoryLabel.style.color = 'var(--neutral-text-weak)';
-        }
-    }
 }
 
 function setupRealTimeValidation(form) {
@@ -84,70 +29,59 @@ function setupRealTimeValidation(form) {
 }
 
 function updateSubmitButtonState(form, submitButton) {
-    const formData = collectFormData(form);
-    const isValid = validateFormData(formData);
+    const isValid = validateForm(form);
 
     submitButton.style.opacity = isValid ? '1' : '0.5';
     submitButton.style.cursor = isValid ? 'pointer' : 'not-allowed';
     submitButton.disabled = !isValid;
 }
 
+function validateForm(form) {
+    const formItems = form.querySelectorAll('.input-bar-item');
+    return Array.from(formItems).every((item) => {
+        return !item.validate || item.validate();
+    });
+}
+
 function handleFormSubmit(event) {
     event.preventDefault();
 
-    const formData = collectFormData(event.target);
-    if (!validateFormData(formData)) {
+    if (!validateForm(event.target)) {
         return;
     }
 
-    paymentDataStore.addPaymentData(formData);
+    const rawFormData = collectFormData(event.target);
+
+    if (event.target._onSubmit) {
+        event.target._onSubmit(rawFormData);
+    }
+
     resetForm(event.target);
+
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    if (submitButton) {
+        updateSubmitButtonState(event.target, submitButton);
+    }
 }
 
 function collectFormData(form) {
     const formData = new FormData(form);
-    const formAmount = parseFloat(extractNumbersOnly(formData.get('amount')));
-    const isIncomeMode = formStore.getIsIncomeMode();
-    const amount = isIncomeMode ? formAmount : -formAmount;
+    const result = {};
 
-    return {
-        id: getUUID(),
-        category: formData.get('category') || '',
-        description: formData.get('description') || '',
-        paymentMethod: formData.get('paymentMethod') || '',
-        amount: amount,
-        paidAt: formData.get('date') || new Date().toISOString().split('T')[0],
-        createdAt:
-            formData.get('date') || new Date().toISOString().split('T')[0],
-    };
-}
+    form._formItemsConfig.forEach((item) => {
+        if (item.name !== 'submitButton') {
+            result[item.name] = formData.get(item.name);
+        }
+    });
 
-function validateFormData(data) {
-    if (!data.amount || data.amount === 0) {
-        return false;
-    }
-
-    if (!data.description.trim()) {
-        return false;
-    }
-
-    if (!data.paymentMethod) {
-        return false;
-    }
-
-    if (!data.category) {
-        return false;
-    }
-
-    return true;
+    return result;
 }
 
 function resetForm(form) {
-    form.reset();
-    setInitialState(form);
-
-    const submitButton = form.querySelector('button[type="submit"]');
-    if (submitButton) {
-        updateSubmitButtonState(form, submitButton);
-    }
+    const formItems = form.querySelectorAll('.input-bar-item');
+    formItems.forEach((item) => {
+        if (item.reset) {
+            item.reset();
+        }
+    });
 }

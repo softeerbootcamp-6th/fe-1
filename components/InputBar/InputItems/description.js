@@ -34,6 +34,15 @@ const createDescription = () => {
     descriptionInput.addEventListener('input', countDescriptionLength);
     countDescriptionLength();
 
+    descriptionItem.reset = () => {
+        descriptionInput.value = '';
+        countDescriptionLength();
+    };
+
+    descriptionItem.validate = () => {
+        return descriptionInput.value.trim().length > 0;
+    };
+
     return descriptionItem;
 };
 

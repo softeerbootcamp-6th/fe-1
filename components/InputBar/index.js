@@ -1,4 +1,7 @@
+import { getUUID, extractNumbersOnly } from '../../lib/utils.js';
 import { createForm } from '../Form/index.js';
+import paymentDataStore from '../../store/paymentData.js';
+import formStore from '../../store/form.js';
 
 import createDate from './InputItems/date.js';
 import createAmount from './InputItems/amount.js';
@@ -10,33 +13,27 @@ import createSubmitButton from './submitButton.js';
 const DEFAULT_FORM_ITEMS_CONFIG = [
     {
         name: 'date',
-        createElement: createDate,
-        defaultValue: new Date().toISOString().split('T')[0],
+        element: createDate(),
     },
     {
         name: 'amount',
-        createElement: createAmount,
-        defaultValue: '',
+        element: createAmount(),
     },
     {
         name: 'description',
-        createElement: createDescription,
-        defaultValue: '',
+        element: createDescription(),
     },
     {
         name: 'paymentMethod',
-        createElement: createPaymentMethod,
-        defaultValue: '',
+        element: createPaymentMethod(),
     },
     {
         name: 'category',
-        createElement: createCategory,
-        defaultValue: '',
-        placeholder: '선택하세요',
+        element: createCategory(),
     },
     {
         name: 'submitButton',
-        createElement: createSubmitButton,
+        element: createSubmitButton(),
     },
 ];
 
@@ -44,5 +41,26 @@ export default function createInputBar() {
     const form = document.createElement('form');
     form.className = 'input-bar-container';
 
-    return createForm(form, DEFAULT_FORM_ITEMS_CONFIG);
+    form._formItemsConfig = DEFAULT_FORM_ITEMS_CONFIG;
+    form._onSubmit = onSubmit;
+
+    function onSubmit(formData) {
+        const isIncomeMode = formStore.getIsIncomeMode();
+        const amountNumber = Number(extractNumbersOnly(formData.amount));
+        const amount = isIncomeMode ? amountNumber : -amountNumber;
+
+        const formattedData = {
+            id: getUUID(),
+            category: formData.category,
+            description: formData.description,
+            paymentMethod: formData.paymentMethod,
+            amount: amount,
+            paidAt: formData.date,
+            createdAt: formData.date,
+        };
+
+        paymentDataStore.addPaymentData(formattedData);
+    }
+
+    return createForm(form);
 }

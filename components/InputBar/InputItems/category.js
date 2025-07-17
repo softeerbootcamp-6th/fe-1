@@ -79,6 +79,16 @@ const createCategory = () => {
         updateCategories(event.detail.isIncomeMode);
     });
 
+    categoryItem.reset = () => {
+        hiddenInput.value = '';
+        selectLabel.textContent = '선택하세요';
+        selectLabel.style.color = 'var(--neutral-text-weak)';
+    };
+
+    categoryItem.validate = () => {
+        return hiddenInput.value.trim().length > 0;
+    };
+
     return categoryItem;
 };
 
