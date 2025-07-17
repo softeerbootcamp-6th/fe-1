@@ -14,7 +14,7 @@ const formData = {
         this.payment = null;
         this.category = null;
         this.sign = false;
-        this.isValid = false;
+        this.checkAndNotify();
     },
 
     isValidListeners: new Set(),
@@ -38,7 +38,7 @@ const formData = {
         this.checkAndNotify();
     },
     setAmount(amountValue) {
-        this.amount = Number(amountValue.replace(',', ''));
+        this.amount = Number(amountValue.replaceAll(',', ''));
         this.checkAndNotify();
     },
     setDescription(descriptionValue) {
@@ -72,7 +72,6 @@ const formData = {
             this.description &&
             this.category
         );
-
         if (prev != this.isValid)
             this.isValidListeners.forEach((fn) => fn(this.isValid, this));
     },
