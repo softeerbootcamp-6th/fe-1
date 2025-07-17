@@ -1,13 +1,22 @@
 // js/index.js
 import { initCalendar } from "./function/header.js";
 import { initInputForm } from "./function/input-form.js";
-import { initListener } from "./listener/totalListener.js"; 
+import { initListener } from "./listener/totalListener.js";
 import { deleteEntries } from "./function/entry/entry.js";
 import { initFilterButtons } from "./function/filterEntries.js";
 import { initViewSwitcher } from "./function/viewSwitcher.js";
-import { updateCalendarTotalAmount } from './function/calendarTotalAmount.js';
+import { updateCalendarTotalAmount } from "./function/calendarTotalAmount.js";
+import createHeader from "../components/header.js";
 
+function render() {
+  const headerContainer = document.getElementById("header-container");
+  headerContainer.innerHtml = "";
+  const header = createHeader();
+  headerContainer.appendChild(header);
+}
 // 헤더 초기화 (월 선택 기능)
+render();
+
 initCalendar();
 
 // 기본 기능 초기화

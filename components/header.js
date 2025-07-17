@@ -1,5 +1,9 @@
-<!-- <header class="header"> -->
-<!-- <div class="inter-header">
+export default function createHeader() {
+  // const
+  const header = document.createElement("div");
+  header.className = "header";
+  header.innerHTML = `
+    <div class="inter-header">
     <div>
       <a href="index.html" class="logo">
         <img src="../assets/icons/logo.svg" alt="Wise Wallet" />
@@ -32,5 +36,8 @@
         <img src="../assets/icons/chart.svg" alt="설정" />
       </button>
     </div>
-  </div> -->
-<!-- </header> -->
+  </div>
+  `;
+
+  return header;
+}
