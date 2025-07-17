@@ -1,7 +1,7 @@
 import FormState from "../../store/FormState.js";
 import { categories } from "../../constants/categories.js";
 import { renderComponent } from "../../utils/render.js";
-import { getMetohds } from "../../apis/method.js";
+import { getMethods } from "../../apis/method.js";
 
 export function updateDescriptionCount(length) {
   const descCount = document.getElementById("desc-count");
@@ -179,7 +179,7 @@ export async function renderTransactionForm() {
   const { date, amount, type, description, method, category } =
     FormState.getFormState();
 
-  const methods = await getMetohds();
+  const methods = await getMethods();
 
   let innerHTML = "";
 

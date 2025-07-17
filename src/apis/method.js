@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "../constants/baseUrl.js";
 
-export async function getMetohds() {
+export async function getMethods() {
   const res = await fetch(`${API_BASE_URL}/method`);
   if (!res.ok) throw new Error("Failed to fetch method");
   return res.json();
