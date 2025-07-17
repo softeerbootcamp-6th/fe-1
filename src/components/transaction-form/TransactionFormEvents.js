@@ -54,7 +54,7 @@ function handleSubmitButton(e) {
   const formState = FormState.getFormState();
   const nowItem = {
     ...formState,
-    id: formState.editId ?? Date.now(),
+    id: formState.editId ?? toString(Date.now()),
   };
   const isAdd = !Boolean(formState.editId);
   if (isAdd) submitPost(nowItem);
