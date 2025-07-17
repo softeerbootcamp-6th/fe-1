@@ -23,7 +23,6 @@ export const FormChecker = () => {
       );
       if (isFullCorrectType) {
         if (formStore.data.mode === "edit") {
-          console.log("edit mode");
           listStore.dispatch("updateListItem", {
             ...formStore.data,
             date: new Date(formStore.data.date),
@@ -35,6 +34,7 @@ export const FormChecker = () => {
             uid: crypto.randomUUID(),
           });
         }
+        formStore.dispatch("reset");
       } else {
         console.error("입력이 완료되지 못했습니다.");
       }
