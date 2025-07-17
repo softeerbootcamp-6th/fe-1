@@ -7,7 +7,7 @@ export async function getItems() {
 }
 
 export async function addItem(newItem) {
-  const res = await fetch(`${API_BASE_URL}/method`, {
+  const res = await fetch(`${API_BASE_URL}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export async function addItem(newItem) {
   return res.json();
 }
 
-export async function updateItem(id, updatedItem) {
+export async function updateItem({ id, updatedItem }) {
   const res = await fetch(`${API_BASE_URL}/items/${id}`, {
     method: "PUT",
     headers: {

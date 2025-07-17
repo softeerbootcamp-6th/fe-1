@@ -5,8 +5,8 @@ class FilterState extends Observable {
   constructor() {
     super();
     this.state = {
-      income: true,
-      expense: true,
+      withdraw: true,
+      deposit: true,
       month: getCurrentYearMonth(),
     };
   }
