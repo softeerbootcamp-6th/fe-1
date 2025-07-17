@@ -1,5 +1,5 @@
 import { initTransactionForm } from "../components/transaction-form/TransactionFormController.js";
-import { initTransactionList } from "../components/TransactionList.js";
+import { initTransactionList } from "../components/transaction-list/TransactionListController.js";
 
 export function createMainLayout() {
   const main = document.getElementById("main");

@@ -1,8 +1,8 @@
-import { renderComponent } from "../utils/render.js";
-import ItemsState from "../store/ItemsState.js";
-import { groupItemsByDate } from "../utils/group.js";
-import { calculateSummary } from "../utils/summary.js";
-import { formatDate } from "../utils/date.js";
+import { renderComponent } from "../../utils/render.js";
+import ItemsState from "../../store/ItemsState.js";
+import { groupItemsByDate } from "../../utils/group.js";
+import { calculateSummary } from "../../utils/summary.js";
+import { formatDate } from "../../utils/date.js";
 
 function createTransactionItemInnerHtml(item) {
   const amount = Number(item.amount);

@@ -1,12 +1,8 @@
-import { addEventListener } from "../utils/addEvent.js";
-import { renderTransactionList } from "./transactionListView.js";
-import ItemsState from "../store/ItemsState.js";
-import { TransactionListObserver } from "../observers/TransactionListObserver.js";
-import FormState from "../store/FormState.js";
+import FormState from "../../store/FormState.js";
+import ItemsState from "../../store/ItemsState.js";
+import { addEventListener } from "../../utils/addEvent.js";
 
-export function initTransactionList() {
-  renderTransactionList();
-  new TransactionListObserver(ItemsState);
+export function addTransactionListEvents() {
   addEventListener({
     id: "transaction-list",
     event: "click",
