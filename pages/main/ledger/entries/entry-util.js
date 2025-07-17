@@ -1,4 +1,5 @@
 import { sharedState } from "../../../../store/state.js";
+import { category } from "../../../../setting/config.js";
 
 export async function getDateFromServer(entry) {
   const entryList = document.getElementById("entry-list");
@@ -28,28 +29,12 @@ export async function getDateFromServer(entry) {
       `;
     entryList.insertBefore(dateSection, entryList.firstChild);
   }
-
-  // 새 항목 DOM에 추가
   const entryItems = dateSection.querySelector(".entry-items");
   const item = document.createElement("div");
   item.className = "entry-row";
 
-  // 수입이면 + 기호, 지출이면 - 기호 표시
   const sign = entry.isIncome ? "" : "-";
   const amountClass = entry.isIncome ? "income-amount" : "expense-amount";
-
-  const category = {
-    생활: "--colorchip-90",
-    식비: "--colorchip-60",
-    교통: "--colorchip-70",
-    "쇼핑/뷰티": "--colorchip-30",
-    "의료/건강": "--colorchip-50",
-    "문화/여가": "--colorchip-100",
-    미분류: "--colorchip-110",
-    월급: "--colorchip-20",
-    용돈: "--colorchip-40",
-    기타수입: "--colorchip-10",
-  };
 
   item.setAttribute("data-id", entry.id);
 

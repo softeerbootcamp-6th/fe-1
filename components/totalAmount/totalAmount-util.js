@@ -1,7 +1,6 @@
-import { sharedState } from "../../../../store/state.js";
+import { sharedState } from "../../store/state.js";
 
 export function updateTotalAmounts() {
-  // 현재 표시된 항목만 계산에 포함
   const incomeTotal = document.querySelectorAll(
     ".income-amount:not(.hidden-income)"
   );
@@ -13,7 +12,6 @@ export function updateTotalAmounts() {
   let totalIncome = 0;
   let totalExpense = 0;
 
-  // 표시된 수입 항목만 합계 계산
   incomeTotal.forEach((item) => {
     if (item.closest(".entry-row")) {
       const amount = parseInt(item.textContent.replace(/[^\d]/g, ""));
@@ -21,7 +19,6 @@ export function updateTotalAmounts() {
     }
   });
 
-  // 표시된 지출 항목만 합계 계산
   expenseTotal.forEach((item) => {
     if (item.closest(".entry-row")) {
       const amount = parseInt(item.textContent.replace(/[^\d]/g, ""));
@@ -39,7 +36,6 @@ export function updateTotalAmounts() {
     </div>
     `;
 
-  // 수입 필터가 활성화 상태인지 확인하고 적절한 이미지 표시
   const incomeCheckboxImage = sharedState.showIncome
     ? "checkbox.svg"
     : "uncheckbox.svg";
@@ -50,7 +46,6 @@ export function updateTotalAmounts() {
     </div>
     `;
 
-  // 지출 필터가 활성화 상태인지 확인하고 적절한 이미지 표시
   const expenseCheckboxImage = sharedState.showExpense
     ? "checkbox.svg"
     : "uncheckbox.svg";
@@ -61,6 +56,6 @@ export function updateTotalAmounts() {
     </div>
     `;
 
-  sharedState.totalIncome = totalIncome; // 상태 업데이트
-  sharedState.totalExpense = totalExpense; // 상태 업데이트
+  sharedState.totalIncome = totalIncome;
+  sharedState.totalExpense = totalExpense;
 }

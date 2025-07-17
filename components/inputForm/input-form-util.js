@@ -1,6 +1,6 @@
 import { store } from "../../store/store.js";
 import { sharedState } from "../../store/state.js";
-import { updateTotalAmounts } from "../../pages/main/ledger/totalAmount/totalAmount.js";
+import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { category } from "../../setting/config.js";
 import { saveEntriesToServer, loadEntriesFromServer } from "../../api.js";
 import {
@@ -170,7 +170,6 @@ export async function loadDummyEntries(currentDate) {
   const entriesFromServer = await loadEntriesFromServer(currentDate);
 
   if (!Array.isArray(entriesFromServer)) {
-    console.log("No entries found for the current date.");
     return;
   }
   entriesFromServer.forEach((entry) => {

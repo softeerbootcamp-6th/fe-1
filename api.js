@@ -11,7 +11,6 @@ export async function saveEntriesToServer(yearMonth, entry) {
 export async function loadEntriesFromServer(yearMonth) {
   const res = await fetch(`http://localhost:3000/api/entry/${yearMonth}`);
   const data = await res.json();
-  console.log("Loaded entries:", data);
   return data;
 }
 

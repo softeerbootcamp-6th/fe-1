@@ -1,9 +1,10 @@
 import { deleteEntryToServer } from "../../../../api.js";
 import { sharedState } from "../../../../store/state.js";
 import { renderCategoryOptions } from "../../../../components/inputForm/inputFormItems/categoryRender.js";
-import { updateTotalAmounts } from "../totalAmount/totalAmount.js";
+import { updateTotalAmounts } from "../../../../components/totalAmount/totalAmount-util.js";
 import { createModal } from "../../../../components/modal.js";
 import { store } from "../../../../store/store.js";
+import { updateDateSectionTotals } from "./entry-util.js";
 
 export function deleteEntry() {
   //이벤트 위임 방식

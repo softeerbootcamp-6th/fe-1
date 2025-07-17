@@ -8,6 +8,7 @@ import { initViewSwitcher } from "./pages/main/viewSwitcher.js";
 import { updateCalendarTotalAmount } from "./pages/main/calendar/calendarTotalAmount.js";
 import createHeader from "./components/header/header.js";
 import createInputForm from "./components/inputForm/input-form.js";
+import { createTotalAmountContainer } from "./components/totalAmount/totalAmount.js";
 
 function render() {
   const headerContainer = document.getElementById("header-container");
@@ -20,6 +21,13 @@ function render() {
   const inputFormContainer = document.getElementById("input-form-container");
   inputFormContainer.innerHTML = "";
   inputFormContainer.appendChild(inputForm);
+
+  const totalAmount = createTotalAmountContainer();
+  const totalAmountContainer = document.getElementById(
+    "total-amount-container"
+  );
+  totalAmountContainer.innerHTML = "";
+  totalAmountContainer.appendChild(totalAmount);
 }
 
 function initHeader() {

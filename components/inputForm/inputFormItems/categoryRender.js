@@ -1,5 +1,5 @@
 import { store } from "../../../store/store.js";
-import { updateTotalAmounts } from "../../../pages/main/ledger/totalAmount/totalAmount.js";
+import { updateTotalAmounts } from "../../totalAmount/totalAmount-util.js";
 
 export function renderCategoryOptions() {
   let isIncome = store.getState().isIncome; // sharedState에서 isIncome 가져오기
