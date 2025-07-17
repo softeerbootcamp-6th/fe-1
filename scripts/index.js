@@ -1,5 +1,5 @@
 import { loadPage } from "./router.js";
-import { store } from "../store/store.js";
+import { dateStore } from "../store/dateStore.js";
 import { recordStore } from "../store/recordStore.js";
 import { loadHeaderHTML, initializeHeader } from "./header.js";
 import {

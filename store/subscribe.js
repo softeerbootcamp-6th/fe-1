@@ -1,15 +1,17 @@
-import { store } from "./store.js";
 import { recordStore } from "./recordStore.js";
+import { dateStore } from "./dateStore.js";
 import { renderRecords, renderRecordHeader } from "../scripts/records.js";
 import { updateHeaderDateUI } from "../scripts/header.js";
 
 export function subscribeStore() {
   recordStore.subscribe((records) => {
-    const { year, month } = store.getDate();
+    const { year, month } = dateStore.getDate();
+
     renderRecordHeader(year, month, records);
     renderRecords(year, month, records);
   });
-  store.subscribeDate(({ year, month }) => {
+
+  dateStore.subscribe(({ year, month }) => {
     const records = recordStore.getRecords();
 
     updateHeaderDateUI(year, month);

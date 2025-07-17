@@ -4,7 +4,6 @@ import {
   deleteRecordsFromServer,
   updateRecordInServer,
 } from "../api/recordsApi.js";
-import { store } from "../store/store.js";
 import { elements } from "./elements.js";
 
 let isEditMode = false;

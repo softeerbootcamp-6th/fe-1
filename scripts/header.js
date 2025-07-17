@@ -1,6 +1,5 @@
-import { renderRecordHeader, renderRecords } from "./records.js";
 import { elements } from "./elements.js";
-import { store } from "../store/store.js";
+import { dateStore } from "../store/dateStore.js";
 
 export async function loadHeaderHTML() {
   const headerEl = elements.headerEl();
@@ -16,27 +15,27 @@ export function initializeHeader() {
   const nextBtn = headerEl.querySelector(".next-month");
 
   prevBtn.addEventListener("click", () => {
-    const { year, month } = store.getDate();
+    const { year, month } = dateStore.getDate();
 
     if (month === 1) {
-      store.setDate(year - 1, 12);
+      dateStore.setDate(year - 1, 12);
     } else {
-      store.setDate(year, month - 1);
+      dateStore.setDate(year, month - 1);
     }
   });
 
   nextBtn.addEventListener("click", () => {
-    const { year, month } = store.getDate();
+    const { year, month } = dateStore.getDate();
 
     if (month === 12) {
-      store.setDate(year + 1, 1);
+      dateStore.setDate(year + 1, 1);
     } else {
-      store.setDate(year, month + 1);
+      dateStore.setDate(year, month + 1);
     }
   });
 
   // 초기 렌더링
-  const { year, month } = store.getDate();
+  const { year, month } = dateStore.getDate();
   updateHeaderDateUI(year, month);
 }
 
