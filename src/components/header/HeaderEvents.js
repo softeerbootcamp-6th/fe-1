@@ -1,20 +1,25 @@
 import DateState from "../../store/DateState.js";
 import NavBarState from "../../store/NavBarState.js";
 import { formatYMD, parseYMD } from "../../utils/date.js";
+import { addEvent } from "../../utils/addEvent.js";
 
 export function initHeaderEvents() {
-  document.addEventListener("click", (e) => {
-    if (e.target.closest(".header-arrow-left")) {
-      changeMonth("prev");
-    }
-    if (e.target.closest(".header-arrow-right")) {
-      changeMonth("next");
-    }
-    const btn = e.target.closest(".header-menu-icon");
-    if (btn) {
-      const page = btn.getAttribute("data-page");
-      changePage(page);
-    }
+  addEvent({
+    id: "header",
+    event: "click",
+    onEvent: (e) => {
+      if (e.target.closest(".header-arrow-left")) {
+        changeMonth("prev");
+      }
+      if (e.target.closest(".header-arrow-right")) {
+        changeMonth("next");
+      }
+      const btn = e.target.closest(".header-menu-icon");
+      if (btn) {
+        const page = btn.getAttribute("data-page");
+        changePage(page);
+      }
+    },
   });
 }
 

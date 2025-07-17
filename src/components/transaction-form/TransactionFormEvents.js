@@ -1,10 +1,10 @@
 import { addItem, getItems, updateItem } from "../../apis/items.js";
 import FormState from "../../store/FormState.js";
 import ItemsState from "../../store/ItemsState.js";
-import { addEventListener } from "../../utils/addEvent.js";
+import { addEvent } from "../../utils/addEvent.js";
 
 export function addTransactionFormEvents() {
-  addEventListener({
+  addEvent({
     id: "transaction-form",
     event: "input",
     onEvent: (e) => {
@@ -12,7 +12,7 @@ export function addTransactionFormEvents() {
     },
   });
 
-  addEventListener({
+  addEvent({
     id: "transaction-form",
     event: "click",
     onEvent: (e) => {
@@ -20,7 +20,7 @@ export function addTransactionFormEvents() {
     },
   });
 
-  addEventListener({
+  addEvent({
     id: "transaction-form",
     event: "submit",
     onEvent: (e) => {

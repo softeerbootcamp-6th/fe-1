@@ -1,11 +1,11 @@
 import FormState from "../../store/FormState.js";
 import ItemsState from "../../store/ItemsState.js";
-import { addEventListener } from "../../utils/addEvent.js";
+import { addEvent } from "../../utils/addEvent.js";
 import FilterState from "../../store/FilterState.js";
 import { deleteItem, getItems } from "../../apis/items.js";
 
 export function addTransactionListEvents() {
-  addEventListener({
+  addEvent({
     id: "transaction-list",
     event: "click",
     onEvent: (e) => {
