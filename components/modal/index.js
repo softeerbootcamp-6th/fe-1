@@ -1,20 +1,14 @@
 import { createElement } from '../../utils.js';
 
-export default function renderModal(mainElement, footerElement) {
-    const $modal = createElement('div', { class: 'modal' }, [
-        mainElement,
-        footerElement,
-    ]);
+export default function renderModal(content) {
+    const $modal = createElement('div', { class: 'modal' }, content);
+    const $modalBackground = createElement('div', { class: 'block' }, '');
 
     const $rootModal = document.querySelector('#root-modal');
 
-    const $modalWithBackground = createElement(
-        'div',
-        { class: 'modal-background' },
-        $modal,
-    );
+    $rootModal.appendChild($modal);
+    $rootModal.appendChild($modalBackground);
 
-    $rootModal.appendChild($modalWithBackground);
     $rootModal.addEventListener('click', (e) => {
         const $modal = e.target.closest('.modal');
         if (!$modal) $rootModal.innerHTML = '';
