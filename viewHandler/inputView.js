@@ -15,7 +15,6 @@ export function bindInputValue(formData) {
         value: formatAmount(Math.abs(amount)),
         date,
         description,
-        payment,
     };
 
     Object.entries(inputItems).forEach(([key]) => {
@@ -25,5 +24,6 @@ export function bindInputValue(formData) {
         }
     });
 
-    document.querySelector('#dropdownToggle').textContent = category;
+    document.querySelector('#dropdown-toggle-category').textContent = category;
+    document.querySelector('#dropdown-toggle-payment').textContent = payment;
 }
