@@ -324,6 +324,11 @@ export function renderIncomeExpenseForm() {
     dateInput.value = targetListItemDate;
     moneyInput.value = money > 0 ? money : -money;
     descriptionInput.value = description;
+
+    const lengthSpan = form.querySelector('.description-length');
+    descriptionLength = description.length;
+    lengthSpan.textContent = `${descriptionLength}/32`;
+
     paymentSelect.value = payment;
     tagSelect.value = tag;
   };
