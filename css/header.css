@@ -9,42 +9,39 @@
   padding: 30px 450px;
   border-bottom: 1px solid #ddd;
 }
-.inter-header{
-
-    display: flex;
-    align-content: center;
-    align-items: center;
-    z-index: 1; /* 헤더 위에 떠야 한다면 1 이상 */
-    position: relative;
-    top: 20px;
-    /* width: 846px; */
-    /* height: 112px; */
-    justify-content: space-between;
+.inter-header {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  z-index: 1; /* 헤더 위에 떠야 한다면 1 이상 */
+  position: relative;
+  top: 20px;
+  /* width: 846px; */
+  /* height: 112px; */
+  justify-content: space-between;
 }
 
-.month{
-    font-size: 2.4rem;
-    font-weight: bold;
-    color: var(--neutral-text-default, #333);
-    text-align: center;
+.month {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: var(--neutral-text-default, #333);
+  text-align: center;
 }
-
-
 
 .month-selector {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .month-control {
-    display: flex;
-    align-items: center;
-    justify-content : center;
-    gap:16px;
-    font-size:1.8rem;
-    font-weight:bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 /* 왼쪽 로고 */
@@ -77,21 +74,6 @@
   display: flex;
   gap: 8px;
 }
-/* 
-.icon-btn {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 6px;
-}
-
-.icon-btn.active {
-  background: #fff;
-  color: #000;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-} */
 
 .icon-btn {
   background: none;
