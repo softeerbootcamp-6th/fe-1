@@ -9,6 +9,7 @@ export function renderIncomeExpenseForm() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
   let isIncome = true; // true: 수입, false: 지출
+  let itemID = null; // list item id 초기화 -> list item 클릭하여 수정하는 경우에만 다른 숫자 가능
   const maxDescriptionLength = 32;
   let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
@@ -197,6 +198,7 @@ export function renderIncomeExpenseForm() {
 
     handleSubmit(
       e,
+      itemID,
       dateInput,
       moneyInput,
       descriptionInput,
@@ -205,6 +207,11 @@ export function renderIncomeExpenseForm() {
     );
     formInit(dateInput, moneyInput, descriptionInput, paymentSelect, tagSelect);
     renderListItem(incomeExpenseListContainer);
+  });
+
+  document.addEventListener('edit-item', e => {
+    const data = e.detail;
+    setItemToForm(data);
   });
 
   const updateTagSelect = (incomeTags, expenseTags) => {
@@ -253,6 +260,7 @@ export function renderIncomeExpenseForm() {
 
   const handleSubmit = (
     e,
+    ID,
     dateInput,
     moneyInput,
     descriptionInput,
@@ -268,7 +276,7 @@ export function renderIncomeExpenseForm() {
     const tagSelectValue = tagSelect.value;
 
     const newIncomeExpense = {
-      id: 0,
+      id: ID,
       type: isIncome ? 'income' : 'expense',
       money: isIncome ? Number(moneyInputValue) : -Number(moneyInputValue),
       description: descriptionInputValue,
@@ -280,7 +288,6 @@ export function renderIncomeExpenseForm() {
       dateInputValue,
       newIncomeExpense
     );
-    activeAddButton(false);
   };
 
   const formInit = (
@@ -290,11 +297,35 @@ export function renderIncomeExpenseForm() {
     paymentSelect,
     tagSelect
   ) => {
+    itemID = null;
     dateInput.value = formattedDate;
     moneyInput.value = '';
     descriptionInput.value = '';
     paymentSelect.value = '';
     tagSelect.value = '';
+    activeAddButton(false);
+  };
+
+  const setItemToForm = ({
+    targetListItemDate,
+    id,
+    type,
+    money,
+    description,
+    payment,
+    tag,
+  }) => {
+    isIncome = type === 'income' ? true : false;
+    moneyButtonIcon.src = isIncome
+      ? '../assets/icons/plus.svg'
+      : '../assets/icons/minus.svg';
+    updateTagSelect(incomeTags, expenseTags);
+    itemID = id;
+    dateInput.value = targetListItemDate;
+    moneyInput.value = money > 0 ? money : -money;
+    descriptionInput.value = description;
+    paymentSelect.value = payment;
+    tagSelect.value = tag;
   };
 
   return form;

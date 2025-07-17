@@ -173,26 +173,6 @@ export function renderListItem(listContainer) {
 
     return li;
   };
-  // list 개별 요소 클릭
-  const handleListItemClick = ({ target }) => {
-    const clickedElement = target.closest('div');
-
-    // 삭제 버튼 클릭했을 경우
-    if (clickedElement.className == 'delete') {
-      const targetListItem = target.closest('li');
-
-      const targetListItemID = Number(targetListItem.id);
-      const targetListItemDate = targetListItem.closest('div').id;
-
-      incomeExpenseStore.delIncomeExpenseData(
-        targetListItemDate,
-        targetListItemID
-      );
-    } else {
-      // 삭제 버튼 아닌 곳 클릭했을 경우
-      console.log(clickedElement);
-    }
-  };
 
   const monthlyInfoContainer = document.createElement('div');
   monthlyInfoContainer.className = 'monthly-info-container';
@@ -220,3 +200,30 @@ export function renderListItem(listContainer) {
     listContainer.appendChild(dailyContainer);
   });
 }
+
+// list 개별 요소 클릭
+const handleListItemClick = ({ target }) => {
+  const clickedElement = target.closest('div');
+  const targetListItem = target.closest('li');
+
+  const targetListItemID = Number(targetListItem.id);
+  const targetListItemDate = targetListItem.closest('div').id;
+
+  // 삭제 버튼 클릭했을 경우
+  if (clickedElement.className == 'delete') {
+    incomeExpenseStore.delIncomeExpenseData(
+      targetListItemDate,
+      targetListItemID
+    );
+  } else {
+    // 삭제 버튼 아닌 곳 클릭했을 경우
+    const targetData = incomeExpenseStore
+      .getIncomeExpenseData()
+      [targetListItemDate].find(data => data.id === targetListItemID);
+
+    const editEvent = new CustomEvent('edit-item', {
+      detail: { targetListItemDate, ...targetData },
+    });
+    document.dispatchEvent(editEvent); // edit event 발생
+  }
+};
