@@ -58,6 +58,20 @@ export const store = {
 
     this.notify();
   },
+  updateRecordInStore({ dateId, itemId, updatedItem }) {
+    this.records = this.records.map((record) => {
+      if (record.id.toString() === dateId.toString()) {
+        return {
+          ...record,
+          items: record.items.map((item) =>
+            item.id.toString() === itemId.toString() ? { ...item, ...updatedItem } : item
+          ),
+        };
+      }
+      return record;
+    });
+    this.notify();
+  },
 
   getDate() {
     return this.currentDate;
