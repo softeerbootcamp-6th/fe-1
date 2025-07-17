@@ -1,5 +1,5 @@
 import { loadPage } from "./router.js";
-import { store } from "./store.js";
+import { store } from "../store/store.js";
 import { loadHeaderHTML, initializeHeader } from "./header.js";
 import {
   initToggleButton,
@@ -17,7 +17,7 @@ import {
   renderRecordHeader,
   initDeleteEvent,
 } from "./records.js";
-import { subscribeStore } from "./subscribe.js";
+import { subscribeStore } from "../store/subscribe.js";
 window.addEventListener("DOMContentLoaded", async () => {
   // 오늘 날짜 기준 연도와 월 추출
   const today = new Date();

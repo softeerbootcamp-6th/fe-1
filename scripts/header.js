@@ -1,6 +1,6 @@
 import { renderRecordHeader, renderRecords } from "./records.js";
 import { elements } from "./elements.js";
-import { store } from "./store.js";
+import { store } from "../store/store.js";
 
 export async function loadHeaderHTML() {
   const headerEl = elements.headerEl();

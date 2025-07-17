@@ -1,4 +1,4 @@
-import { store } from "../scripts/store.js";
+import { store } from "../store/store.js";
 
 const BASE_URL = "http://localhost:3001/records";
 
@@ -70,4 +70,20 @@ export function deleteRecordsFromServer(dateId, itemId) {
       body: JSON.stringify({ items: updatedItems }),
     });
   }
+}
+
+export function updateRecordInServer({ dateId, itemId, updatedItem }) {
+  const record = store.getRecords().find((record) => record.id.toString() === dateId.toString());
+
+  if (!record) return;
+
+  const updatedItems = record.items.map((item) =>
+    item.id.toString() === itemId.toString() ? { ...item, ...updatedItem } : item
+  );
+
+  return fetch(`${BASE_URL}/${dateId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ items: updatedItems }),
+  });
 }

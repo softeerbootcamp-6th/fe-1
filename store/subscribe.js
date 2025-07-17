@@ -1,6 +1,6 @@
 import { store } from "./store.js";
-import { renderRecords, renderRecordHeader } from "./records.js";
-import { updateHeaderDateUI } from "./header.js";
+import { renderRecords, renderRecordHeader } from "../scripts/records.js";
+import { updateHeaderDateUI } from "../scripts/header.js";
 
 export function subscribeStore() {
   store.subscribe((records) => {
