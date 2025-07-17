@@ -1,4 +1,4 @@
-import { renderHeader } from "../components/headerView.js";
+import { renderHeader } from "../components/header/HeaderView.js";
 import DateState from "../store/DateState.js";
 import NavBarState from "../store/NavBarState.js";
 

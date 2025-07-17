@@ -1,13 +1,6 @@
-import { monthNames } from "../constants/months.js";
-import { parseYMD } from "../utils/date.js";
-import { renderComponent } from "../utils/render.js";
-
-function getCurrentPageName() {
-  const hash = location.hash.replace("#", "");
-  if (hash === "calendar") return "캘린더";
-  if (hash === "chart") return "차트";
-  return "메인";
-}
+import { monthNames } from "../../constants/months.js";
+import { parseYMD } from "../../utils/date.js";
+import { renderComponent } from "../../utils/render.js";
 
 function createHeaderLeft() {
   return `
