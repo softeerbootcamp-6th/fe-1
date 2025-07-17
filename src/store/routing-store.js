@@ -5,6 +5,7 @@ import { initStatistic } from "../pages/statistic/statistic.js";
 import { renderMain } from "../pages/main/main-rendering.js";
 import { renderCalendar } from "../pages/calendar/calendar-rendering.js";
 import { renderStatistic } from "../pages/statistic/statistic-rendering.js";
+import { renderLoading } from "../layouts/loading/loading-rendering.js";
 
 // 라우팅 상태를 관리하는 Store 인스턴스
 export const routingStore = new Store({
@@ -57,11 +58,12 @@ export const routingUtils = {
 };
 
 // CSS 동적 로드 함수
-function loadCSS(cssPath) {
+export function loadCSS(cssPath) {
   return new Promise((resolve, reject) => {
     const existingCSS = document.querySelector(`link[href="${cssPath}"]`);
     if (existingCSS) {
-      resolve();
+      // CSS가 이미 로드되어 있으면 약간의 지연 후 resolve
+      setTimeout(resolve, 10);
       return;
     }
 
@@ -105,44 +107,42 @@ async function switchTab(tabName) {
   // 기존 페이지별 CSS 제거
   removePageCSS();
 
+  // 로딩 상태 표시
+  bodyContainer.innerHTML = await renderLoading();
+
   try {
     switch (tabName) {
       case "MAIN_VIEW":
-        // 메인 페이지 렌더링 함수 호출
-        bodyContainer.innerHTML = renderMain();
-        // 병렬 로드
+        // 모든 리소스가 완전히 로드된 후 렌더링
         await Promise.all([
-          loadScript("src/pages/main/main-rendering.js"),
           loadScript("src/pages/main/main.js"),
           loadCSS("src/pages/main/main.css"),
         ]);
+        // 메인 페이지 렌더링 함수 호출
+        bodyContainer.innerHTML = await renderMain();
         initMain();
         break;
 
       case "CALENDAR_VIEW":
-        // 달력 페이지 렌더링 함수 호출
-        bodyContainer.innerHTML = renderCalendar();
-        // 병렬 로드
+        // 모든 리소스가 완전히 로드된 후 렌더링
         await Promise.all([
-          loadScript("src/pages/calendar/calendar-rendering.js"),
           loadScript("src/pages/calendar/calendar.js"),
           loadCSS("src/pages/calendar/calendar.css"),
         ]);
+        // 달력 페이지 렌더링 함수 호출
+        bodyContainer.innerHTML = await renderCalendar();
         initCalendar();
         break;
 
       case "STATISTIC_VIEW":
-        // 통계 페이지 렌더링 함수 호출
-        bodyContainer.innerHTML = renderStatistic();
-        // 병렬 로드
+        // 모든 리소스가 완전히 로드된 후 렌더링
         await Promise.all([
-          loadScript("src/pages/statistic/statistic-rendering.js"),
           loadScript("src/pages/statistic/statistic.js"),
           loadCSS("src/pages/statistic/statistic.css"),
         ]);
-        setTimeout(() => {
-          initStatistic();
-        }, 100);
+        // 통계 페이지 렌더링 함수 호출
+        bodyContainer.innerHTML = await renderStatistic();
+        initStatistic();
         break;
     }
   } catch (error) {
