@@ -11,28 +11,28 @@ const minusCategoryList = [
 ];
 
 function InputBar() {
-    const paymentOptions = ['카드', '현금', '계좌이체', '기타'];
+    const paymentOptions = ['현금', '신용카드'];
 
     let isPlus = false;
+    let isEditing = false;
+    let editingData = null; // 수정 중인 데이터 저장
 
     const updateCategoryOptions = () => {
         const { categorySelect } = getInputElements();
         if (categorySelect) {
             const categoryList = isPlus ? pluscCategoryList : minusCategoryList;
-            categorySelect.innerHTML = `
-                <option value="" disabled selected>선택하세요.</option>
-                ${categoryList.map(category =>
-                `<option value="${category}">${category}</option>`
-            ).join('')}
-            `;
+            // categorySelect.innerHTML = `
+            //     <option value="" disabled selected>선택하세요.</option>
+            //     ${categoryList.map(category =>
+            //     `<option value="${category}">${category}</option>`
+            // ).join('')}
+            // `;
 
             categorySelect.value = ''; // 선택된 값 초기화
-            validateInputs();
         }
     };
 
-    const togglePlusMinus = () => {
-        isPlus = !isPlus;
+    const updatePlusMinusButton = () => {
         const button = document.getElementById('plus-minus-btn');
         const img = button.querySelector('img');
 
@@ -43,6 +43,13 @@ function InputBar() {
 
         // 분류 옵션 업데이트
         updateCategoryOptions();
+        validateInputs();
+    };
+
+
+    const togglePlusMinus = () => {
+        isPlus = !isPlus;
+        updatePlusMinusButton();
     };
 
     const getInputElements = () => {
@@ -81,7 +88,6 @@ function InputBar() {
                 img.src = `assets/icons/${isValid ? 'check-button-active' : 'check-button'}.svg`;
             }
         }
-        else console.error('Check button not found');
     };
 
     const handleSubmit = () => {
@@ -97,9 +103,17 @@ function InputBar() {
             category: categorySelect.value
         };
         console.log('Form submitted:', formData);
+        console.log('isEditing:', isEditing);
 
-        incomeExpenseStore.updateAllDummyData(formData);
+        if (!isEditing) {
+            // 새로 추가하는 경우
+            incomeExpenseStore.updateAllDummyData(formData);
+        } else {
+            // 수정일 경우
+            incomeExpenseStore.updateExistingData(formData, editingData.blockId);
+        }
         incomeExpenseStore.getCurrentIncomeExpenseList();
+
         MainPage().init(); // MainPage 초기화 호출
     };
 
@@ -110,9 +124,8 @@ function InputBar() {
         amountInput.addEventListener('input', () => {
             amountInput.value = amountInput.value.replace(/[^0-9]/g, ''); // 숫자만 허용
             const rawValue = amountInput.value.replace(/,/g, '');
-            if (!isNaN(rawValue)) {
-                amountInput.value = formatAmount(rawValue);
-            }
+
+            amountInput.value = formatAmount(rawValue);
         });
 
     };
@@ -127,6 +140,35 @@ function InputBar() {
                 countTextElement.textContent = `${currentLength}/32`;
             });
         }
+    };
+
+    const setFields = (data) => {
+        // plusminus 버튼 상태 업데이트
+        isPlus = data && data.amount >= 0;
+        updatePlusMinusButton();
+
+        const { dateInput, amountInput, contentInput, paymentSelect, categorySelect } = getInputElements();
+        if (data) {
+            dateInput.value = data.date;
+            amountInput.value = formatAmount(Math.abs(data.amount));
+            contentInput.value = data.description;
+            paymentSelect.value = data.method;
+            categorySelect.value = data.category;
+            isEditing = true;
+            editingData = data;
+        }
+    };
+
+    const resetFields = () => {
+        console.log('Resetting fields');
+        const { dateInput, amountInput, contentInput, paymentSelect, categorySelect } = getInputElements();
+        dateInput.value = new Date().toISOString().substring(0, 10); // 오늘 날짜로 초기화
+        amountInput.value = '';
+        contentInput.value = '';
+        paymentSelect.value = '';
+        categorySelect.value = '';
+        isEditing = false;
+        editingData = null;
     };
 
     return {
@@ -144,7 +186,7 @@ function InputBar() {
                             <img src="assets/icons/minus.svg" alt="minus icon">
                         </button>
                         <input type="text" class="amount-field text-align-right" placeholder="0">
-                        <span>원</span>
+                        <span style="font-size: 14px">원</span>
                     </div>
                 </div>
                 <div class="border-line"></div>
@@ -197,20 +239,32 @@ function InputBar() {
             updateCategoryOptions();
 
             // 입력값 변경 이벤트 등록
-            const inputs = document.querySelectorAll('.input-field input, .amount-field, .content-field, .category-field, #category-select');
+            const inputs = document.querySelectorAll('.input-field input, .amount-field, .content-field');
             inputs.forEach(input => {
                 input.addEventListener('input', validateInputs);
-
-                if (input.classList.contains('amount-field')) {
-                    input.value = '';
-                }
-                else if (input.classList.contains('content-field')) {
-                    input.value = '';
-                }
-                else if (input.classList.contains('category-field')) {
-                    input.value = '';
-                }
             });
+
+            // 드롭다운 값 변경 이벤트 등록
+            const paymentSelect = document.getElementById('payment-field');
+            if (paymentSelect) {
+                paymentSelect.addEventListener('change', () => {
+                    console.log('Payment method changed:', paymentSelect.value);
+                    validateInputs();
+                });
+            }
+            // 드롭다운 값 변경 이벤트 등록
+            const categorySelect = document.getElementById('category-select');
+            if (categorySelect) {
+                categorySelect.addEventListener('change', () => {
+                    console.log('Category changed:', categorySelect.value);
+                    validateInputs();
+                });
+            }
+
+
+
+            // 입력 필드 초기화
+            resetFields();
 
             // 초기 체크 버튼 상태 설정
             validateInputs();
@@ -229,7 +283,23 @@ function InputBar() {
                     }
                 });
             }
-        }
+
+            // DropDown 초기화
+            DropDown({
+                options: paymentOptions,
+                id: 'payment-field',
+                editable: true
+            }).init();
+            // 카테고리 선택 드롭다운 초기화
+            DropDown({
+                options: isPlus ? pluscCategoryList : minusCategoryList,
+                id: 'category-select',
+                editable: false
+            }).init();
+
+        },
+        setFields,
+        resetFields,
     }
 }
 export default InputBar;
