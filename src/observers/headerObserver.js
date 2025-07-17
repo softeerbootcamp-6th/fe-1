@@ -1,4 +1,4 @@
-import { renderHeader } from "../components/headerView.js";
+import { renderHeader } from "../components/header/HeaderView.js";
 import DateState from "../store/DateState.js";
 import NavBarState from "../store/NavBarState.js";
 
@@ -9,11 +9,10 @@ class HeaderObserver {
   }
 
   update() {
-    renderHeader({
-      curDate: DateState.getDate(),
-      navBarState: NavBarState.getNavBarState(),
-    });
+    renderHeader();
   }
 }
 
-export default new HeaderObserver();
+export function addHeaderObserver() {
+  new HeaderObserver();
+}

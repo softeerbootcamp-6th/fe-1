@@ -1,13 +1,11 @@
-import { initTransactionForm } from "../components/TransactionForm.js";
 import {
   renderCategorySelect,
-  renderTransactionForm,
   updateDescriptionCount,
-} from "../components/TransactionFormView.js";
+} from "../components/transaction-form/TransactionFormView.js";
 import DateState from "../store/DateState.js";
 import FormState from "../store/FormState.js";
 
-export class DateInputObserver {
+class DateInputObserver {
   constructor(dateState) {
     this.dateState = dateState;
     dateState.subscribe(this);
@@ -21,7 +19,7 @@ export class DateInputObserver {
   }
 }
 
-export class TransactionTypeButtonObserver {
+class TransactionTypeButtonObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -45,7 +43,7 @@ export class TransactionTypeButtonObserver {
   }
 }
 
-export class DescriptionLengthObserver {
+class DescriptionLengthObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -57,7 +55,28 @@ export class DescriptionLengthObserver {
   }
 }
 
-export class CategorySelectObserver {
+class InputObserver {
+  constructor(formState) {
+    this.formState = formState;
+    formState.subscribe(this);
+  }
+
+  update() {
+    const { amount, description, method, category, type } =
+      this.formState.getFormState();
+
+    const amountInput = document.getElementById("amount-input");
+    if (amountInput) amountInput.value = amount;
+
+    const typeInput = document.getElementById("type-input");
+    if (typeInput) typeInput.value = type;
+
+    const descInput = document.getElementById("desc-input");
+    if (descInput) descInput.value = description;
+  }
+}
+
+class CategorySelectObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -69,7 +88,7 @@ export class CategorySelectObserver {
   }
 }
 
-export class SubmitButtonObserver {
+class SubmitButtonObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -87,32 +106,25 @@ export class SubmitButtonObserver {
   }
 }
 
-export class TransactionFormObserver {
+class MethodSelectObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
   }
 
   update() {
-    const { editId, date, amount, type, description, method, category } =
-      this.formState.getFormState();
-    if (!editId) return;
-
-    const dateInput = document.getElementById("date-input");
-    if (dateInput) dateInput.value = date;
-
-    const amountInput = document.getElementById("amount-input");
-    if (amountInput) amountInput.value = amount;
-
-    const typeInput = document.getElementById("type-input");
-    if (typeInput) typeInput.value = type;
-
-    const descInput = document.getElementById("desc-input");
-    if (descInput) descInput.value = description;
-
+    const { method } = this.formState.getFormState();
     const methodSelect = document.getElementById("method-select");
     if (methodSelect) methodSelect.value = method;
-
-    renderCategorySelect(type, category);
   }
+}
+
+export function addTransactionFormObservers() {
+  new DateInputObserver(DateState);
+  new TransactionTypeButtonObserver(FormState);
+  new InputObserver(FormState);
+  new DescriptionLengthObserver(FormState);
+  new CategorySelectObserver(FormState);
+  new SubmitButtonObserver(FormState);
+  new MethodSelectObserver(FormState);
 }

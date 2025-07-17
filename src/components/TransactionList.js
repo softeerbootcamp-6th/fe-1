@@ -1,8 +1,3 @@
-import { state, setState, addObservers } from "../store.js";
-import { groupItemsByDate } from "../utils/group.js";
-import { calculateSummary } from "../utils/summary.js";
-import { formatDate } from "../utils/date.js";
-import { renderComponent } from "../utils/render.js";
 import { addEventListener } from "../utils/addEvent.js";
 import { renderTransactionList } from "./transactionListView.js";
 import ItemsState from "../store/ItemsState.js";
@@ -41,11 +36,4 @@ export function initTransactionList() {
       });
     },
   });
-}
-
-/* 아이템 삭제 함수 */
-function deleteItem(itemId) {
-  const currItems = state.items;
-  const updatedItems = currItems.filter((item) => item.id !== itemId);
-  setState({ items: updatedItems });
 }

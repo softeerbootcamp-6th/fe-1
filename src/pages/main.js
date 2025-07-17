@@ -1,4 +1,4 @@
-import { initTransactionForm } from "../components/TransactionForm.js";
+import { initTransactionForm } from "../components/transaction-form/TransactionFormController.js";
 import { initTransactionList } from "../components/TransactionList.js";
 
 export function createMainLayout() {
