@@ -1,6 +1,7 @@
 import { formatNumberWithCommas } from '../../../lib/utils.js';
 import { categoryConfig } from './categoryConfig.js';
 import paymentDataStore from '../../../store/paymentData.js';
+import formStore from '../../../store/form.js';
 import createModal from '../../Modal/index.js';
 
 function createDetailListItem({
@@ -13,6 +14,9 @@ function createDetailListItem({
     const categoryLabel = categoryConfig[category].text || '미분류';
     const categoryColor = categoryConfig[category].color;
     const isIncome = amount > 0 ? 'income' : 'expense';
+    const paymentMethodLabel = formStore.paymentMethodOptions.find(
+        (option) => option.value === paymentMethod
+    ).label;
 
     const itemElement = document.createElement('li');
     itemElement.className = 'daily-info-detail-list-item';
@@ -21,7 +25,7 @@ function createDetailListItem({
             <span class="light-12">${categoryLabel}</span>
         </div>
         <span class="description light-14">${description}</span>
-        <span class="payment-method light-14">${paymentMethod}</span>
+        <span class="payment-method light-14">${paymentMethodLabel}</span>
         <span class="amount ${isIncome} light-14">
             ${formatNumberWithCommas(amount)}원
         </span>
