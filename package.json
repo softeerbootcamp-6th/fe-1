@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx serve -p 3000"
+    "dev": "npx serve -p 3000",
+    "server": "json-server --watch src/store/data.json --port 3001"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/yyeonzu/fe-1/issues"
   },
-  "homepage": "https://github.com/yyeonzu/fe-1#readme"
+  "homepage": "https://github.com/yyeonzu/fe-1#readme",
+  "devDependencies": {
+    "json-server": "^1.0.0-beta.3"
+  }
 }
