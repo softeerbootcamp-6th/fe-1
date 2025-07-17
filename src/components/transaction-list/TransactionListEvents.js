@@ -1,12 +1,24 @@
 import FormState from "../../store/FormState.js";
 import ItemsState from "../../store/ItemsState.js";
 import { addEventListener } from "../../utils/addEvent.js";
+import FilterState from "../../store/FilterState.js";
 
 export function addTransactionListEvents() {
   addEventListener({
     id: "transaction-list",
     event: "click",
     onEvent: (e) => {
+      if (e.target.matches(".filter-checkbox input")) {
+        const label = e.target.closest(".filter-checkbox");
+        if (label) {
+          const type = label.textContent.includes("수입")
+            ? "income"
+            : "expense";
+          FilterState.setFilter({ [type]: e.target.checked });
+        }
+        return;
+      }
+
       const itemDiv = e.target.closest(".item");
       if (!itemDiv) return;
 
