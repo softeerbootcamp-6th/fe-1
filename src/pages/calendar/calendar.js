@@ -6,26 +6,24 @@ import {
 import { formatAmount } from "../../utils/format-utils.js";
 import { getFilteredData } from "../../utils/data-utils.js";
 import { getTransactions } from "../../api/transaction.js";
+import { dateStore } from "../../store/date-store.js";
 
-function initCalendar() {
+export function initCalendar() {
   // DOM 요소들
   const calendarBody = document.getElementById("calendar-body");
   const totalExpenseEl = document.getElementById("total-expense");
   const totalIncomeEl = document.getElementById("total-income");
   const totalBalanceEl = document.getElementById("total-balance");
 
-  // 전역 변수 초기화 (헤더와 동기화)
-  if (!window.currentYear) window.currentYear = new Date().getFullYear();
-  if (window.currentMonth === undefined)
-    window.currentMonth = new Date().getMonth();
-
   // 달력을 렌더링하는 함수
-  async function renderCalendar(year, month) {
+  async function renderCalendarUI() {
+    const transactions = await getTransactions();
     try {
-      // API에서 거래 내역 가져오기
-      const transactions = await getTransactions();
-
-      const firstDay = new Date(year, month, 1);
+      const firstDay = new Date(
+        dateStore.getState().currentYear,
+        dateStore.getState().currentMonth - 1, // 1-12를 0-11로 변환
+        1
+      );
       const startDate = new Date(firstDay);
       startDate.setDate(startDate.getDate() - firstDay.getDay()); // 일요일부터 시작
 
@@ -37,12 +35,17 @@ function initCalendar() {
         const currentDate = new Date(startDate);
         currentDate.setDate(startDate.getDate() + i);
 
-        const cell = createCalendarCell(currentDate, year, month, transactions);
+        const cell = createCalendarCell(
+          currentDate,
+          dateStore.getState().currentYear,
+          dateStore.getState().currentMonth - 1, // 1-12를 0-11로 변환
+          transactions
+        );
         calendarBody.appendChild(cell);
       }
 
       // 요약 정보 업데이트
-      updateSummary(year, month, transactions);
+      updateSummary(transactions);
     } catch (error) {
       console.error("캘린더 렌더링 실패:", error);
     }
@@ -134,9 +137,9 @@ function initCalendar() {
   }
 
   // 월별 요약 정보 업데이트 (utils의 getFilteredData 활용)
-  function updateSummary(year, month, transactions) {
+  function updateSummary(transactions) {
     // getFilteredData 함수 활용
-    const monthlyData = getFilteredData(transactions, year, month);
+    const monthlyData = getFilteredData(transactions);
 
     const totalIncome = monthlyData
       .filter((item) => item.amount > 0)
@@ -163,8 +166,5 @@ function initCalendar() {
   }
 
   // 초기 렌더링
-  updateHeaderDate(window.currentYear, window.currentMonth);
-  renderCalendar(window.currentYear, window.currentMonth);
+  renderCalendarUI();
 }
-
-window.initCalendar = initCalendar;

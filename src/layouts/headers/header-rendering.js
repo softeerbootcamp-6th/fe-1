@@ -1,4 +1,6 @@
-function renderHeader() {
+import { initHeader } from "./header.js";
+
+export function renderHeader() {
   const headerHTML = `
     <header class="header">
       <!-- 1. 왼쪽: 로고 -->
@@ -19,7 +21,7 @@ function renderHeader() {
 
       <!-- 3. 오른쪽: 탭 -->
       <nav class="header__tabs">
-        <button class="tab-btn active" data-tab="LIST_VIEW" aria-label="내역">
+        <button class="tab-btn active" data-tab="MAIN_VIEW" aria-label="내역">
           <img src="assets/icons/doc.svg" alt="내역" />
         </button>
         <button class="tab-btn" data-tab="CALENDAR_VIEW" aria-label="달력">
@@ -40,6 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const headerContainer = document.getElementById("header-container");
   if (headerContainer) {
     headerContainer.innerHTML = renderHeader();
-    if (typeof initHeader === "function") initHeader();
+    initHeader();
   }
 });

@@ -1,4 +1,4 @@
-function renderMain() {
+export function renderMain() {
   const mainHTML = `
         <!-- 가계부 입력 폼 -->
         <div class="input-row-wrapper">
@@ -135,7 +135,7 @@ function renderMain() {
   return mainHTML;
 }
 
-// 자동으로 헤더 렌더링 및 초기화
+// 자동으로 메인 렌더링 및 초기화
 document.addEventListener("DOMContentLoaded", function () {
   const bodyContainer = document.getElementById("body-container");
   if (bodyContainer) {

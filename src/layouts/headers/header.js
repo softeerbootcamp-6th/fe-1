@@ -1,11 +1,13 @@
+import { updateMonth, setupMonthNavigation } from "./header-ui-utils.js";
 import {
-  updateMonth,
+  setupRoutingSubscription,
   setupTabListeners,
-  setupMonthNavigation,
-  switchTab,
-} from "./header-ui-utils.js";
+} from "../../store/routing-store.js";
 
-function initHeader() {
+export function initHeader() {
+  // 라우팅 구독 설정
+  setupRoutingSubscription();
+
   // 월 업데이트
   updateMonth();
 
@@ -14,10 +16,4 @@ function initHeader() {
 
   // 월 네비게이션 설정
   setupMonthNavigation();
-
-  // 초기 메인 페이지 로드
-  switchTab("LIST_VIEW");
 }
-
-// 전역 함수에 해당 함수 등록(index.html에서 호출)
-window.initHeader = initHeader;
