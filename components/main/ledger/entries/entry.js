@@ -1,4 +1,4 @@
-import { deleteEntry } from "../../../../api.js";
+import { deleteEntryToServer } from "../../../../api.js";
 import { sharedState } from "../../../../store/state.js";
 import { renderCategoryOptions } from "../../../inputForm/inputFormItems/categoryRender.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount.js";
@@ -39,7 +39,7 @@ export function deleteEntryConfirm(deleteBtn) {
   sharedState.entries = sharedState.entries.filter((entry) => entry.id !== id);
   const date = entrySection.getAttribute("data-date");
   const yearMonth = date.split("-").slice(0, 2).join("-");
-  deleteEntry(yearMonth, id);
+  deleteEntryToServer(yearMonth, id);
 
   updateDateSectionTotals(date);
 
