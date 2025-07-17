@@ -32,7 +32,7 @@ function createCalendarCell(day, year, month, transactionListByDate) {
       : ``;
 
   const createCalendarTotalAmount =
-    totalIncomeAmount + totalExpenseAmount > 0
+    totalIncomeAmount || totalExpenseAmount
       ? `<div class="calendar-amount">${formatMoney(
           totalIncomeAmount + totalExpenseAmount
         )}</div>`
@@ -79,13 +79,8 @@ function getCalendarMatrix(year, month) {
   const days = [
     ...Array(firstDayOfWeek).fill(null),
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+    ...Array(7 - ((daysInMonth + firstDayOfWeek) % 7 || 7)).fill(null),
   ];
-
-  // 날짜가 7로 나누어 떨어지지 않으면 나머지 날짜를 추가
-  const remainder = days.length % 7;
-  if (remainder !== 0) {
-    days.push(...Array(7 - remainder).fill(null));
-  }
 
   // 2차원 배열 생성
   const weeks = [];
