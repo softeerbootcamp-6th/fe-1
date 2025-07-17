@@ -1,7 +1,12 @@
 import createDailyList from '../DailyInfo/List/index.js';
 import paymentDataStore from '../../store/paymentData.js';
 import dateStore from '../../store/date.js';
-import { formatNumberWithCommas } from '../../lib/utils.js';
+import {
+    formatNumberWithCommas,
+    getTotalAmount,
+    groupByDate,
+    filterPaymentData,
+} from '../../lib/utils.js';
 
 const filterState = {
     income: true,
@@ -120,57 +125,4 @@ export default function createMonthlyInfo() {
     });
 
     return monthlyInfo;
-}
-
-function getTotalAmount(paymentData) {
-    const totalIncome = paymentData.reduce((acc, item) => {
-        if (item.amount > 0) {
-            return acc + Math.abs(item.amount);
-        }
-        return acc;
-    }, 0);
-
-    const totalExpense = paymentData.reduce((acc, item) => {
-        if (item.amount < 0) {
-            return acc + Math.abs(item.amount);
-        }
-        return acc;
-    }, 0);
-
-    return { totalIncome, totalExpense };
-}
-
-function groupByDate(data) {
-    const grouped = data.reduce((acc, item) => {
-        const date = item.paidAt.split('T')[0];
-
-        if (!acc[date]) {
-            acc[date] = {
-                date: date,
-                records: [],
-            };
-        }
-
-        acc[date].records.push(item);
-        return acc;
-    }, {});
-
-    return Object.values(grouped).sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-    );
-}
-
-function filterPaymentData({ data, income, expense }) {
-    if (income && expense) {
-        return data;
-    }
-
-    if (income) {
-        return data.filter((item) => item.amount > 0);
-    }
-
-    if (expense) {
-        return data.filter((item) => item.amount < 0);
-    }
-    return [];
 }
