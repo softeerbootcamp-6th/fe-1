@@ -1,194 +1,202 @@
 /* 통계 차트 스타일 */
 .no-data {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: #777;
-    font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #777;
+  font-size: 14px;
 }
 
-.stats-container{
-    width: 846px;
-    position: relative;
-    top:-42px;
+.stats-container {
+  width: 846px;
+  position: relative;
+  top: -42px;
 }
 
 /* 통계 차트 레이아웃 */
 .stats-charts {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    height: 512px;
-    gap: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 512px;
+  gap: 30px;
 }
 
 /* 도넛 차트 래퍼 */
 .donut-chart-wrapper {
-    flex: 1;
-    width: 45%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex: 1;
+  width: 45%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* 지출 내역 래퍼 */
 .expense-summary-wrapper {
-    flex: 1;
-    width: 45%;
-    padding: 20px;
-    border-left: 1px solid #e0e0e0;
+  flex: 1;
+  width: 45%;
+  padding: 20px;
+  border-left: 1px solid #e0e0e0;
 }
 
 /* 도넛 차트 스타일 */
 
 .donut-chart {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    margin: 20px auto;
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 20px auto;
 }
 
 .donut-segment {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 0%);
-    transform-origin: center;
-    transition: transform 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  clip-path: polygon(
+    50% 50%,
+    50% 0%,
+    100% 0%,
+    100% 100%,
+    0% 100%,
+    0% 0%,
+    50% 0%
+  );
+  transform-origin: center;
+  transition: transform 0.3s ease;
 }
 
 .donut-hole {
-    position: absolute;
-    width: 60%;
-    height: 60%;
-    background-color: white;
-    border-radius: 50%;
-    top: 20%;
-    left: 20%;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  background-color: white;
+  border-radius: 50%;
+  top: 20%;
+  left: 20%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .donut-total {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .donut-label {
-    font-size: 14px;
-    color: #777;
+  font-size: 14px;
+  color: #777;
 }
 
 /* 지출 내역 스타일 */
 .expense-summary-container {
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid #e0e0e0;
-    padding-left: 20px;
-    flex: 1;
-    min-width: 300px;
-    max-width: calc(50% - 10px);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #e0e0e0;
+  padding-left: 20px;
+  flex: 1;
+  min-width: 300px;
+  max-width: calc(50% - 10px);
 }
 
 .expense-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .month-total-expense {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--brand-text-expense);
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--brand-text-expense);
 }
 
 .expense-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-height: 350px;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 350px;
+  overflow-y: auto;
 }
 
 .expense-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    transition: background-color 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  transition: background-color 0.2s;
 }
 
 .expense-item:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 .expense-category {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .category-color-dot {
-    width: 12px;
-    height: 12px;
+  width: 12px;
+  height: 12px;
 }
 
 .expense-details {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .expense-percent {
-    font-size: 14px;
-    width: 60px;
-    text-align: right;
-    color: #555;
+  font-size: 14px;
+  width: 60px;
+  text-align: right;
+  color: #555;
 }
 
 .expense-amount {
-    font-size: 14px;
-    font-weight: bold;
-    min-width: 100px;
-    text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 100px;
+  text-align: right;
 }
 
 .stats-charts {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 30px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 30px;
 }
 
 @media (max-width: 900px) {
-    .stats-charts {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    
-    .donut-chart-wrapper,
-    .expense-summary-wrapper {
-        width: 90%;
-        margin: 0 auto 20px;
-    }
-    
-    .expense-summary-wrapper {
-        border-left: none;
-        border-top: 1px solid #e0e0e0;
-        padding-top: 20px;
-    }
+  .stats-charts {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .donut-chart-wrapper,
+  .expense-summary-wrapper {
+    width: 90%;
+    margin: 0 auto 20px;
+  }
+
+  .expense-summary-wrapper {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+  }
 }

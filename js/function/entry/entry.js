@@ -7,6 +7,7 @@ import { createModal } from "../../../components/modal.js";
 export function deleteEntries() {
   //이벤트 위임 방식
   document.getElementById("entry-list").addEventListener("click", (e) => {
+    console.log("deleteEntries 이벤트 리스너 작동");
     // 삭제 버튼 또는 내부 요소 클릭 시
     const deleteBtn = e.target.closest(".delete-btn");
     if (!deleteBtn) {
@@ -46,13 +47,16 @@ export function deleteEntries() {
 
       return;
     }
+    console.log("삭제 버튼 클릭됨");
     deleteBtn.addEventListener("click", (e) => {
       createModal({
         title: "삭제하시겠습니까?",
         confirmText: "삭제하기",
         cancelText: "취소",
         onConfirm: () => deleteEntryConfirm(deleteBtn),
+        onCancel: () => console.log("삭제 취소"),
       });
+      return;
     });
   });
 }
@@ -61,32 +65,24 @@ export function deleteEntryConfirm(deleteBtn) {
   const entrySection = deleteBtn.closest(".entry-date-section");
   if (!entrySection) return;
 
-  // 가장 가까운 entry-row 찾기
   const entryRow = deleteBtn.closest(".entry-row");
   const id = entryRow.dataset.id;
 
   if (!id) return;
 
-  // 삭제 확인 버튼 클릭 시
-  // DOM에서 삭제
   entryRow.remove();
   if (entrySection.querySelectorAll(".entry-row").length === 0) {
-    // entry-row가 하나도 없으면 entry-date-section도 삭제
     entrySection.remove();
   }
-  // 배열에서 삭제
   sharedState.entries = sharedState.entries.filter((entry) => entry.id !== id);
   const date = entrySection.getAttribute("data-date");
   const yearMonth = date.split("-").slice(0, 2).join("-");
   deleteEntry(yearMonth, id);
 
-  // 날짜 섹션의 수입/지출 합계 업데이트
   updateDateSectionTotals(date);
 
-  // 전체 합계 업데이트
   updateTotalAmounts();
 
-  // 캘린더 뷰 총액 업데이트
   import("../calendarTotalAmount.js").then((module) => {
     module.updateCalendarTotalAmount();
   });

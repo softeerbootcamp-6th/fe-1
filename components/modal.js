@@ -7,6 +7,7 @@ export function createModal({
   children,
 }) {
   const modalContainer = document.createElement("div");
+  modalContainer.innerHTML = "";
   modalContainer.id = "modal";
   modalContainer.className = "modal";
   modalContainer.innerHTML = `

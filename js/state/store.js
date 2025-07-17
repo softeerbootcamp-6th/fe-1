@@ -1,27 +1,21 @@
-export class DateStore{
-    
-    constructor(initState = {}) {
-        this.state={...initState};
-        this.listeners = [];
-    }
-
-    subscribe(key, listener) {
-        if(!this.listeners[key]) {
-            this.listeners[key] = [];
-        }
-        this.listeners.push(listener);
-    }
-
-    setState(key, value) {
-        this.state[key] = value;
-        if(this.listeners[key]) {
-            this.listeners[key].forEach(listener => listener(value));
-        }
-    }
-
-    getState(key) {
-        return this.state[key];
-    }
-
-
+class DateStore {
+  constructor() {
+    this.state = {
+      selectedCategory: null,
+      selectedMethod: null,
+    };
+    this.listeners = [];
+  }
+  subscribe(li) {
+    this.listeners.push(li);
+  }
+  setState(newState) {
+    this.state = { ...this.state, ...newState };
+    this.listeners.forEach((listener) => listener(this.state));
+  }
+  setCategory(category) {
+    this.setState({ selectedCategory: category });
+  }
 }
+
+export const dateStore = new DateStore();
