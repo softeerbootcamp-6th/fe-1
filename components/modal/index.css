@@ -1,0 +1,18 @@
+.modal-background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: var(--grayscale-400);
+    z-index: 100;
+    opacity: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    z-index: 1000;
+    background-color: var(--grayscale-50);
+}
