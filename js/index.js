@@ -21,9 +21,9 @@ function render() {
   inputFormContainer.innerHTML = "";
   inputFormContainer.appendChild(inputForm);
 }
-
+// document.addEventListener("DOMContentLoaded", () => {
 render();
-
+// });
 initCalendar();
 
 initInputForm();

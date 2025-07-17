@@ -37,13 +37,3 @@ export function createModal({
 
   document.body.appendChild(modalContainer);
 }
-
-/*
- <div id="delete-modal" class="delete-modal delete-hidden">
-            <div class="delete-modal-content">
-                <h3>삭제하시겠습니까?</h3>
-                <button id="confirm-delete" class="confirm-delete">삭제</button>
-                <button id="cancel-delete" class="cancel-delete">취소</button>
-            </div>
-        </div>
-*/
