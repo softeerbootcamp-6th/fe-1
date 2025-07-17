@@ -2,7 +2,7 @@
 import { initDate } from "./components/header/dateRender.js";
 import { initRenderDummyData } from "./components/main/ledger/entries/renderDummyData.js";
 import { initInputFormListener } from "./components/inputForm/inputFormItems/totalListener.js";
-import { deleteEntries } from "./components/main/ledger/entries/entry.js";
+import { deleteEntry } from "./components/main/ledger/entries/entry.js";
 import { initFilterButtons } from "./components/main/ledger/entries/filterEntries.js";
 import { initViewSwitcher } from "./components/main/viewSwitcher.js";
 import { updateCalendarTotalAmount } from "./components/main/calendar/calendarTotalAmount.js";
@@ -30,7 +30,7 @@ function initBody() {
   initRenderDummyData();
 
   initInputFormListener();
-  deleteEntries();
+  deleteEntry();
   initFilterButtons();
 
   updateCalendarTotalAmount();

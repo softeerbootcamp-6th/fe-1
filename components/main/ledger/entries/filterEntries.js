@@ -1,7 +1,7 @@
 // 필터링 기능 구현
 import { sharedState } from "../../../../store/state.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount.js";
-import { updateDateSectionTotals } from "./entry.js";
+import { updateDateSectionTotals } from "./entry-util.js";
 
 export function initFilterButtons() {
   const toggleIncome = document.getElementById("total-income");

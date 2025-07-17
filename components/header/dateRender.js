@@ -1,6 +1,6 @@
 import { sharedState } from "../../../store/state.js";
 import { loadEntriesFromServer } from "../../../api.js";
-import { getDateFromServer } from "../main/ledger/entries/entry.js";
+import { getDateFromServer } from "../main/ledger/entries/entry-util.js";
 
 /*
   여기서 year과 month를 store로 관리하는 것이 좋을 것 같습니다.
