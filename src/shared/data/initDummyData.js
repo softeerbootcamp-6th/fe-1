@@ -1,4 +1,4 @@
-import {GetDummyData} from "../shared/data/dummyData.js";
+import {GetDummyData} from "./dummyData.js";
 
 export const initDummyData = ({summaryStore}) => {
     GetDummyData().then(dummy => {

@@ -2,7 +2,7 @@ import {Store} from './store.js';
 import {initDateNav} from '../domains/headerDate/ui/dateNav.js';
 import {initSummaryView} from '../domains/summary/ui/summaryView.js';
 import {initFormView} from '../domains/entryForm/ui/formView.js';
-import {initDummyData} from "./initDummyData.js";
+import {initDummyData} from "../shared/data/initDummyData.js";
 
 const bootstrap = () => {
     // Store 생성
