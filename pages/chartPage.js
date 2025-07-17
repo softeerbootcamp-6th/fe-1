@@ -18,6 +18,7 @@ export function renderChartPage() {
           <div id="donut-chart-legend"></div>
         </div>
         <div id="line-chart-container"></div>
+        <div class="transaction-list-container"></div>
       </div>
     `;
     const donutContainer = mainContainer.querySelector(

@@ -662,8 +662,11 @@ table {
 
 #line-chart-container {
   display: none;
+  border: 1px solid var(--nuetral-border-default);
+  background: var(--nuetral-surface-default);
   width: 100%;
   height: 572px;
+  padding: 20px;
 }
 
 #donut-chart-legend {

@@ -1,6 +1,6 @@
 import { formatMoney } from "../utils/format.js";
 import { dateStore, transactionStore } from "../store/index.js";
-import { CATEGORY_COLORS, CATEGORY_NAME } from "../constants/category.js";
+import { CATEGORY_NAME } from "../constants/category.js";
 import { getCategoryColor } from "../utils/style.js";
 import { totalExpenseData } from "../utils/transaction.js";
 
@@ -49,6 +49,25 @@ function createLegend(categories, expenseByCategory, totalExpenseAmount) {
     dailyInfoTemplate +
     `<table class="legend-container tbody-border"><tbody>${legendTemplate}</tbody></table>`
   );
+}
+
+// 최신 6개월(이번달 포함) 카테고리 별 지출 총합 계산 및 출력
+function logLast6MonthsTotalExpense(year, month, category) {
+  const totalAmountByMonth = {};
+
+  for (let i = 0; i < 6; i++) {
+    // 월이 0 이하일 때 연도/월 보정
+    const calcYear = year - Math.floor((12 - month) / 12);
+    const calcMonth = ((month - 1 - i + 12) % 12) + 1;
+    const transactions = transactionStore.getTransactionsByCategory(
+      calcYear,
+      calcMonth,
+      category
+    );
+    const { totalExpenseAmount } = totalExpenseData(transactions || []);
+    totalAmountByMonth[calcMonth] = totalExpenseAmount;
+  }
+  return totalAmountByMonth;
 }
 
 // 도넛차트 그리기
@@ -121,4 +140,70 @@ export function renderLegend(
     totalExpenseAmount
   );
   container.innerHTML = legend;
+
+  // legend-container 내 transaction-row 클릭 시 카테고리명 콘솔 출력
+  const legendTable = container.querySelector(".legend-container");
+  if (legendTable) {
+    legendTable.addEventListener("click", (e) => {
+      const legendItem = e.target.closest(".transaction-row");
+      if (legendItem && legendTable.contains(legendItem)) {
+        const categoryName = legendItem
+          .querySelector(".td-category")
+          .textContent.trim();
+        const year = dateStore.getYear();
+        const month = dateStore.getMonth();
+        const totalAmountByMonth = logLast6MonthsTotalExpense(
+          year,
+          month,
+          categoryName
+        );
+        console.log(categoryName, totalAmountByMonth);
+        const lineChartContainer = document.querySelector(
+          "#line-chart-container"
+        );
+        lineChartContainer.style.display = "block";
+        renderLineChart(lineChartContainer, totalAmountByMonth);
+      }
+    });
+  }
+}
+
+function renderLineChart(container, totalAmountByMonth) {
+  // 기존에 있던 canvas 모두 제거
+  Array.from(container.querySelectorAll("canvas")).forEach((el) => el.remove());
+
+  const lineChart = document.createElement("canvas");
+  lineChart.width = 840;
+  lineChart.height = 572;
+  container.appendChild(lineChart);
+  const ctx = lineChart.getContext("2d");
+
+  const values = Object.values(totalAmountByMonth);
+  const months = Object.keys(totalAmountByMonth);
+  const maxValue = Math.max(...values);
+  const minValue = Math.min(...values);
+  const range = maxValue - minValue || 1; // 0 방지
+  const chartHeight = 500;
+  const chartWidth = 700;
+  const offsetX = 70;
+  const offsetY = 36;
+  const pointGap = chartWidth / (months.length - 1);
+
+  // y좌표: (value - minValue) * scale
+  const scale = chartHeight / range;
+
+  ctx.beginPath();
+  months.forEach((month, index) => {
+    const value = totalAmountByMonth[month];
+    const x = offsetX + index * pointGap;
+    const y = offsetY + chartHeight - (value - minValue) * scale;
+    if (index === 0) {
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+    }
+  });
+  ctx.strokeStyle = "#36A2EB";
+  ctx.lineWidth = 2;
+  ctx.stroke();
 }
