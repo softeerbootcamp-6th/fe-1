@@ -1,6 +1,10 @@
 // input 바에서 사용하는 드롭다운, 유효성 검증, 글자수 세기 등의 로직을 다루는 파일
-import { addRecordsToServer } from "../api/recordsApi.js";
-import { store } from "./store.js";
+import {
+  addRecordsToServer,
+  deleteRecordsFromServer,
+  updateRecordInServer,
+} from "../api/recordsApi.js";
+import { store } from "../store/store.js";
 import { elements } from "./elements.js";
 
 let isEditMode = false;
@@ -161,6 +165,7 @@ export const getInputValues = () => {
   const submitButtonEl = elements.submitButtonEl();
   submitButtonEl.addEventListener("click", (event) => {
     event.preventDefault();
+
     const date = elements.dateInputEl().value;
     const sign = elements.toggleButtonEl().textContent.trim();
     const value = elements.valueInputEl().value;
@@ -186,17 +191,68 @@ export const getInputValues = () => {
       },
     };
     if (isEditMode) {
-      console.log("수정할 아이템:", formInput);
-      isEditMode = false;
-      editingItem = null;
+      // 수정
+      handleRecordUpdate({
+        oldDateId: editingItem.dateId,
+        newDate: date,
+        itemId: itemId,
+        updatedItem: formInput.item,
+      }).then(() => {
+        resetForm();
+        isEditMode = false;
+        editingItem = null;
+      });
     } else {
-      // 로컬 store에 추가
+      // 추가
       addRecordsToServer(formInput).then(() => {
         store.addRecordToStore(formInput);
+        resetForm();
       });
     }
   });
 };
+
+export async function handleRecordUpdate({ oldDateId, newDate, itemId, updatedItem }) {
+  const record = store.getRecords().find((record) => record.id.toString() === oldDateId.toString());
+
+  if (!record) return;
+
+  const oldDate = record.date;
+
+  if (oldDate === newDate) {
+    // 날짜 수정 없는 경우: 그냥 update 호출
+    updateRecordInServer({
+      dateId: oldDateId,
+      itemId,
+      updatedItem,
+    }).then(() => {
+      store.updateRecordInStore({
+        dateId: oldDateId,
+        itemId,
+        updatedItem,
+      });
+    });
+  } else {
+    // 날짜가 바뀌는 경우: 기존 아이템 삭제 후 새로운 날짜 아이템 배열에 추가
+    deleteRecordsFromServer(oldDateId, itemId).then(() => {
+      store.deleteRecordFromStore(oldDateId, itemId);
+    });
+
+    // 새로운 날짜가 record에 이미 있는지에 따라 새로운 id 생성 여부 결정
+    const newRecordId =
+      store.getRecords().find((r) => r.date === newDate)?.id || Date.now().toString();
+
+    const newRecord = {
+      recordId: newRecordId,
+      date: newDate,
+      item: { ...updatedItem, id: itemId },
+    };
+
+    addRecordsToServer(newRecord).then(() => {
+      store.addRecordToStore(newRecord);
+    });
+  }
+}
 
 export function initModifyEvent() {
   const recordContainerEl = elements.recordContainerEl();
@@ -205,14 +261,25 @@ export function initModifyEvent() {
     const recordItemEl = e.target.closest(".record-item");
     if (!recordItemEl) return;
 
-    const prevSelected = recordContainerEl.querySelector(".record-item.selected");
-    if (prevSelected) prevSelected.classList.remove("selected");
-
-    recordItemEl.classList.add("selected");
-
     const dateId = recordItemEl.closest(".record-container").getAttribute("date-id");
     const itemId = recordItemEl.getAttribute("item-id");
 
+    const prevSelected = recordContainerEl.querySelector(".record-item.selected");
+
+    if (isEditMode && editingItem?.dateId === dateId && editingItem?.itemId === itemId) {
+      recordItemEl.classList.remove("selected");
+      resetForm();
+      isEditMode = false;
+      editingItem = null;
+      return;
+    }
+
+    if (prevSelected) {
+      prevSelected.classList.remove("selected");
+    }
+
+    recordItemEl.classList.add("selected");
+    console.log(recordItemEl);
     editingItem = {
       dateId,
       itemId,
@@ -234,4 +301,16 @@ export function initModifyEvent() {
     elements.categoryCellEl().textContent = item.category;
     validateForm();
   });
+}
+
+function resetForm() {
+  elements.dateInputEl().value = "";
+  elements.toggleButtonEl().textContent = "-";
+  valueSign = "minus";
+  elements.valueInputEl().value = "";
+  elements.descInputEl().value = "";
+  elements.paymentCellEl().textContent = "선택하세요";
+  elements.categoryCellEl().textContent = "선택하세요";
+  disableSubmitButton();
+  initCategoryDropdown();
 }
