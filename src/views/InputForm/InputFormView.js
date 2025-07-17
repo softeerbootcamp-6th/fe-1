@@ -1,18 +1,7 @@
 import Select from "../../components/Select/Select.js";
+import { CATEGORY_OPTIONS } from "../../utils/index.js";
 
 const DESCRIPTION_MAX_LENGTH = 32;
-const CATEGORY_OPTIONS = {
-  income: ["월급", "용돈", "기타수입"],
-  expense: [
-    "생활",
-    "식비",
-    "교통",
-    "쇼핑/뷰티",
-    "의료/건강",
-    "문화/여가",
-    "미분류",
-  ],
-};
 
 class InputFormView {
   constructor() {

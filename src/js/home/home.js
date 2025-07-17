@@ -6,7 +6,6 @@ import {
 
 import {
   TransactionsObserver,
-  MonthObserver,
   InputFormObserver,
 } from "../../stores/observers/index.js";
 
@@ -43,8 +42,6 @@ const renderInputForm = async () => {
 
 const renderTransactions = async () => {
   const { year, month } = monthState.getMonthInfo();
-  const monthObserver = new MonthObserver();
-  monthState.subscribe(monthObserver);
 
   // Observer들 초기화
   const transactionsView = new TransactionsView();

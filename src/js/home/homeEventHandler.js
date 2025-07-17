@@ -32,7 +32,6 @@ export const handleClickInputForm = (e, inputFormState) => {
 
   const $deleteButton = e.target.closest(".select-item__delete-button");
   if ($deleteButton) {
-    console.log($selectItem.dataset.value);
     modalState.openModal({
       type: "delete",
       title: "해당 결제 수단을 삭제하시겠습니까?",
