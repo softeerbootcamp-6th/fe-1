@@ -1,4 +1,3 @@
-import { sharedState } from "../state/state.js";
 import { store } from "../state/store.js";
 
 export function initCategoryListener() {

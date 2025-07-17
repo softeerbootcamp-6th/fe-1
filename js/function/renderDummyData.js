@@ -1,6 +1,6 @@
 //js/input-form.js
 import { renderCategoryOptions } from "./categoryRender.js";
-import { currentMonth, currentYear } from "./header.js";
+import { currentMonth, currentYear } from "./calendarRender.js";
 import { loadDummyEntries } from "../../components/inputForm/input-form-util.js";
 
 export function initRenderDummyData() {

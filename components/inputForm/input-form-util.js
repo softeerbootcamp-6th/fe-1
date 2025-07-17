@@ -1,7 +1,7 @@
 import { store } from "../../js/state/store.js";
 import { sharedState } from "../../js/state/state.js";
 import { updateTotalAmounts } from "../../js/function/totalAmount.js";
-import { currentMonth, currentYear } from "../../js/function/header.js";
+import { currentMonth, currentYear } from "../../js/function/calendarRender.js";
 import { category } from "../../js/state/data.js";
 import {
   saveEntriesToServer,
