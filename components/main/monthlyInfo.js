@@ -1,9 +1,12 @@
-import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
-import { transactionStore } from "../store/index.js";
-import { setFilteringState } from "../pages/mainPage.js";
+import {
+  getTotalIncomeData,
+  getTotalExpenseData,
+} from "../../utils/transaction.js";
+import { transactionStore } from "../../store/index.js";
+import { setFilteringState } from "../../pages/mainPage.js";
 import { renderTransactionList } from "./transactionsList.js";
-import { formatMoney } from "../utils/format.js";
-import { dateStore } from "../store/index.js";
+import { formatMoney } from "../../utils/format.js";
+import { dateStore } from "../../store/index.js";
 
 // totalCount 텍스트를 생성하는 함수
 function createTotalCountText(
@@ -103,13 +106,13 @@ export function renderMonthlyInfo(
   isIncomeChecked,
   isExpenseChecked
 ) {
-  const { totalIncomeCount, totalIncomeAmount } = totalIncomeData(
+  const { totalIncomeCount, totalIncomeAmount } = getTotalIncomeData(
     transactionStore.getTransactionsByYearMonth(
       dateStore.getYear(),
       dateStore.getMonth()
     )
   );
-  const { totalExpenseCount, totalExpenseAmount } = totalExpenseData(
+  const { totalExpenseCount, totalExpenseAmount } = getTotalExpenseData(
     transactionStore.getTransactionsByYearMonth(
       dateStore.getYear(),
       dateStore.getMonth()

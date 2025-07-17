@@ -1,6 +1,6 @@
-import { renderHeader, initHeader } from "./components/header.js";
+import { renderHeader, initHeader } from "./components/header/header.js";
 import { render, navigate } from "./utils/routes.js";
-import { initStore } from "./store/index.js";
+import { initStore, pathStore } from "./store/index.js";
 
 const headerContainer = document.getElementById("header-container");
 
@@ -22,6 +22,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   render();
   //뒤로가기 시 렌더링
   window.addEventListener("popstate", () => {
-    render();
+    pathStore.setPath(window.location.pathname);
   });
 });
