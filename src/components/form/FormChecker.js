@@ -10,7 +10,7 @@ export const FormChecker = () => {
     <div class="img-wrapper">
       <img src="./src/assets/check.svg" alt="check icon">
     </div>
-    `;
+  `;
 
   EventDispatcher.register({
     eventType: "click",
