@@ -1,6 +1,7 @@
 import FormState from "../../store/FormState.js";
 import { categories } from "../../constants/categories.js";
 import { renderComponent } from "../../utils/render.js";
+import { getMetohds } from "../../apis/method.js";
 
 export function updateDescriptionCount(length) {
   const descCount = document.getElementById("desc-count");
@@ -105,32 +106,29 @@ function createDescription(description) {
       `;
 }
 
-export function createMethodSelect(method) {
+export function createMethodSelect({ method, methods }) {
   return `
-      <div class="transaction-form-col">
-          <label
-              class="transaction-form-label font-light-12"
-              for="method-select"
-              >결제수단</label
-          >
-          <select
-              id="method-select"
-              name="method"
-              class="transaction-form-select font-semibold-12 text-neutral-text-weak"
-          >
-              <option value="" ${
-                method === "" ? "selected" : ""
-              }>선택하세요</option>
-              <option value="카드" ${
-                method === "카드" ? "selected" : ""
-              }>카드</option>
-              <option value="현금" ${
-                method === "현금" ? "selected" : ""
-              }>현금</option>
-              <!-- 필요시 추가 -->
-          </select>
-      </div>
-      `;
+    <div class="transaction-form-col">
+      <label class="transaction-form-label font-light-12" for="method-select">
+        결제수단
+      </label>
+      <select
+        id="method-select"
+        name="method"
+        class="transaction-form-select font-semibold-12 text-neutral-text-weak"
+      >
+        <option value="" ${method === "" ? "selected" : ""}>선택하세요</option>
+        ${methods
+          .map(
+            (m) =>
+              `<option value="${m.id}"${method === m.id ? " selected" : ""}>${
+                m.name
+              }</option>`
+          )
+          .join("")}
+      </select>
+    </div>
+  `;
 }
 
 export function createCategorySelect({ type, category }) {
@@ -177,16 +175,18 @@ function createTransactionSubmitButton() {
       `;
 }
 
-export function renderTransactionForm() {
+export async function renderTransactionForm() {
   const { date, amount, type, description, method, category } =
     FormState.getFormState();
+
+  const methods = await getMetohds();
 
   let innerHTML = "";
 
   innerHTML += createDateInput(date);
   innerHTML += createAmountGroup({ amount, type });
   innerHTML += createDescription(description);
-  innerHTML += createMethodSelect(method);
+  innerHTML += createMethodSelect({ method, methods });
   innerHTML += createCategorySelect({ type, category });
   innerHTML += createTransactionSubmitButton();
 
