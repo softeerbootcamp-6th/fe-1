@@ -1,4 +1,7 @@
-import { formatNumberInput } from '../../../lib/utils.js';
+import {
+    formatNumberInput,
+    formatNumberWithCommas,
+} from '../../../lib/utils.js';
 import formStore from '../../../store/form.js';
 
 const icon = {
@@ -11,8 +14,6 @@ const icon = {
         alt: 'Minus Icon',
     },
 };
-
-let isMinus = true;
 
 const createAmount = () => {
     const amountItem = document.createElement('div');
@@ -45,14 +46,17 @@ const createAmount = () => {
     const amountIcon = amountButton.querySelector('img');
     const amountInput = amountItem.querySelector('.amount-input');
 
-    amountButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        isMinus = !isMinus;
-        const currentIcon = isMinus ? icon.minus : icon.plus;
+    function renderIcon(isIncome) {
+        const currentIcon = isIncome ? icon.plus : icon.minus;
         amountIcon.src = currentIcon.src;
         amountIcon.alt = currentIcon.alt;
+    }
 
-        formStore.toggleIncomeMode();
+    amountButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const isIncome = formStore.toggleIncomeMode();
+        renderIcon(isIncome);
     });
 
     amountInput.addEventListener('input', (event) => {
@@ -66,6 +70,14 @@ const createAmount = () => {
     amountItem.validate = () => {
         const value = parseFloat(amountInput.value.replace(/,/g, ''));
         return !isNaN(value) && value > 0;
+    };
+
+    amountItem.setValue = (value) => {
+        renderIcon(formStore.getIsIncomeMode());
+
+        amountInput.value = formatNumberWithCommas(Math.abs(value));
+
+        amountInput.dispatchEvent(new Event('input', { bubbles: true }));
     };
 
     return amountItem;

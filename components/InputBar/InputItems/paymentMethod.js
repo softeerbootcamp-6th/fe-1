@@ -101,6 +101,19 @@ const createPaymentMethod = () => {
         return hiddenInput.value.trim().length > 0;
     };
 
+    paymentMethodItem.setValue = (value) => {
+        const paymentMethodOption = formStore.paymentMethodOptions.find(
+            (option) => option.value === value
+        );
+
+        if (paymentMethodOption) {
+            selectLabel.textContent = paymentMethodOption.label;
+            selectLabel.style.color = 'var(--neutral-text-default)';
+            hiddenInput.value = value;
+            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    };
+
     return paymentMethodItem;
 };
 

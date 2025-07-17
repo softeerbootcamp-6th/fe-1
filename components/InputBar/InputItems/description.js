@@ -43,6 +43,12 @@ const createDescription = () => {
         return descriptionInput.value.trim().length > 0;
     };
 
+    descriptionItem.setValue = (value) => {
+        descriptionInput.value = value;
+        countDescriptionLength();
+        descriptionInput.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
     return descriptionItem;
 };
 

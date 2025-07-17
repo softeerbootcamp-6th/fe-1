@@ -20,6 +20,12 @@ const createDate = () => {
         return dateInput.value.trim().length > 0;
     };
 
+    dateItem.setValue = (value) => {
+        const dateInput = dateItem.querySelector('input[name="date"]');
+        dateInput.value = value;
+        dateInput.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
     return dateItem;
 };
 

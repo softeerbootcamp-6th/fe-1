@@ -89,6 +89,21 @@ const createCategory = () => {
         return hiddenInput.value.trim().length > 0;
     };
 
+    categoryItem.setValue = (value) => {
+        const categories = expenseCategories.concat(incomeCategories);
+
+        const category = categories.find(
+            (category) => category.value === value
+        );
+
+        if (category) {
+            hiddenInput.value = value;
+            selectLabel.textContent = category.label;
+            selectLabel.style.color = 'var(--neutral-text-default)';
+            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    };
+
     return categoryItem;
 };
 

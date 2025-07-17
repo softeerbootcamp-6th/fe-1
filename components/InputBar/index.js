@@ -44,13 +44,45 @@ export default function createInputBar() {
     form._formItemsConfig = DEFAULT_FORM_ITEMS_CONFIG;
     form._onSubmit = onSubmit;
 
+    let editingId = null;
+
+    const formItemsMap = new Map(
+        form._formItemsConfig.map((item) => [item.name, item.element])
+    );
+
+    form.enterEditMode = (id) => {
+        const data = paymentDataStore.getPaymentDataById(id);
+        if (!data) return;
+
+        editingId = id;
+        const isIncome = data.amount > 0;
+
+        if (formStore.getIsIncomeMode() !== isIncome) {
+            formStore.toggleIncomeMode();
+        }
+
+        const setters = [
+            ['date', data.paidAt],
+            ['amount', data.amount],
+            ['description', data.description],
+            ['category', data.category],
+            ['paymentMethod', data.paymentMethod],
+        ];
+
+        setters.forEach(([fieldName, value]) => {
+            const element = formItemsMap.get(fieldName);
+            if (element?.setValue) {
+                element.setValue(value);
+            }
+        });
+    };
+
     function onSubmit(formData) {
         const isIncomeMode = formStore.getIsIncomeMode();
         const amountNumber = Number(extractNumbersOnly(formData.amount));
         const amount = isIncomeMode ? amountNumber : -amountNumber;
 
         const formattedData = {
-            id: getUUID(),
             category: formData.category,
             description: formData.description,
             paymentMethod: formData.paymentMethod,
@@ -59,8 +91,24 @@ export default function createInputBar() {
             createdAt: formData.date,
         };
 
-        paymentDataStore.addPaymentData(formattedData);
+        if (editingId) {
+            paymentDataStore.updatePaymentData(editingId, formattedData);
+            editingId = null;
+        } else {
+            paymentDataStore.addPaymentData({
+                id: getUUID(),
+                ...formattedData,
+            });
+        }
     }
+
+    form.exitEditMode = () => {
+        editingId = null;
+    };
+
+    document.addEventListener('editModeRequested', (event) => {
+        form.enterEditMode(event.detail.id);
+    });
 
     return createForm(form);
 }

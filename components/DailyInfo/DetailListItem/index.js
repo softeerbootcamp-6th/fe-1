@@ -61,8 +61,13 @@ function createDetailListItem({
     });
 
     const deleteButtonElement = itemElement.querySelector('.delete-button');
-    deleteButtonElement.addEventListener('click', () => {
+    deleteButtonElement.addEventListener('click', (event) => {
+        event.stopPropagation();
         modal.open();
+    });
+
+    itemElement.addEventListener('click', () => {
+        paymentDataStore.notifyEditModeRequested(id);
     });
 
     return itemElement;
