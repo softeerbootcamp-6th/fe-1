@@ -1,8 +1,9 @@
 // 캘린더 뷰 구현
 import { sharedState } from "../../../store/state.js";
-import { currentMonth, currentYear } from "../../header/dateRender.js";
+import { store } from "../../../store/store.js";
 
 export function initCalendarView() {
+  const { currentMonth, currentYear } = store.getState();
   renderCalendar(currentYear, currentMonth);
 
   // 캘린더 초기화 후 총액도 업데이트

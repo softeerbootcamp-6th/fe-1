@@ -28,4 +28,6 @@ export const store = new Store({
   selectedCategory: null,
   isIncome: true,
   entryId: null,
+  currentMonth: new Date().getMonth() + 1,
+  currentYear: new Date().getFullYear(),
 });

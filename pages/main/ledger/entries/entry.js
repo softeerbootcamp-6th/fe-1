@@ -1,8 +1,8 @@
 import { deleteEntryToServer } from "../../../../api.js";
 import { sharedState } from "../../../../store/state.js";
-import { renderCategoryOptions } from "../../../inputForm/inputFormItems/categoryRender.js";
+import { renderCategoryOptions } from "../../../../components/inputForm/inputFormItems/categoryRender.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount.js";
-import { createModal } from "../../../modal.js";
+import { createModal } from "../../../../components/modal.js";
 import { store } from "../../../../store/store.js";
 
 export function deleteEntry() {
@@ -69,14 +69,8 @@ function updatelist(e) {
     store.setState({ isIncome: false });
     renderCategoryOptions();
   }
-  // 결제수단 표시
   document.getElementById("dropdown-display").textContent = entry.method;
-
-  // sharedState.selectedMethod = entry.method;
-
-  // 카테고리 표시
   document.getElementById("category-display").textContent = entry.category;
-  // sharedState.selectedCategory = entry.category;
 
   store.setState({
     isIncome: entry.isIncome,
@@ -89,7 +83,6 @@ function updatelist(e) {
   document.getElementById("amount").value = entry.amount.toLocaleString();
   document.getElementById("desc").value = entry.desc;
 
-  // sharedState.entryId = entry.id; // sharedState에 entryId 저장
   store.setState({ entryId: entry.id }); // store에 entryId 저장
 
   return;

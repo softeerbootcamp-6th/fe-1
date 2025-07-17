@@ -1,13 +1,12 @@
 import { store } from "../../store/store.js";
 import { sharedState } from "../../store/state.js";
-import { updateTotalAmounts } from "../main/ledger/totalAmount/totalAmount.js";
-import { currentMonth, currentYear } from "../header/dateRender.js";
+import { updateTotalAmounts } from "../../pages/main/ledger/totalAmount/totalAmount.js";
 import { category } from "../../setting/config.js";
 import { saveEntriesToServer, loadEntriesFromServer } from "../../api.js";
 import {
   updateDateSectionTotals,
   getDateFromServer,
-} from "../main/ledger/entries/entry-util.js";
+} from "../../pages/main/ledger/entries/entry-util.js";
 
 export function addEntry() {
   const entry = getEntryDate();
@@ -93,6 +92,8 @@ export async function addEntryToDOM(entry) {
   const day = dateObj.getDate();
   const weekday = ["일", "월", "화", "수", "목", "금", "토"][dateObj.getDay()];
   const dateLabel = `${month}월 ${day}일 ${weekday}요일`;
+
+  const { currentMonth, currentYear } = store.getState();
 
   if (
     dateObj.getFullYear() !== currentYear ||

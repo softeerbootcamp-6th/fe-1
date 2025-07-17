@@ -4,7 +4,6 @@ export const sharedState = {
   showExpense: true,
   totalIncome: 0,
   totalExpense: 0,
-  entryId: null,
 
   entries: [],
 

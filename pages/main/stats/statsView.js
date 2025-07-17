@@ -1,7 +1,6 @@
 // 통계 뷰 구현
 import { sharedState } from "../../../store/state.js";
-import { currentMonth, currentYear } from "../../header/dateRender.js";
-
+import { store } from "../../../store/store.js";
 export function initStatsView() {
   renderDonutChart();
   renderExpenseSummary();
@@ -11,6 +10,8 @@ export function initStatsView() {
 function renderDonutChart() {
   const donutChartContainer = document.getElementById("donut-chart");
   donutChartContainer.innerHTML = "";
+
+  const { currentMonth, currentYear } = store.getState();
 
   // 현재 월에 해당하는 지출 항목들만 필터링
   const currentMonthStr = `${currentYear}-${String(currentMonth).padStart(
@@ -94,7 +95,7 @@ function renderExpenseSummary() {
   const monthTotalExpenseElement = document.getElementById(
     "month-total-expense"
   );
-
+  const { currentMonth, currentYear } = store.getState();
   expenseListContainer.innerHTML = "";
 
   // 현재 월에 해당하는 지출 항목들만 필터링
