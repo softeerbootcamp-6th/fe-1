@@ -90,14 +90,27 @@ export function DonutChart({ data, total }) {
                 
             `,
         });
+        legendItem.setAttribute("data-category", item.category);
         legendCategories.appendChild(legendItem);
-        legendItem.addEventListener("click", () => {
-            const event = new CustomEvent("category-selected", {
-                detail: { category: item.category },
-                bubbles: true,
+    });
+    legendCategories.addEventListener("click", (e) => {
+        const clickedCategory = e.target.closest(".donut-legend-item");
+        if (!clickedCategory) return;
+        const category = clickedCategory.getAttribute("data-category");
+        legendCategories
+            .querySelectorAll(".donut-legend-item")
+            .forEach((item) => {
+                if (item.getAttribute("data-category") === category) {
+                    item.classList.toggle("active");
+                } else {
+                    item.classList.remove("active");
+                }
             });
-            legendItem.dispatchEvent(event);
+        const event = new CustomEvent("category-selected", {
+            detail: { category },
+            bubbles: true,
         });
+        legendCategories.dispatchEvent(event);
     });
     legend.appendChild(legendTotal);
     legend.appendChild(legendCategories);

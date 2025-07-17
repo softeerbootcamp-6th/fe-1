@@ -57,6 +57,9 @@
 .donut-legend-item:hover{
     background-color: var(--neutral-surface-point);
 }
+.donut-legend-item.active{
+    background-color: var(--neutral-surface-point);
+}
 .donut-legend-item > .donut-legend-wrapper{
     flex-grow: 1;
     display: flex;
