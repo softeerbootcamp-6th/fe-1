@@ -276,7 +276,11 @@ export function renderIncomeExpenseForm() {
       tag: tagSelectValue,
     };
 
-    incomeExpenseStore.updateIncomeExpenseData(dateInputValue, newIncomeExpense);
+    incomeExpenseStore.updateIncomeExpenseData(
+      dateInputValue,
+      newIncomeExpense
+    );
+    activeAddButton(false);
   };
 
   const formInit = (
