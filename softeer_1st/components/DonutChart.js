@@ -93,10 +93,12 @@ export function DonutChart({ data, total }) {
         legendItem.setAttribute("data-category", item.category);
         legendCategories.appendChild(legendItem);
     });
+    let previousCategory = null;
     legendCategories.addEventListener("click", (e) => {
         const clickedCategory = e.target.closest(".donut-legend-item");
         if (!clickedCategory) return;
         const category = clickedCategory.getAttribute("data-category");
+        if( previousCategory === category) return;
         legendCategories
             .querySelectorAll(".donut-legend-item")
             .forEach((item) => {
@@ -106,6 +108,7 @@ export function DonutChart({ data, total }) {
                     item.classList.remove("active");
                 }
             });
+        previousCategory = category;
         const event = new CustomEvent("category-selected", {
             detail: { category },
             bubbles: true,
