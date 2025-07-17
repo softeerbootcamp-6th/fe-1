@@ -1,6 +1,7 @@
 import formData from '../../../store/formData.js';
 import { createElement } from '../../../utils.js';
 import payment from '../../../store/payment.js';
+import renderModal from '../../modal/index.js';
 
 function createPaymentOptionList(items) {
     return `
@@ -37,6 +38,8 @@ export default function createPayemntInputOption() {
     $paymentOptionItem
         .querySelector('#payment-add-button')
         .addEventListener('click', (e) => {
+            createElement('div', { class: 'title' });
+            renderModal(createAddPaymetModalContent());
             payment.addPayment('add');
         });
 
@@ -67,4 +70,18 @@ export default function createPayemntInputOption() {
     });
 
     return $paymentOptionItem;
+}
+
+const modalConentHTML = `
+    <div class=modal-content-wrapper>    
+        <div>추가 하실 결제수단을 입력해주세요.</div>
+        <input type="text" />
+    </div>
+    <div class="modal-btn-wrapper">
+        <button>취소</button>
+        <button>추가</button>
+    </div>`;
+
+function createAddPaymetModalContent() {
+    return createElement('div', { class: 'modal-content' }, modalConentHTML);
 }
