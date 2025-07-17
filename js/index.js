@@ -1,6 +1,6 @@
 // js/index.js
 import { initCalendar } from "./function/header.js";
-import { initInputForm } from "./function/input-form.js";
+import { initRenderDummyData } from "./function/renderDummyData.js";
 import { initListener } from "./listener/totalListener.js";
 import { deleteEntries } from "./function/entry/entry.js";
 import { initFilterButtons } from "./function/filterEntries.js";
@@ -26,7 +26,7 @@ render();
 // });
 initCalendar();
 
-initInputForm();
+initRenderDummyData();
 initListener();
 deleteEntries();
 initFilterButtons();

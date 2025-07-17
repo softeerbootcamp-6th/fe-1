@@ -1,50 +1,18 @@
-//js/input-form.js
-import { updateTotalAmounts } from "./totalAmount.js";
-import { sharedState } from "../state/state.js";
-import { renderCategoryOptions } from "./categoryRender.js";
+import { store } from "../../js/state/store.js";
+import { sharedState } from "../../js/state/state.js";
+import { updateTotalAmounts } from "../../js/function/totalAmount.js";
+import { currentMonth, currentYear } from "../../js/function/header.js";
+import { category } from "../../js/state/data.js";
 import {
-  updateDataToServer,
   saveEntriesToServer,
   loadEntriesFromServer,
-} from "../api/api.js";
-import { currentMonth, currentYear } from "./header.js";
-import { getDateFromServer, updateDateSectionTotals } from "./entry/entry.js";
-import { category } from "../state/data.js";
-import { store } from "../state/store.js";
+} from "../../js/api/api.js";
+import {
+  updateDateSectionTotals,
+  getDateFromServer,
+} from "../../js/function/entry/entry.js";
 
-const entries = sharedState.entries;
-
-export function initInputForm() {
-  const addBtn = document.getElementById("add-btn");
-
-  addBtn.addEventListener("click", () => addEntry());
-
-  // 초기 더미 데이터 로드
-  async function loadDummyEntries(currentDate) {
-    const entriesFromServer = await loadEntriesFromServer(currentDate);
-
-    if (!Array.isArray(entriesFromServer)) {
-      console.log("No entries found for the current date.");
-      return;
-    }
-    entriesFromServer.forEach((entry) => {
-      getDateFromServer(entry);
-      entries.push(entry);
-    });
-    updateTotalAmounts();
-
-    // 캘린더 뷰 총액 업데이트
-    import("./calendarTotalAmount.js").then((module) => {
-      module.updateCalendarTotalAmount();
-    });
-  }
-  const currentDate = `${currentYear}-${String(currentMonth).padStart(2, "0")}`;
-  loadDummyEntries(currentDate);
-
-  renderCategoryOptions();
-}
-
-function addEntry() {
+export function addEntry() {
   const entry = getEntryDate();
   sharedState.entries.push(entry);
   addEntryToDOM(entry);
@@ -55,7 +23,6 @@ function addEntry() {
   document.getElementById("desc").value = "";
   document.getElementById("amount").placeholder = "0";
 
-  const { isIncome, selectedCategory, selectedMethod } = store.getState();
   store.setState({
     selectedMethod: null,
     selectedCategory: null,
@@ -66,7 +33,7 @@ function addEntry() {
   categoryDisplay.textContent = "선택하세요";
 }
 
-function getEntryDate() {
+export function getEntryDate() {
   const {
     isIncome,
     selectedCategory,
@@ -121,7 +88,6 @@ export async function addEntryToDOM(entry) {
   //     return;
   //   }
   // }
-  console.log("entry", entry);
 
   const entryList = document.getElementById("entry-list");
 
@@ -199,59 +165,24 @@ export async function addEntryToDOM(entry) {
   updateDateSectionTotals(entry.date);
 }
 
-// function deleteEntries() {
-//   //이벤트 위임 방식
-//   document.getElementById("entry-list").addEventListener("click", (e) => {
-//     console.log("deleteEntries 이벤트 리스너 작동");
-//     // 삭제 버튼 또는 내부 요소 클릭 시
-//     const deleteBtn = e.target.closest(".delete-btn");
-//     if (!deleteBtn) {
-//       //수정
-//       const entryRow = e.target.closest(".entry-row");
+const entries = sharedState.entries;
 
-//       if (!entryRow) return;
-//       const id = Number(entryRow.dataset.id);
-//       const entry = sharedState.entries.find((entry) => entry.id === id);
+// 초기 더미 데이터 로드
+export async function loadDummyEntries(currentDate) {
+  const entriesFromServer = await loadEntriesFromServer(currentDate);
 
-//       const toggleSign = document.getElementById("toggle-sign");
-//       if (entry.isIncome) {
-//         toggleSign.textContent = "+";
-//         toggleSign.classList.toggle("minus", !entry.isIncome);
-//         sharedState.isIncome = true;
-//         renderCategoryOptions();
-//       } else {
-//         toggleSign.textContent = "-";
-//         toggleSign.classList.toggle("minus", !entry.isIncome);
-//         sharedState.isIncome = false;
-//         renderCategoryOptions();
-//       }
+  if (!Array.isArray(entriesFromServer)) {
+    console.log("No entries found for the current date.");
+    return;
+  }
+  entriesFromServer.forEach((entry) => {
+    getDateFromServer(entry);
+    entries.push(entry);
+  });
+  updateTotalAmounts();
 
-//       // 결제수단 표시
-//       document.getElementById("dropdown-display").textContent = entry.method;
-//       sharedState.selectedMethod = entry.method;
-
-//       // 카테고리 표시
-//       document.getElementById("category-display").textContent = entry.category;
-//       sharedState.selectedCategory = entry.category;
-
-//       document.getElementById("date").value = entry.date;
-//       document.getElementById("amount").value = entry.amount.toLocaleString();
-//       document.getElementById("desc").value = entry.desc;
-
-//       sharedState.entryId = entry.id; // sharedState에 entryId 저장
-
-//       return;
-//     }
-//     console.log("삭제 버튼 클릭됨");
-//     deleteBtn.addEventListener("click", (e) => {
-//       createModal({
-//         title: "삭제하시겠습니까?",
-//         confirmText: "삭제하기",
-//         cancelText: "취소",
-//         onConfirm: () => deleteEntryConfirm(deleteBtn),
-//         onCancel: () => console.log("삭제 취소"),
-//       });
-//       return;
-//     });
-//   });
-// }
+  //   // 캘린더 뷰 총액 업데이트
+  //   import("./calendarTotalAmount.js").then((module) => {
+  //     module.updateCalendarTotalAmount();
+  //   });
+}

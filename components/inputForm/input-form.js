@@ -1,3 +1,5 @@
+import { addEntry } from "./input-form-util.js";
+
 export default function createInputForm() {
   const inputForm = document.createElement("div");
   inputForm.className = "input-form";
@@ -62,6 +64,10 @@ export default function createInputForm() {
   //   const dropdownPanel = document.getElementById("dropdown-panel");
   //   dropdownPanel.classList.toggle("hidden");
   // });
+
+  inputForm.querySelector("#add-btn")?.addEventListener("click", () => {
+    addEntry();
+  });
 
   return inputForm;
 }
