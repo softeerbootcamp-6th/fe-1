@@ -12,8 +12,6 @@ class ListStore extends Store {
       income: true,
     };
     this.viewData = this.#getViewDataFromData([...initData]);
-    console.log(this.data);
-    console.log(this.viewData);
   }
 
   #getViewDataFromData(data) {
@@ -72,12 +70,10 @@ class ListStore extends Store {
   }
 }
 
-export const listStore = new ListStore(DummyList);
-// ListApi.getList().then((data) => {
-//   if (data) {
-//     listStore.dispatch("initListItem", data);
-//   }
-// });
+export const listStore = new ListStore([]);
+ListApi.getList().then((data) => {
+  listStore.dispatch("initListItem", data);
+});
 dateStore.subscribe(() => {
   listStore.dispatch("initListItem");
 });

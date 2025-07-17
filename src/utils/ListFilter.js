@@ -1,6 +1,10 @@
 export const ListFilter = {
   groupTransactionsByMonth: (transactions, date) => {
     return transactions
+      .map((transaction) => ({
+        ...transaction,
+        date: new Date(transaction.date),
+      }))
       .filter(
         (transaction) =>
           transaction.date.getMonth() + 1 === date.month &&
