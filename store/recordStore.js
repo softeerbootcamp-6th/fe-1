@@ -22,7 +22,6 @@ RecordStore.prototype.init = function () {
 
 // 현재 레코드 값 불러오는 함수
 RecordStore.prototype.getRecords = function () {
-  console.log(this);
   return this.records;
 };
 
