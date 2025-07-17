@@ -27,9 +27,6 @@ export default function categoryInputOption(sign) {
                 (item) =>
                     `<li id="category-line" data-value="${item}">
                         <span class="lt-12">${item}</span>
-                        <button>
-                            <img src="/public/red-closed.svg" />
-                        </button>
                     </li>`,
             )
             .join('')}
@@ -38,8 +35,8 @@ export default function categoryInputOption(sign) {
     const $categoryOptionItem = createElement(
         'ul',
         {
-            id: 'dropdownList',
-            class: 'dropdown-list',
+            id: 'dropdown-List-category',
+            class: 'dropdown-list-category',
         },
         $categoryOptionItemInnerHtml,
     );
@@ -48,15 +45,13 @@ export default function categoryInputOption(sign) {
         const $targetLine = e.target.closest('#category-line');
         const selectedCategory = $targetLine.getAttribute('data-value');
 
-        const $dropdownList = document.getElementById('dropdownList');
+        const $dropdownList = document.getElementById('dropdown-List-category');
         const $background = $dropdownList.nextElementSibling;
 
-        console.log($dropdownList);
-        console.log($background);
         $dropdownList.remove();
         $background.remove();
 
-        document.getElementById('dropdownToggle').textContent =
+        document.getElementById('dropdown-toggle-category').textContent =
             selectedCategory;
         formData.setCategory(selectedCategory);
     });

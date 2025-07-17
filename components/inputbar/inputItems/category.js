@@ -4,11 +4,11 @@ import categoryInputOption from './categoryOption.js';
 
 function categoryInputTpl() {
     return `
-        <div class="dropdown">
-            <span class="dropdown-main">
+        <div class="dropdown-category">
+            <span class="dropdown-main-category">
                 <label for="categoryInput" class="dropdown-label lt-12">분류</label>
                 <span class="select-btn">
-                    <span id="dropdownToggle" class="dropdown-btn sb-12">
+                    <span id="dropdown-toggle-category" class="dropdown-btn sb-12">
                         선택하세요
                     </span>
                     <img width="32" height="16" src="/public/chevron-down.svg"/>
@@ -29,10 +29,11 @@ export default function createCategoryInput() {
     );
 
     $categoryInputItem
-        .querySelector('.dropdown-main')
+        .querySelector('.dropdown-main-category')
         .addEventListener('click', () => {
             const sign = formData.sign;
-            const $dropdown = $categoryInputItem.querySelector('.dropdown');
+            const $dropdown =
+                $categoryInputItem.querySelector('.dropdown-category');
             if (sign) {
                 $dropdown.appendChild(categoryInputOption(sign));
             } else {
@@ -49,7 +50,7 @@ export default function createCategoryInput() {
 
             $backgroud.addEventListener('click', (e) => {
                 e.stopPropagation();
-                $dropdown.querySelector('#dropdownList').remove();
+                $dropdown.querySelector('#dropdown-List-category').remove();
                 $backgroud.remove();
             });
         });
