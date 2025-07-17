@@ -50,6 +50,7 @@ export const ListItem = (item) => {
       if (e.target.closest(".delete-button")) {
         // 리스트에서 삭제
         listStore.dispatch("removeListItemByUID", uid);
+        console.log(listItem);
       } else {
         // 폼에 반영하여 수정
         const item = listStore.data.find((partData) => partData.uid === uid);

@@ -6,49 +6,67 @@ import { Store } from "./store.js";
 class ListStore extends Store {
   constructor(initData) {
     super(initData);
-    this.originData = [...initData]; //원본+화면에 나타내지 않는 요소
     this.moneyTypeFilter = {
       expense: true,
       income: true,
     };
+    this.viewData = this.#getViewDataFromData(initData);
   }
 
-  // dispatcher 패턴으로 render 함수 호출하여 실행
+  #getViewDataFromData(data) {
+    const { year, month } = dateStore.data;
+    const monthData = ListFilter.groupTransactionsByMonth(data, {
+      year,
+      month,
+    });
+    const filterdMonthData = ListFilter.groupTransactionsByMoneyType(
+      monthData,
+      this.moneyTypeFilter
+    );
+    return filterdMonthData;
+  }
+
   dispatch(type, newItem) {
     switch (type) {
-      case "addListItem":
-        this.originData.push({
+      case "initListItem": {
+        this.moneyTypeFilter = {
+          expense: true,
+          income: true,
+        };
+        this.viewData = this.#getViewDataFromData(this.data);
+        break;
+      }
+      case "addListItem": {
+        const newListItem = {
           ...newItem,
           uid: crypto.randomUUID(),
-        });
-        this.originData = this.originData.sort((a, b) => b.date - a.date);
-        this.data = [...this.originData];
+        };
+        this.data.push(newListItem);
+        this.viewData = this.#getViewDataFromData(this.data);
         break;
-      case "removeListItemByUID":
-        this.originData = this.originData.filter(
-          (partData) => partData.uid !== newItem
-        );
-        this.data = [...this.originData];
+      }
+      case "removeListItemByUID": {
+        this.data = this.data.filter((item) => item.uid !== newItem);
+        this.viewData = this.#getViewDataFromData(this.data);
         break;
-      case "filterList":
+      }
+      case "filterList": {
         if (newItem === "income") {
           this.moneyTypeFilter.income = !this.moneyTypeFilter.income;
         } else {
           this.moneyTypeFilter.expense = !this.moneyTypeFilter.expense;
         }
-        this.data = ListFilter.groupTransactionsByMoneyType(
-          this.originData,
-          this.moneyTypeFilter
-        );
+        this.viewData = this.#getViewDataFromData(this.data);
         break;
+      }
     }
-    console.log(this.data);
-    this.notify();
+
+    console.log("viewData (렌더링 대상):", this.viewData);
+    this.notify("viewData");
   }
 }
 
-const groupedListByMonth = ListFilter.groupTransactionsByMonth(DummyList, {
-  year: dateStore.data.year,
-  month: dateStore.data.month,
+export const listStore = new ListStore(DummyList);
+dateStore.subscribe(() => {
+  listStore.dispatch("initListItem");
 });
-export const listStore = new ListStore(groupedListByMonth);

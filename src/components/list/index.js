@@ -30,7 +30,7 @@ export const List = () => {
   const listOverview = ElementManager.renderElement("div", "list-overview");
   const listCounter = ElementManager.renderElement("div", "list-counter");
   listOverview.appendChild(listCounter);
-  renderListOverviewCounter(listStore.data);
+  renderListOverviewCounter(listStore.viewData);
 
   const listTypeFilterWrapper = ElementManager.renderElement(
     "div",
@@ -45,7 +45,7 @@ export const List = () => {
   // render list wrapper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
   list.appendChild(listWrapper);
-  renderListWrapper(listStore.data);
+  renderListWrapper(listStore.viewData);
 
   // rerender using dispatcher
   // 데이터가 업데이트되는 화면만 부분 렌더링

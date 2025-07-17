@@ -9,7 +9,8 @@ export const ListFilter = {
       .sort((a, b) => b.date - a.date)
       .map((item) => ({
         ...item,
-        uid: crypto.randomUUID(),
+        //init시 생성, 존재하면 그대로 사용
+        uid: item.uid ? item.uid : crypto.randomUUID(),
       }));
   },
   groupTransactionsByDate: (transactions) => {
