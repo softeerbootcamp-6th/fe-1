@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     document.getElementById(id).innerHTML = html;
   }
 
-  await loadComponent("input-form-container", "../components/input-form.html");
+  // await loadComponent("input-form-container", "../components/input-form.html");
   //   await loadComponent("modal-container", "components/modal.html");
   //   await loadComponent("entry-list-container", "components/entry-list.html");
 
