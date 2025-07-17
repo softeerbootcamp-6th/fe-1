@@ -36,7 +36,7 @@
 }
 
 .amount-info {
-    width: 186px;
+    flex: 1;
     text-align: right;
 }
 
@@ -96,4 +96,27 @@
 
 .amount-line {
     margin-left: 10px;
+}
+
+.daily-line:hover {
+    background-color: var(--neutral-surface-point);
+}
+
+.daily-delete-btn {
+    all: unset;
+    width: 50px;
+    display: none;
+    height: 100%;
+}
+
+.daily-delete-btn:hover {
+    cursor: pointer;
+}
+
+.daily-line:hover .daily-delete-btn {
+    display: block;
+}
+
+.selected {
+    background-color: var(--neutral-surface-point);
 }

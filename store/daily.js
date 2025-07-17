@@ -10,20 +10,23 @@ export const dailyData = {
     async fetch() {
         try {
             const response = await fetch('/data/DailyInfo.json');
-            if (!response.ok) throw new Error('데이터 로딩 실패');
+            if (!response.ok)
+                throw new Error('수입/지출 내역 데이터 로딩 실패');
             this.data = await response.json();
-        } catch (error) {}
+        } catch (error) {
+            console.error('데이터 로딩 중 오류 발생:', error?.message ?? error);
+        }
     },
 
     uploadDailyData(data) {
         const { amount, category, date, description, payment, sign } = data;
-        let numberAmount = Number(amount.replace(/,/g, ''));
-        if (!sign) numberAmount *= -1;
+        if (!sign) amount *= -1;
         const newItems = {
+            id: crypto.randomUUID(),
             category,
             description,
             payment,
-            amount: numberAmount,
+            amount,
             createAt: new Date().toISOString(),
         };
 
@@ -41,6 +44,29 @@ export const dailyData = {
                 this.data.splice(index, 0, newGroup);
             }
         }
+    },
+
+    removeDailyData(id) {
+        this.data = this.data.reduce((acc, day) => {
+            const filteredItems = day.items.filter((item) => item.id !== id);
+            if (filteredItems.length > 0) {
+                acc.push({
+                    ...day,
+                    items: filteredItems,
+                });
+            }
+            return acc;
+        }, []);
+    },
+
+    findDailyDataById(id) {
+        for (const day of this.data) {
+            const item = day.items.find((item) => item.id === id);
+            if (item) {
+                return { date: day.date, items: item };
+            }
+        }
+        return null;
     },
 
     getDailyByYearAndMonth(year, month) {
