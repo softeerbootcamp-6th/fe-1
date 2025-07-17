@@ -9,11 +9,10 @@ class HeaderObserver {
   }
 
   update() {
-    renderHeader({
-      curDate: DateState.getDate(),
-      navBarState: NavBarState.getNavBarState(),
-    });
+    renderHeader();
   }
 }
 
-export default new HeaderObserver();
+export function addHeaderObserver() {
+  new HeaderObserver();
+}
