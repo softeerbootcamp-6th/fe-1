@@ -11,8 +11,8 @@ import { generateFormData } from './generateFormData.js';
 const addEventListenerToSignBtn = ({ els }) => {
   // 부호 버튼 클릭 시 부호를 토글하고 카테고리 옵션을 다시 채움
   els.signBtn.addEventListener('click', () => {
-    toggleSign(els);
-    fillCats(els);
+    toggleSign({ els });
+    fillCats({ els });
   });
 };
 
