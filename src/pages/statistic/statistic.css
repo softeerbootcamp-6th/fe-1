@@ -120,6 +120,20 @@
   margin: 0 auto;
 }
 
+/* 도넛 차트 */
+.donut-arc {
+  cursor: pointer;
+  transition: filter 0.2s 0.2, transform 0.2s;
+  z-index: 1;
+}
+
+.donut-arc:hover {
+  filter: brightness(1.1) drop-shadow(-4px 4px rgba(0, 0, 0, 0.509));
+  stroke: var(--neutral-border-default);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
 /* 카테고리 목록 */
 .stats-categories {
   background: var(--neutral-surface-default);
@@ -138,6 +152,14 @@
   color: var(--neutral-text-default);
   align-items: center;
   border-radius: 6px;
+  transition: background 0.25s, box-shadow 0.25s, transform 0.25s, color 0.25s;
+}
+
+.category-item:hover {
+  background: rgba(120, 160, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(80, 120, 200, 0.1);
+  transform: scale(1.03);
+  color: #2a3a6b;
 }
 
 .category-item:last-of-type {
