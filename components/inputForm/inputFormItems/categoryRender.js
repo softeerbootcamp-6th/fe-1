@@ -1,8 +1,8 @@
-import { sharedState } from "../../../store/state.js";
+import { store } from "../../../store/store.js";
 import { updateTotalAmounts } from "../../main/ledger/totalAmount/totalAmount.js";
 
 export function renderCategoryOptions() {
-  let isIncome = sharedState.isIncome; // 수입/지출 여부
+  let isIncome = store.getState().isIncome; // sharedState에서 isIncome 가져오기
   const categoryPanel = document.getElementById("category-panel");
   const incomeCategories = ["월급", "용돈", "기타수입"];
   const expenseCategories = [

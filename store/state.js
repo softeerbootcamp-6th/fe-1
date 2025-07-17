@@ -1,9 +1,4 @@
 export const sharedState = {
-  //수입 지출 요소
-  isIncome: true,
-  selectedMethod: null,
-  selectedCategory: null,
-
   // 필터링 상태
   showIncome: true,
   showExpense: true,
