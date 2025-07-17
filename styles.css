@@ -609,7 +609,8 @@ table {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: right;
-  height: 120px;
+  min-height: 120px;
+  background: var(--nuetral-surface-default);
 }
 
 .calendar-cell {
@@ -626,7 +627,6 @@ table {
 }
 
 .calendar-cell.empty {
-  background: none;
   cursor: default;
 }
 
