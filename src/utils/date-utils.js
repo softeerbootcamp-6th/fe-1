@@ -1,5 +1,5 @@
 import { monthNames } from "../layouts/headers/header-ui-utils.js";
-import { updateFormValidation } from "../pages/main/main-ui-utils.js";
+import { updateFormValidation } from "../pages/main/utils/main-ui-utils.js";
 import { dateStore } from "../store/date-store.js";
 
 // 날짜 포맷 함수
