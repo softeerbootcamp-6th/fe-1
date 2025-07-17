@@ -1,18 +1,19 @@
 class IncomeExpenseStore {
   constructor() {
     this.incomeExpenseData = {};
+    this.listenrs = [];
   }
 
   // incomeExpenseData 불러 오기
   // promise 반환
   loadIncomeExpenseData() {
-    const dataPromise = fetch("./data/incomeExpenseData.json")
-      .then((response) => response.json())
-      .then((data) => {
+    const dataPromise = fetch('./data/incomeExpenseData.json')
+      .then(response => response.json())
+      .then(data => {
         this.incomeExpenseData = data;
       })
-      .catch((error) => {
-        console.error("데이터 로딩 실패:", error);
+      .catch(error => {
+        console.error('데이터 로딩 실패:', error);
         this.incomeExpenseData = {};
       });
 
@@ -20,11 +21,11 @@ class IncomeExpenseStore {
   }
 
   filterByMonth({ year, month }) {
-    const currentKey = `${year}-${String(month).padStart(2, "0")}`;
+    const currentKey = `${year}-${String(month).padStart(2, '0')}`;
     const monthData = Object.fromEntries(
-      Object.entries(this.incomeExpenseData).filter(([key]) =>
-        key.startsWith(currentKey),
-      ),
+      Object.entries(this.incomeExpenseData)
+        .filter(([key]) => key.startsWith(currentKey))
+        .sort((a, b) => new Date(a[0]) - new Date(b[0]))
     );
 
     return monthData;
@@ -44,20 +45,27 @@ class IncomeExpenseStore {
     const dateData = this.incomeExpenseData[dateInputValue];
     if (dateData) {
       // ID 생성 (해당 날짜 데이터의 max ID + 1)
-      dataID =
-        dateData.income_expense[dateData.income_expense.length - 1].id + 1;
+      const dataID = dateData[dateData.length - 1].id + 1;
       newIncomeExpense.id = dataID;
 
       // dateData에 새로운 지출/수입 추가
-      dateData.income_expense.push(newIncomeExpense);
+      dateData.push(newIncomeExpense);
 
       // date 데이터 비어있을 때
     } else {
-      this.incomeExpenseData.push({
-        date: dateInputValue,
-        income_expense: [newIncomeExpense],
-      });
+      this.incomeExpenseData[dateInputValue] = [newIncomeExpense];
     }
+    this.notify();
+  }
+
+  subscribe(listener) {
+    this.listenrs.push(listener);
+  }
+
+  notify() {
+    this.listenrs.forEach(listener => {
+      listener();
+    });
   }
 }
 
