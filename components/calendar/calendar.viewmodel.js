@@ -2,7 +2,12 @@ import {
   getTotalIncomeData,
   getTotalExpenseData,
 } from "../../utils/transaction.js";
-import { transactionStore } from "../../store/index.js";
+import { dateStore, transactionStore } from "../../store/index.js";
+import {
+  createCalendarHeader,
+  createCalendarBody,
+  createCalendarMonthlyInfo,
+} from "./calendar.view.js";
 
 export function getCalendarMatrix(year, month) {
   const firstDay = new Date(year, month - 1, 1);
@@ -38,4 +43,26 @@ export function getDailySummary(transactions) {
   const expense = getTotalExpenseData(transactions).totalExpenseAmount;
   const total = income + expense;
   return { income, expense, total };
+}
+
+export function renderCalendar(container) {
+  container.innerHTML = `
+    ${createCalendarHeader()}
+    ${createCalendarBody(
+      getCalendarMatrix(dateStore.getYear(), dateStore.getMonth()),
+      dateStore.getYear(),
+      dateStore.getMonth(),
+      transactionStore.getGroupedTransactionsByDate(
+        dateStore.getYear(),
+        dateStore.getMonth()
+      ),
+      getDailySummary
+    )}
+  `;
+}
+
+export function renderCalendarInfo(container) {
+  container.innerHTML = createCalendarMonthlyInfo(
+    getMonthlySummary(dateStore.getYear(), dateStore.getMonth())
+  );
 }

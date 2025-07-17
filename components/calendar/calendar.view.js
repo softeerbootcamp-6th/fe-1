@@ -1,14 +1,8 @@
 import { formatMoney } from "../../utils/format.js";
-import { dateStore, transactionStore } from "../../store/index.js";
-import {
-  getCalendarMatrix,
-  getMonthlySummary,
-  getDailySummary,
-} from "./calendar.model.js";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
-function createCalendarHeader(WEEKDAYS) {
+export function createCalendarHeader() {
   return `
     <div class="calendar-header light-12">
       ${WEEKDAYS.map((day) => `<div>${day}</div>`).join("")}
@@ -16,7 +10,13 @@ function createCalendarHeader(WEEKDAYS) {
   `;
 }
 
-function createCalendarBody(weeks, year, month, transactionListByDate) {
+export function createCalendarBody(
+  weeks,
+  year,
+  month,
+  transactionListByDate,
+  getDailySummary
+) {
   return `
     <div class="calendar-body">
       ${weeks
@@ -25,7 +25,13 @@ function createCalendarBody(weeks, year, month, transactionListByDate) {
         <div class="calendar-row">
           ${week
             .map((day) =>
-              createCalendarCell(day, year, month, transactionListByDate)
+              createCalendarCell(
+                day,
+                year,
+                month,
+                transactionListByDate,
+                getDailySummary
+              )
             )
             .join("")}
         </div>
@@ -36,7 +42,13 @@ function createCalendarBody(weeks, year, month, transactionListByDate) {
   `;
 }
 
-function createCalendarCell(day, year, month, transactionListByDate) {
+export function createCalendarCell(
+  day,
+  year,
+  month,
+  transactionListByDate,
+  getDailySummary
+) {
   if (!day) return `<div class="calendar-cell empty"></div>`;
 
   const key = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
@@ -77,8 +89,8 @@ function createCalendarCell(day, year, month, transactionListByDate) {
     `;
 }
 
-function createCalendarMonthlyInfo(year, month) {
-  const { income, expense, total } = getMonthlySummary(year, month);
+export function createCalendarMonthlyInfo(monthlySummary) {
+  const { income, expense, total } = monthlySummary;
   return `
   <div class="calendar-info flex-between serif-14">
       <div class="flex-row gap-8">
@@ -88,26 +100,4 @@ function createCalendarMonthlyInfo(year, month) {
       <div>총 ${formatMoney(total)} 원</div>
   </div>
   `;
-}
-
-export function renderCalendar(container) {
-  container.innerHTML = `
-    ${createCalendarHeader(WEEKDAYS)}
-    ${createCalendarBody(
-      getCalendarMatrix(dateStore.getYear(), dateStore.getMonth()),
-      dateStore.getYear(),
-      dateStore.getMonth(),
-      transactionStore.getGroupedTransactionsByDate(
-        dateStore.getYear(),
-        dateStore.getMonth()
-      )
-    )}
-  `;
-}
-
-export function renderCalendarInfo(container) {
-  container.innerHTML = createCalendarMonthlyInfo(
-    dateStore.getYear(),
-    dateStore.getMonth()
-  );
 }
