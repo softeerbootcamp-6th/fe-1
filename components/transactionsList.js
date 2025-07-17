@@ -1,20 +1,29 @@
-import {
-  getTransactionsByYearMonth,
-  groupTransactionsByDate,
-  deleteTransaction,
-  getTransactionById,
-  monthlyTotalData,
-} from "../utils/transaction.js";
-import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
+import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
 import { CATEGORY_NAME } from "../constants/category.js";
 import { formatMoney } from "../utils/format.js";
 import { fillFormWithTransaction, cancelEditMode } from "./inputBar.js";
-import { renderMonthlyInfo, renderTotalCount } from "./monthlyInfo.js";
-import { renderCalendar, renderCalendarInfo } from "./calendar.js";
+import { dateStore, transactionStore } from "../store/index.js";
 
 // 클릭된 행 상태 관리
 let selectedRowId = null;
 let isExternalClickHandlerRegistered = false;
+
+export function isTransactionVisible(
+  transaction,
+  isIncomeChecked,
+  isExpenseChecked
+) {
+  if (isIncomeChecked && isExpenseChecked) {
+    return true;
+  }
+  if (!isIncomeChecked && isExpenseChecked) {
+    return transaction.amount < 0;
+  }
+  if (isIncomeChecked && !isExpenseChecked) {
+    return transaction.amount > 0;
+  }
+  return false;
+}
 
 // 선택된 행의 스타일을 업데이트하는 함수
 function updateSelectedRowStyle(selectedRowId) {
@@ -35,7 +44,7 @@ function handleExternalClick(e) {
   if (
     !e.target.closest(".transaction-row") &&
     !e.target.closest(".input-bar") &&
-    !e.target.closest("#transaction-list-container")
+    !e.target.closest(".transaction-list-container")
   ) {
     selectedRowId = null;
     updateSelectedRowStyle(null);
@@ -77,74 +86,68 @@ function createTransactionRow(transaction) {
 }
 
 export function createTransactionList(isIncomeChecked, isExpenseChecked) {
-  const transactionListByYearMonth = getTransactionsByYearMonth(
-    getCurrentYear(),
-    getCurrentMonth()
+  // 날짜별로 그룹핑된 거래 객체
+  const transactionListByDate = transactionStore.getGroupedTransactionsByDate(
+    dateStore.getYear(),
+    dateStore.getMonth()
   );
 
-  // 체크박스 상태에 따라 거래내역 필터링
-  const filteredTransactions = transactionListByYearMonth.filter(
-    (transaction) => {
-      if (isIncomeChecked && isExpenseChecked) {
-        // 둘 다 체크된 경우: 모든 거래 표시
-        return true;
-      } else if (!isIncomeChecked && isExpenseChecked) {
-        // 수입 해제, 지출 체크: 지출만 표시
-        return transaction.amount < 0;
-      } else if (isIncomeChecked && !isExpenseChecked) {
-        // 수입 체크, 지출 해제: 수입만 표시
-        return transaction.amount > 0;
-      } else {
-        // 둘 다 해제된 경우: 모든 거래 미표시
-        return false;
-      }
+  // 날짜별로 필터링된 거래 객체 생성
+  const filteredTransactionsByDate = Object.entries(
+    transactionListByDate
+  ).reduce((acc, [date, transactionList]) => {
+    const filteredList = transactionList.filter((transaction) =>
+      isTransactionVisible(transaction, isIncomeChecked, isExpenseChecked)
+    );
+    if (filteredList.length > 0) {
+      acc[date] = filteredList;
     }
-  );
+    return acc;
+  }, {});
 
-  const transactionListByDate = groupTransactionsByDate(filteredTransactions);
-
-  const sections = Object.entries(transactionListByDate)
-    .map(([date, transactionList]) => {
-      const totalIncome = transactionList
-        .filter((transaction) => transaction.amount > 0)
-        .reduce((sum, transaction) => sum + transaction.amount, 0);
-      const totalExpense = transactionList
-        .filter((transaction) => transaction.amount < 0)
-        .reduce((sum, transaction) => sum + transaction.amount, 0);
+  // 날짜별로 섹션 생성
+  const sections = Object.entries(filteredTransactionsByDate).reduce(
+    (acc, [date, transactionList]) => {
+      const { totalIncomeAmount } = totalIncomeData(transactionList);
+      const { totalExpenseAmount } = totalExpenseData(transactionList);
 
       const header = `
         <div class="flex-between serif-14">
           <div>${date}</div>
           <div> 
-            ${
-              isIncomeChecked && totalIncome > 0
-                ? `수입 ${formatMoney(totalIncome)}원`
-                : ""
-            }
-            ${
-              isExpenseChecked && totalExpense < 0
-                ? `지출 ${formatMoney(totalExpense)}원`
-                : ""
-            }
-          </div>
+          ${
+            isIncomeChecked && totalIncomeAmount > 0
+              ? `수입 ${formatMoney(totalIncomeAmount)}원`
+              : ""
+          }
+          ${
+            isExpenseChecked && totalExpenseAmount < 0
+              ? `지출 ${formatMoney(totalExpenseAmount)}원`
+              : ""
+          }
+       </div>
         </div>
       `;
 
-      const rows = transactionList.reduce((acc, transaction) => {
+      const rows = transactionList.reduce((rowAcc, transaction) => {
         const row = createTransactionRow(transaction);
-        return acc + row;
+        return rowAcc + row;
       }, "");
 
-      return `
+      return (
+        acc +
+        `
         ${header}
         <table>
             <tbody class="tbody-border">
                 ${rows}
             </tbody>
         </table>
-      `;
-    })
-    .join("");
+      `
+      );
+    },
+    ""
+  );
 
   return `
       ${sections}
@@ -152,8 +155,8 @@ export function createTransactionList(isIncomeChecked, isExpenseChecked) {
 }
 
 export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
-  const transactionListContainer = document.getElementById(
-    "transaction-list-container"
+  const transactionListContainer = document.querySelector(
+    ".transaction-list-container"
   );
   if (transactionListContainer) {
     transactionListContainer.innerHTML = createTransactionList(
@@ -166,37 +169,13 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
       btn.addEventListener("click", (e) => {
         e.stopPropagation(); // 행 클릭 이벤트 방지
         const id = Number(btn.dataset.id);
-        deleteTransaction(getCurrentYear(), getCurrentMonth(), id);
+        transactionStore.deleteTransaction(
+          dateStore.getYear(),
+          dateStore.getMonth(),
+          id
+        );
         // 삭제 후 선택 상태 초기화
         selectedRowId = null;
-        const monthlyInfoContainer = document.querySelector(
-          "#monthly-info-container"
-        );
-        renderMonthlyInfo(
-          monthlyInfoContainer,
-          isIncomeChecked,
-          isExpenseChecked
-        );
-        renderTotalCount(
-          monthlyInfoContainer,
-          isIncomeChecked,
-          isExpenseChecked,
-          monthlyTotalData(
-            getTransactionsByYearMonth(getCurrentYear(), getCurrentMonth())
-          )
-        );
-        renderTransactionList(isIncomeChecked, isExpenseChecked);
-
-        const calendarContainer = document.querySelector(".calendar-container");
-        if (calendarContainer) {
-          renderCalendar(calendarContainer);
-        }
-        const calendarInfoContainer = document.querySelector(
-          ".calendar-info-container"
-        );
-        if (calendarInfoContainer) {
-          renderCalendarInfo(calendarInfoContainer);
-        }
       });
     });
 
@@ -211,9 +190,9 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
           }
 
           const id = Number(row.dataset.id);
-          const transaction = getTransactionById(
-            getCurrentYear(),
-            getCurrentMonth(),
+          const transaction = transactionStore.getTransactionById(
+            dateStore.getYear(),
+            dateStore.getMonth(),
             id
           );
 

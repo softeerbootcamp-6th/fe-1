@@ -1,8 +1,6 @@
-import {
-  renderMainPage,
-  renderCalendarPage,
-  renderChartPage,
-} from "../pages.js";
+import { renderMainPage } from "../pages/mainPage.js";
+import { renderCalendarPage } from "../pages/calendarPage.js";
+import { renderChartPage } from "../pages/chartPage.js";
 import { updateNavigationActive } from "../components/header.js";
 
 const routes = {

@@ -1,13 +1,16 @@
-import { renderHeader } from "./components/header.js";
+import { renderHeader, initHeader } from "./components/header.js";
 import { render, navigate } from "./utils/routes.js";
+import { initStore } from "./store/index.js";
 
 const headerContainer = document.getElementById("header-container");
 
 if (headerContainer) {
   renderHeader(headerContainer);
+  initHeader(headerContainer);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await initStore();
   document.body.addEventListener("click", (e) => {
     const link = e.target.closest("a");
     if (link && link.getAttribute("href")) {

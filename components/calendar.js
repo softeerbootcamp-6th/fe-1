@@ -1,11 +1,6 @@
-import { getCurrentYear, getCurrentMonth } from "../utils/currentDate.js";
-import {
-  getTransactionsByYearMonth,
-  groupTransactionsByDate,
-  dailyTotalData,
-  monthlyTotalData,
-} from "../utils/transaction.js";
+import { totalIncomeData, totalExpenseData } from "../utils/transaction.js";
 import { formatMoney } from "../utils/format.js";
+import { dateStore, transactionStore } from "../store/index.js";
 
 const WEEKDAYS = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -19,32 +14,28 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 
   const transactions = transactionListByDate[key] || [];
 
-  const {
-    dailyTotalIncome,
-    dailyTotalExpense,
-    dailyTotalIncomeCount,
-    dailyTotalExpenseCount,
-    dailyTotalAmount,
-    dailyTotalCount,
-  } = dailyTotalData(transactions);
+  const { totalIncomeAmount } = totalIncomeData(transactions);
+  const { totalExpenseAmount } = totalExpenseData(transactions);
 
   const createCalendarTotalIncomeAmount =
-    dailyTotalIncomeCount > 0
+    totalIncomeAmount > 0
       ? `<div class="calendar-amount text-income">${formatMoney(
-          dailyTotalIncome
+          totalIncomeAmount
         )}</div>`
       : ``;
 
   const createCalendarTotalExpenseAmount =
-    dailyTotalExpenseCount > 0
+    totalExpenseAmount < 0
       ? `<div class="calendar-amount text-expense">${formatMoney(
-          dailyTotalExpense
+          totalExpenseAmount
         )}</div>`
       : ``;
 
   const createCalendarTotalAmount =
-    dailyTotalCount > 0
-      ? `<div class="calendar-amount">${formatMoney(dailyTotalAmount)}</div>`
+    totalIncomeAmount + totalExpenseAmount > 0
+      ? `<div class="calendar-amount">${formatMoney(
+          totalIncomeAmount + totalExpenseAmount
+        )}</div>`
       : ``;
 
   return `
@@ -60,29 +51,29 @@ function createCalendarCell(day, year, month, transactionListByDate) {
 }
 
 function createCalendarMonthlyInfo(year, month) {
-  const transactions = getTransactionsByYearMonth(year, month);
-  const { monthlyTotalIncome, monthlyTotalExpense } =
-    monthlyTotalData(transactions);
+  const { totalIncomeAmount } = totalIncomeData(
+    transactionStore.getTransactionsByYearMonth(year, month)
+  );
+  const { totalExpenseAmount } = totalExpenseData(
+    transactionStore.getTransactionsByYearMonth(year, month)
+  );
   return `
   <div class="calendar-info flex-between serif-14">
       <div class="flex-row gap-8">
-          <div>총 수입 ${formatMoney(monthlyTotalIncome)}원</div>
-          <div>총 지출${formatMoney(monthlyTotalExpense)}원</div>
+          <div>총 수입 ${formatMoney(totalIncomeAmount)}원</div>
+          <div>총 지출${formatMoney(totalExpenseAmount)}원</div>
       </div>
-      <div>총 ${formatMoney(monthlyTotalIncome + monthlyTotalExpense)} 원</div>
+      <div>총 ${formatMoney(totalIncomeAmount + totalExpenseAmount)} 원</div>
   </div>
   `;
 }
 
-export function createCalendar(year, month) {
-  const transactions = getTransactionsByYearMonth(year, month);
-  const transactionListByDate = groupTransactionsByDate(transactions);
-
+function getCalendarMatrix(year, month) {
   // month: 1~12
   const firstDay = new Date(year, month - 1, 1);
   const lastDay = new Date(year, month, 0);
 
-  const firstDayOfWeek = firstDay.getDay(); //첫째 날이 시작되는 요일 인덱스
+  const firstDayOfWeek = firstDay.getDay(); // 첫째 날이 시작되는 요일 인덱스
   const daysInMonth = lastDay.getDate(); // 이번 달의 마지막 날의 날짜
 
   const days = [
@@ -97,12 +88,20 @@ export function createCalendar(year, month) {
   }
 
   // 2차원 배열 생성
-  const weeks = days.reduce((acc, _, i) => {
-    if (i % 7 === 0) {
-      acc.push(days.slice(i, i + 7));
-    }
-    return acc;
-  }, []);
+  const weeks = [];
+  for (let i = 0; i < days.length; i += 7) {
+    weeks.push(days.slice(i, i + 7));
+  }
+  return weeks;
+}
+
+export function createCalendar(year, month) {
+  const transactionListByDate = transactionStore.getGroupedTransactionsByDate(
+    year,
+    month
+  );
+
+  const weeks = getCalendarMatrix(year, month);
 
   const calendarHeader = `
     <div class="calendar-header light-12">
@@ -112,18 +111,19 @@ export function createCalendar(year, month) {
 
   const calendarBody = `
     <div class="calendar-body">
-      ${weeks
-        .map(
-          (week) =>
-            `<div class="calendar-row">
-              ${week
-                .map((day) =>
-                  createCalendarCell(day, year, month, transactionListByDate)
-                )
-                .join("")}
-            </div>`
-        )
-        .join("")}
+      ${weeks.reduce(
+        (acc, week) =>
+          acc +
+          `<div class="calendar-row">
+            ${week.reduce(
+              (weekAcc, day) =>
+                weekAcc +
+                createCalendarCell(day, year, month, transactionListByDate),
+              ""
+            )}
+          </div>`,
+        ""
+      )}
     </div>
   `;
 
@@ -131,12 +131,15 @@ export function createCalendar(year, month) {
 }
 
 export function renderCalendar(container) {
-  container.innerHTML = createCalendar(getCurrentYear(), getCurrentMonth());
+  container.innerHTML = createCalendar(
+    dateStore.getYear(),
+    dateStore.getMonth()
+  );
 }
 
 export function renderCalendarInfo(container) {
   container.innerHTML = createCalendarMonthlyInfo(
-    getCurrentYear(),
-    getCurrentMonth()
+    dateStore.getYear(),
+    dateStore.getMonth()
   );
 }

@@ -436,7 +436,7 @@ button img {
   display: block;
 }
 
-#transaction-list-container {
+.transaction-list-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -460,14 +460,6 @@ table {
 .tbody-border {
   border-top: 1px solid var(--nuetral-border-default);
   border-bottom: 1px solid var(--nuetral-border-default);
-}
-
-.td-category {
-  width: 92px;
-  height: 56px;
-  text-align: center;
-  vertical-align: middle;
-  background-color: var(--pastel-lavenderPink);
 }
 
 .category-life {
@@ -642,5 +634,57 @@ table {
 
 .calendar-date {
   padding: 8px 8px;
+  text-align: right;
+}
+
+.chart-page {
+  gap: 20px;
+}
+
+#donut-chart-container {
+  border: 1px solid var(--nuetral-border-default);
+  background: var(--nuetral-surface-default);
+  width: 100%;
+  height: 572px;
+  padding: 20px;
+}
+
+#line-chart-container {
+  display: none;
+  width: 100%;
+  height: 572px;
+}
+
+#donut-chart-legend {
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px;
+  gap: 20px;
+  width: 280px;
+}
+
+.td-category {
+  width: 92px;
+  height: 58px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.legend-item {
+  width: 100%;
+  padding: 0 8px;
+  justify-content: space-between;
+}
+
+.legend-percent {
+  width: 40px;
+  text-align: left;
+}
+
+.legend-amount {
+  width: 100px;
   text-align: right;
 }
