@@ -60,6 +60,7 @@ export const ListItem = (item) => {
         );
       } else {
         // 폼에 반영하여 수정
+        listItem.classList.add("active");
         const item = listStore.data.find((partData) => partData.uid === uid);
         if (item) {
           formStore.dispatch("edit", item);
