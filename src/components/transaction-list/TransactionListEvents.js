@@ -10,7 +10,7 @@ export function addTransactionListEvents() {
     event: "click",
     onEvent: (e) => {
       handleFilterList(e);
-      handleDeleteItem(e);
+      if (handleDeleteItem(e)) return;
       handleUpdateItem(e);
     },
   });
@@ -31,7 +31,7 @@ function handleFilterList(e) {
 // 삭제 함수 (api)
 function handleDeleteItem(e) {
   const itemDiv = e.target.closest(".item");
-  if (!itemDiv) return;
+  if (!itemDiv) return false;
   const deleteBtn = e.target.closest(".delete-btn");
   if (deleteBtn) {
     const itemId = itemDiv.dataset.id;
@@ -45,7 +45,7 @@ function handleDeleteItem(e) {
       .catch((error) => {
         throw error;
       });
-    return;
+    return true;
   }
 }
 
