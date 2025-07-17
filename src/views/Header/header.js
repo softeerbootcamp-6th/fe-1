@@ -1,13 +1,12 @@
-import { headerTemplate } from "./headerTemplate.js";
-import monthState from "../../stores/subjects/MonthState.js";
+import { HeaderTemplate } from "../../views/index.js";
+import {monthState} from "../../stores/subjects/index.js";
 
 const Header = async ({
   selectedNav = "home", // 'home', 'calendar', 'chart'
 } = {}) => {
   const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = headerTemplate;
+  tempDiv.innerHTML = HeaderTemplate;
   const header = tempDiv.firstElementChild;
-
 
   // 🔹 월 정보
   const $year = header.querySelector(".header__year");

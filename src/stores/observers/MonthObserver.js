@@ -1,8 +1,10 @@
-import Observer from "../../utils/observers/Observer.js";
+import { Observer } from "../../utils/index.js";
 import transactionState from "../subjects/TransactionState.js";
 
-export class MonthObserver extends Observer {
+class MonthObserver extends Observer {
   update(monthInfo) {
     transactionState.loadMonthData(`${monthInfo.year}-${monthInfo.month}`);
   }
 }
+
+export default MonthObserver;

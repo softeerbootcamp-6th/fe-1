@@ -1,6 +1,6 @@
-import Observer from "../../utils/observers/Observer.js";
+import { Observer } from "../../utils/index.js";
 
-export class TransactionsObserver extends Observer {
+class TransactionsObserver extends Observer {
   constructor(view) {
     super();
     this.view = view;
@@ -10,3 +10,5 @@ export class TransactionsObserver extends Observer {
     this.view.render(state);
   }
 }
+
+export default TransactionsObserver;

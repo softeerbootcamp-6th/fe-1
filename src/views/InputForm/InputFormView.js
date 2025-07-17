@@ -14,7 +14,7 @@ const CATEGORY_OPTIONS = {
   ],
 };
 
-export class InputFormView {
+class InputFormView {
   constructor() {
     this.$root = document.querySelector(".input-form");
   }
@@ -200,3 +200,5 @@ export class InputFormView {
     $submitButtonImg.src = imgPath;
   }
 }
+
+export default InputFormView;

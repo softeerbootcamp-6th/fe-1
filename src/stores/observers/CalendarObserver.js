@@ -1,6 +1,6 @@
-import Observer from "../../utils/observers/Observer.js";
+import { Observer } from "../../utils/index.js";
 
-export class CalendarObserver extends Observer {
+class CalendarObserver extends Observer {
   constructor(view) {
     super();
     this.view = view;
@@ -33,3 +33,5 @@ export class CalendarObserver extends Observer {
     this.view.render({ dailyTransactions, totalIncome, totalExpense });
   }
 }
+
+export default CalendarObserver;

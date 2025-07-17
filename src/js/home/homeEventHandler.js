@@ -1,8 +1,10 @@
-import transactionState from "../stores/subjects/TransactionState.js";
-import modalState from "../stores/subjects/ModalState.js";
-import deleteModalTemplate from "../views/Modal/DeleteModalTemplate.js";
-import addMethodModalTemplate from "../views/Modal/addMethodModalTemplate.js";
-import deleteMethodModalTemplate from "../views/Modal/deleteMethodModalTemplate.js";
+import { transactionState, modalState } from "../../stores/subjects/index.js";
+
+import {
+  DeleteModalTemplate,
+  AddMethodModalTemplate,
+  DeleteMethodModalTemplate,
+} from "../../views/index.js";
 
 const toggleFilter = (type) => {
   const filterState = transactionState.getFilterState();
@@ -34,7 +36,7 @@ export const handleClickInputForm = (e, inputFormState) => {
     modalState.openModal({
       type: "delete",
       title: "해당 결제 수단을 삭제하시겠습니까?",
-      content: deleteMethodModalTemplate($selectItem.dataset.value),
+      content: DeleteMethodModalTemplate($selectItem.dataset.value),
       onConfirm: async () => {
         inputFormState.deleteMethod($selectItem.dataset.value);
         modalState.closeModal();
@@ -49,7 +51,7 @@ export const handleClickInputForm = (e, inputFormState) => {
     modalState.openModal({
       type: "add",
       title: "추가하실 결제 수단을 입력해주세요.",
-      content: addMethodModalTemplate(),
+      content: AddMethodModalTemplate(),
       onConfirm: async () => {
         const inputValue = document.querySelector("#modal .text-input").value;
         inputFormState.addMethod(inputValue);
@@ -123,7 +125,7 @@ export const handleClickTransactions = async (e, inputFormState) => {
     modalState.openModal({
       type: "delete",
       title: "해당 내역을 삭제하시겠습니까?",
-      content: deleteModalTemplate(currentData),
+      content: DeleteModalTemplate(currentData),
       onConfirm: async () => {
         await transactionState.deleteTransaction(itemId);
         modalState.closeModal();

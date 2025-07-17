@@ -1,4 +1,4 @@
-import monthState from "../../stores/subjects/MonthState.js";
+import { monthState } from "../../stores/subjects/index.js";
 import DailyHistory from "../../components/DailyHistory/DailyHistory.js";
 
 const { year, month } = monthState.getMonthInfo();
@@ -42,7 +42,7 @@ const sumAmount = (transactions, type) => {
   }, 0);
 };
 
-export class TransactionsView {
+class TransactionsView {
   constructor() {
     this.$root = document.querySelector(".transactions");
   }
@@ -107,3 +107,5 @@ export class TransactionsView {
     this.$root.appendChild(transactionsListContainer);
   }
 }
+
+export default TransactionsView;

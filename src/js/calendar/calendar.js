@@ -1,7 +1,6 @@
-import transactionState from "../stores/subjects/TransactionState.js";
-import monthState from "../stores/subjects/MonthState.js";
-import { CalendarView } from "../views/Calendar/CalanderView.js";
-import { CalendarObserver } from "../stores/observers/CalendarObserver.js";
+import { transactionState, monthState } from "../../stores/subjects/index.js";
+import { CalendarObserver } from "../../stores/observers/index.js";
+import { CalendarView } from "../../views/index.js";
 
 const init = async () => {
   const { year, month } = monthState.getMonthInfo();

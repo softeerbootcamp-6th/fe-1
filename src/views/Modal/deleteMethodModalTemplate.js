@@ -12,7 +12,7 @@ const textInputStyle = `
   color: var(--nuetral-text-weak);
   `;
 
-const deleteMethodModalTemplate = (value) => {
+const DeleteMethodModalTemplate = (value) => {
   return `
     <div class="font-semibold-12" style="${textInputStyle}">
         ${value}
@@ -20,4 +20,4 @@ const deleteMethodModalTemplate = (value) => {
   `;
 };
 
-export default deleteMethodModalTemplate;
+export default DeleteMethodModalTemplate;

@@ -1,4 +1,4 @@
-const deleteModalTemplate = ({
+const DeleteModalTemplate = ({
   date,
   type,
   amount,
@@ -27,4 +27,4 @@ const deleteModalTemplate = ({
     `;
 };
 
-export default deleteModalTemplate;
+export default DeleteModalTemplate;

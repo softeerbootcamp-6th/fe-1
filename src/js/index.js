@@ -1,7 +1,8 @@
 import router from "./router.js";
-import modalState from "../stores/subjects/ModalState.js";
-import { ModalView } from "../views/Modal/ModalView.js";
-import { ModalObserver } from "../stores/observers/ModalObserver.js";
+import { ModalView } from "../views/index.js";
+
+import { modalState } from "../stores/subjects/index.js";
+import { ModalObserver } from "../stores/observers/index.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   router.start();

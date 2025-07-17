@@ -1,6 +1,6 @@
 import TextInput from "../../components/TextInput/TextInput.js";
 
-const addMethodModalTemplate = () => {
+const AddMethodModalTemplate = () => {
   return TextInput({
     type: "default",
     state: "enabled",
@@ -10,4 +10,4 @@ const addMethodModalTemplate = () => {
   }).outerHTML;
 };
 
-export default addMethodModalTemplate;
+export default AddMethodModalTemplate;

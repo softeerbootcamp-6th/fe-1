@@ -1,11 +1,17 @@
-import monthState from "../stores/subjects/MonthState.js";
-import transactionState from "../stores/subjects/TransactionState.js";
-import { TransactionsView } from "../views/Transactions/TransactionsView.js";
-import { TransactionsObserver } from "../stores/observers/TransactionsObserver.js";
-import { MonthObserver } from "../stores/observers/MonthObserver.js";
-import { InputFormView } from "../views/InputForm/InputFormView.js";
-import { InputFormObserver } from "../stores/observers/InputFormObserver.js";
-import { InputFormState } from "../stores/subjects/InputFormState.js";
+import {
+  monthState,
+  transactionState,
+  InputFormState,
+} from "../../stores/subjects/index.js";
+
+import {
+  TransactionsObserver,
+  MonthObserver,
+  InputFormObserver,
+} from "../../stores/observers/index.js";
+
+import { TransactionsView, InputFormView } from "../../views/index.js";
+
 import {
   handleInputInputForm,
   handleClickInputForm,

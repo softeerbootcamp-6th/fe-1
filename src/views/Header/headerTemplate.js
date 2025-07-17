@@ -1,4 +1,4 @@
-export const headerTemplate = `
+const HeaderTemplate = `
   <header class="header">
     <div class="header__contents">
       <h1 class="header__title font-serif-24">Wise Wallet</h1>
@@ -35,3 +35,5 @@ export const headerTemplate = `
     </div>
   </header>
 `;
+
+export default HeaderTemplate;

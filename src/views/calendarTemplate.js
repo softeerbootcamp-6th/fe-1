@@ -1,6 +1,8 @@
-export const calendarTemplate = `
-<main class="main">
-  <div class="calendar-container"></div>
-  <footer class="calendar-footer"></footer>
-</main>
+const CalendarTemplate = `
+  <main class="main">
+    <div class="calendar-container"></div>
+    <footer class="calendar-footer"></footer>
+  </main>
 `;
+
+export default CalendarTemplate;

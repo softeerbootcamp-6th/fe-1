@@ -1,7 +1,9 @@
-import Header from "../views/Header/Header.js";
-import { homeTemplate } from "../views/homeTemplate.js";
-import { calendarTemplate } from "../views/calendarTemplate.js";
-import { chartTemplate } from "../views/chartTemplate.js";
+import {
+  Header,
+  HomeTemplate,
+  CalendarTemplate,
+  ChartTemplate,
+} from "../views/index.js";
 
 class Router {
   constructor() {
@@ -47,9 +49,9 @@ class Router {
   // 템플릿 가져오기 (이제 import로 직접 가져옴)
   getTemplate(templateName) {
     const templates = {
-      home: homeTemplate,
-      calendar: calendarTemplate,
-      chart: chartTemplate,
+      home: HomeTemplate,
+      calendar: CalendarTemplate,
+      chart: ChartTemplate,
     };
 
     return (
@@ -177,19 +179,19 @@ const router = new Router();
 // 라우트 설정
 router.addRoute("/", {
   template: "home",
-  module: "/src/js/home.js",
+  module: "/src/js/home/home.js",
   title: "Wise Wallet - 홈",
 });
 
 router.addRoute("/calendar", {
   template: "calendar",
-  module: "/src/js/calendar.js",
+  module: "/src/js/calendar/calendar.js",
   title: "Wise Wallet - 캘린더",
 });
 
 router.addRoute("/chart", {
   template: "chart",
-  module: "/src/js/chart.js",
+  module: "/src/js/chart/chart.js",
   title: "Wise Wallet - 차트",
 });
 

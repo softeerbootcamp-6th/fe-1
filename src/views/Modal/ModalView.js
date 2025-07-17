@@ -3,35 +3,35 @@ const BUTTON_TEXT = {
   delete: "삭제",
 };
 
-export class ModalView {
+class ModalView {
   constructor() {
     this.$root = document.getElementById("modal");
   }
 
   init() {
     const template = `
-        <dialog class="modal">
-            <div class="modal__container">
-                <div class="modal__main">
-                <h3 class="modal__title font-light-16"></h3>
-                <div class="modal__content"></div>
-                </div>
-                <div class="modal__buttons">
-                <button
-                    type="button"
-                    class="modal__button modal__button--cancel font-semibold-16"
-                >
-                    취소
-                </button>
-                <button
-                    type="button"
-                    class="modal__button modal__button--confirm font-semibold-16 modal__button--add"
-                >
-                </button>
-                </div>
-            </div>
-        </dialog>
-    `;
+          <dialog class="modal">
+              <div class="modal__container">
+                  <div class="modal__main">
+                  <h3 class="modal__title font-light-16"></h3>
+                  <div class="modal__content"></div>
+                  </div>
+                  <div class="modal__buttons">
+                  <button
+                      type="button"
+                      class="modal__button modal__button--cancel font-semibold-16"
+                  >
+                      취소
+                  </button>
+                  <button
+                      type="button"
+                      class="modal__button modal__button--confirm font-semibold-16 modal__button--add"
+                  >
+                  </button>
+                  </div>
+              </div>
+          </dialog>
+      `;
 
     this.$root.innerHTML = template;
 
@@ -73,3 +73,5 @@ export class ModalView {
     modal.close();
   }
 }
+
+export default ModalView;

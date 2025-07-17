@@ -1,5 +1,4 @@
-// stores/MonthState.js
-import Subject from "../../utils/observers/Subject.js";
+import { Subject } from "../../utils/index.js";
 
 const MONTH_NAMES = [
   "january",
