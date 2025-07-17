@@ -58,10 +58,10 @@ export default function createInputForm() {
   </button>
   `;
 
-  document.querySelector(".dropdown-panel")?.addEventListener("click", () => {
-    const dropdownPanel = document.getElementById("dropdown-panel");
-    dropdownPanel.classList.toggle("hidden");
-  });
+  // document.querySelector(".dropdown-panel")?.addEventListener("click", () => {
+  //   const dropdownPanel = document.getElementById("dropdown-panel");
+  //   dropdownPanel.classList.toggle("hidden");
+  // });
 
   return inputForm;
 }

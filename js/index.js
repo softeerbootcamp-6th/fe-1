@@ -7,7 +7,7 @@ import { initFilterButtons } from "./function/filterEntries.js";
 import { initViewSwitcher } from "./function/viewSwitcher.js";
 import { updateCalendarTotalAmount } from "./function/calendarTotalAmount.js";
 import createHeader from "../components/header.js";
-import createInputForm from "../components/input-form.js";
+import createInputForm from "../components/inputForm/input-form.js";
 
 function render() {
   const headerContainer = document.getElementById("header-container");
