@@ -9,10 +9,11 @@ export function renderIncomeExpenseForm() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
   let isIncome = true; // true: 수입, false: 지출
+  let itemID = null; // list item id 초기화 -> list item 클릭하여 수정하는 경우에만 다른 숫자 가능
   const maxDescriptionLength = 32;
   let descriptionLength = 0;
   const paymentOptions = ['현금', '신용카드'];
-  const incomeTags = ['용돈', '월급'];
+  const incomeTags = ['월급', '용돈', '기타 수입'];
   const expenseTags = [
     '생활',
     '의료/건강',
@@ -136,6 +137,7 @@ export function renderIncomeExpenseForm() {
   const addButton = form.querySelector('.add-button');
 
   moneyButton.addEventListener('click', e => {
+    e.stopPropagation();
     e.preventDefault();
     isIncome = !isIncome;
     moneyButtonIcon.src = isIncome
@@ -152,6 +154,10 @@ export function renderIncomeExpenseForm() {
     target.value = formattedValue; // 입력 필드에 포맷된 값 설정
   });
 
+  moneyInput.addEventListener('click', e => {
+    e.stopPropagation();
+  });
+
   // 입력 시 기본값 0 제거
   moneyInput.addEventListener('focus', ({ target }) => {
     if (target.value === '0') {
@@ -163,6 +169,18 @@ export function renderIncomeExpenseForm() {
     descriptionLength = target.value.length;
     const lengthSpan = form.querySelector('.description-length');
     lengthSpan.textContent = `${descriptionLength}/32`;
+  });
+
+  descriptionInput.addEventListener('click', e => {
+    e.stopPropagation();
+  });
+
+  tagSelect.addEventListener('click', e => {
+    e.stopPropagation();
+  });
+
+  paymentSelect.addEventListener('click', e => {
+    e.stopPropagation();
   });
 
   // keyup, select 이벤트 발생 시 유효성 검사
@@ -190,13 +208,16 @@ export function renderIncomeExpenseForm() {
   );
 
   addButton.addEventListener('click', e => {
+    e.stopPropagation();
     e.preventDefault();
+
     const incomeExpenseListContainer = document.querySelector(
       '.income-expense-list-container'
     );
 
     handleSubmit(
       e,
+      itemID,
       dateInput,
       moneyInput,
       descriptionInput,
@@ -205,6 +226,26 @@ export function renderIncomeExpenseForm() {
     );
     formInit(dateInput, moneyInput, descriptionInput, paymentSelect, tagSelect);
     renderListItem(incomeExpenseListContainer);
+  });
+
+  document.addEventListener('edit-item', e => {
+    const data = e.detail;
+    setItemToForm(data);
+  });
+
+  // 바깔부분 클릭하면 edit 해제
+  document.body.addEventListener('click', event => {
+    // 특정 요소 안에서 클릭했는지 확인
+    const isInsideList = event.target.closest('li');
+    if (!isInsideList) {
+      formInit(
+        dateInput,
+        moneyInput,
+        descriptionInput,
+        paymentSelect,
+        tagSelect
+      );
+    }
   });
 
   const updateTagSelect = (incomeTags, expenseTags) => {
@@ -253,6 +294,7 @@ export function renderIncomeExpenseForm() {
 
   const handleSubmit = (
     e,
+    ID,
     dateInput,
     moneyInput,
     descriptionInput,
@@ -268,7 +310,7 @@ export function renderIncomeExpenseForm() {
     const tagSelectValue = tagSelect.value;
 
     const newIncomeExpense = {
-      id: 0,
+      id: ID,
       type: isIncome ? 'income' : 'expense',
       money: isIncome ? Number(moneyInputValue) : -Number(moneyInputValue),
       description: descriptionInputValue,
@@ -276,7 +318,10 @@ export function renderIncomeExpenseForm() {
       tag: tagSelectValue,
     };
 
-    incomeExpenseStore.updateIncomeExpenseData(dateInputValue, newIncomeExpense);
+    incomeExpenseStore.updateIncomeExpenseData(
+      dateInputValue,
+      newIncomeExpense
+    );
   };
 
   const formInit = (
@@ -286,11 +331,40 @@ export function renderIncomeExpenseForm() {
     paymentSelect,
     tagSelect
   ) => {
+    itemID = null;
     dateInput.value = formattedDate;
     moneyInput.value = '';
     descriptionInput.value = '';
     paymentSelect.value = '';
     tagSelect.value = '';
+    activeAddButton(false);
+  };
+
+  const setItemToForm = ({
+    targetListItemDate,
+    id,
+    type,
+    money,
+    description,
+    payment,
+    tag,
+  }) => {
+    isIncome = type === 'income' ? true : false;
+    moneyButtonIcon.src = isIncome
+      ? '../assets/icons/plus.svg'
+      : '../assets/icons/minus.svg';
+    updateTagSelect(incomeTags, expenseTags);
+    itemID = id;
+    dateInput.value = targetListItemDate;
+    moneyInput.value = money > 0 ? money : -money;
+    descriptionInput.value = description;
+
+    const lengthSpan = form.querySelector('.description-length');
+    descriptionLength = description.length;
+    lengthSpan.textContent = `${descriptionLength}/32`;
+
+    paymentSelect.value = payment;
+    tagSelect.value = tag;
   };
 
   return form;

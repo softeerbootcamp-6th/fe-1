@@ -33,10 +33,19 @@ export function renderListItem(listContainer) {
     currentMonth,
   ]);
 
-  // TODO: 계산 로직 작성
-  const monthlyNum = 0;
-  const monthlyIncome = 0;
-  const monthlyExpense = 0;
+  const currentMonthDataList = Object.entries(currentMonthData)
+    .map(dailyData => dailyData[1])
+    .flat();
+
+  const monthlyNum = currentMonthDataList.length;
+
+  const monthlyIncome = currentMonthDataList
+    .filter(data => data.type == 'income')
+    .reduce((income, data) => income + data.money, 0);
+
+  const monthlyExpense = currentMonthDataList
+    .filter(data => data.type == 'expense')
+    .reduce((expense, data) => expense - data.money, 0);
 
   // 기존 내용 지우기
   while (listContainer.firstChild) {
@@ -63,22 +72,31 @@ export function renderListItem(listContainer) {
     `;
   };
 
-  const getDailyInfoHTML = dateString => {
+  const getDailyInfoHTML = ([dateString, dateData]) => {
     const dateObj = new Date(dateString);
     const month = dateObj.getMonth() + 1;
     const date = dateObj.getDate();
     const dayStringList = ['월', '화', '수', '목', '금', '토', '일'];
     const dayStringIndex = dateObj.getDay();
 
-    const dailyIncome = '';
-    const dailyExpense = '';
+    const dailyIncomeData = dateData.filter(data => data.type == 'income');
+    const dailyExpenseData = dateData.filter(data => data.type == 'expense');
+
+    const dailyIncome = dailyIncomeData.reduce(
+      (income, data) => income + data.money,
+      0
+    );
+    const dailyExpense = dailyExpenseData.reduce(
+      (expense, data) => expense - data.money,
+      0
+    );
 
     return `
     <div class="daily-info-container">
       <span>${month}월 ${date}일 ${dayStringList[dayStringIndex]}요일</span>
       <div>
-        <span>수입 ${dailyIncome}</span>
-        <span>지출 ${dailyExpense}</span>
+        ${dailyIncome ? `<span>수입 ${dailyIncome}원</span>` : ''}
+        ${dailyExpense ? `<span>지출 ${dailyExpense}원</span>` : ''}
       </div>
     </div>
     `;
@@ -102,9 +120,10 @@ export function renderListItem(listContainer) {
     expense: 'money-expense',
   };
 
-  const getListItemHTML = ({ type, money, description, payment, tag }) => {
+  const getListItemHTML = ({ id, type, money, description, payment, tag }) => {
     const li = document.createElement('li');
     li.className = 'list-item';
+    li.id = id;
 
     const tagSpan = document.createElement('span');
     tagSpan.classList.add('tag', 'light14', tagColorMap[tag]);
@@ -127,7 +146,7 @@ export function renderListItem(listContainer) {
     deleteDiv.className = 'delete';
     deleteDiv.style.display = 'none';
     deleteDiv.innerHTML = `
-    <div class="delete-icon"><img src='../assets/icons/delete-icon.svg'/></div>
+    <img class="delete-icon" src='../assets/icons/delete-icon.svg'/>
     <span class="delete-text semibold12">삭제</span>
     `;
 
@@ -139,11 +158,18 @@ export function renderListItem(listContainer) {
 
     // hover 이벤트 추가
     li.addEventListener('mouseenter', () => {
-      deleteDiv.style.display = 'block';
+      deleteDiv.style.display = 'flex';
+      li.classList.toggle('list-item-hover');
     });
 
     li.addEventListener('mouseleave', () => {
       deleteDiv.style.display = 'none';
+      li.classList.toggle('list-item-hover');
+    });
+
+    li.addEventListener('click', e => {
+      e.stopPropagation();
+      handleListItemClick(e);
     });
 
     return li;
@@ -162,15 +188,43 @@ export function renderListItem(listContainer) {
   Object.entries(currentMonthData).forEach(([date, dateData]) => {
     const dailyContainer = document.createElement('div');
     dailyContainer.className = 'daily-container';
-    dailyContainer.innerHTML = getDailyInfoHTML(date);
+    dailyContainer.innerHTML = getDailyInfoHTML([date, dateData]);
 
     // 지출 내역 추가
-    const listItem = document.createElement('div');
-    listItem.className = 'list-item-container';
+    const listItemContainer = document.createElement('div');
+    listItemContainer.className = 'list-item-container';
+    listItemContainer.id = date;
     dateData.forEach(item => {
-      listItem.appendChild(getListItemHTML(item));
-      dailyContainer.appendChild(listItem);
+      listItemContainer.appendChild(getListItemHTML(item));
+      dailyContainer.appendChild(listItemContainer);
     });
     listContainer.appendChild(dailyContainer);
   });
 }
+
+// list 개별 요소 클릭
+const handleListItemClick = ({ target }) => {
+  const clickedElement = target.closest('div');
+  const targetListItem = target.closest('li');
+
+  const targetListItemID = Number(targetListItem.id);
+  const targetListItemDate = targetListItem.closest('div').id;
+
+  // 삭제 버튼 클릭했을 경우
+  if (clickedElement.className == 'delete') {
+    incomeExpenseStore.delIncomeExpenseData(
+      targetListItemDate,
+      targetListItemID
+    );
+  } else {
+    // 삭제 버튼 아닌 곳 클릭했을 경우
+    const targetData = incomeExpenseStore
+      .getIncomeExpenseData()
+      [targetListItemDate].find(data => data.id === targetListItemID);
+
+    const editEvent = new CustomEvent('edit-item', {
+      detail: { targetListItemDate, ...targetData },
+    });
+    document.dispatchEvent(editEvent); // edit event 발생
+  }
+};
