@@ -20,22 +20,12 @@ export async function renderOneEntiry(entry) {
 
   let dateSection = entryList.querySelector(`[data-date="${entry.date}"]`);
   if (!dateSection) {
-    dateSection = document.createElement("div");
-    dateSection.className = "entry-date-section";
-    dateSection.setAttribute("data-date", entry.date);
-    dateSection.innerHTML = `
-        <div class="entry-sort">
-          <div>${dateLabel}</div>
-          <div class="entry-amount-section">
-            <div class="date-income-label">수입</div>
-            <div class="date-income-amount">0원</div>
-            <div class="date-expense-label">지출</div>
-            <div class="date-expense-amount">0원</div>
-          </div>
-        </div>
-        <div class="entry-items"></div>
-      `;
-    entryList.insertBefore(dateSection, entryList.firstChild);
+    dateSection = createEntryDateSection(
+      entryList,
+      dateSection,
+      dateLabel,
+      entry
+    );
   }
   const entryItems = dateSection.querySelector(".entry-items");
   const item = document.createElement("div");
@@ -65,6 +55,29 @@ export async function renderOneEntiry(entry) {
   entryItems.appendChild(item);
   // 항목을 추가한 후 해당 날짜의 수입/지출 금액 합계 업데이트
   updateDateSectionTotals(entry.date);
+}
+
+/* 
+  dateSection이 존재하지 않는 경우 entry-date-section를 만들어서 렌더링하는 함수
+*/
+function createEntryDateSection(entryList, dateSection, dateLabel, entry) {
+  dateSection = document.createElement("div");
+  dateSection.className = "entry-date-section";
+  dateSection.setAttribute("data-date", entry.date);
+  dateSection.innerHTML = `
+        <div class="entry-sort">
+          <div>${dateLabel}</div>
+          <div class="entry-amount-section">
+            <div class="date-income-label">수입</div>
+            <div class="date-income-amount">0원</div>
+            <div class="date-expense-label">지출</div>
+            <div class="date-expense-amount">0원</div>
+          </div>
+        </div>
+        <div class="entry-items"></div>
+      `;
+  entryList.insertBefore(dateSection, entryList.firstChild);
+  return dateSection;
 }
 
 // 특정 날짜의 수입/지출 합계 계산 및 업데이트 함수
