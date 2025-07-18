@@ -13,7 +13,6 @@ class LayoutObserver {
     removeCalendarObserver();
 
     const state = NavBarState.getNavBarState();
-    console.log(`layout ${state} 으로 변경!!`);
     switch (state) {
       case "메인":
         createMainLayout();

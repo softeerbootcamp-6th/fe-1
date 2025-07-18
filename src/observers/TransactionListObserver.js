@@ -24,7 +24,6 @@ class MonthSyncObserver {
   }
 
   update() {
-    console.log("update TransactionListView");
     const date = this.DateState.getDate(); // YYYY-MM-DD
     const yearMonth = date.slice(0, 7); // YYYY-MM
     if (this.FilterState.getMonth() !== yearMonth) {
