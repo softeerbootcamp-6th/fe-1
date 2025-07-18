@@ -106,11 +106,11 @@ export function renderIncomeExpenseForm() {
     `;
 
   const paymentContainer = form.querySelector('.payment-container');
-  const selectBox = renderSelectBox(paymentOptions, true);
+  const selectBox = renderSelectBox(paymentOptions, true, true);
   paymentContainer.appendChild(selectBox);
 
   const tagContainer = form.querySelector('.tag-container');
-  const tagSelectBox = renderSelectBox(incomeTags, false);
+  const tagSelectBox = renderSelectBox(incomeTags, false, false);
   tagContainer.appendChild(tagSelectBox);
 
   // 날짜
