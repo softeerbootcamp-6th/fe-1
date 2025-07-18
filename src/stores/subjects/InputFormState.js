@@ -5,7 +5,7 @@ import {
   delTransactionMethod,
 } from "../../apis/transaction.js";
 
-export class InputFormState extends Subject {
+class InputFormState extends Subject {
   constructor() {
     super();
     this.updateId = null;
@@ -112,3 +112,6 @@ export class InputFormState extends Subject {
     });
   }
 }
+
+const inputFormState = new InputFormState();
+export default inputFormState;

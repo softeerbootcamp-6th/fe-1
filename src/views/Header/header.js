@@ -1,12 +1,11 @@
 import { HeaderTemplate } from "../../views/index.js";
 import { monthState } from "../../stores/subjects/index.js";
-import { MonthObserver } from "../../stores/observers/index.js";
+import { subscribeHeaderObserver } from "../../utils/index.js";
 
 const Header = async ({
   selectedNav = "home", // 'home', 'calendar', 'chart'
 } = {}) => {
-  const monthObserver = new MonthObserver();
-  monthState.subscribe(monthObserver);
+  subscribeHeaderObserver();
 
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = HeaderTemplate;
