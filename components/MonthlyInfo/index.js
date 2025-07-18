@@ -1,4 +1,5 @@
 import createDailyList from '../DailyInfo/List/index.js';
+import createCheckbox from '../Checkbox/index.js';
 import paymentDataStore from '../../store/paymentData.js';
 import dateStore from '../../store/date.js';
 import {
@@ -17,17 +18,6 @@ const filterState = {
     },
 };
 
-const CheckboxIcon = {
-    checkbox: {
-        icon: '/assets/icons/checkbox.svg',
-        alt: 'Checkbox Icon',
-    },
-    uncheckbox: {
-        icon: '/assets/icons/uncheckbox.svg',
-        alt: 'Uncheckbox Icon',
-    },
-};
-
 export default function createMonthlyInfo() {
     const monthlyInfo = document.createElement('div');
     monthlyInfo.className = 'monthly-info-container';
@@ -39,30 +29,6 @@ export default function createMonthlyInfo() {
                     <span class="light-12 item-counter-text">${paymentDataStore.getPaymentDataCount()}건</span>
                 </div>
                 <div class="checkbox-buttons">
-                    <div class="checkbox-button-container">
-                        <button class="checkbox-button" id="income-checkbox">
-                            <img
-                                src="${CheckboxIcon.checkbox.icon}"
-                                alt="${CheckboxIcon.checkbox.alt}"
-                                width="16"
-                                height="16"
-                            />
-                        </button>
-                        <span class="light-12"> 수입 </span>
-                        <span class="light-12 total-income">0원</span>
-                    </div>
-                    <div class="checkbox-button-container">
-                        <button class="checkbox-button" id="expense-checkbox">
-                            <img
-                                src="${CheckboxIcon.checkbox.icon}"
-                                alt="${CheckboxIcon.checkbox.alt}"
-                                width="16"
-                                height="16"
-                            />
-                        </button>
-                        <span class="light-12"> 지출 </span>
-                        <span class="light-12 total-expense">0원</span>
-                    </div>
                 </div>
             </div>
             <ol class="daily-list-container">
@@ -70,11 +36,42 @@ export default function createMonthlyInfo() {
         </div>
     `;
 
+    const checkboxButtonsContainer =
+        monthlyInfo.querySelector('.checkbox-buttons');
     const dailyListContainer = monthlyInfo.querySelector(
         '.daily-list-container'
     );
     const itemCounterTextElement =
         monthlyInfo.querySelector('.item-counter-text');
+
+    const incomeCheckbox = createCheckbox({
+        id: 'income-checkbox',
+        checked: filterState.income,
+        onClick: (checked) => {
+            filterState.income = checked;
+            renderDailyLists();
+        },
+        children: `
+            <span class="light-12"> 수입 </span>
+            <span class="light-12 checkbox-value">0</span>
+        `,
+    });
+
+    const expenseCheckbox = createCheckbox({
+        id: 'expense-checkbox',
+        checked: filterState.expense,
+        onClick: (checked) => {
+            filterState.expense = checked;
+            renderDailyLists();
+        },
+        children: `
+            <span class="light-12"> 지출 </span>
+            <span class="light-12 checkbox-value">0</span>
+        `,
+    });
+
+    checkboxButtonsContainer.appendChild(incomeCheckbox);
+    checkboxButtonsContainer.appendChild(expenseCheckbox);
 
     const renderDailyLists = () => {
         dailyListContainer.innerHTML = '';
@@ -96,9 +93,9 @@ export default function createMonthlyInfo() {
         itemCounterTextElement.textContent = `${paymentData.length}건`;
 
         const { totalIncome, totalExpense } = getTotalAmount(paymentData);
-        monthlyInfo.querySelector('.total-income').textContent =
+        incomeCheckbox.querySelector('.checkbox-value').textContent =
             formatNumberWithCommas(totalIncome);
-        monthlyInfo.querySelector('.total-expense').textContent =
+        expenseCheckbox.querySelector('.checkbox-value').textContent =
             formatNumberWithCommas(totalExpense);
     };
 
@@ -106,23 +103,6 @@ export default function createMonthlyInfo() {
 
     document.addEventListener('paymentDataUpdated', renderDailyLists);
     document.addEventListener('dateChanged', renderDailyLists);
-
-    const incomeCheckbox = monthlyInfo.querySelector('#income-checkbox');
-    const expenseCheckbox = monthlyInfo.querySelector('#expense-checkbox');
-    incomeCheckbox.addEventListener('click', () => {
-        filterState.toggle('income');
-        incomeCheckbox.querySelector('img').src = filterState.income
-            ? CheckboxIcon.checkbox.icon
-            : CheckboxIcon.uncheckbox.icon;
-        renderDailyLists();
-    });
-    expenseCheckbox.addEventListener('click', () => {
-        filterState.toggle('expense');
-        expenseCheckbox.querySelector('img').src = filterState.expense
-            ? CheckboxIcon.checkbox.icon
-            : CheckboxIcon.uncheckbox.icon;
-        renderDailyLists();
-    });
 
     return monthlyInfo;
 }

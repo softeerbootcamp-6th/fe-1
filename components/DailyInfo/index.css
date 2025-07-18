@@ -30,21 +30,6 @@
     gap: 12px;
 }
 
-.checkbox-button-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 4px;
-}
-
-.checkbox-button {
-    cursor: pointer;
-}
-
-.checkbox-button:hover {
-    opacity: 0.5;
-}
-
 .daily-list {
     display: flex;
     flex-direction: column;
