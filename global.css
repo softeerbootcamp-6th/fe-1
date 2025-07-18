@@ -182,11 +182,12 @@ ul {
     cursor: pointer;
 }
 
-.selected-value{
+.selected-value {
     font-size: 12px;
     color: black;
 }
+
 .selected-value-placeholder {
     color: #777D84;
-    
+
 }
