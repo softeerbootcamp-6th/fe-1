@@ -1,14 +1,8 @@
-import { monthNames } from "../constants/months.js";
-import { state } from "../store.js";
-import { parseYMD } from "../utils/date.js";
-import { renderComponent } from "../utils/render.js";
-
-function getCurrentPageName() {
-  const hash = location.hash.replace("#", "");
-  if (hash === "calendar") return "캘린더";
-  if (hash === "chart") return "차트";
-  return "메인";
-}
+import { monthNames } from "../../constants/months.js";
+import DateState from "../../store/DateState.js";
+import NavBarState from "../../store/NavBarState.js";
+import { parseYMD } from "../../utils/date.js";
+import { renderComponent } from "../../utils/render.js";
 
 function createHeaderLeft() {
   return `
@@ -65,11 +59,13 @@ function createHeaderRight(navBarState) {
   `;
 }
 
-export function renderHeader(state) {
+export function renderHeader() {
+  const curDate = DateState.getDate();
+  const navBarState = NavBarState.getNavBarState();
   let innerHTML = "";
   innerHTML += createHeaderLeft();
-  innerHTML += createHeaderCenter(state.curDate);
-  innerHTML += createHeaderRight(state.navBarState);
+  innerHTML += createHeaderCenter(curDate);
+  innerHTML += createHeaderRight(navBarState);
 
   renderComponent({
     id: "header",

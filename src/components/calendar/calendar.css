@@ -1,0 +1,36 @@
+#main-calendar {
+  width: 100%;
+  overflow-y: auto;
+}
+
+.calendar {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background-color: var(--neutral-surface-default);
+}
+
+.calendar th {
+  border: 1px solid #ccc;
+  height: 48px;
+}
+
+.calendar td {
+  border: 1px solid #ccc;
+  height: 120px;
+  padding: 4px;
+  vertical-align: top;
+}
+
+.calendar td:hover {
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+.transaction-expense {
+  color: var(--brand-text-expense);
+}
+
+.transaction-income {
+  color: var(--brand-text-income);
+}

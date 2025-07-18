@@ -3,8 +3,23 @@ import Observable from "./Observable.js";
 class NavBarState extends Observable {
   constructor() {
     super();
-    this.navBarState = "메인"; // TODO - 기본 state를 URL 따라서 할 수 있도록 함수 추가
+
+    const hash = location.hash.replace("#", "");
+    switch (hash) {
+      case "":
+        this.navBarState = "메인";
+        break;
+      case "calendar":
+        this.navBarState = "캘린더";
+        break;
+      case "chart":
+        this.navBarState = "차트";
+        break;
+      default:
+        this.navBarState = "메인";
+    }
   }
+
   setNavBarState(newState) {
     this.navBarState = newState;
     this.notify();

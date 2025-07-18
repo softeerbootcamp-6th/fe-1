@@ -52,10 +52,10 @@
 }
 
 .header-arrow-left {
-  background-image: url("../assets/icons/chevron-left.svg");
+  background-image: url("../../assets/icons/chevron-left.svg");
 }
 .header-arrow-right {
-  background-image: url("../assets/icons/chevron-right.svg");
+  background-image: url("../../assets/icons/chevron-right.svg");
 }
 .header-month {
   font-size: 2.5rem;
