@@ -30,9 +30,9 @@ const CheckboxIcon = {
 
 export default function createMonthlyInfo() {
     const monthlyInfo = document.createElement('div');
-    monthlyInfo.className = 'main-container';
+    monthlyInfo.className = 'monthly-info-container';
     monthlyInfo.innerHTML = `
-        <div class="main-container">
+        <div class="monthly-info-container">
             <div class="monthly-info">
                 <div class="item-counter">
                     <span class="light-12">전체 내역</span>

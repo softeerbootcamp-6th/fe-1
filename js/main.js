@@ -1,5 +1,5 @@
-import createHeader from './components/Header/index.js';
-import Router from './js/router.js';
+import createHeader from '../components/Header/index.js';
+import Router from './router.js';
 
 function init() {
     render();
