@@ -1,6 +1,11 @@
 import { store } from "../../../store/store.js";
 import { updateTotalAmounts } from "../../totalAmount/totalAmount-util.js";
 
+/* 
+  카테고리에서 드롭다운 옵션을 렌더링하는 함수
+  이 함수가 실행되면 드롭다운 패널을 다 지운 후 수입, 지출 중 선택된 토글에 따라 드롭다운 패널을 전부 렌더링 한다.
+*/
+
 export function renderCategoryOptions() {
   let isIncome = store.getState().isIncome; // sharedState에서 isIncome 가져오기
   const categoryPanel = document.getElementById("category-panel");

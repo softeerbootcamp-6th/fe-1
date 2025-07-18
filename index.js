@@ -26,6 +26,11 @@ export const enableMocking = async () => {
   });
 };
 
+/*
+ render()
+ 화면에 헤더와 입력 폼, 수입지출액을 렌더링하는 함수
+ */
+
 function render() {
   const headerContainer = document.getElementById("header-container");
   headerContainer.innerHtml = "";

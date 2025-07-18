@@ -1,6 +1,11 @@
 import { store } from "../../../store/store.js";
 import { createModal } from "../../modal.js";
 
+/* 
+  결제수단 관련 리스너를 등록하는 함수
+  결제수단을 선택하거나 추가하는 로직이 들어가 있으며 변수이름이 맘에 들지 않아서 수정이 필요해 보인다.
+  내부에 있는 함수를 밖으로 빼내도 좋을거 같고 리스너안에 너무 광활한 코드가 들어가 있어 로직을 함수로 빼낼 필요가 있어 보인다.
+*/
 export function initPaymentMethodListener() {
   let selectedMethod = store.getState().selectedMethod;
 

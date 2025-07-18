@@ -1,7 +1,12 @@
-import { sharedState } from "../../../store/state.js";
 import { store } from "../../../store/store.js";
 import { renderCategoryOptions } from "./categoryRender.js";
 
+/* 
+    Inputform의 토글버튼 리스너를 등록한다
+    등록하는 동시에 카테고리 옵션이 변해야하므로 수입 지출 표시도 변경해 준다.
+    이거 지금 textContent로 변경하는데,
+    나중에 아이콘으로 변경해야 한다s.
+*/
 export function initToggleSignListener() {
   const toggleSign = document.getElementById("toggle-sign");
   const categoryDisplay = document.getElementById("category-display");
