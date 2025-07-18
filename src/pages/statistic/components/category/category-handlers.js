@@ -1,27 +1,15 @@
 import { formatAmount } from "../../../../utils/format-utils.js";
 import { getFilteredData } from "../../../../utils/data-utils.js";
-import { getTransactions } from "../../../../api/transaction.js";
-
-// 카테고리별 색상 매핑
-const categoryColors = {
-  월급: "#e39d5d",
-  용돈: "#aacd7e",
-  기타수입: "#aacd7e",
-  생활: "#a7b9e9",
-  "의료/건강": "#bcdfd3",
-  "쇼핑/뷰티": "#d7ca6b",
-  교통: "#7db7bf",
-  식비: "#c5e0eb",
-  "문화/여가": "#bda6e1",
-  미분류: "#f0b0d3",
-  기타: "#73a7d4",
-};
+import { showCategoryTrendChart } from "../trend/trend-handlers.js";
+import { categoryColors } from "../../constants/category-colors.js";
+import { transactionUtils } from "../../../../store/transaction-store.js";
 
 // 통계 데이터 계산 함수
 export async function calculateStatistics() {
   try {
-    // API에서 데이터 가져오기
-    const storeData = await getTransactions();
+    // store의 현재 데이터 사용
+    const storeData = transactionUtils.getCurrentTransactions();
+
     // 해당 월의 데이터 가져오기
     const monthlyData = getFilteredData(storeData);
     // 지출 데이터만 필터링 (음수 금액)
@@ -88,8 +76,8 @@ export function renderCategoryList(data) {
           <span class="category-name">${category}</span>
         </div>
         <div class="category-details">
-          <span class="category-amount">${formatAmount(stats.amount)}원</span>
           <span class="category-percentage">${stats.percentage}%</span>
+          <span class="category-amount">${formatAmount(stats.amount)}원</span>
         </div>
       </div>
     `;
@@ -97,6 +85,14 @@ export function renderCategoryList(data) {
     .join("");
 
   categoryListEl.innerHTML = listHTML;
+
+  // 클릭 이벤트 등록
+  categoryListEl.querySelectorAll(".category-item").forEach((item) => {
+    item.addEventListener("click", function () {
+      const category = this.dataset.category;
+      showCategoryTrendChart(category);
+    });
+  });
 }
 
 // 카테고리 초기화 함수

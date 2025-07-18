@@ -1,6 +1,6 @@
 import { formatAmount } from "../../../../utils/format-utils.js";
 import { getFilteredData } from "../../../../utils/data-utils.js";
-import { getTransactions } from "../../../../api/transaction.js";
+import { transactionUtils } from "../../../../store/transaction-store.js";
 
 // 월별 요약 정보 업데이트 (utils의 getFilteredData 활용)
 export async function updateCalendarSummary() {
@@ -8,7 +8,8 @@ export async function updateCalendarSummary() {
   const totalIncomeEl = document.getElementById("total-income");
   const totalBalanceEl = document.getElementById("total-balance");
 
-  const transactions = await getTransactions();
+  // store의 현재 데이터 사용
+  const transactions = transactionUtils.getCurrentTransactions();
 
   // getFilteredData 함수 활용
   const monthlyData = getFilteredData(transactions);

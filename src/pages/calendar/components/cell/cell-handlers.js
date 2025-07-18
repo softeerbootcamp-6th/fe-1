@@ -1,15 +1,17 @@
 import { formatDateString, isDateToday } from "../../../../utils/date-utils.js";
 import { formatAmount } from "../../../../utils/format-utils.js";
 import { getFilteredData } from "../../../../utils/data-utils.js";
-import { getTransactions } from "../../../../api/transaction.js";
 import { dateStore } from "../../../../store/date-store.js";
+import { transactionUtils } from "../../../../store/transaction-store.js";
 
 // 달력을 렌더링하는 함수
 export async function renderCalendarUI() {
   const calendarBody = document.getElementById("calendar-body");
-  const transactions = await getTransactions();
 
   try {
+    // store의 현재 데이터 사용
+    const transactions = transactionUtils.getCurrentTransactions();
+
     const firstDay = new Date(
       dateStore.getState().currentYear,
       dateStore.getState().currentMonth - 1, // 1-12를 0-11로 변환

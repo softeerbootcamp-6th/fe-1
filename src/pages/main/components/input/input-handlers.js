@@ -16,6 +16,8 @@ import {
 } from "../../utils/form-utils.js";
 import { getTransactionById } from "../../../../api/transaction.js";
 import { updateSubmitButtonState } from "../../utils/form-utils.js";
+import { onDataChanged } from "../summary/summary-handlers.js";
+import { transactionUtils } from "../../../../store/transaction-store.js";
 
 // 토글 버튼 이벤트 리스너 설정
 export function setupToggleListeners() {
@@ -166,6 +168,7 @@ export function setupAddButtonListeners() {
           method,
           category,
         });
+        await onDataChanged(); // 데이터 변경 후 summary 업데이트
       } catch (error) {
         console.error("거래 내역 수정 실패:", error);
         return;
@@ -175,6 +178,7 @@ export function setupAddButtonListeners() {
       // 새 항목 추가 - transaction.js API 사용
       try {
         await createNewItem(date, amountNum, content, method, category);
+        await onDataChanged(); // 데이터 변경 후 summary 업데이트
       } catch (error) {
         console.error("거래 내역 추가 실패:", error);
         return;
@@ -231,20 +235,27 @@ export function enterEditMode(itemId) {
   editUtils.enableEditMode();
   editStore.setState({ editingItemId: itemId });
 
-  getTransactionById(itemId)
-    .then((item) => {
-      const amountInput = document.querySelector(".amount-input");
-      const contentInput = document.querySelector(".input-cell.content input");
-      const methodDropdown = document.querySelector(
-        ".input-cell.method .custom-dropdown"
-      );
-      const categoryDropdown = document.querySelector(
-        ".input-cell.category .custom-dropdown"
-      );
-      const dateInput = document.querySelector(".date-input");
-      const charCountSpan = document.querySelector(
-        ".input-cell.content .char-count"
-      );
+  // store에서 현재 아이템 찾기 (불필요한 fetch 방지)
+  const transactions = transactionUtils.getCurrentTransactions();
+  const item = transactions.find((t) => t.id === itemId);
+
+  if (!item) {
+    console.error("거래 내역을 찾을 수 없습니다.");
+    return;
+  }
+
+  const amountInput = document.querySelector(".amount-input");
+  const contentInput = document.querySelector(".input-cell.content input");
+  const methodDropdown = document.querySelector(
+    ".input-cell.method .custom-dropdown"
+  );
+  const categoryDropdown = document.querySelector(
+    ".input-cell.category .custom-dropdown"
+  );
+  const dateInput = document.querySelector(".date-input");
+  const charCountSpan = document.querySelector(
+    ".input-cell.content .char-count"
+  );
 
       dateInput.value = item.date;
 
@@ -271,10 +282,6 @@ export function enterEditMode(itemId) {
       setTimeout(() => {
         updateFormValidation();
       }, milliSecond);
-    })
-    .catch((error) => {
-      console.error("거래 내역 조회 실패:", error);
-    });
 }
 
 // 수정 모드 취소 함수

@@ -5,21 +5,26 @@ import {
 } from "../../../../utils/date-utils.js";
 import { formatAmount } from "../../../../utils/format-utils.js";
 import { getFilteredData, deleteItem } from "../../../../utils/data-utils.js";
-import { getTransactions } from "../../../../api/transaction.js";
 import { enterEditMode, cancelEditMode } from "../input/input-handlers.js";
-import { updateSummaryText } from "../summary/summary-handlers.js";
+import {
+  updateSummaryText,
+  onDataChanged,
+} from "../summary/summary-handlers.js";
+import { initSummary } from "../summary/summary-handlers.js";
+import { transactionUtils } from "../../../../store/transaction-store.js";
 
 // 최초 렌더링 초기화
-export function initializeRendering() {
+export async function initializeRendering() {
   updateHeaderDate();
   updateInputDate();
-  updateHistoryList();
+  await updateHistoryList();
+  await initSummary();
 }
 
 // 히스토리 리스트 업데이트 함수
 export async function updateHistoryList() {
   try {
-    const transactions = await getTransactions();
+    const transactions = transactionUtils.getCurrentTransactions();
     renderHistoryList(transactions);
   } catch (error) {
     console.error("히스토리 리스트 업데이트 실패:", error);
@@ -124,7 +129,6 @@ export function setupHistoryItemListeners() {
     item.addEventListener("click", (e) => {
       if (e.target.classList.contains("delete-btn")) return;
 
-      // ID를 문자열로 처리 (parseInt 제거)
       const itemId = item.getAttribute("data-id");
 
       // 수정 모드 취소
@@ -162,11 +166,11 @@ export function setupDeleteButtonListeners() {
   items.forEach((item) => {
     const deleteBtn = item.querySelector(".delete-btn");
     if (deleteBtn) {
-      deleteBtn.addEventListener("click", (e) => {
+      deleteBtn.addEventListener("click", async (e) => {
         e.stopPropagation();
-        // ID를 문자열로 처리 (parseInt 제거)
         const itemId = item.getAttribute("data-id");
-        deleteItem(itemId);
+        await deleteItem(itemId);
+        await onDataChanged();
       });
     }
   });

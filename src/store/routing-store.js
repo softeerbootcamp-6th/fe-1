@@ -6,10 +6,12 @@ import { renderMain } from "../pages/main/main-rendering.js";
 import { renderCalendar } from "../pages/calendar/calendar-rendering.js";
 import { renderStatistic } from "../pages/statistic/statistic-rendering.js";
 import { renderLoading } from "../layouts/loading/loading-rendering.js";
+import { transactionUtils } from "./transaction-store.js";
 
 // 라우팅 상태를 관리하는 Store 인스턴스
 export const routingStore = new Store({
   currentTab: "MAIN_VIEW", // 기본값은 MAIN_VIEW
+  isInitialized: false, // 초기화 여부 추가
 });
 
 // 라우팅 관련 유틸리티 함수들
@@ -103,6 +105,7 @@ function removePageCSS() {
 // 탭 전환 함수
 async function switchTab(tabName) {
   const bodyContainer = document.getElementById("body-container");
+  const state = routingStore.getState();
 
   // 기존 페이지별 CSS 제거
   removePageCSS();
@@ -111,36 +114,27 @@ async function switchTab(tabName) {
   bodyContainer.innerHTML = await renderLoading();
 
   try {
+    // 최초 진입 시에만 데이터 가져오기
+    if (!state.isInitialized) {
+      await transactionUtils.fetchTransactions();
+      routingStore.setState({ isInitialized: true });
+    }
+
     switch (tabName) {
       case "MAIN_VIEW":
-        // 모든 리소스가 완전히 로드된 후 렌더링
-        await Promise.all([
-          loadScript("src/pages/main/main.js"),
-          loadCSS("src/pages/main/main.css"),
-        ]);
-        // 메인 페이지 렌더링 함수 호출
+        await loadCSS("src/pages/main/main.css");
         bodyContainer.innerHTML = await renderMain();
         initMain();
         break;
 
       case "CALENDAR_VIEW":
-        // 모든 리소스가 완전히 로드된 후 렌더링
-        await Promise.all([
-          loadScript("src/pages/calendar/calendar.js"),
-          loadCSS("src/pages/calendar/calendar.css"),
-        ]);
-        // 달력 페이지 렌더링 함수 호출
+        await loadCSS("src/pages/calendar/calendar.css");
         bodyContainer.innerHTML = await renderCalendar();
         initCalendar();
         break;
 
       case "STATISTIC_VIEW":
-        // 모든 리소스가 완전히 로드된 후 렌더링
-        await Promise.all([
-          loadScript("src/pages/statistic/statistic.js"),
-          loadCSS("src/pages/statistic/statistic.css"),
-        ]);
-        // 통계 페이지 렌더링 함수 호출
+        await loadCSS("src/pages/statistic/statistic.css");
         bodyContainer.innerHTML = await renderStatistic();
         initStatistic();
         break;
