@@ -3,7 +3,8 @@ import { loadEntriesFromServer } from "../../../api.js";
 import { getDateFromServer } from "../../pages/main/ledger/entries/entry-util.js";
 import { store } from "../../../store/store.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
-import { renderCalendar } from "../../pages/main/calendar/calendarView.js";
+import { initCalendarView } from "../../pages/main/calendar/calendarView.js";
+import { initStatsView } from "../../pages/main/stats/statsView.js";
 
 export function initDate() {
   let { currentMonth, currentYear } = store.getState();
@@ -70,7 +71,10 @@ export async function clearWebPage(currentMonth, currentYear) {
   });
   updateTotalAmounts();
   if (sharedState.activeView === "calendar") {
-    renderCalendar(currentYear, currentMonth);
+    initCalendarView();
+    return;
+  } else if (sharedState.activeView === "stats") {
+    initStatsView();
     return;
   }
 }

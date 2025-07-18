@@ -9,6 +9,22 @@ import { updateCalendarTotalAmount } from "./pages/main/calendar/calendarTotalAm
 import createHeader from "./components/header/header.js";
 import createInputForm from "./components/inputForm/input-form.js";
 import { createTotalAmountContainer } from "./components/totalAmount/totalAmount.js";
+// import { worker } from "./mocks/browser.js";
+// import { worker } from "./mocks/handlers.js";
+// await worker.start();
+
+export const enableMocking = async () => {
+  // if (process.env.NODE_ENV !== "development") {
+  // return;
+  // }
+
+  const { worker } = await import("./mocks/browser.js");
+  return worker.start({
+    serviceWorker: {
+      url: "/public/mockServiceWorker.js",
+    },
+  });
+};
 
 function render() {
   const headerContainer = document.getElementById("header-container");
