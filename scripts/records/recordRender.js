@@ -14,6 +14,9 @@ export const renderRecords = (
   const recordContainerEl = elements.recordContainerEl();
   recordContainerEl.innerHTML = "";
 
+  // 해당 페이지에 렌더링할 섹션을 담을 document fragment 생성
+  const fragment = document.createDocumentFragment();
+
   // 데이터 날짜순 정렬
   const sortedRecords = records.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -21,21 +24,27 @@ export const renderRecords = (
     //"YYYY-MM-DD" 에서 YYYY와 MM 추출 후 헤더의 날짜와 비교해서 같은 값만 호출
     let year = date.split("-")[0];
     let month = date.split("-")[1];
-    let dateId = record.id;
-    const date = record.date;
 
     if (Number(currentYear) !== Number(year) || Number(currentMonth) !== Number(month)) return;
 
+    // 수입/지출 필터링
     const filteredItems = record.items.filter((item) => {
       return item.amount < 0 ? filter.outcome : filter.income;
     });
     if (filteredItems.length > 0) {
-      renderRecordByDate({ dateId, date, items: filteredItems });
+      const section = renderRecordByDate({
+        dateId: record.id,
+        date: record.date,
+        items: filteredItems,
+      });
+      fragment.appendChild(section);
     }
   });
+
+  recordContainerEl.appendChild(fragment);
 };
 
-// 상단 총 내역 건수와 지출/수입 금액의 합을 렌더링
+// 상단 해당 월의 총 내역 건수와 지출/수입 금액의 합을 렌더링
 export const renderRecordHeader = (currentYear, currentMonth, records) => {
   let totalIncome = 0;
   let totalOutcome = 0;
@@ -76,56 +85,60 @@ export const renderRecordHeader = (currentYear, currentMonth, records) => {
   initVisibleButton();
 };
 
-// 날짜와 데이터를 받아와서 섹션을 렌더링
+// 받아온 날짜의 내역 섹션을 생성
 export const renderRecordByDate = ({ dateId, date, items }) => {
-  const formattedDate = getFormattedDate(date);
-  const recordsHTML = generateRecordHTML(items);
-  // 해당 날짜의 총 지출/수입을 구하기 위한 코드
-  const { income, outcome } = getTotalAmount(items);
-  let incomeContent = "";
-  let outcomeContent = "";
-  if (income !== 0) incomeContent = `수입 ${formatWithComma(income)}원`;
-  if (outcome !== 0) outcomeContent = `지출 ${formatWithComma(outcome)}원`;
+  // section 태그 생성
+  const containerEl = document.createElement("div");
+  containerEl.className = "record-container";
+  containerEl.setAttribute("date-id", dateId);
 
-  const recordContainerEl = elements.recordContainerEl();
-  recordContainerEl.innerHTML += `
-    <div class="record-container" date-id="${dateId}">
-      <div class="record-header">
-        <div class="record-date font-serif-14">${formattedDate}</div>
-        <div class="record-amount font-serif-14">${incomeContent}  ${outcomeContent}</div>
-      </div> ${recordsHTML}
-    </div>
-  `;
+  // 헤더 - 날짜 + 수입/지출 금액 합계
+  const headerEl = document.createElement("div");
+  headerEl.className = "record-header";
+
+  const dateEl = document.createElement("div");
+  dateEl.className = "record-date font-serif-14";
+  dateEl.textContent = getFormattedDate(date);
+
+  const amountEl = document.createElement("div");
+  amountEl.className = "record-amount font-serif-14";
+  const { income, outcome } = getTotalAmount(items);
+  if (income) amountEl.innerHTML += `수입 ${formatWithComma(income)}원`;
+  if (outcome) amountEl.innerHTML += `지출 ${formatWithComma(outcome)}원`;
+
+  headerEl.appendChild(dateEl);
+  headerEl.appendChild(amountEl);
+
+  containerEl.appendChild(headerEl);
+
+  // 아이템 목록
+  items.forEach((item) => {
+    const itemEl = generateItemEl(item);
+    container.appendChild(itemEl);
+  });
 };
 
 // 아이템 배열을 순회하며 html태그로 만들어주는 함수
-export const generateRecordHTML = (items) => {
-  let itemsHTML = "";
-  let sign = "minus"; // or "plus", 금액의 지출/수입 여부
+export const generateItemEl = (item) => {
+  const sign = item.amount < 0 ? "minus" : "plus"; // 부호별 색상 변경을 위해 css 클래스 이름 지정
+  const recordItemEl = document.createElement("div");
+  recordItemEl.className = `record-item`;
+  recordItemEl.setAttribute("item-id", item.id);
 
-  items.forEach((item) => {
-    if (item.amount < 0) {
-      sign = "minus";
-    } else {
-      sign = "plus";
-    }
-    itemsHTML += `
-      <div class="record-item" item-id="${item.id}">
-        <div class="category font-light-12 ${item.category.replace(/\s+/g, "")}">${
-      item.category
-    }</div>
-        <div class="description font-light-14">${item.description}</div>
-        <div class="payment font-light-14">${item.payment}</div>
-        <div class="amount font-light-14 ${sign}">${formatWithComma(item.amount)}</div>
-        <div class="delete font-semibold-12">
-          <div class="delete-button-wrapper">
-          <img src="../assets/icons/closed.svg" class="delete-icon" alt="삭제" />
-        </div>
-      삭제
+  recordItemEl.innerHTML = `
+      <div class="category font-light-12 ${item.category.replace(/\s+/g, "")}">${
+    item.category
+  }</div>
+      <div class="description font-light-14">${item.description}</div>
+      <div class="payment font-light-14">${item.payment}</div>
+      <div class="amount font-light-14 ${sign}">${formatWithComma(item.amount)}</div>
+      <div class="delete font-semibold-12">
+        <div class="delete-button-wrapper">
+        <img src="../assets/icons/closed.svg" class="delete-icon" alt="삭제" />
       </div>
+      삭제
       </div>`;
-  });
-  return itemsHTML;
+  return recordItemEl;
 };
 
 // 날짜 데이터를 출력 포맷으로 바꿔주는 함수
