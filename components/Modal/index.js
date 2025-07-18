@@ -39,13 +39,13 @@ const createModal = ({
     const cancelButton = modalContainer.querySelector('.cancel-button');
     cancelButton.addEventListener('click', () => {
         closeModal();
-        if (onCancel) onCancel();
+        onCancel?.();
     });
 
     const okButton = modalContainer.querySelector('.ok-button');
     okButton.addEventListener('click', () => {
         closeModal();
-        if (onOk) onOk();
+        onOk?.();
     });
 
     modalBackground.addEventListener('click', closeModal);
