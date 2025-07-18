@@ -1,6 +1,6 @@
 //js/input-form.js
 import { renderCategoryOptions } from "../../../../components/inputForm/inputFormItems/categoryRender.js";
-import { loadDummyEntries } from "../../../../components/inputForm/input-form-util.js";
+import { loadDummyEntries } from "../../../../js/core.js";
 import { store } from "../../../../store/store.js";
 
 /* 
@@ -10,6 +10,8 @@ initRenderDummyData()
 
 생각해보면 카테고리 렌더링 기능이 여기 왜 있을까 의문이 든다. 
 수정 필요!!!!!
+
+
 */
 export function initRenderDummyData() {
   const { currentMonth, currentYear } = store.getState();
