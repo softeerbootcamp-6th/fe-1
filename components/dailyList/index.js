@@ -1,4 +1,4 @@
-import { dailyViewChange } from '../../viewHandler/dailyView';
+import { dailyViewChange } from '../../viewHandler/dailyView.js';
 
 export default function initalizeDailyList() {
     const today = new Date().toISOString().split('T')[0];

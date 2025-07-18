@@ -1,6 +1,6 @@
-import createDaliyList from '../components/dailyList/dailyList';
-import { dailyData } from '../store/daily';
-import { createElement, formatAmount } from '../utils';
+import createDaliyList from '../components/dailyList/dailyList.js';
+import { dailyData } from '../store/daily.js';
+import { createElement, formatAmount } from '../utils.js';
 import formData from '../store/formData.js';
 import dateData from '../store/date.js';
 import { bindInputValue } from '../viewHandler/inputView.js';
