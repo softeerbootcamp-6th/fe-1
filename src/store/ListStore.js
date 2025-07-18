@@ -1,5 +1,4 @@
 import { ListApi } from "../api/ListApi.js";
-import { DummyList } from "../mocks/DummyList.js";
 import { ListFilter } from "../utils/ListFilter.js";
 import { dateStore } from "./DateStore.js";
 import { Store } from "./store.js";
@@ -51,15 +50,39 @@ class ListStore extends Store {
         break;
       }
       case "updateListItem": {
+        // 이전 상태 저장
+        const prevItem = this.data.find((item) => item.uid === newItem.uid);
+
+        // 낙관적 업데이트
         this.data = this.data.map((item) =>
           item.uid === newItem.uid ? newItem : item
         );
         this.viewData = this.#getViewDataFromData(this.data);
+
+        // 서버 반영
+        ListApi.updateList(newItem.id, newItem).catch((error) => {
+          this.data = this.data.map((item) =>
+            item.uid === prevItem.uid ? prevItem : item
+          );
+          this.viewData = this.#getViewDataFromData(this.data);
+        });
         break;
       }
       case "removeListItemByUID": {
+        // 이전 상태 저장
+        const deletedItem = this.data.find((item) => item.uid === newItem);
+        console.log(deletedItem);
+
+        // 낙관적 삭제
         this.data = this.data.filter((item) => item.uid !== newItem);
         this.viewData = this.#getViewDataFromData(this.data);
+
+        // 서버 반영
+
+        ListApi.deleteList(deletedItem.id).catch((error) => {
+          this.data.push(deletedItem);
+          this.viewData = this.#getViewDataFromData(this.data);
+        });
         break;
       }
       case "filterList": {

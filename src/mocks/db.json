@@ -261,26 +261,6 @@
       "id": "72ff"
     },
     {
-      "uid": "58e2aa36-6901-4e8f-8756-8a7b1a0e4d32",
-      "date": "2025-07-20T08:00:00.000Z",
-      "moneyType": "expense",
-      "money": 2500,
-      "content": "지하철 요금",
-      "payment": "신용카드",
-      "category": "교통",
-      "id": "5991"
-    },
-    {
-      "uid": "31bb3cc1-f55a-44f3-9029-5b2c215acdd1",
-      "date": "2025-07-23T14:00:00.000Z",
-      "moneyType": "income",
-      "money": 70000,
-      "content": "피부과 방문",
-      "payment": "신용카드",
-      "category": "의료/건강",
-      "id": "8fe5"
-    },
-    {
       "id": "1e4c",
       "mode": "create",
       "date": "2025-07-18T02:14:40.805Z",
