@@ -1,7 +1,6 @@
 import { createElement } from '../../utils.js';
 
-export default function createHeaderTab() {
-    const headerTabHTML = `
+const headerTabHTML = `
     <ul>
         <li>
             <a>
@@ -19,8 +18,9 @@ export default function createHeaderTab() {
             </a>
         </li>
     </ul>
-    `;
+`;
 
+export default function createHeaderTab() {
     const $headerTab = createElement(
         'div',
         {

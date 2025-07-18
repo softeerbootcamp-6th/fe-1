@@ -2,6 +2,7 @@
 @import './components/header/index.css';
 @import './components/inputbar/index.css';
 @import './components/dailyList/index.css';
+@import './components/modal/index.css';
 
 :root {
     --grayscale-50: #ffffff;

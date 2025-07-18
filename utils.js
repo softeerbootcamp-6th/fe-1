@@ -1,12 +1,23 @@
-export const createElement = (tag, attributes = {}, htmlString) => {
+export const createElement = (tag, attributes = {}, content) => {
     const $wrapperElement = document.createElement(tag);
 
     Object.entries(attributes).forEach(([key, value]) => {
         $wrapperElement.setAttribute(key, value);
     });
 
-    $wrapperElement.innerHTML = htmlString;
-
+    if (typeof content === 'string') {
+        $wrapperElement.innerHTML = content;
+    } else if (content instanceof Node) {
+        $wrapperElement.appendChild(content);
+    } else if (Array.isArray(content)) {
+        content.forEach((item) => {
+            if (typeof item === 'string') {
+                $wrapperElement.insertAdjacentHTML('beforeend', item);
+            } else if (item instanceof Node) {
+                $wrapperElement.appendChild(item);
+            }
+        });
+    }
     return $wrapperElement;
 };
 

@@ -6,16 +6,20 @@ import {
 } from '../../utils.js';
 import createDaily from './daily.js';
 
-export default function createDaliyList(dailyInfo) {
-    const { date } = dailyInfo;
-    const dateToKorean = formatDateToKorean(date);
-
-    const dailyListContainerInnerHtml = `
-        <div class="daily-header">
+function createDailyListContainerInnerHtml(dateToKorean) {
+    return `
+     <div class="daily-header">
             <div class="date-info">${dateToKorean}</div>
         </div>
         <ol class="daliy-line-wrapper"></ol>
     `;
+}
+
+export default function createDaliyList(dailyInfo) {
+    const { date } = dailyInfo;
+    const dateToKorean = formatDateToKorean(date);
+    const dailyListContainerInnerHtml =
+        createDailyListContainerInnerHtml(dateToKorean);
 
     const $dailyListContainer = createElement(
         'li',
@@ -29,6 +33,17 @@ export default function createDaliyList(dailyInfo) {
         '.daliy-line-wrapper',
     );
 
+    const { totalIncome, totalExpense, totalcnt } =
+        appendDailyListAndCalcAmount($dailyListWrapper, dailyInfo);
+
+    if (totalcnt == 0) return null;
+
+    appendDailyListAmount($dailyListContainer, totalIncome, totalExpense);
+
+    return $dailyListContainer;
+}
+
+function appendDailyListAndCalcAmount($root, dailyInfo) {
     let totalIncome = 0;
     let totalExpense = 0;
 
@@ -40,6 +55,7 @@ export default function createDaliyList(dailyInfo) {
             (!dailyData.filteredExpense && info.amount < 0)
         ) {
             totalcnt++;
+            dailyData.totalCount++;
             if (info.amount > 0) {
                 totalIncome += info.amount;
                 dailyData.totalIncome += info.amount;
@@ -47,10 +63,14 @@ export default function createDaliyList(dailyInfo) {
                 totalExpense -= info.amount;
                 dailyData.totalExpense -= info.amount;
             }
-            $dailyListWrapper.appendChild(createDaily(info));
+            $root.appendChild(createDaily(info));
         }
     });
 
+    return { totalIncome, totalExpense, totalcnt };
+}
+
+function appendDailyListAmount($dailyListContainer, totalIncome, totalExpense) {
     let amountHtml = '';
     amountHtml +=
         totalIncome != 0
@@ -70,7 +90,4 @@ export default function createDaliyList(dailyInfo) {
     );
 
     $dailyListContainer.querySelector('.date-info').after($dailyAmount);
-
-    if (totalcnt == 0) return null;
-    return $dailyListContainer;
 }

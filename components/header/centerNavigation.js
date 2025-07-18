@@ -1,10 +1,9 @@
 import { createElement } from '../../utils.js';
 import dateData from '../../store/date.js';
-import { dailyViewChange } from '../dailyList/index.js';
+import { dailyViewChange } from '../../viewHandler/dailyView.js';
 import { dateViewChange } from '../../viewHandler/dateView.js';
 
-export default function createCenterNavigation() {
-    const centerNavigationHTML = `
+const centerNavigationHTML = `
     <button>
         <img
             aria-label="왼쪽 버튼"
@@ -24,6 +23,7 @@ export default function createCenterNavigation() {
     </button>
     `;
 
+export default function createCenterNavigation() {
     const $centerNavigation = createElement(
         'div',
         {
@@ -32,9 +32,14 @@ export default function createCenterNavigation() {
         centerNavigationHTML,
     );
 
-    const [$minusBtn, _, $plusBtn] = $centerNavigation.children;
+    centerNavigationAddEventListener($centerNavigation);
 
-    // 이벤트 위임으로 해도될 듯?
+    return $centerNavigation;
+}
+
+function centerNavigationAddEventListener($wrapper) {
+    const [$minusBtn, _, $plusBtn] = $wrapper.children;
+
     $minusBtn.addEventListener('click', () => {
         dateData.decreaseMonth();
         dailyViewChange(dateData.year, dateData.month);
@@ -45,6 +50,4 @@ export default function createCenterNavigation() {
         dateViewChange(dateData.year, dateData.month);
         dailyViewChange(dateData.year, dateData.month);
     });
-
-    return $centerNavigation;
 }
