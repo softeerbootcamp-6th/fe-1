@@ -31,7 +31,10 @@ body {
 .topbar>.view-toggle {
     width: 132px;
 }
-.topbar>.view-toggle>button {
+.topbar>.view-toggle>a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 10px;
     padding: 2px;
     border: none;
@@ -41,7 +44,7 @@ body {
     height: 32px;
     cursor: pointer;
 }
-.topbar>.view-toggle>button:hover {
+.topbar>.view-toggle>a:hover {
     background-color: white;
 }
 
@@ -89,6 +92,10 @@ main {
     width: 894px;
     position: absolute;
     top: 180px;
+}
+
+.summaryList{
+    width: 100%;
     background-color: white;
     display: flex;
     flex-direction: column;
