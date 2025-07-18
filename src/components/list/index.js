@@ -26,31 +26,37 @@ export const List = () => {
     `;
   };
 
+  const renderListOverviewFilter = (data) => {
+    listTypeFilterWrapper.innerHTML = ``;
+    const { income, expense } = NumberManager.calculateTotalMoney(data);
+    listTypeFilterWrapper.appendChild(ListTypeFilter("income", income));
+    listTypeFilterWrapper.appendChild(ListTypeFilter("expense", expense));
+  };
+
   // render list overview
   const listOverview = ElementManager.renderElement("div", "list-overview");
   const listCounter = ElementManager.renderElement("div", "list-counter");
   listOverview.appendChild(listCounter);
-  renderListOverviewCounter(listStore.data);
+  renderListOverviewCounter(listStore.viewData);
 
   const listTypeFilterWrapper = ElementManager.renderElement(
     "div",
     "list-type-container"
   );
-  const { income, expense } = NumberManager.calculateTotalMoney(listStore.data);
-  listTypeFilterWrapper.appendChild(ListTypeFilter("income", income));
-  listTypeFilterWrapper.appendChild(ListTypeFilter("expense", expense));
+  renderListOverviewFilter(listStore.viewData);
   listOverview.appendChild(listTypeFilterWrapper);
   list.appendChild(listOverview);
 
   // render list wrapper
   const listWrapper = ElementManager.renderElement("div", "list-wrapper");
   list.appendChild(listWrapper);
-  renderListWrapper(listStore.data);
+  renderListWrapper(listStore.viewData);
 
   // rerender using dispatcher
   // 데이터가 업데이트되는 화면만 부분 렌더링
   listStore.subscribe((newData) => {
     renderListOverviewCounter(newData);
+    renderListOverviewFilter(newData);
     renderListWrapper(newData);
   });
   return list;

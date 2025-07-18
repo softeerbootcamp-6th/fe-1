@@ -13,7 +13,7 @@ export const NumberManager = {
     Object.keys(totalMoney).map((moneyType) => {
       totalMoney[moneyType] = data
         .filter((item) => item.moneyType === moneyType)
-        .reduce((acc, curr) => acc + curr.money, 0);
+        .reduce((acc, curr) => acc + Number(curr.money), 0);
     });
     return totalMoney;
   },

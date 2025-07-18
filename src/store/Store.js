@@ -14,8 +14,12 @@ export class Store {
     );
   }
 
-  notify() {
-    this.subscribers.forEach((callback) => callback(this.data));
+  notify(type = "") {
+    if (type === "viewData") {
+      this.subscribers.forEach((callback) => callback(this.viewData));
+    } else {
+      this.subscribers.forEach((callback) => callback(this.data));
+    }
   }
 
   dispatch() {}

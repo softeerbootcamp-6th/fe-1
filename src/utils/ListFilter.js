@@ -1,16 +1,16 @@
 export const ListFilter = {
   groupTransactionsByMonth: (transactions, date) => {
     return transactions
+      .map((transaction) => ({
+        ...transaction,
+        date: new Date(transaction.date),
+      }))
       .filter(
         (transaction) =>
           transaction.date.getMonth() + 1 === date.month &&
           transaction.date.getFullYear() === date.year
       )
-      .sort((a, b) => b.date - a.date)
-      .map((item) => ({
-        ...item,
-        uid: crypto.randomUUID(),
-      }));
+      .sort((a, b) => b.date - a.date);
   },
   groupTransactionsByDate: (transactions) => {
     const groupedListByDate = {};

@@ -255,6 +255,10 @@ input#money {
   background-color: var(--nuetral-surface-point);
 }
 
+.list-item.active {
+  background-color: var(--nuetral-surface-point);
+}
+
 .list-item .category {
   display: flex;
   justify-content: center;

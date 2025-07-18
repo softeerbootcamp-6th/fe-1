@@ -46,7 +46,7 @@ export const PaymentForm = () => {
       // 값 삭제
       const deleteButton = target.closest(".delete-button");
       if (deleteButton) {
-        Modal.renderModal("delete", (isConfirm) => {
+        Modal.renderModal("deletePayment", (isConfirm) => {
           const selectedLi = target.closest("li");
           const selectedSpan = selectedLi.querySelector(".drop-down-li");
           defaultPayment = defaultPayment.filter(
