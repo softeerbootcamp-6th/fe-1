@@ -19,18 +19,18 @@ const navigateToNextMonth = ({ headerDateModel, dateStore }) => {
   syncStateToStore({ headerDateModel, dateStore });
 };
 
-const addEventListeners = ({
-  prevButton,
-  nextButton,
-  headerDateModel,
-  dateStore,
-}) => {
-  prevButton.addEventListener('click', () =>
-    navigateToPreviousMonth({ headerDateModel, dateStore }),
-  );
-  nextButton.addEventListener('click', () =>
-    navigateToNextMonth({ headerDateModel, dateStore }),
-  );
+// 이벤트 위임을 사용하여 navEl에 클릭 이벤트 리스너를 추가
+const addEventListeners = ({ navEl, headerDateModel, dateStore }) => {
+  navEl.addEventListener('click', (event) => {
+    // 이전 달 버튼 클릭
+    if (event.target.closest('.prev')) {
+      navigateToPreviousMonth({ headerDateModel, dateStore });
+    }
+    // 다음 달 버튼 클릭
+    if (event.target.closest('.next')) {
+      navigateToNextMonth({ headerDateModel, dateStore });
+    }
+  });
 };
 
 export const initDateNav = ({ navEl, dateStore }) => {
@@ -39,8 +39,7 @@ export const initDateNav = ({ navEl, dateStore }) => {
 
   // 이벤트 리스너 등록
   addEventListeners({
-    prevButton: navEl.querySelector('.prev'),
-    nextButton: navEl.querySelector('.next'),
+    navEl,
     headerDateModel,
     dateStore,
   });
