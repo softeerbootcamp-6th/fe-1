@@ -24,7 +24,7 @@ class FormState extends Observable {
   }
   resetFormState() {
     this.formState = {
-      date: getDateYMD(new Date()),
+      date: this.formState.date,
       amount: "0",
       type: "withdraw",
       description: "",
