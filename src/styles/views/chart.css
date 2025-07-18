@@ -6,6 +6,10 @@
   margin: 0 auto;
 }
 
+.chart__detail {
+  margin-top: 4rem;
+}
+
 .pie-chart {
   display: flex;
   justify-content: space-between;
@@ -80,4 +84,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 1.6rem;
+}
+
+.line-chart {
+  width: 84.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.4rem;
+  padding: 3.2rem 4.8rem;
+  border: 0.1rem solid var(--nuetral-text-default);
+}
+
+.canvas {
+  width: 75rem;
 }

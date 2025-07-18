@@ -34,9 +34,18 @@ class ChartObserver extends Observer {
       const groupedByDate = groupByDate(filteredByCategory);
 
       const sortedByDate = sortByDate(groupedByDate);
+      const lineChartData = [
+        { month: "2024-10", amount: 430000 },
+        { month: "2024-11", amount: 390000 },
+        { month: "2024-12", amount: 470000 },
+        { month: "2025-01", amount: 520000 },
+        { month: "2025-02", amount: 410000 },
+        { month: "2025-03", amount: 450000 },
+      ];
       this.view.renderDetail({
-        sortedByDate,
         selectedCategory,
+        lineChartData,
+        sortedByDate,
       });
     }
   }
