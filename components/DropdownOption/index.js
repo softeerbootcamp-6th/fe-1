@@ -32,7 +32,7 @@ const createDropdownOption = (option, deleteOption) => {
             formStore.deletePaymentMethod(option.value);
         },
         okTextColor: 'var(--danger-text-default)',
-        content: `
+        children: `
             <span class="light-16">해당 결제 수단을 삭제하시겠습니까?</span>
             <input
                 class="semibold-12 input-payment-method"

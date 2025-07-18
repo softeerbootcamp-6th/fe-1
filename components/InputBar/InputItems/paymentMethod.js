@@ -77,7 +77,7 @@ const createPaymentMethod = () => {
 
             input.value = '';
         },
-        content: `
+        children: `
             <span class="light-16">추가하실 결제 수단을 입력해주세요.</span>
             <input
                 class="semibold-12 input-payment-method"

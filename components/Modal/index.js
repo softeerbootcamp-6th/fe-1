@@ -1,5 +1,5 @@
 const createModal = ({
-    content,
+    children,
     cancelText = '취소',
     okText,
     onCancel,
@@ -14,7 +14,7 @@ const createModal = ({
     modalContainer.className = 'modal-container';
     modalContainer.innerHTML = `
         <div class="modal-content">
-            ${content}
+            ${children}
         </div>
         <div class="modal-button-container">
             <button class="modal-button semibold-16 cancel-button" style="color: ${cancelTextColor}">

@@ -43,7 +43,7 @@ function createDetailListItem({
             itemElement.remove();
         },
         okTextColor: 'var(--danger-text-default)',
-        content: `
+        children: `
             <span class="light-16">해당 내역을 삭제하시겠습니까?</span>
             <span class="light-12">
                 · 카테고리: ${isIncome ? '수입' : '지출'} / ${categoryLabel}
