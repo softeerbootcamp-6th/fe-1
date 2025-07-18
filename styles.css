@@ -710,3 +710,33 @@ dialog {
 .modal-content > input::placeholder {
   padding: 0 16px;
 }
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dropdown-item {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 125px;
+  background: var(--nuetral-surface-default);
+  border: 1px solid var(--nuetral-border-default);
+  padding: 8px;
+}
+
+.dropdown-content.open {
+  display: flex;
+}
