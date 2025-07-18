@@ -10,7 +10,7 @@ const formData = {
     dailyId: null,
 
     init() {
-        this.date = null;
+        this.date = new Date().toISOString().split('T')[0];
         this.amount = '';
         this.description = null;
         this.payment = null;
