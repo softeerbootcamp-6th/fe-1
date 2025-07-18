@@ -1,7 +1,7 @@
 import {
   monthState,
   transactionState,
-  InputFormState,
+  inputFormState,
 } from "../../stores/subjects/index.js";
 
 import {
@@ -18,12 +18,9 @@ import {
   handleClickTransactions,
 } from "./homeEventHandler.js";
 
-const inputFormState = new InputFormState();
+import { subscribeHomeObserver } from "../../utils/index.js";
 
 const renderInputForm = async () => {
-  const inputFormView = new InputFormView();
-  const inputFormObserver = new InputFormObserver(inputFormView);
-  inputFormState.subscribe(inputFormObserver);
   inputFormState.init();
 
   const inputFormElement = document.querySelector(".input-form");
@@ -43,12 +40,6 @@ const renderInputForm = async () => {
 const renderTransactions = async () => {
   const { year, month } = monthState.getMonthInfo();
 
-  // Observer들 초기화
-  const transactionsView = new TransactionsView();
-  const transactionsObserver = new TransactionsObserver(transactionsView);
-
-  transactionState.subscribe(transactionsObserver);
-
   // 모든 데이터를 먼저 로드한 후 월별 데이터 표시
   await transactionState.loadMonthData(`${year}-${month}`);
 
@@ -59,6 +50,7 @@ const renderTransactions = async () => {
 };
 
 const init = async () => {
+  subscribeHomeObserver();
   await renderTransactions();
   await renderInputForm();
 };

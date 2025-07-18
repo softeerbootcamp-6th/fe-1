@@ -11,6 +11,10 @@ class Subject {
     this.observers = this.observers.filter((obs) => obs !== observer);
   }
 
+  unsubscribeAll() {
+    this.observers = [];
+  }
+
   notify(data) {
     this.observers.forEach((observer) => observer.update(data));
   }

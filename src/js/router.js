@@ -5,6 +5,8 @@ import {
   ChartTemplate,
 } from "../views/index.js";
 
+import { unsubscribeAll } from "../utils/index.js";
+
 class Router {
   constructor() {
     this.routes = new Map();
@@ -111,6 +113,9 @@ class Router {
 
     // 현재 페이지의 main 영역만 정리
     this.cleanupCurrentPage();
+
+    // 이전 페이지의 모든 옵저버 제거
+    unsubscribeAll();
 
     try {
       // 공통 헤더 렌더링 (선택된 네비게이션에 따라)

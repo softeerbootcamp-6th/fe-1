@@ -3,8 +3,7 @@ import {
   monthState,
   chartState,
 } from "../../stores/subjects/index.js";
-import { ChartObserver } from "../../stores/observers/index.js";
-import { ChartView } from "../../views/index.js";
+import { subscribeChartObserver } from "../../utils/index.js";
 
 const renderPieChart = () => {
   const $pieChart = document.querySelector(".pie-chart");
@@ -18,10 +17,7 @@ const renderPieChart = () => {
 
 const init = async () => {
   const { year, month } = monthState.getMonthInfo();
-  const chartView = new ChartView();
-  const chartObserver = new ChartObserver(chartView);
-  transactionState.subscribe(chartObserver);
-  chartState.subscribe(chartObserver);
+  subscribeChartObserver();
   await transactionState.loadMonthData(`${year}-${month}`);
 
   renderPieChart();
