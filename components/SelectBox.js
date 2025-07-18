@@ -1,5 +1,6 @@
 export function renderSelectBox(optionStringList, editable, deletable) {
-  const selectBox = document.createElement('div');
+  console.log(optionStringList);
+  const selectBox = document.createElement('div'); //div value설정이 안됨. dataset.value로 설정
   selectBox.className = 'select-box';
 
   // 가상 DOM 조각
@@ -97,8 +98,8 @@ export function renderSelectBox(optionStringList, editable, deletable) {
       const optionSpan = selectedOption.querySelector('.option-item-span');
       if (optionSpan) {
         selectButtonSpan.textContent = optionSpan.textContent;
-        selectBox.value = optionSpan.textContent;
-        console.log('선택된 값:', selectBox.value);
+        selectBox.dataset.value = optionSpan.textContent;
+        console.log('선택된 값:', selectBox);
         optionList.classList.remove('active');
 
         // change 이벤트 발생

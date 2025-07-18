@@ -142,7 +142,7 @@ export function renderIncomeExpenseForm() {
   const descriptionInput = form.querySelector('#description-input');
 
   // 결제수단
-  let paymentSelectButton = form.querySelector('.select-button-span'); // 첫 번째 select-box
+  let paymentSelect = form.querySelector('.select-box'); // 첫 번째 select-box
 
   // 분류
   let tagSelectSpan = form.querySelectorAll('.select-button-span')[1]; // 두 번째 select-box
@@ -186,30 +186,12 @@ export function renderIncomeExpenseForm() {
   });
 
   // keyup, select 이벤트 발생 시 유효성 검사
-  [
-    dateInput,
-    moneyInput,
-    descriptionInput,
-    paymentSelectButton,
-    tagSelectSpan,
-  ].forEach(input => {
+  [dateInput, moneyInput, descriptionInput].forEach(input => {
     input.addEventListener('keyup', () => {
-      validateForm(
-        dateInput,
-        moneyInput,
-        descriptionInput,
-        paymentSelectButton,
-        tagSelectSpan
-      );
+      validateForm(dateInput, moneyInput, descriptionInput);
     });
     input.addEventListener('change', () => {
-      validateForm(
-        dateInput,
-        moneyInput,
-        descriptionInput,
-        paymentSelectButton,
-        tagSelectSpan
-      );
+      validateForm(dateInput, moneyInput, descriptionInput);
     });
   });
 
@@ -221,22 +203,8 @@ export function renderIncomeExpenseForm() {
       '.income-expense-list-container'
     );
 
-    handleSubmit(
-      e,
-      itemID,
-      dateInput,
-      moneyInput,
-      descriptionInput,
-      paymentSelectButton,
-      tagSelectSpan
-    );
-    formInit(
-      dateInput,
-      moneyInput,
-      descriptionInput,
-      paymentSelectButton,
-      tagSelectSpan
-    );
+    handleSubmit(e, itemID, dateInput, moneyInput, descriptionInput);
+    formInit(dateInput, moneyInput, descriptionInput);
     isEdit = false;
     renderListItem(incomeExpenseListContainer);
   });
@@ -247,18 +215,14 @@ export function renderIncomeExpenseForm() {
     setItemToForm(data);
   });
 
+  // 내가 클릭한 것이 아닌지 확인할 수 있으면 됨
+  // 생각을 거꾸로
   // 바깔부분 클릭하면 edit 해제
   document.body.addEventListener('click', event => {
     // 특정 요소 안에서 클릭했는지 확인
     const isInsideList = event.target.closest('li');
     if (!isInsideList && isEdit) {
-      formInit(
-        dateInput,
-        moneyInput,
-        descriptionInput,
-        paymentSelectButton,
-        tagSelectSpan
-      );
+      formInit(dateInput, moneyInput, descriptionInput);
       isEdit = false;
     }
   });
@@ -277,13 +241,7 @@ export function renderIncomeExpenseForm() {
 
     // 새로운 tagSelect에 이벤트 리스너 추가
     tagSelectSpan.addEventListener('change', () => {
-      validateForm(
-        dateInput,
-        moneyInput,
-        descriptionInput,
-        paymentSelectButton,
-        tagSelectSpan
-      );
+      validateForm(dateInput, moneyInput, descriptionInput);
     });
   };
 
@@ -295,24 +253,14 @@ export function renderIncomeExpenseForm() {
     paymentContainer.appendChild(renderSelectBox(options, true, true));
     const newSelectBox = paymentContainer.querySelector('.select-box');
     newSelectBox.addEventListener('change', () => {
-      validateForm(
-        dateInput,
-        moneyInput,
-        descriptionInput,
-        paymentSelectButton,
-        tagSelectSpan
-      );
+      validateForm(dateInput, moneyInput, descriptionInput);
     });
   };
 
   // 입력값 유효성 검사
-  const validateForm = (
-    dateInput,
-    moneyInput,
-    descriptionInput,
-    paymentSelectButton,
-    tagSelectSpan
-  ) => {
+  const validateForm = (dateInput, moneyInput, descriptionInput) => {
+    const paymentSelect = form.querySelector('.select-box'); // 첫 번째 select-box
+    const tagSelectSpan = form.querySelectorAll('.select-button-span')[1]; // 두 번째 select-box
     // 날짜 입력값 확인
     const isDateValid = !!dateInput.value; // 날짜가 선택되었는지 확인(true/false 강제변환)
     // 금액 입력값 확인 (0 보다 큰가)
@@ -320,11 +268,11 @@ export function renderIncomeExpenseForm() {
     // 내용 입력값 확인 (1글자 이상)
     const isDescriptionValid = descriptionInput.value.trim().length > 0;
     // 결제수단 선택 여부 확인
-    const isPaymentValid = paymentSelectButton.textContent !== '';
+    const isPaymentValid = paymentSelect.textContent !== '';
     // 분류 선택 여부 확인
     const isTagValid = tagSelectSpan.textContent !== '';
-    console.log(paymentSelectButton);
-    console.log(paymentSelectButton.textContent);
+    console.log(paymentSelect);
+    console.log(paymentSelect.dataset.value);
 
     const isValid =
       isDateValid &&
@@ -344,22 +292,17 @@ export function renderIncomeExpenseForm() {
     }
   };
 
-  const handleSubmit = (
-    e,
-    ID,
-    dateInput,
-    moneyInput,
-    descriptionInput,
-    paymentSelectButton,
-    tagSelectSpan
-  ) => {
+  const handleSubmit = (e, ID, dateInput, moneyInput, descriptionInput) => {
     e.preventDefault();
+
+    const paymentSelect = form.querySelector('.select-box'); // 첫 번째 select-box
+    const tagSelectSpan = form.querySelectorAll('.select-button-span')[1]; // 두 번째 select-box
 
     const dateInputValue = dateInput.value;
     const moneyInputValue = moneyInput.value.replace(/[^0-9]/g, ''); // 숫자만 추출
     const descriptionInputValue = descriptionInput.value.trim();
-    const paymentSelectValue = paymentSelectButton.textContent;
-    const tagSelectValue = tagSelectSpan.textContent;
+    const paymentSelectValue = paymentSelect.dataset.value;
+    const tagSelectValue = tagSelectSpan.dataset.value;
 
     const newIncomeExpense = {
       id: ID,
@@ -380,7 +323,7 @@ export function renderIncomeExpenseForm() {
     dateInput,
     moneyInput,
     descriptionInput,
-    paymentSelectButton,
+    paymentSelect,
     tagSelectSpan
   ) => {
     itemID = null;
@@ -388,7 +331,7 @@ export function renderIncomeExpenseForm() {
     moneyInput.value = '';
     descriptionInput.value = '';
 
-    paymentSelectButton.textContent = '선택하세요';
+    paymentSelect.textContent = '선택하세요';
     tagSelectSpan.textContent = '선택하세요';
     activeAddButton(false);
   };
@@ -415,7 +358,7 @@ export function renderIncomeExpenseForm() {
     const lengthSpan = form.querySelector('.description-length');
     descriptionLength = description.length;
     lengthSpan.textContent = `${descriptionLength}/32`;
-    paymentSelectButton.textContent = payment;
+    paymentSelect.textContent = payment;
     console.log(tagSelectSpan);
     tagSelectSpan.textContent = tag;
   };
