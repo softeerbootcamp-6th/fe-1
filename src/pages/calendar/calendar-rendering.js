@@ -13,9 +13,9 @@ export async function renderCalendar() {
 
 // 자동으로 헤더 렌더링 및 초기화
 document.addEventListener("DOMContentLoaded", function () {
-  const headerContainer = document.getElementById("header-container");
-  if (headerContainer) {
-    headerContainer.innerHTML = renderCalendar();
+  const calendarContainer = document.getElementById("calendar-container");
+  if (calendarContainer) {
+    calendarContainer.innerHTML = renderCalendar();
     initCalendar();
   }
 });
