@@ -19,6 +19,11 @@ class FormState extends Observable {
     this.formState = { ...this.formState, ...newFields };
     this.notify();
   }
+  setDate(newDate) {
+    this.formState.date = newDate;
+    this.notify();
+  }
+
   getFormState() {
     return this.formState;
   }
