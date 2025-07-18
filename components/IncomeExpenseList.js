@@ -1,4 +1,3 @@
-// 1. month가 바뀔 때마다 다른 지출 내역 보여주기
 import { dateStore } from '../store/dateStore.js';
 import { incomeExpenseStore } from '../store/incomeExpenseStore.js';
 

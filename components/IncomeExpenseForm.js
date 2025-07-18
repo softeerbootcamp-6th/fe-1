@@ -26,6 +26,12 @@ export function renderIncomeExpenseForm() {
     '미분류',
   ];
 
+  document.addEventListener('add-payment', e => {
+    const paymentName = e.detail.paymentName;
+    paymentOptions.push(paymentName);
+    updatePaymentSelect(paymentOptions);
+  });
+
   // TODO: select UI 구현 (현재는 단순한 select로 구현)
   const getDateContainerHTML = () => {
     return `
@@ -249,6 +255,14 @@ export function renderIncomeExpenseForm() {
     } else {
       tagContainer.appendChild(renderSelectBox(expenseTags, false, false));
     }
+  };
+
+  const updatePaymentSelect = options => {
+    const oldSelectBox = paymentContainer.querySelector('.select-box');
+    if (oldSelectBox) {
+      paymentContainer.removeChild(oldSelectBox);
+    }
+    paymentContainer.appendChild(renderSelectBox(options, true, true));
   };
 
   // 입력값 유효성 검사
