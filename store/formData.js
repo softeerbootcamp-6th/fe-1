@@ -6,15 +6,19 @@ const formData = {
     category: null,
     sign: false,
     isValid: false,
+    isEdit: false,
+    dailyId: null,
 
     init() {
-        this.date = null;
+        this.date = new Date().toISOString().split('T')[0];
         this.amount = '';
         this.description = null;
         this.payment = null;
         this.category = null;
         this.sign = false;
         this.checkAndNotify();
+        this.isEdit = false;
+        this.dailyId = null;
     },
 
     isValidListeners: new Set(),
@@ -52,6 +56,12 @@ const formData = {
     setCategory(categoryValue) {
         this.category = categoryValue;
         this.checkAndNotify();
+    },
+    setEdit(editValue) {
+        this.isEdit = editValue;
+    },
+    setDailyId(idValue) {
+        this.dailyId = idValue;
     },
 
     checkValid() {

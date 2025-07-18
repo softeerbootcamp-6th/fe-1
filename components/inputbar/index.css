@@ -261,6 +261,10 @@ input[type='date'] {
     border: 1px solid var(--grayscale-400);
 }
 
+.modal-btn-wrapper button:first-child {
+    border-right: 1px solid var(--grayscale-400);
+}
+
 .modal-content-wrapper {
     flex: 1;
     padding: 20px;
@@ -279,5 +283,23 @@ input[type='date'] {
     width: 50%;
     height: 56px;
     text-align: center;
-    border: 1px solid var(--grayscale-400);
+    border-top: 1px solid var(--grayscale-400);
+}
+
+.modal-btn-wrapper button:hover {
+    cursor: pointer;
+}
+
+#payment-modal-add-button {
+    font-weight: 700;
+}
+
+.delete-modal-value {
+    width: 280px;
+    height: 40px;
+    background-color: var(--neutral-surface-weak);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0 20px;
 }

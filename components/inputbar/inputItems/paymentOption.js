@@ -40,7 +40,6 @@ export default function createPayemntInputOption() {
         .addEventListener('click', (e) => {
             createElement('div', { class: 'title' });
             renderModal(createAddPaymetModalContent());
-            payment.addPayment('add');
         });
 
     $paymentOptionItem.addEventListener('click', (e) => {
@@ -48,10 +47,9 @@ export default function createPayemntInputOption() {
         const $deleteBtn = e.target.closest('#payment-delete-btn');
 
         if ($deleteBtn) {
-            const nowPayment = payment.filterByValue(
-                $targetLine.querySelector('#payment-value').textContent,
-            );
-            $paymentOptionItem.innerHTML = createPaymentOptionList(nowPayment);
+            const targetString =
+                $targetLine.querySelector('#payment-value').textContent;
+            renderModal(createDeletePaymetModalContent(targetString));
             e.stopPropagation();
             return;
         }
@@ -72,16 +70,74 @@ export default function createPayemntInputOption() {
     return $paymentOptionItem;
 }
 
-const modalConentHTML = `
-    <div class=modal-content-wrapper>    
+const addModalConentHTML = `
+    <div class="modal-content-wrapper">    
         <div>추가 하실 결제수단을 입력해주세요.</div>
-        <input type="text" />
+        <input id="payment-modal-input" type="text" />
     </div>
     <div class="modal-btn-wrapper">
-        <button>취소</button>
-        <button>추가</button>
+        <button id="payment-modal-cancel-button" class="sb-16">취소</button>
+        <button id="payment-modal-add-button" class="sb-16">추가</button>
     </div>`;
 
 function createAddPaymetModalContent() {
-    return createElement('div', { class: 'modal-content' }, modalConentHTML);
+    const $paymentModal = createElement(
+        'div',
+        { class: 'modal-content' },
+        addModalConentHTML,
+    );
+
+    $paymentModal
+        .querySelector('#payment-modal-add-button')
+        .addEventListener('click', () => {
+            payment.addPayment(
+                $paymentModal.querySelector('#payment-modal-input').value,
+            );
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    $paymentModal
+        .querySelector('#payment-modal-cancel-button')
+        .addEventListener('click', () => {
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    return $paymentModal;
+}
+
+function deleteModalConentHTML(target) {
+    return `
+    <div class="modal-content-wrapper">    
+        <div>해당 결제 수단을 삭제하시겠습니까?</div>
+        <span class="delete-modal-value">${target}</span>
+    </div>
+    <div class="modal-btn-wrapper">
+        <button id="payment-modal-cancel-button" class="sb-16">취소</button>
+        <button id="payment-modal-delete-button" class="sb-16">삭제</button>
+    </div>`;
+}
+
+function createDeletePaymetModalContent(target) {
+    const $paymentModal = createElement(
+        'div',
+        { class: 'modal-content' },
+        deleteModalConentHTML(target),
+    );
+
+    $paymentModal
+        .querySelector('#payment-modal-cancel-button')
+        .addEventListener('click', () => {
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    $paymentModal
+        .querySelector('#payment-modal-delete-button')
+        .addEventListener('click', () => {
+            const nowPayment = payment.filterByValue(target);
+            document.getElementById('dropdown-List-payment').innerHTML =
+                createPaymentOptionList(nowPayment);
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    return $paymentModal;
 }

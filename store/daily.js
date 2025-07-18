@@ -4,6 +4,7 @@ export const dailyData = {
     filteredExpense: false,
     totalIncome: 0,
     totalExpense: 0,
+    totalCount: 0,
     async init() {
         await this.fetch();
     },
@@ -42,6 +43,26 @@ export const dailyData = {
             } else {
                 this.data.splice(index, 0, newGroup);
             }
+        }
+    },
+
+    changeDailyData(data) {
+        const { amount, category, date, description, payment, sign } = data;
+        const newItems = {
+            id: crypto.randomUUID(),
+            category,
+            description,
+            payment,
+            amount: sign ? Math.abs(amount) : Math.abs(amount) * -1,
+            createAt: new Date().toISOString(),
+        };
+
+        const targetDateObj = this.data.find((item) => item.date === date);
+        const index = targetDateObj.items.findIndex(
+            (item) => item.id === data.dailyId,
+        );
+        if (index !== -1) {
+            targetDateObj.items[index] = newItems;
         }
     },
 

@@ -28,12 +28,17 @@ export default function createCategoryInput() {
         categoryInputInnerHtml,
     );
 
-    $categoryInputItem
+    addCategoryClickListener($categoryInputItem);
+
+    return $categoryInputItem;
+}
+
+function addCategoryClickListener($rootEl) {
+    $rootEl
         .querySelector('.dropdown-main-category')
         .addEventListener('click', () => {
             const sign = formData.sign;
-            const $dropdown =
-                $categoryInputItem.querySelector('.dropdown-category');
+            const $dropdown = $rootEl.querySelector('.dropdown-category');
             if (sign) {
                 $dropdown.appendChild(categoryInputOption(sign));
             } else {
@@ -54,6 +59,4 @@ export default function createCategoryInput() {
                 $backgroud.remove();
             });
         });
-
-    return $categoryInputItem;
 }

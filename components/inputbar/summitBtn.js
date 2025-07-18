@@ -2,7 +2,7 @@ import { createElement } from '../../utils.js';
 import formData from '../../store/formData.js';
 import { dailyData } from '../../store/daily.js';
 import dateData from '../../store/date.js';
-import { dailyViewChange } from '../dailyList/index.js';
+import { dailyViewChange } from '../../viewHandler/dailyView.js';
 import { bindInputValue } from '../../viewHandler/inputView.js';
 
 export default function createSummitButton() {
@@ -27,7 +27,11 @@ export default function createSummitButton() {
     const $btn = $summitBtn.firstElementChild;
     $btn.addEventListener('click', () => {
         if (!formData.isValid) return;
-        dailyData.uploadDailyData(formData);
+        if (formData.isEdit) {
+            dailyData.changeDailyData(formData);
+        } else {
+            dailyData.uploadDailyData(formData);
+        }
 
         const { year: nowYear, month: nowMonth } = dateData;
         const [year, month] = formData.date.split('-');
