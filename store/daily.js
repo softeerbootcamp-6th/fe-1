@@ -4,6 +4,7 @@ export const dailyData = {
     filteredExpense: false,
     totalIncome: 0,
     totalExpense: 0,
+    totalCount: 0,
     async init() {
         await this.fetch();
     },

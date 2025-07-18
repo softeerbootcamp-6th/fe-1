@@ -47,14 +47,12 @@ function appendDailyListAndCalcAmount($root, dailyInfo) {
     let totalIncome = 0;
     let totalExpense = 0;
 
-    let totalcnt = 0;
-
     dailyInfo.items.forEach((info) => {
         if (
             (!dailyData.filteredIncome && info.amount > 0) ||
             (!dailyData.filteredExpense && info.amount < 0)
         ) {
-            totalcnt++;
+            dailyData.totalCount++;
             if (info.amount > 0) {
                 totalIncome += info.amount;
                 dailyData.totalIncome += info.amount;
