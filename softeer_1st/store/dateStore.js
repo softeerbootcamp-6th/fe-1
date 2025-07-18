@@ -1,4 +1,5 @@
 import { setLocalStorage } from "../utils/localStorage.js";
+import { dataStore } from "./dataStore.js";
 
 const MIN_YEAR = 2020;
 const MAX_YEAR = 2030;
@@ -30,6 +31,8 @@ export const dateStore = {
         this.month = month;
         this.englishMonth = englishMonths[month - 1];
 
+        dataStore.loadData(year, month);
+        
         window.dispatchEvent(
             new CustomEvent("date-change", {
                 detail: { year, month, englishMonth: this.englishMonth },

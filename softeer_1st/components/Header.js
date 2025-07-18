@@ -6,7 +6,7 @@ export function Header() {
     header.innerHTML = `
     <nav class="header">
     <div class="nav-inner">
-      <div id="logo" class="serif-24">Wise Wallet</div>
+      <a id="logo" class="serif-24">Wise Wallet</a>
       <div id="dates" class="header-main">
       <button id="prev-btn" class="chev"><img src="../assets/icons/chevron-left.svg" alt="previous"></button>
       <div class="header-date">
@@ -47,7 +47,8 @@ export function Header() {
             e.currentTarget.classList.add("active");
         });
     });
-    header.querySelector("#logo").addEventListener("click", () => {
+    header.querySelector("#logo").addEventListener("click", (e) => {
+        e.preventDefault();
         router("home");
     });
     header.querySelector("#home-btn").addEventListener("click", () => {

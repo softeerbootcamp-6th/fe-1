@@ -3,6 +3,7 @@ import { DropDown } from "./dropDown.js";
 import { openModal } from "./Modal.js";
 import { dateStore } from "../store/dateStore.js";
 import { postMonthData, putMonthData } from "../api/api.js";
+import { eventBus } from "../utils/eventBus.js";
 
 export function Form() {
     const today = new Date();
@@ -32,8 +33,6 @@ export function Form() {
             formState.paymentMethod &&
             formState.category;
         submitButton.disabled = !isValid;
-        console.log("Form state:", formState);
-        console.log("Form availability checked:", isValid);
     }
     function catchEditEvent(e) {
         const { date, amount, type, description, paymentMethod, category } =
@@ -111,12 +110,6 @@ export function Form() {
         formState.year = selectedDate.getFullYear();
         formState.month = selectedDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
         formState.date = selectedDate.getDate();
-        console.log(
-            "Selected date:",
-            formState.year,
-            formState.month,
-            formState.date
-        );
         checkAvailability();
     });
 
@@ -229,7 +222,6 @@ export function Form() {
         const value = e.target.value;
         descriptionLength.textContent = `${value.length}/32`;
         formState.description = value;
-        console.log("Description:", formState.description);
         checkAvailability();
     });
     form.appendChild(description);
@@ -304,7 +296,6 @@ export function Form() {
                 e.stopPropagation();
                 inputElement.value = option;
                 formState[formStateKey] = option;
-                console.log(formStateKey, "selected:", formState.paymentMethod);
                 checkAvailability();
 
                 // 해당 드롭다운 닫기
@@ -314,7 +305,6 @@ export function Form() {
                     toggleCategoryDropdown(false);
                 }
 
-                console.log("Selected:", option);
             });
 
             dropDownElement.appendChild(optionElement);
@@ -463,7 +453,6 @@ export function Form() {
     // 결제수단 추가 모달
     async function openPaymentModal() {
         const newPaymentMethod = await addFeatureModal();
-        console.log("New payment method:", newPaymentMethod);
         if (newPaymentMethod && newPaymentMethod.trim()) {
             const trimmedMethod = newPaymentMethod.trim();
 
@@ -478,8 +467,6 @@ export function Form() {
             paymentMethodInput.value = trimmedMethod;
             formState.paymentMethod = trimmedMethod;
 
-            console.log("Added new payment method:", trimmedMethod);
-            console.log("Current methods:", paymentMethods);
         }
     }
 
@@ -546,7 +533,6 @@ export function Form() {
         e.preventDefault();
         if (!submitButton.disabled) {
             await sendRequest(formState);
-            dateStore.set(formState.year, formState.month);
             //input 초기화
             document.querySelector("#date").value = `${year}-${month}-${day}`;
             document.querySelector("#costInput").value = "";
@@ -571,7 +557,6 @@ export function Form() {
 }
 
 const confirmModal = (message) => {
-    console.log("Confirm modal opened with message:", message);
     return new Promise((resolve, reject) => {
         openModal({
             title: "해당 결제 수단을 삭제하시겠습니까?",
@@ -629,7 +614,12 @@ function sendRequest(formState) {
         return putMonthData(body)
             .then(() => {
                 alert("내역이 수정되었습니다.");
-                window.location.reload();
+                // 페이지 새로고침 대신 이벤트 발생
+                eventBus.emit("data-updated", {
+                    type: "update",
+                    year: formState.year,
+                    month: formState.month,
+                });
             })
             .catch((error) => {
                 console.error("Error updating data:", error);
@@ -639,7 +629,12 @@ function sendRequest(formState) {
         return postMonthData(body)
             .then(() => {
                 alert("내역이 추가되었습니다.");
-                window.location.reload();
+                // 페이지 새로고침 대신 이벤트 발생
+                eventBus.emit("data-updated", {
+                    type: "create",
+                    year: formState.year,
+                    month: formState.month,
+                });
             })
             .catch((error) => {
                 console.error("Error posting data:", error);
