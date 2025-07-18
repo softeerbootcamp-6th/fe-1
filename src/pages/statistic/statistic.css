@@ -155,6 +155,15 @@
   transition: background 0.25s, box-shadow 0.25s, transform 0.25s, color 0.25s;
 }
 
+.category-details {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px;
+}
+
 .category-item:hover {
   background: rgba(120, 160, 255, 0.1);
   box-shadow: 0 4px 16px rgba(80, 120, 200, 0.1);
