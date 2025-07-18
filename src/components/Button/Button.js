@@ -6,7 +6,6 @@
  *   icon: './assets/icons/check.svg',
  *   label: '확인',
  *   size: 'large',
- *   onClick: () => alert('클릭됨!')
  * });
  *
  * document.body.appendChild(btn);

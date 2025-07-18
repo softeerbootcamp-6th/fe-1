@@ -1,5 +1,19 @@
 import { selectTemplate } from "./SelectTemplate.js";
 
+/**
+ * Select 컴포넌트
+ *
+ * // 기본 사용법
+ * const select = await Select({
+ *   name: 'method',
+ *   label: '결제수단',
+ *   options: methodList,
+ *   isEditable: true,
+ *   selected: method,
+ * });
+ *
+ * document.body.appendChild(select);
+ */
 const renderSelectItem = ({ option, isEditable }) => {
   const listItem = document.createElement("li");
   listItem.className = "select-item font-light-12";
