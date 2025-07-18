@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs/promises";
 
+//이젠 사용하지 않음. msw로 대체
 const app = express();
 const PORT = 3000;
 
