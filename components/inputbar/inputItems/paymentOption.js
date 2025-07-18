@@ -40,7 +40,6 @@ export default function createPayemntInputOption() {
         .addEventListener('click', (e) => {
             createElement('div', { class: 'title' });
             renderModal(createAddPaymetModalContent());
-            payment.addPayment('add');
         });
 
     $paymentOptionItem.addEventListener('click', (e) => {
@@ -73,15 +72,36 @@ export default function createPayemntInputOption() {
 }
 
 const modalConentHTML = `
-    <div class=modal-content-wrapper>    
+    <div class="modal-content-wrapper">    
         <div>추가 하실 결제수단을 입력해주세요.</div>
-        <input type="text" />
+        <input id="payment-modal-input" type="text" />
     </div>
     <div class="modal-btn-wrapper">
-        <button>취소</button>
-        <button>추가</button>
+        <button id="payment-modal-cancel-button" class="sb-16">취소</button>
+        <button id="payment-modal-add-button" class="sb-16">추가</button>
     </div>`;
 
 function createAddPaymetModalContent() {
-    return createElement('div', { class: 'modal-content' }, modalConentHTML);
+    const $paymentModal = createElement(
+        'div',
+        { class: 'modal-content' },
+        modalConentHTML,
+    );
+
+    $paymentModal
+        .querySelector('#payment-modal-add-button')
+        .addEventListener('click', () => {
+            payment.addPayment(
+                $paymentModal.querySelector('#payment-modal-input').value,
+            );
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    $paymentModal
+        .querySelector('#payment-modal-cancel-button')
+        .addEventListener('click', () => {
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    return $paymentModal;
 }
