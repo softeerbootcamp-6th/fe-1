@@ -14,19 +14,6 @@ if (headerContainer) {
   renderHeader(headerContainer);
   initHeader(headerContainer);
 }
-const modalContainer = document.querySelector("#modal-container");
-if (modalContainer) {
-  renderModal(modalContainer);
-  initModal(modalContainer, {
-    onCancel: () => {
-      closeModal(modalContainer.querySelector(".modal-container"));
-    },
-    onConfirm: (value) => {
-      console.log("confirm", value);
-    },
-  });
-  openModal(modalContainer.querySelector(".modal-container"));
-}
 
 document.addEventListener("DOMContentLoaded", async () => {
   await initStore();

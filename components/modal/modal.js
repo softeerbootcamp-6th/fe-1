@@ -21,7 +21,9 @@ export function createModal(
         </label>
         <div class="modal-btn-container flex-between semibold-16">
           <button type="button" class="cancel-btn modal-btn">${cancelText}</button>
-          <button type="button" class="confirm-btn modal-btn">${confirmText}</button>
+          <button type="button" class="confirm-btn modal-btn ${
+            confirmText === "삭제" ? "danger-btn" : ""
+          }">${confirmText}</button>
         </div>
       </form>
     </dialog>
@@ -36,13 +38,22 @@ export function closeModal(modal) {
   modal.close();
 }
 
-export function renderModal(container) {
+export function renderModal(
+  container,
+  {
+    message = "",
+    input = false,
+    inputPlaceholder = "",
+    cancelText = "취소",
+    confirmText = "확인",
+  }
+) {
   createModal(container, {
-    message: "추가하실 결제 수단을 적어주세요.",
-    input: true,
-    inputPlaceholder: "결제 수단을 입력해주세요.",
-    cancelText: "취소",
-    confirmText: "추가",
+    message,
+    input,
+    inputPlaceholder,
+    cancelText,
+    confirmText,
   });
 }
 
