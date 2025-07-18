@@ -5,13 +5,6 @@ import {
 } from "../../stores/subjects/index.js";
 
 import {
-  TransactionsObserver,
-  InputFormObserver,
-} from "../../stores/observers/index.js";
-
-import { TransactionsView, InputFormView } from "../../views/index.js";
-
-import {
   handleInputInputForm,
   handleClickInputForm,
   handleSubmitInputForm,
