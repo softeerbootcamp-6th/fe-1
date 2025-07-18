@@ -9,6 +9,7 @@ export const renderDoc = () => {
   const doc = ElementManager.renderElementId("div", "doc");
   doc.appendChild(EntireForm());
   doc.appendChild(List());
+
   // 초기 fetch
   CacheManager.fetchFromServer("list");
   return doc;
