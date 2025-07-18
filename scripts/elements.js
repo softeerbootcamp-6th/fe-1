@@ -16,4 +16,5 @@ export const elements = {
   outcomeFilterButtonEl: () => document.querySelector(".outcome-filter"),
   incomeFilterDivEl: () => document.querySelector(".total-income"),
   outcomeFilterDivEl: () => document.querySelector(".total-outcome"),
+  calanderHeaderEl: () => document.querySelector(".calander-header"),
 };
