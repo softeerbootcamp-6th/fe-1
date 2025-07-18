@@ -1,7 +1,7 @@
 import { renderMainPage } from "../pages/mainPage.js";
 import { renderCalendarPage } from "../pages/calendarPage.js";
 import { renderChartPage } from "../pages/chartPage.js";
-import { updateNavigationActive } from "../components/header.js";
+import { pathStore } from "../store/index.js";
 
 const routes = {
   "/": renderMainPage,
@@ -11,19 +11,17 @@ const routes = {
 
 export function navigate(url) {
   history.pushState({}, "", url);
-  render();
+  pathStore.setPath(url);
 }
 
 export function render() {
-  const path = window.location.pathname;
+  const path = pathStore.getPath();
   const container = document.getElementById("main-container");
-  const routeFunction = routes[path];
+  const renderPage = routes[path];
 
-  if (routeFunction) {
-    routeFunction();
+  if (renderPage) {
+    renderPage();
   } else {
     container.innerHTML = "<h1>404 Not Found</h1>";
   }
-
-  updateNavigationActive();
 }

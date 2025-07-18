@@ -1,0 +1,28 @@
+/* calendar */
+
+.calendar-cell:hover {
+  background: var(--nuetral-surface-point);
+}
+
+.calendar-cell.empty {
+  cursor: default;
+}
+
+.calendar-cell-details {
+  height: 100%;
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-amount {
+  height: 24px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.calendar-date {
+  padding: 8px 8px;
+  text-align: right;
+}

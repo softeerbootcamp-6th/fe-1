@@ -1,14 +1,19 @@
 import { DateStore } from "./dateStore.js";
 import { TransactionStore } from "./transactionStore.js";
+import { PathStore } from "./pathStore.js";
 import { render } from "../utils/routes.js";
+import { updateNavigationActive } from "../components/header/tab.js";
 
 export const dateStore = new DateStore();
 
 export const transactionStore = new TransactionStore();
 
+export const pathStore = new PathStore();
+
 export async function initStore() {
   await initDateStore();
   await initTransactionStore();
+  await initPathStore();
 }
 
 export async function initDateStore() {
@@ -24,5 +29,12 @@ export async function initTransactionStore() {
 
   transactionStore.subscribe(() => {
     render();
+  });
+}
+
+export async function initPathStore() {
+  pathStore.subscribe(() => {
+    render();
+    updateNavigationActive();
   });
 }

@@ -283,6 +283,7 @@ nav a.active {
 
 #main-container {
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .amount-toggle {
@@ -491,6 +492,16 @@ table {
   background: var(--colorchip-10);
 }
 
+.td-category {
+  width: 92px;
+  height: 58px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
 .text-expense {
   color: var(--brand-text-expense);
 }
@@ -519,6 +530,7 @@ table {
   display: flex;
   justify-content: right;
   align-items: center;
+  width: 186px;
   height: 58px;
   padding: 0 16px;
   text-align: left;
@@ -527,6 +539,10 @@ table {
 
 .delete-btn {
   display: none;
+  color: var(--danger-text-default);
+}
+
+.danger-btn {
   color: var(--danger-text-default);
 }
 
@@ -569,7 +585,18 @@ table {
   display: flex;
 }
 
-/* calendar */
+.chart-page {
+  gap: 20px;
+}
+
+#donut-chart-container {
+  border: 1px solid var(--nuetral-border-default);
+  background: var(--nuetral-surface-default);
+  width: 100%;
+  height: 572px;
+  padding: 20px;
+}
+
 .calendar-container {
   border-top: 1px solid var(--nuetral-border-default);
   border-left: 1px solid var(--nuetral-border-default);
@@ -597,7 +624,8 @@ table {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: right;
-  height: 120px;
+  min-height: 120px;
+  background: var(--nuetral-surface-default);
 }
 
 .calendar-cell {
@@ -609,82 +637,106 @@ table {
   flex-direction: column;
 }
 
-.calendar-cell:hover {
+dialog {
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.modal {
+  width: 384px;
+  height: 200px;
+  background: var(--nuetral-surface-default);
+  border: 1px solid var(--nuetral-border-default);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-btn {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid var(--nuetral-border-default);
+  outline: none;
+  cursor: pointer;
+}
+
+.modal-btn:hover {
   background: var(--nuetral-surface-point);
 }
 
-.calendar-cell.empty {
-  background: none;
-  cursor: default;
-}
-
-.calendar-cell-details {
-  height: 100%;
-  padding: 8px 8px;
+.modal-btn-container {
+  height: 56px;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-}
-
-.calendar-amount {
-  height: 24px;
-  display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
 }
 
-.calendar-date {
-  padding: 8px 8px;
-  text-align: right;
+.modal-btn:first-child {
+  border-right: 1px solid var(--nuetral-border-default);
 }
 
-.chart-page {
-  gap: 20px;
-}
-
-#donut-chart-container {
-  border: 1px solid var(--nuetral-border-default);
-  background: var(--nuetral-surface-default);
-  width: 100%;
-  height: 572px;
-  padding: 20px;
-}
-
-#line-chart-container {
-  display: none;
-  width: 100%;
-  height: 572px;
-}
-
-#donut-chart-legend {
+.modal-content {
+  height: 164px;
   display: flex;
   flex-direction: column;
-  padding: 0 40px;
-  gap: 20px;
-  width: 280px;
-}
-
-.td-category {
-  width: 92px;
-  height: 58px;
-  text-align: center;
-  display: flex;
   justify-content: center;
   align-items: center;
-  vertical-align: middle;
+  gap: 16px;
 }
 
-.legend-item {
+.modal-content > div {
+  width: 320px;
+  height: 40px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.modal-content > input {
+  width: 320px;
+  height: 40px;
+  background: var(--nuetral-surface-point);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.modal-content > input::placeholder {
+  padding: 0 16px;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dropdown-item {
   width: 100%;
-  padding: 0 8px;
+  height: 40px;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.legend-percent {
-  width: 40px;
-  text-align: left;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 125px;
+  background: var(--nuetral-surface-default);
+  border: 1px solid var(--nuetral-border-default);
+  padding: 8px;
 }
 
-.legend-amount {
-  width: 100px;
-  text-align: right;
+.dropdown-content.open {
+  display: flex;
 }

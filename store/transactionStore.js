@@ -37,6 +37,12 @@ export class TransactionStore extends Subject {
     return groupTransactionsByDate(this.transactions[year]?.[month] || []);
   }
 
+  getTransactionsByCategory(year, month, category) {
+    return this.transactions[year]?.[month]?.filter(
+      (t) => t.category === category
+    );
+  }
+
   addTransaction(year, month, transaction) {
     if (!this.transactions[year]) {
       this.transactions[year] = {};
