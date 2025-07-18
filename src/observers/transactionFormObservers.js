@@ -6,8 +6,8 @@ import DateState from "../store/DateState.js";
 import FormState from "../store/FormState.js";
 
 class DateInputObserver {
-  constructor(formState) {
-    formState.subscribe(this);
+  constructor() {
+    FormState.subscribe(this);
   }
 
   update() {
@@ -123,7 +123,7 @@ let transactionFormObserverInstances = [];
 export function addTransactionFormObservers() {
   removeTransactionFormObservers();
   transactionFormObserverInstances = [
-    new DateInputObserver(FormState),
+    new DateInputObserver(),
     new TransactionTypeButtonObserver(FormState),
     new InputObserver(FormState),
     new DescriptionLengthObserver(FormState),
