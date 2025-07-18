@@ -1,5 +1,5 @@
 import { Observer } from "./observer.js";
-import { fetchRecords } from "../api/recordsApi.js";
+import { fetchRecords } from "../scripts/api/recordsApi.js";
 
 function RecordStore() {
   // Observer 생성자 호출 - 구독 기능 상속
@@ -16,7 +16,7 @@ RecordStore.prototype.init = function () {
   return fetchRecords().then((res) => {
     this.records = res;
 
-    this.notify();
+    this.notify(this.records);
   });
 };
 
@@ -28,7 +28,7 @@ RecordStore.prototype.getRecords = function () {
 // 레코드 값 설정 함수
 RecordStore.prototype.setRecord = function (newRecords) {
   this.records = newRecords;
-  this.notify();
+  this.notify(this.records);
 };
 
 // 레코드 추가 함수 - 날짜에 따라 새 아이템을 record에 추가 / items[]에 추가
@@ -46,7 +46,7 @@ RecordStore.prototype.addRecordToStore = function ({ recordId, date, item }) {
       items: [item],
     });
   }
-  this.notify();
+  this.notify(this.records);
 };
 
 // 레코드 삭제 함수 - 해당 날짜의 아이템을 삭제하고, 아이템 배열이 없다면 레코드 자체도 제거
@@ -67,7 +67,7 @@ RecordStore.prototype.deleteRecordFromStore = function (dateId, itemId) {
     return acc;
   }, []);
 
-  this.notify();
+  this.notify(this.records);
 };
 
 // 레코드 수정 함수 - 해당 날짜의 아이템을 업데이트
@@ -83,7 +83,7 @@ RecordStore.prototype.updateRecordInStore = function ({ dateId, itemId, updatedI
     }
     return record;
   });
-  this.notify();
+  this.notify(this.records);
 };
 
 // 하나의 인스턴스만 생성하여 export
