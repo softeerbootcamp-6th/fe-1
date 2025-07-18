@@ -1,11 +1,7 @@
 // 입력받은 정보를 토대로 삽입 / 수정 / 삭제 기능을 담당하는 함수들을 다루는 파일
-import { deleteRecordsFromServer } from "../api/recordsApi.js";
-import { elements } from "./elements.js";
-import { recordStore } from "../store/recordStore.js";
-import { validateForm } from "./input.js";
-// 상단 토글 버튼 상태를 위한 변수
-let incomeVisible = true;
-let outcomeVisible = true;
+import { elements } from "../elements.js";
+import { recordStore } from "../../store/recordStore.js";
+import { filterState } from "../state/filterState.js";
 
 // records 배열의 각 날짜별로 section을 만드는 함수
 export const renderRecords = (
@@ -172,46 +168,23 @@ export const getTotalAmount = (items) => {
 
 // 전체 내역 수입 지출 필터링
 const toggleRecordVisibility = (type) => {
-  // type = "income" | "outcome"
-
   const headerEl = elements.headerEl();
   const yearEl = headerEl.querySelector(".year");
   const monthEl = headerEl.querySelector(".month");
   const totalDiv =
     type === "income" ? elements.incomeFilterButtonEl() : elements.outcomeFilterButtonEl();
 
-  // 체크박스 상태를 변경하고 렌더링 함수를 호출
-  switch (type) {
-    case "income":
-      if (incomeVisible) {
-        incomeVisible = false;
-        totalDiv.innerHTML = `
-          <img src="../assets/icons/uncheckbox.svg" alt="checkbox"/>
-        `;
-      } else {
-        incomeVisible = true;
-        totalDiv.innerHTML = `
-          <img src="../assets/icons/checkbox.svg" alt="checkbox"/>
-        `;
-      }
-      break;
-    case "outcome":
-      if (outcomeVisible) {
-        outcomeVisible = false;
-        totalDiv.innerHTML = `
-          <img src="../assets/icons/uncheckbox.svg" alt="checkbox"/>
-        `;
-      } else {
-        outcomeVisible = true;
-        totalDiv.innerHTML = `
-          <img src="../assets/icons/checkbox.svg" alt="checkbox"/>
-          `;
-      }
-      break;
-  }
+  // 상태 토글 (수입/지출 필터링)
+  filterState.toggle(type);
+
+  const isVisible = type === "income" ? filterState.incomeVisible : filterState.outcomeVisible;
+  totalDiv.innerHTML = `
+    <img src="../assets/icons/${isVisible ? "checkbox" : "uncheckbox"}.svg" alt="checkbox"/>
+  `;
+
   renderRecords(yearEl.textContent, monthEl.textContent, recordStore.getRecords(), {
-    income: incomeVisible,
-    outcome: outcomeVisible,
+    income: filterState.incomeVisible,
+    outcome: filterState.outcomeVisible,
   });
 };
 
@@ -225,20 +198,5 @@ export function initVisibleButton() {
 
   outcomeButtonEl.addEventListener("click", (e) => {
     toggleRecordVisibility("outcome");
-  });
-}
-
-export function initDeleteEvent() {
-  const recordContainerEl = elements.recordContainerEl();
-
-  recordContainerEl.addEventListener("click", (e) => {
-    const deleteBtn = e.target.closest(".delete");
-    if (!deleteBtn) return;
-    const dateId = e.target.closest(".record-container").getAttribute("date-id");
-    const itemId = e.target.closest(".record-item").getAttribute("item-id");
-
-    deleteRecordsFromServer(dateId, itemId).then(() => {
-      recordStore.deleteRecordFromStore(dateId, itemId);
-    });
   });
 }

@@ -1,4 +1,4 @@
-import { recordStore } from "../store/recordStore.js";
+import { recordStore } from "../../store/recordStore.js";
 
 const BASE_URL = "http://localhost:3001/records";
 

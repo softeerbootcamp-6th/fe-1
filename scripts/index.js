@@ -1,23 +1,19 @@
 import { loadPage } from "./router.js";
-import { dateStore } from "../store/dateStore.js";
 import { recordStore } from "../store/recordStore.js";
 import { loadHeaderHTML, initializeHeader } from "./header.js";
 import {
   initToggleButton,
-  getInputValues,
   initPaymentDropdown,
   initCategoryDropdown,
   initInputChanges,
-  initModifyEvent,
-} from "./input.js";
+} from "./form/formUtils.js";
+import { renderRecords, renderRecordHeader } from "./records/recordRender.js";
 import {
-  renderRecords,
-  renderRecordByDate,
-  getFormattedDate,
-  initVisibleButton,
-  renderRecordHeader,
+  handleRecordUpdate,
+  initFormSubmitEvent,
+  initModifyEvent,
   initDeleteEvent,
-} from "./records.js";
+} from "./records/recordUtils.js";
 import { subscribeStore } from "../store/subscribe.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
@@ -36,7 +32,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   initCategoryDropdown();
   initPaymentDropdown();
   initInputChanges();
-  getInputValues();
+  initFormSubmitEvent();
 
   await recordStore.init();
   subscribeStore();
