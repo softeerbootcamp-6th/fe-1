@@ -1,6 +1,7 @@
 @import '../../styles/animations.css';
 
 .input-bar-container {
+    z-index: 1;
     animation: fadeIn 0.5s 0.2s forwards;
     opacity: 0;
     display: flex;
