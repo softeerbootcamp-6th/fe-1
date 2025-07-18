@@ -3,8 +3,6 @@ import createCenterNavigation from './centerNavigation.js';
 import createHeaderTab from './headerTab.js';
 
 export default function initializeHeader() {
-    const $headerPlaceholder = document.getElementById('header-placeholder');
-
     const $header = createElement(
         'div',
         {
@@ -16,5 +14,6 @@ export default function initializeHeader() {
             createHeaderTab(),
         ],
     );
-    $headerPlaceholder.appendChild($header);
+
+    return $header;
 }

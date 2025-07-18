@@ -6,7 +6,8 @@ import dateData from './store/date.js';
 import { dateViewChange } from './viewHandler/dateView.js';
 
 await dailyData.init();
-initializeHeader();
+
+document.getElementById('header-placeholder').append(initializeHeader());
 initalizeInputBox();
 initalizeDailyList();
 
