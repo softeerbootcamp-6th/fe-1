@@ -180,6 +180,7 @@ select {
 
 /* 오버레이 */
 .modal-overlay {
+    content-visibility: auto;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -191,6 +192,7 @@ select {
 
 /* 모달 박스 */
 .modal-box {
+    content-visibility: auto;
     width: 384px;
     background: white;
     border: 0.5px solid black;
@@ -245,6 +247,7 @@ select {
 }
 
 .month-summary {
+    content-visibility: auto;
     width: 846px;
     display: flex;
     flex-direction: column;
@@ -254,6 +257,7 @@ select {
 }
 
 .month-summary>.month-header {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -261,6 +265,7 @@ select {
 }
 
 .month-summary>article {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -268,6 +273,7 @@ select {
 }
 
 article>header {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -275,6 +281,7 @@ article>header {
 }
 
 article>ul {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -285,6 +292,7 @@ article>ul {
 }
 
 article>ul>li{
+    content-visibility: auto;
     display:flex;
     justify-content:space-between; /* 가로(주축) 끝단으로 배치 */
     align-items:center;            /* 세로(교차축) 가운데 정렬 */
