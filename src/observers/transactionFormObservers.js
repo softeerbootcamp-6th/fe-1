@@ -6,15 +6,14 @@ import DateState from "../store/DateState.js";
 import FormState from "../store/FormState.js";
 
 class DateInputObserver {
-  constructor(dateState) {
-    this.dateState = dateState;
-    dateState.subscribe(this);
+  constructor(formState) {
+    formState.subscribe(this);
   }
 
   update() {
     const input = document.getElementById("date-input");
     if (input) {
-      input.value = this.dateState.getDate();
+      input.value = FormState.getFormState().date;
     }
   }
 }
@@ -124,7 +123,7 @@ let transactionFormObserverInstances = [];
 export function addTransactionFormObservers() {
   removeTransactionFormObservers();
   transactionFormObserverInstances = [
-    new DateInputObserver(DateState),
+    new DateInputObserver(FormState),
     new TransactionTypeButtonObserver(FormState),
     new InputObserver(FormState),
     new DescriptionLengthObserver(FormState),
