@@ -7,7 +7,8 @@
       "money": 50000,
       "content": "식료품 구매",
       "payment": "신용카드",
-      "category": "생활"
+      "category": "생활",
+      "id": "85a8"
     },
     {
       "uid": "f6c4ae69-e6f6-4e2b-b79b-84240511ae5b",
@@ -16,7 +17,8 @@
       "money": 50000,
       "content": "식료품 구매",
       "payment": "신용카드",
-      "category": "생활"
+      "category": "생활",
+      "id": "9ef2"
     },
     {
       "uid": "ab64dd13-b13d-45e1-a5f3-b15d83fa9c5f",
@@ -25,7 +27,8 @@
       "money": 2000000,
       "content": "월급",
       "payment": "현금",
-      "category": "월급"
+      "category": "월급",
+      "id": "ace1"
     },
     {
       "uid": "a5f5b6f5-7295-457a-81cd-75cc1a91b00c",
@@ -34,7 +37,8 @@
       "money": 50000,
       "content": "식료품 구매",
       "payment": "신용카드",
-      "category": "생활"
+      "category": "생활",
+      "id": "ec98"
     },
     {
       "uid": "a1953fd0-7464-4c93-ae40-e858d5c81c70",
@@ -43,7 +47,8 @@
       "money": 12000,
       "content": "점심 식사",
       "payment": "신용카드",
-      "category": "식비"
+      "category": "식비",
+      "id": "353f"
     },
     {
       "uid": "30c4e38c-e2a1-4999-86aa-719dbdd9605f",
@@ -52,7 +57,8 @@
       "money": 3500,
       "content": "버스비",
       "payment": "현금",
-      "category": "교통"
+      "category": "교통",
+      "id": "f093"
     },
     {
       "uid": "6f1f40a3-fbfd-46fc-bf0c-10b06e8c6e38",
@@ -61,7 +67,8 @@
       "money": 89000,
       "content": "옷 구매",
       "payment": "신용카드",
-      "category": "쇼핑/뷰티"
+      "category": "쇼핑/뷰티",
+      "id": "d7c6"
     },
     {
       "uid": "8cf61be1-d203-4f3f-a310-661fdab40a31",
@@ -70,7 +77,8 @@
       "money": 50000,
       "content": "용돈",
       "payment": "현금",
-      "category": "용돈"
+      "category": "용돈",
+      "id": "d0cc"
     },
     {
       "uid": "14e34a6d-9dd6-43ee-ae6f-d8a1c011b0e1",
@@ -79,7 +87,8 @@
       "money": 25000,
       "content": "영화 관람",
       "payment": "신용카드",
-      "category": "문화/여가"
+      "category": "문화/여가",
+      "id": "23ee"
     },
     {
       "uid": "b3fca0b5-8e17-4e2c-b75f-e4f6c3766311",
@@ -88,7 +97,8 @@
       "money": 7500,
       "content": "커피 및 간식",
       "payment": "현금",
-      "category": "식비"
+      "category": "식비",
+      "id": "0a24"
     },
     {
       "uid": "3cda4c50-7bce-472e-a24e-015d1f6a4a1f",
@@ -97,7 +107,8 @@
       "money": 45000,
       "content": "병원 진료비",
       "payment": "신용카드",
-      "category": "의료/건강"
+      "category": "의료/건강",
+      "id": "daaa"
     },
     {
       "uid": "6844b12e-198e-4142-b1f2-c04abfa449b3",
@@ -106,7 +117,8 @@
       "money": 60000,
       "content": "인터넷 요금",
       "payment": "신용카드",
-      "category": "생활"
+      "category": "생활",
+      "id": "e22d"
     },
     {
       "uid": "3f6b6340-8b36-4d30-9b0d-174d5399a3e2",
@@ -115,7 +127,8 @@
       "money": 9000,
       "content": "택시비",
       "payment": "현금",
-      "category": "교통"
+      "category": "교통",
+      "id": "09c8"
     },
     {
       "uid": "369b22ab-2d84-46e0-9329-18fa1b11c878",
@@ -124,7 +137,8 @@
       "money": 10000,
       "content": "은행 이자",
       "payment": "현금",
-      "category": "기타 수입"
+      "category": "기타 수입",
+      "id": "d97c"
     },
     {
       "uid": "c28bb5b6-e18f-4f4c-8cd2-f14586ce2139",
@@ -133,7 +147,8 @@
       "money": 120000,
       "content": "새 운동화 구매",
       "payment": "신용카드",
-      "category": "쇼핑/뷰티"
+      "category": "쇼핑/뷰티",
+      "id": "5276"
     },
     {
       "uid": "3be21234-4dd5-4f96-a159-76d2b7e99156",
@@ -142,7 +157,8 @@
       "money": 15000,
       "content": "도서 구매",
       "payment": "신용카드",
-      "category": "문화/여가"
+      "category": "문화/여가",
+      "id": "e744"
     },
     {
       "uid": "e2a74211-bef3-4fa6-a3ed-f9a3fc6a17b3",
@@ -151,7 +167,8 @@
       "money": 5000,
       "content": "편의점 사용",
       "payment": "현금",
-      "category": "미분류"
+      "category": "미분류",
+      "id": "e309"
     },
     {
       "uid": "303ea1ae-2f9f-46ee-81ef-e928fd8e4b4a",
@@ -160,7 +177,8 @@
       "money": 30000,
       "content": "중고물품 판매",
       "payment": "현금",
-      "category": "기타 수입"
+      "category": "기타 수입",
+      "id": "d148"
     },
     {
       "uid": "d587c6a1-4a80-464b-b7e3-b75ee15acaf5",
@@ -169,7 +187,8 @@
       "money": 20000,
       "content": "외식",
       "payment": "신용카드",
-      "category": "식비"
+      "category": "식비",
+      "id": "4970"
     },
     {
       "uid": "42094883-170b-43b6-ae78-cdbf9fd5e73d",
@@ -178,7 +197,8 @@
       "money": 2500,
       "content": "지하철 요금",
       "payment": "신용카드",
-      "category": "교통"
+      "category": "교통",
+      "id": "3adc"
     },
     {
       "uid": "48e1578b-9cf3-4fd0-b64f-9a18513a180c",
@@ -187,7 +207,8 @@
       "money": 70000,
       "content": "피부과 방문",
       "payment": "신용카드",
-      "category": "의료/건강"
+      "category": "의료/건강",
+      "id": "9580"
     },
     {
       "uid": "f8423b5e-78e5-430b-b7d4-19c254e72bcd",
@@ -196,7 +217,8 @@
       "money": 18000,
       "content": "음악 스트리밍 구독",
       "payment": "신용카드",
-      "category": "문화/여가"
+      "category": "문화/여가",
+      "id": "4737"
     },
     {
       "uid": "1e2dc8c1-e93c-4cf3-b1b8-c338f2398d5a",
@@ -205,7 +227,8 @@
       "money": 18000,
       "content": "음악 스트리밍 구독",
       "payment": "신용카드",
-      "category": "문화/여가"
+      "category": "문화/여가",
+      "id": "4222"
     },
     {
       "uid": "c4996f64-7ad8-45e0-b063-02df9ffb178d",
@@ -214,7 +237,8 @@
       "money": 18000,
       "content": "음악 스트리밍 구독",
       "payment": "신용카드",
-      "category": "문화/여가"
+      "category": "문화/여가",
+      "id": "b278"
     },
     {
       "uid": "9499df4c-5a53-4b2f-840e-7541bfe71343",
@@ -223,7 +247,8 @@
       "money": 18000,
       "content": "음악 스트리밍 구독",
       "payment": "신용카드",
-      "category": "문화/여가"
+      "category": "문화/여가",
+      "id": "ece5"
     },
     {
       "uid": "a8f79e13-fb77-4340-931e-ffbd1a61b338",
@@ -232,7 +257,8 @@
       "money": 20000,
       "content": "외식",
       "payment": "신용카드",
-      "category": "식비"
+      "category": "식비",
+      "id": "72ff"
     },
     {
       "uid": "58e2aa36-6901-4e8f-8756-8a7b1a0e4d32",
@@ -241,7 +267,8 @@
       "money": 2500,
       "content": "지하철 요금",
       "payment": "신용카드",
-      "category": "교통"
+      "category": "교통",
+      "id": "5991"
     },
     {
       "uid": "31bb3cc1-f55a-44f3-9029-5b2c215acdd1",
@@ -250,7 +277,228 @@
       "money": 70000,
       "content": "피부과 방문",
       "payment": "신용카드",
-      "category": "의료/건강"
+      "category": "의료/건강",
+      "id": "8fe5"
+    },
+    {
+      "id": "1e4c",
+      "mode": "create",
+      "date": "2025-07-18T02:14:40.805Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "63ad494d-cae1-459a-8129-243d780e4155"
+    },
+    {
+      "id": "98aa",
+      "mode": "create",
+      "date": "2025-07-18T02:14:56.361Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "d4aaaafe-1ff3-43d7-a4a3-1e3e544c35a8"
+    },
+    {
+      "id": "05ab",
+      "mode": "create",
+      "date": "2025-07-18T02:17:58.108Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "5",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "a9128d73-9902-4363-9314-4f1ad47b6b9b"
+    },
+    {
+      "id": "a2d1",
+      "mode": "create",
+      "date": "2025-07-18T02:23:42.396Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "5613ac32-6b68-45f6-9b26-a05a7bea9010"
+    },
+    {
+      "id": "e5b6",
+      "mode": "create",
+      "date": "2025-07-18T02:25:06.254Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "5",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "09be2305-266d-4464-9f33-1466d018b77b"
+    },
+    {
+      "id": "c3f7",
+      "mode": "create",
+      "date": "2025-07-18T02:28:40.413Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "41e34767-709d-4f28-aee6-fd60f88dade6"
+    },
+    {
+      "id": "4f00",
+      "mode": "create",
+      "date": "2025-07-18T02:33:16.306Z",
+      "moneyType": "expense",
+      "money": "3",
+      "content": "3",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "c60f7791-412b-44b2-b12b-8fc83e87d040"
+    },
+    {
+      "id": "2f2a",
+      "mode": "create",
+      "date": "2025-07-18T02:36:14.348Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "7d9049f0-089a-43c0-9141-dff1b6095d35"
+    },
+    {
+      "id": "db41",
+      "mode": "create",
+      "date": "2025-07-18T02:36:33.018Z",
+      "moneyType": "expense",
+      "money": "3",
+      "content": "3",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "c8dee78b-fc17-4e60-a7f5-9fd1c151f54c"
+    },
+    {
+      "id": "b850",
+      "mode": "create",
+      "date": "2025-07-18T02:37:14.290Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "e0d02e65-98d4-4873-9ce8-eca6792e2c37"
+    },
+    {
+      "id": "7700",
+      "mode": "create",
+      "date": "2025-07-18T02:38:38.482Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "2c8642c2-5511-4c24-8126-136c5e356817"
+    },
+    {
+      "id": "c491",
+      "mode": "create",
+      "date": "2025-07-18T02:39:13.254Z",
+      "moneyType": "expense",
+      "money": "5",
+      "content": "5",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "359e8e28-734b-4a94-aa9b-fe7bc3cbe75e"
+    },
+    {
+      "id": "233c",
+      "mode": "create",
+      "date": "2025-07-18T02:43:22.764Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "69a870d1-7276-4862-8ba5-c901849a7bcf"
+    },
+    {
+      "id": "99c0",
+      "mode": "create",
+      "date": "2025-09-04",
+      "moneyType": "expense",
+      "money": "3",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "26245289-9da4-4a01-8bb0-28a794640a73"
+    },
+    {
+      "id": "b167",
+      "mode": "create",
+      "date": "2025-07-18T02:50:44.986Z",
+      "moneyType": "expense",
+      "money": "354",
+      "content": "3453",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "70bacc35-1434-4759-bb19-8c0fc6902786"
+    },
+    {
+      "id": "6a0a",
+      "mode": "create",
+      "date": "2025-07-18T02:54:34.256Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "1cdbcca4-7546-4a6b-a643-c8b174c6e969"
+    },
+    {
+      "id": "54e0",
+      "mode": "create",
+      "date": "2025-07-18T02:56:08.017Z",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "9ff710c1-9c75-4b47-8172-20c60927bdad"
+    },
+    {
+      "id": "3e8e",
+      "mode": "create",
+      "date": "2025-07-18T02:57:39.850Z",
+      "moneyType": "expense",
+      "money": "23452354",
+      "content": "차량 구매",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "13586b4f-d0be-43b8-84dc-9aed4bcdaa5a"
+    },
+    {
+      "id": "faee",
+      "mode": "create",
+      "date": "2025-08-05",
+      "moneyType": "expense",
+      "money": "4",
+      "content": "r",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "2a0ab5cd-2812-4a1b-a84a-ef29c3cedd20"
+    },
+    {
+      "id": "8571",
+      "mode": "create",
+      "date": "2025-09-17",
+      "moneyType": "expense",
+      "money": "3",
+      "content": "4",
+      "payment": "현금",
+      "category": "생활",
+      "uid": "3510f8f0-c79b-4be7-b15b-d0d22363824a"
     }
   ]
 }

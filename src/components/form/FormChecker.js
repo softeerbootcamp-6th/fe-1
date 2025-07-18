@@ -15,7 +15,7 @@ export const FormChecker = () => {
   EventDispatcher.register({
     eventType: "click",
     selector: "form-checker",
-    handler: () => {
+    handler: (e) => {
       const isFullFilled = InputValidator.validateFullFilled(formStore.data);
       if (!isFullFilled) return;
       const isFullCorrectType = InputValidator.validateFullCorrectType(
@@ -30,7 +30,6 @@ export const FormChecker = () => {
         } else {
           listStore.dispatch("addListItem", {
             ...formStore.data,
-            date: new Date(formStore.data.date),
             uid: crypto.randomUUID(),
           });
         }

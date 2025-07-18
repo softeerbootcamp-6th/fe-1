@@ -34,13 +34,20 @@ class ListStore extends Store {
           expense: true,
           income: true,
         };
-        if (newItem) this.data = [...newItem];
+        if (newItem) this.data = newItem;
         this.viewData = this.#getViewDataFromData(this.data);
         break;
       }
       case "addListItem": {
+        // optimistic update
         this.data.push(newItem);
         this.viewData = this.#getViewDataFromData(this.data);
+
+        // 서버 반영 시도
+        ListApi.postList(newItem).catch((error) => {
+          this.data = this.data.filter((item) => item.uid !== newItem.uid);
+          this.viewData = this.#getViewDataFromData(this.data);
+        });
         break;
       }
       case "updateListItem": {
@@ -71,9 +78,6 @@ class ListStore extends Store {
 }
 
 export const listStore = new ListStore([]);
-ListApi.getList().then((data) => {
-  listStore.dispatch("initListItem", data);
-});
 dateStore.subscribe(() => {
   listStore.dispatch("initListItem");
 });

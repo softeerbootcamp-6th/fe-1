@@ -49,6 +49,7 @@ export const ListItem = (item) => {
     handler: (e) => {
       const listItem = e.target.closest(".list-item");
       const uid = listItem.dataset.uid;
+      console.log(listItem);
       if (e.target.closest(".delete-button")) {
         // 값 삭제
         const uidItem = listStore.data.find((partData) => partData.uid === uid);
