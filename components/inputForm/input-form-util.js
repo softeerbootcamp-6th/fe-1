@@ -165,7 +165,11 @@ export async function addEntryToDOM(entry) {
 
 const entries = sharedState.entries;
 
-// 초기 더미 데이터 로드
+/* 
+    서버에서 데이터를 받아온 후에 entries에 저장하고
+    totalAmount를 업데이트하는 함수
+    이 함수는 페이지가 로드될 때 호출되어야 한다.
+*/
 export async function loadDummyEntries(currentDate) {
   const entriesFromServer = await loadEntriesFromServer(currentDate);
 
@@ -181,9 +185,4 @@ export async function loadDummyEntries(currentDate) {
     entries.push(entry);
   });
   updateTotalAmounts();
-
-  //   // 캘린더 뷰 총액 업데이트
-  //   import("./calendarTotalAmount.js").then((module) => {
-  //     module.updateCalendarTotalAmount();
-  //   });
 }
