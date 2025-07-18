@@ -1,17 +1,18 @@
-import { http, HttpResponse } from "msw";
-import data from "../backend/data.js";
+import { http, HttpResponse } from "https://esm.sh/msw@2.10.4";
+import transactions from "../backend/data.js";
 
-let transactions = data;
+const address = "/api/data";
 
 export const handlers = [
-    // GET /transactions - 전체 데이터 조회
-    http.get("/transactions", () => {
+    // GET ${address} - 전체 데이터 조회
+    http.get(`${address}`, async () => {
         return HttpResponse.json(transactions);
     }),
 
-    // GET /transactions/:year/:month - 특정 년월 데이터 조회
-    http.get("/transactions/:year/:month", ({ params }) => {
+    // GET ${address}/:year/:month - 특정 년월 데이터 조회
+    http.get(`${address}/:year/:month`, async ({ params }) => {
         console.log("MSW: Fetching month data for:", params);
+
         const { year, month } = params;
         const yearData = transactions.find((t) => t.year === parseInt(year));
 
@@ -35,8 +36,8 @@ export const handlers = [
         return HttpResponse.json(monthData.list);
     }),
 
-    // POST /transactions/:year/:month - 특정 년월에 데이터 추가
-    http.post("/transactions/:year/:month", async ({ params, request }) => {
+    // POST ${address}/:year/:month - 특정 년월에 데이터 추가
+    http.post(`${address}/:year/:month`, async ({ params, request }) => {
         const { year, month } = params;
         const newTransaction = await request.json();
 
@@ -66,8 +67,8 @@ export const handlers = [
         );
     }),
 
-    // DELETE /transactions/:year/:month - 특정 년월의 특정 항목 삭제
-    http.delete("/transactions/:year/:month", async ({ params, request }) => {
+    // DELETE ${address}/:year/:month - 특정 년월의 특정 항목 삭제
+    http.delete(`${address}/:year/:month`, async ({ params, request }) => {
         const { year, month } = params;
         const target = await request.json();
 
@@ -115,8 +116,8 @@ export const handlers = [
         return HttpResponse.json({ message: "Deleted successfully" });
     }),
 
-    // PUT /transactions/:year/:month - 특정 년월의 특정 항목 수정
-    http.put("/transactions/:year/:month", async ({ params, request }) => {
+    // PUT ${address}/:year/:month - 특정 년월의 특정 항목 수정
+    http.put(`${address}/:year/:month`, async ({ params, request }) => {
         const { year, month } = params;
         const { originalData, ...updatedData } = await request.json();
 

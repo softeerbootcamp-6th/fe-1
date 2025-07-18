@@ -1,5 +1,4 @@
-const address = "http://localhost:3000/api/data";
-// const address = '/transactions';
+const address = "/api/data";
 
 export async function getMonthData(year, month) {
     return fetch(`${address}/${year}/${month}`)
@@ -10,7 +9,7 @@ export async function getMonthData(year, month) {
         });
 }
 export async function putMonthData(data) {
-    const {year, month, ...rest} = data
+    const { year, month, ...rest } = data;
     return fetch(`${address}/${year}/${month}`, {
         method: "PUT",
         headers: {
@@ -30,7 +29,7 @@ export async function putMonthData(data) {
         });
 }
 export async function postMonthData(data) {
-    const {year, month, ...rest} = data
+    const { year, month, ...rest } = data;
     return fetch(`${address}/${year}/${month}`, {
         method: "POST",
         headers: {
@@ -50,7 +49,7 @@ export async function postMonthData(data) {
         });
 }
 export async function deleteMonthData(data) {
-    const {year, month, ...rest} = data
+    const { year, month, ...rest } = data;
     return fetch(`${address}/${year}/${month}`, {
         method: "DELETE",
         headers: {
@@ -128,14 +127,16 @@ export async function getExpenseByCategory(year, month, category) {
 export async function getRecentMonthCategoryData(year, month, category) {
     //목표: date, items만 넘겨주기. items는 expense중 특정 카테고리만.
     const monthData = await getMonthData(year, month);
-    const categoryData = monthData.filter((item) => item.category === category && item.type === "expense");
+    const categoryData = monthData.filter(
+        (item) => item.category === category && item.type === "expense"
+    );
     const grouped = {};
     categoryData.forEach((item) => {
         const dateKey = `${item.date}`;
         if (!grouped[dateKey]) {
             grouped[dateKey] = [];
         }
-        const {date, ...itemsWithoutDate} = item;
+        const { date, ...itemsWithoutDate } = item;
         grouped[dateKey].push(itemsWithoutDate);
     });
     const processedData = [];
