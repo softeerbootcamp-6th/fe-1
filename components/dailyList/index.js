@@ -63,32 +63,12 @@ export function dailyViewChange(year, month) {
         </div>`;
     document.querySelector('#daily-placeholder').appendChild($container);
 
-    $dailyRoot.querySelector('#filter-income').addEventListener('click', () => {
-        dailyData.toggleIncomeFilter();
-        dailyViewChange(dateData.year, dateData.month);
-
-        const $income = document.getElementById('filter-income');
-        const $expense = document.getElementById('filter-expense');
-
-        if (dailyData.filteredIncome)
-            $income.classList.remove('amount-btn-active');
-        if (dailyData.filteredExpense)
-            $expense.classList.remove('amount-btn-active');
-    });
-    $dailyRoot
-        .querySelector('#filter-expense')
-        .addEventListener('click', () => {
-            dailyData.toggleExpenseFilter();
-            dailyViewChange(dateData.year, dateData.month);
-
-            const $income = document.getElementById('filter-income');
-            const $expense = document.getElementById('filter-expense');
-
-            if (dailyData.filteredExpense)
-                $expense.classList.remove('amount-btn-active');
-            if (dailyData.filteredIncome)
-                $income.classList.remove('amount-btn-active');
-        });
+    addFilterEventListener('filter-income', $dailyRoot, () =>
+        dailyData.toggleIncomeFilter(),
+    );
+    addFilterEventListener('filter-expense', $dailyRoot, () =>
+        dailyData.toggleExpenseFilter(),
+    );
 
     $container.addEventListener('click', (e) => {
         const $dailyLine = e.target.closest('.daily-line');
@@ -125,5 +105,21 @@ export function dailyViewChange(year, month) {
 
         formData.setFormData(date, items);
         bindInputValue(formData);
+    });
+}
+
+function addFilterEventListener(targetId, $rootElement, filterFn) {
+    $rootElement.querySelector(`#${targetId}`).addEventListener('click', () => {
+        console.log(filterFn);
+        filterFn();
+        dailyViewChange(dateData.year, dateData.month);
+
+        const $income = document.getElementById('filter-income');
+        const $expense = document.getElementById('filter-expense');
+
+        if (dailyData.filteredIncome)
+            $income.classList.remove('amount-btn-active');
+        if (dailyData.filteredExpense)
+            $expense.classList.remove('amount-btn-active');
     });
 }
