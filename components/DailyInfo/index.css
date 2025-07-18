@@ -1,3 +1,5 @@
+@import '../../styles/animations.css';
+
 .monthly-info-container {
     display: flex;
     flex-direction: column;
@@ -6,6 +8,8 @@
 }
 
 .monthly-info {
+    animation: fadeIn 0.5s 0.5s forwards;
+    opacity: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,6 +17,8 @@
 }
 
 .daily-list-container {
+    animation: fadeIn 0.5s 0.65s forwards;
+    opacity: 0;
     display: flex;
     flex-direction: column;
     gap: 40px;

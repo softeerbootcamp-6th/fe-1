@@ -26,7 +26,7 @@ export default function createHeader() {
     header.className = 'header-container';
     header.innerHTML = `
         <a href="/" class="logo-text serif-24" data-nav="/">Wise Wallet</a>
-        <div class="date">
+        <div class="date-container">
             <button class="prev-month-button">
                 <img
                     width="32"
@@ -35,7 +35,7 @@ export default function createHeader() {
                     alt="Previous Month Icon"
                 />
             </button>
-            <div class="date-container">
+            <div class="date">
                 <span class="year light-14">${year}</span>
                 <span class="month-number serif-48">${month}</span>
                 <span class="month-name light-14">${formatMonthName(
