@@ -22,8 +22,8 @@ export const renderRecords = (
 
   sortedRecords.forEach((record) => {
     //"YYYY-MM-DD" 에서 YYYY와 MM 추출 후 헤더의 날짜와 비교해서 같은 값만 호출
-    let year = date.split("-")[0];
-    let month = date.split("-")[1];
+    let year = record.date.split("-")[0];
+    let month = record.date.split("-")[1];
 
     if (Number(currentYear) !== Number(year) || Number(currentMonth) !== Number(month)) return;
 
@@ -114,8 +114,10 @@ export const renderRecordByDate = ({ dateId, date, items }) => {
   // 아이템 목록
   items.forEach((item) => {
     const itemEl = generateItemEl(item);
-    container.appendChild(itemEl);
+    containerEl.appendChild(itemEl);
   });
+
+  return containerEl;
 };
 
 // 아이템 배열을 순회하며 html태그로 만들어주는 함수
