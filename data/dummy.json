@@ -1,26 +1,11 @@
 {
   "summaries": [
     {
-      "id": "53f0488f-4bb2-4fc9-9b18-315db6e9d4be",
-      "date": "2025-07-14",
-      "sign": "-",
-      "amount": 1650,
-      "memo": "지하철 교통비",
-      "category": {
-        "value": "transport",
-        "text": "교통"
-      },
-      "method": {
-        "value": "cash",
-        "text": "신용카드"
-      }
-    },
-    {
       "id": "b60d3c4f-015e-4a23-8fcd-2e6af86b3c30",
       "date": "2025-07-15",
       "sign": "-",
       "amount": 5000000000,
-      "memo": "현대차 매수",
+      "memo": "현대기아차그룹 매수",
       "category": {
         "value": "culture",
         "text": "문화/여가"
@@ -58,6 +43,36 @@
       "method": {
         "value": "cash",
         "text": "신용카드"
+      }
+    },
+    {
+      "id": "4795c2c0-4cfb-4f11-b030-2dd28a32ad6d",
+      "date": "2025-08-12",
+      "sign": "-",
+      "amount": 23000,
+      "memo": "밥",
+      "category": {
+        "value": "food",
+        "text": "식비"
+      },
+      "method": {
+        "value": "cash",
+        "text": "신용카드"
+      }
+    },
+    {
+      "id": "5bdc4bed-d10c-4e8a-ae89-ecdcb7dce6c0",
+      "date": "2025-07-17",
+      "sign": "+",
+      "amount": 9000000000,
+      "memo": "현대차 배당금",
+      "category": {
+        "value": "etc",
+        "text": "기타 수입"
+      },
+      "method": {
+        "value": "card",
+        "text": "현금"
       }
     }
   ]

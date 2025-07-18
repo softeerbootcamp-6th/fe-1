@@ -1,9 +1,9 @@
-import {GetDummyData} from "./dummyData.js";
+import { getDummyData } from './dummyData.js';
 
-export const initDummyData = ({summaryStore}) => {
-    GetDummyData().then(dummy => {
-        dummy.forEach(e => {
-            summaryStore.dispatch('ENTRY/ADD', e)
-        });
-    })
-}
+export const initDummyData = ({ summaryStore }) => {
+  getDummyData().then((dummy) => {
+    dummy.forEach((e) => {
+      summaryStore.dispatch('ENTRY/ADD', e);
+    });
+  });
+};

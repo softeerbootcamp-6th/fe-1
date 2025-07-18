@@ -23,6 +23,7 @@
     "lite-server": "^2.6.1"
   },
   "dependencies": {
-    "json-server": "^1.0.0-beta.3"
+    "json-server": "^1.0.0-beta.3",
+    "prettier": "^3.6.2"
   }
 }
