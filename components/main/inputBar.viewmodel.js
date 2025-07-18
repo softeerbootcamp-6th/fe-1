@@ -10,6 +10,7 @@ export function initInputBar(container) {
   const form = container.querySelector("#inputBarForm");
   const elements = getFormElements(form);
   const fields = getRequiredFields(elements);
+  validateForm(fields, elements.submitButton);
 
   form.addEventListener("input", () => {
     validateForm(fields, elements.submitButton);

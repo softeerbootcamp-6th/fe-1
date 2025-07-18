@@ -14,6 +14,10 @@ import { dateStore, transactionStore } from "../../store/index.js";
 let selectedRowId = null;
 let isExternalClickHandlerRegistered = false;
 
+export function isEditMode() {
+  return selectedRowId !== null;
+}
+
 export function isTransactionVisible(
   transaction,
   isIncomeChecked,
@@ -48,6 +52,7 @@ function updateSelectedRowStyle(selectedRowId) {
 function handleExternalClick(e) {
   // 거래내역 행이나 inputBar 영역을 클릭한 경우는 제외
   if (
+    isEditMode() &&
     !e.target.closest(".transaction-row") &&
     !e.target.closest(".input-bar") &&
     !e.target.closest(".transaction-list-container")
