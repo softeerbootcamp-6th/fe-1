@@ -30,13 +30,13 @@
 
         <!-- 보기 전환 아이콘 -->
         <div class="view-toggle">
-            <a href="/" class="icon-btn" aria-label="리스트 보기">
+            <a href="/" class="icon-btn" aria-label="리스트 보기" data-route>
                 <img src="public/icons/doc.svg" alt="리스트"/>
             </a>
-            <a href="/calendar" class="icon-btn" aria-label="달력 보기">
+            <a href="/calendar" class="icon-btn" aria-label="달력 보기" data-route>
                 <img src="public/icons/calendar.svg" alt="달력"/>
             </a>
-            <a href="/chart" class="icon-btn" aria-label="차트 보기">
+            <a href="/chart" class="icon-btn" aria-label="차트 보기" data-route>
                 <img src="public/icons/chart.svg" alt="차트"/>
             </a>
         </div>
@@ -44,7 +44,7 @@
 </header>
 
 <!-- 메인에 클래스를 통해 css로 display를 통해 차트, 통계 등 표시? -->
-<main>
+<main id="content">
     <div class="summaryList">
         <form class="detail-form">
             <div class="col date">
