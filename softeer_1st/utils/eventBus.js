@@ -23,7 +23,6 @@ class EventBus {
     emit(event, data) {
         if (!this.events[event]) return;
         this.events[event].forEach((callback) => callback(data));
-        console.log('current events:', this.events);
     }
 }
 

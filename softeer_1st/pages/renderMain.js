@@ -2,11 +2,12 @@ import { Form } from "../components/Form.js";
 import { CostList } from "../components/CostList.js";
 import { createElement } from "../utils/createElement.js";
 import { dateStore } from "../store/dateStore.js";
+import { dataStore } from "../store/dataStore.js";
 import { getMonthData } from "../api/api.js";
 import { eventBus } from "../utils/eventBus.js";
 
 export function renderMain() {
-    let [year, month] = [dateStore.year, dateStore.month];
+
     let showCost = {
         income: true,
         expense: true,
@@ -17,30 +18,20 @@ export function renderMain() {
         className: "main-container",
     });
 
-    const updateDateState = (e) => {
-        let newYear, newMonth;
-        if (e && e.detail) {
-            newYear = e.detail.year;
-            newMonth = e.detail.month;
-        } else {
-            newYear = dateStore.year;
-            newMonth = dateStore.month;
-        }
-        mainContainer.innerHTML = ""; // Clear previous content
+    const handleDataChange = (data) =>{
+        renderCostData(data, showCost);
+    }
 
-        try {
-            renderCostData(newYear, newMonth, showCost);
-        } catch (error) {
-            console.error("Error rendering cost data:", error);
-        }
-    };
+    dataStore.subscribe(handleDataChange); // 데이터 변경 시 리렌더링
+
 
     // 데이터 업데이트 이벤트 리스너 추가
     const handleDataUpdate = (data) => {
         console.log("Data updated:", data);
-        // 현재 보고 있는 년월과 업데이트된 년월이 같으면 리렌더링
+        // 현재 보고 있는 년월과 업데이트된 년월이 같으면 캐시 무효화, 재로드
         if (data.year === dateStore.year && data.month === dateStore.month) {
-            updateDateState();
+            dataStore.invalidateCache(data.year, data.month);
+            dataStore.loadData(data.year,data.month)
         }
     };
 
@@ -48,9 +39,9 @@ export function renderMain() {
     eventBus.on("data-updated", handleDataUpdate);
 
     // 데이터 렌더링 함수
-    async function renderCostData(newYear, newMonth, showCost) {
+    async function renderCostData(data, showCost) {
         try {
-            const data = await getMonthData(newYear, newMonth);
+            mainContainer.innerHTML = "";
             const grouped = {};
             data.forEach((item) => {
                 const dateKey = `${item.date}`;
@@ -199,7 +190,7 @@ export function renderMain() {
 
                     if (filteredItems.length === 0) return;
 
-                    const costListElement = CostList(newYear, newMonth, {
+                    const costListElement = CostList(dateStore.year, dateStore.month, {
                         date: item.date,
                         items: filteredItems,
                     });
@@ -213,10 +204,12 @@ export function renderMain() {
         }
     }
 
-    window.addEventListener("date-change", updateDateState);
-    updateDateState();
+
+    dataStore.loadData(dateStore.year, dateStore.month);
+
     section.appendChild(form);
     section.appendChild(mainContainer);
+
 
     return section;
 }
