@@ -10,51 +10,52 @@
 </head>
 
 <body>
-    <!-- 상단 고정 헤더 -->
-    <header class="top-header">
-        <div class="topbar">
-            <h1 class="app-name">
-                <img src="public/icons/logo.svg" alt="Wise Wallet" />
-            </h1>
+<!-- 상단 고정 헤더 -->
+<header class="top-header">
+    <div class="topbar">
+        <h1 class="app-name">
+            <img src="public/icons/logo.svg" alt="Wise Wallet"/>
+        </h1>
 
-            <!-- 월(Year/Month) 네비게이션 -->
-            <nav class="month-nav" aria-label="월 이동">
-                <button class="nav-btn prev" aria-label="이전 달">&lt;</button>
-                <div class="month-display">
-                    <p class="year">2023</p>
-                    <p class="month">8</p>
-                    <p class="month-name">August</p>
-                </div>
-                <button class="nav-btn next" aria-label="다음 달">&gt;</button>
-            </nav>
-
-            <!-- 보기 전환 아이콘 -->
-            <div class="view-toggle">
-                <button class="icon-btn" aria-label="리스트 보기">
-                    <img src="public/icons/doc.svg" alt="리스트" />
-                </button>
-                <button class="icon-btn" aria-label="달력 보기">
-                    <img src="public/icons/calendar.svg" alt="달력" />
-                </button>
-                <button class="icon-btn" aria-label="차트 보기">
-                    <img src="public/icons/chart.svg" alt="차트" />
-                </button>
+        <!-- 월(Year/Month) 네비게이션 -->
+        <nav class="month-nav" aria-label="월 이동">
+            <button class="nav-btn prev" aria-label="이전 달">&lt;</button>
+            <div class="month-display">
+                <p class="year">2023</p>
+                <p class="month">8</p>
+                <p class="month-name">August</p>
             </div>
-        </div>
-    </header>
+            <button class="nav-btn next" aria-label="다음 달">&gt;</button>
+        </nav>
 
-    <!-- 메인에 클래스를 통해 css로 display를 통해 차트, 통계 등 표시? -->
-    <main>
+        <!-- 보기 전환 아이콘 -->
+        <div class="view-toggle">
+            <a href="/" class="icon-btn" aria-label="리스트 보기">
+                <img src="public/icons/doc.svg" alt="리스트"/>
+            </a>
+            <a href="/calendar" class="icon-btn" aria-label="달력 보기">
+                <img src="public/icons/calendar.svg" alt="달력"/>
+            </a>
+            <a href="/chart" class="icon-btn" aria-label="차트 보기">
+                <img src="public/icons/chart.svg" alt="차트"/>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- 메인에 클래스를 통해 css로 display를 통해 차트, 통계 등 표시? -->
+<main>
+    <div class="summaryList">
         <form class="detail-form">
             <div class="col date">
                 <label for="form-date">일자</label>
-                <input type="date" id="form-date" name="date" />
+                <input type="date" id="form-date" name="date"/>
             </div>
             <div class="col amount">
                 <label for="form-amount">금액</label>
                 <div>
                     <span id="form-sign">-</span>
-                    <input type="text" id="form-amount" inputmode="numeric" name="amount" placeholder="0" />
+                    <input type="text" id="form-amount" inputmode="numeric" name="amount" placeholder="0"/>
                     <span class="unit">원</span>
                 </div>
             </div>
@@ -62,8 +63,8 @@
                 <div>
                     <label for="form-memo">내용</label>
                     <span>0/32</span>
-                    </div>
-                    <input type="text" id="form-memo" name="memo" maxlength="32" placeholder="입력하세요" />
+                </div>
+                <input type="text" id="form-memo" name="memo" maxlength="32" placeholder="입력하세요"/>
             </div>
             <div class="col method">
                 <label for="form-method">결제수단</label>
@@ -111,9 +112,10 @@
                 </ul>
             </article>
         </section>
-    </main>
+    </div>
+</main>
 
-    <script type="module" src="./src/app/main.js"></script>
+<script type="module" src="./src/app/main.js"></script>
 </body>
 
 </html>
