@@ -32,7 +32,7 @@ const createDropdownOption = (option, deleteOption) => {
             formStore.deletePaymentMethod(option.value);
         },
         okTextColor: 'var(--danger-text-default)',
-        content: `
+        children: `
             <span class="light-16">해당 결제 수단을 삭제하시겠습니까?</span>
             <input
                 class="semibold-12 input-payment-method"
@@ -83,13 +83,12 @@ const createDropdownOptions = (options, onSelect, deleteOption) => {
         }
     });
 
-    document.addEventListener('paymentMethodOptionsAdded', (event) => {
-        const newOptions = createDropdownOption(
-            event.detail.newPaymentMethod,
-            deleteOption
-        );
-        optionsList.appendChild(newOptions);
-    });
+    const createNewOption = (option) => {
+        const newOption = createDropdownOption(option, deleteOption);
+        optionsList.appendChild(newOption);
+    };
+
+    optionsContainer.createNewOption = createNewOption;
 
     return optionsContainer;
 };

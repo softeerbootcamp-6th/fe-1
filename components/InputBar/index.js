@@ -1,151 +1,114 @@
-import { extractNumbersOnly, getUUID } from '../../lib/utils.js';
-import formStore from '../../store/form.js';
+import { getUUID, extractNumbersOnly } from '../../lib/utils.js';
+import { createForm } from '../Form/index.js';
 import paymentDataStore from '../../store/paymentData.js';
+import formStore from '../../store/form.js';
 
-export default function createInputBar(formItemsConfig) {
-    if (!formItemsConfig) {
-        throw new Error('formItemsConfig is required');
-    }
+import createDate from './InputItems/date.js';
+import createAmount from './InputItems/amount.js';
+import createDescription from './InputItems/description.js';
+import createPaymentMethod from './InputItems/paymentMethod.js';
+import createCategory from './InputItems/category.js';
+import createSubmitButton from './submitButton.js';
 
-    const form = createForm(formItemsConfig);
-    initInputBar(form);
-    return form;
-}
+const DEFAULT_FORM_ITEMS_CONFIG = [
+    {
+        name: 'date',
+        element: createDate(),
+    },
+    {
+        name: 'amount',
+        element: createAmount(),
+    },
+    {
+        name: 'description',
+        element: createDescription(),
+    },
+    {
+        name: 'paymentMethod',
+        element: createPaymentMethod(),
+    },
+    {
+        name: 'category',
+        element: createCategory(),
+    },
+    {
+        name: 'submitButton',
+        element: createSubmitButton(),
+    },
+];
 
-function createForm(formItemsConfig) {
-    if (!formItemsConfig) {
-        throw new Error('formItemsConfig is required');
-    }
-
+export default function createInputBar() {
     const form = document.createElement('form');
     form.className = 'input-bar-container';
 
-    formItemsConfig.forEach((createItem) => {
-        const item = createItem();
-        form.appendChild(item);
-    });
+    form._formItemsConfig = DEFAULT_FORM_ITEMS_CONFIG;
+    form._onSubmit = onSubmit;
 
-    return form;
-}
+    let editingId = null;
 
-function initInputBar(form) {
-    form.addEventListener('submit', handleFormSubmit);
-    setInitialState(form);
-    setupRealTimeValidation(form);
-}
-
-function setupRealTimeValidation(form) {
-    const submitButton = form.querySelector('button[type="submit"]');
-    if (!submitButton) return;
-
-    updateSubmitButtonState(form, submitButton);
-
-    const inputs = form.querySelectorAll('input');
-    inputs.forEach((input) => {
-        input.addEventListener('input', () =>
-            updateSubmitButtonState(form, submitButton)
-        );
-    });
-}
-
-function updateSubmitButtonState(form, submitButton) {
-    const formData = collectFormData(form);
-    const isValid = validateFormData(formData);
-
-    submitButton.style.opacity = isValid ? '1' : '0.5';
-    submitButton.style.cursor = isValid ? 'pointer' : 'not-allowed';
-    submitButton.disabled = !isValid;
-}
-
-function handleFormSubmit(event) {
-    event.preventDefault();
-
-    const formData = collectFormData(event.target);
-    if (!validateFormData(formData)) {
-        return;
-    }
-
-    paymentDataStore.addPaymentData(formData);
-    resetForm(event.target);
-}
-
-function collectFormData(form) {
-    const formData = new FormData(form);
-    const formAmount = parseFloat(extractNumbersOnly(formData.get('amount')));
-    const isIncomeMode = formStore.getIsIncomeMode();
-    const amount = isIncomeMode ? formAmount : -formAmount;
-
-    return {
-        id: getUUID(),
-        category: formData.get('category') || '',
-        description: formData.get('description') || '',
-        paymentMethod: formData.get('paymentMethod') || '',
-        amount: amount,
-        paidAt: formData.get('date') || new Date().toISOString().split('T')[0],
-        createdAt:
-            formData.get('date') || new Date().toISOString().split('T')[0],
-    };
-}
-
-function validateFormData(data) {
-    if (!data.amount || data.amount === 0) {
-        return false;
-    }
-
-    if (!data.description.trim()) {
-        return false;
-    }
-
-    if (!data.paymentMethod) {
-        return false;
-    }
-
-    if (!data.category) {
-        return false;
-    }
-
-    return true;
-}
-
-function setInitialState(form) {
-    const dateInput = form.querySelector('input[name="date"]');
-    if (dateInput && !dateInput.value) {
-        dateInput.value = new Date().toISOString().split('T')[0];
-    }
-
-    const paymentMethodInput = form.querySelector(
-        'input[name="paymentMethod"]'
+    const formItemsMap = new Map(
+        form._formItemsConfig.map((item) => [item.name, item.element])
     );
-    if (paymentMethodInput) {
-        paymentMethodInput.value = '';
-        const paymentMethodContainer =
-            paymentMethodInput.closest('.input-bar-item');
-        const paymentMethodLabel =
-            paymentMethodContainer.querySelector('.select-label');
-        if (paymentMethodLabel) {
-            paymentMethodLabel.textContent = '선택하세요';
-            paymentMethodLabel.style.color = 'var(--neutral-text-weak)';
+
+    form.enterEditMode = (id) => {
+        const data = paymentDataStore.getPaymentDataById(id);
+        if (!data) return;
+
+        editingId = id;
+        const isIncome = data.amount > 0;
+
+        if (formStore.getIsIncomeMode() !== isIncome) {
+            formStore.toggleIncomeMode();
+        }
+
+        const setters = [
+            ['date', data.paidAt],
+            ['amount', data.amount],
+            ['description', data.description],
+            ['category', data.category],
+            ['paymentMethod', data.paymentMethod],
+        ];
+
+        setters.forEach(([fieldName, value]) => {
+            const element = formItemsMap.get(fieldName);
+            if (element?.setValue) {
+                element.setValue(value);
+            }
+        });
+    };
+
+    function onSubmit(formData) {
+        const isIncomeMode = formStore.getIsIncomeMode();
+        const amountNumber = Number(extractNumbersOnly(formData.amount));
+        const amount = isIncomeMode ? amountNumber : -amountNumber;
+
+        const formattedData = {
+            category: formData.category,
+            description: formData.description,
+            paymentMethod: formData.paymentMethod,
+            amount: amount,
+            paidAt: formData.date,
+            createdAt: formData.date,
+        };
+
+        if (editingId) {
+            paymentDataStore.updatePaymentData(editingId, formattedData);
+            editingId = null;
+        } else {
+            paymentDataStore.addPaymentData({
+                id: getUUID(),
+                ...formattedData,
+            });
         }
     }
 
-    const categoryInput = form.querySelector('input[name="category"]');
-    if (categoryInput) {
-        categoryInput.value = '';
-        const categoryContainer = categoryInput.closest('.input-bar-item');
-        const categoryLabel = categoryContainer.querySelector('.select-label');
-        if (categoryLabel) {
-            categoryLabel.textContent = '선택하세요';
-            categoryLabel.style.color = 'var(--neutral-text-weak)';
-        }
-    }
-}
+    form.exitEditMode = () => {
+        editingId = null;
+    };
 
-function resetForm(form) {
-    form.reset();
-    setInitialState(form);
+    document.addEventListener('editModeRequested', (event) => {
+        form.enterEditMode(event.detail.id);
+    });
 
-    const submitButton = form.querySelector('button[type="submit"]');
-    if (submitButton) {
-        updateSubmitButtonState(form, submitButton);
-    }
+    return createForm(form);
 }

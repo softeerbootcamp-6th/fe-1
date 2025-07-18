@@ -1,7 +1,7 @@
 const dateStore = {
-    year: 2025,
-    month: 1,
-    
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+
     getDate() {
         return new Date(this.year, this.month - 1);
     },

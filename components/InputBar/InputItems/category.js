@@ -79,6 +79,31 @@ const createCategory = () => {
         updateCategories(event.detail.isIncomeMode);
     });
 
+    categoryItem.reset = () => {
+        hiddenInput.value = '';
+        selectLabel.textContent = '선택하세요';
+        selectLabel.style.color = 'var(--neutral-text-weak)';
+    };
+
+    categoryItem.validate = () => {
+        return hiddenInput.value.trim().length > 0;
+    };
+
+    categoryItem.setValue = (value) => {
+        const categories = expenseCategories.concat(incomeCategories);
+
+        const category = categories.find(
+            (category) => category.value === value
+        );
+
+        if (category) {
+            hiddenInput.value = value;
+            selectLabel.textContent = category.label;
+            selectLabel.style.color = 'var(--neutral-text-default)';
+            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    };
+
     return categoryItem;
 };
 

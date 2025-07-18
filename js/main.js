@@ -1,8 +1,10 @@
-import createHeader from './components/Header/index.js';
-import { createMain } from './js/mainpage.js';
+import createHeader from '../components/Header/index.js';
+import Router from './router.js';
 
 function init() {
     render();
+    const router = new Router();
+    router.init();
 }
 
 function render() {
@@ -11,12 +13,6 @@ function render() {
     const headerContainer = document.getElementById('header-placeholder');
     headerContainer.innerHTML = '';
     headerContainer.appendChild(header);
-
-    const main = createMain();
-
-    const mainContainer = document.getElementById('main-placeholder');
-    mainContainer.innerHTML = '';
-    main.map((item) => mainContainer.appendChild(item));
 }
 
 document.addEventListener('DOMContentLoaded', () => {

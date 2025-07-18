@@ -1,5 +1,6 @@
 import dateStore from '../../store/date.js';
-import { formatMonthName } from '../../lib/utils.js'; 
+import { formatMonthName } from '../../lib/utils.js';
+
 const NavItemIcon = [
     {
         href: '/',
@@ -24,8 +25,8 @@ export default function createHeader() {
     const header = document.createElement('div');
     header.className = 'header-container';
     header.innerHTML = `
-        <a href="/" class="logo-text serif-24">Wise Wallet</a>
-        <div class="date">
+        <a href="/" class="logo-text serif-24" data-nav="/">Wise Wallet</a>
+        <div class="date-container">
             <button class="prev-month-button">
                 <img
                     width="32"
@@ -34,10 +35,12 @@ export default function createHeader() {
                     alt="Previous Month Icon"
                 />
             </button>
-            <div class="date-container">
+            <div class="date">
                 <span class="year light-14">${year}</span>
                 <span class="month-number serif-48">${month}</span>
-                <span class="month-name light-14">${formatMonthName(month)}</span>
+                <span class="month-name light-14">${formatMonthName(
+                    month
+                )}</span>
             </div>
             <button class="next-month-button">
                 <img
@@ -53,7 +56,9 @@ export default function createHeader() {
                 ${NavItemIcon.map(
                     (item) => `
                     <li>
-                        <a href="${item.href}" class="header-nav-link
+                        <a href="${
+                            item.href
+                        }" class="header-nav-link" data-nav="${item.href}"
                             ${
                                 item.href === window.location.pathname
                                     ? 'active'
@@ -74,19 +79,48 @@ export default function createHeader() {
         </nav>
     `;
 
-    header.querySelector('.prev-month-button')?.addEventListener('click', () => {
-        dateStore.decreaseMonth();
+    header.addEventListener('click', (e) => {
+        const navLink = e.target.closest('[data-nav]');
+        if (navLink) {
+            e.preventDefault();
+            const path = navLink.getAttribute('data-nav');
+
+            document.dispatchEvent(
+                new CustomEvent('navigate', {
+                    detail: { path },
+                })
+            );
+        }
     });
 
-    header.querySelector('.next-month-button')?.addEventListener('click', () => {
-        dateStore.increaseMonth();
-    });
+    header
+        .querySelector('.prev-month-button')
+        ?.addEventListener('click', () => {
+            dateStore.decreaseMonth();
+        });
+
+    header
+        .querySelector('.next-month-button')
+        ?.addEventListener('click', () => {
+            dateStore.increaseMonth();
+        });
 
     document.addEventListener('dateChanged', (e) => {
         const { year, month } = e.detail;
         header.querySelector('.year').textContent = year;
         header.querySelector('.month-number').textContent = month;
-        header.querySelector('.month-name').textContent = formatMonthName(month);
+        header.querySelector('.month-name').textContent =
+            formatMonthName(month);
+    });
+
+    document.addEventListener('routeChanged', (e) => {
+        const { path } = e.detail;
+        header.querySelectorAll('.header-nav-link').forEach((link) => {
+            const linkPath = link.getAttribute('data-nav');
+            linkPath === path
+                ? link.classList.add('active')
+                : link.classList.remove('active');
+        });
     });
 
     return header;

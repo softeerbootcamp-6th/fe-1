@@ -46,6 +46,18 @@ const createPaymentMethod = () => {
 
     paymentMethodItem.appendChild(dropdownOptions);
 
+    document.addEventListener('paymentMethodOptionsAdded', (event) => {
+        dropdownOptions.createNewOption(event.detail.newPaymentMethod);
+    });
+
+    selectContainer.addEventListener('click', () => {
+        toggle(dropdownOptions);
+    });
+
+    //
+    //  결제 수단 추가 버튼
+    //
+
     const addPaymentMethodButton = document.createElement('button');
     addPaymentMethodButton.className = 'add-payment-method-button';
     addPaymentMethodButton.innerHTML = `
@@ -53,9 +65,9 @@ const createPaymentMethod = () => {
     `;
     dropdownOptions.appendChild(addPaymentMethodButton);
 
-    selectContainer.addEventListener('click', () => {
-        toggle(dropdownOptions);
-    });
+    //
+    //  결제 수단 추가 모달
+    //
 
     const modal = createModal({
         okText: '추가',
@@ -65,7 +77,7 @@ const createPaymentMethod = () => {
 
             input.value = '';
         },
-        content: `
+        children: `
             <span class="light-16">추가하실 결제 수단을 입력해주세요.</span>
             <input
                 class="semibold-12 input-payment-method"
@@ -78,6 +90,29 @@ const createPaymentMethod = () => {
     addPaymentMethodButton.addEventListener('click', () => {
         modal.open();
     });
+
+    paymentMethodItem.reset = () => {
+        hiddenInput.value = '';
+        selectLabel.textContent = '선택하세요';
+        selectLabel.style.color = 'var(--neutral-text-weak)';
+    };
+
+    paymentMethodItem.validate = () => {
+        return hiddenInput.value.trim().length > 0;
+    };
+
+    paymentMethodItem.setValue = (value) => {
+        const paymentMethodOption = formStore.paymentMethodOptions.find(
+            (option) => option.value === value
+        );
+
+        if (paymentMethodOption) {
+            selectLabel.textContent = paymentMethodOption.label;
+            selectLabel.style.color = 'var(--neutral-text-default)';
+            hiddenInput.value = value;
+            hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+    };
 
     return paymentMethodItem;
 };
