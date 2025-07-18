@@ -15,10 +15,7 @@ export const renderRecords = (
   recordContainerEl.innerHTML = "";
 
   // 데이터 날짜순 정렬
-  const sortedRecords = recordStore
-    .getRecords()
-    .slice()
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sortedRecords = records.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
   sortedRecords.forEach((record) => {
     const date = record.date;
