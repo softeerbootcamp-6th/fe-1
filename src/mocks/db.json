@@ -1,17 +1,6 @@
 {
   "list": [
     {
-      "uid": "31bb3cc1-f55a-44f3-9029-5b2c215acdd1",
-      "date": "2025-07-23T14:00:00.000Z",
-      "moneyType": "income",
-      "money": 70000,
-      "content": "아쿠라이움 방문 🐠",
-      "payment": "신용카드",
-      "category": "생활",
-      "id": "8fe5",
-      "mode": "edit"
-    },
-    {
       "id": "a120",
       "mode": "create",
       "date": "2025-06-09",

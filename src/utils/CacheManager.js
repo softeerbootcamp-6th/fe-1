@@ -1,3 +1,6 @@
+import { ListApi } from "../api/ListApi.js";
+import { listStore } from "../store/ListStore.js";
+
 export const cache = new Map();
 
 export const CacheManager = {
@@ -12,9 +15,12 @@ export const CacheManager = {
     const cacheEntry = cache.get(dataType);
     if (cacheEntry && Date.now() - cacheEntry.fetchedAt < STALE_TIME) {
       //import from cache
-      callback(cacheEntry.data);
+      listStore.dispatch("initListItem", cacheEntry.data);
     } else {
       //fetch from server
+      ListApi.getList().then((data) => {
+        listStore.dispatch("initListItem", [...data]);
+      });
     }
   },
 };
