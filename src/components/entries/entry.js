@@ -1,4 +1,4 @@
-import { deleteEntryToServer } from "../../api.js";
+import { deleteEntryToServer } from "../../../api.js";
 import { sharedState } from "../../store/state.js";
 import { renderCategoryOptions } from "../inputForm/inputFormItems/categoryRender.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";

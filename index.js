@@ -1,14 +1,14 @@
 // js/index.js
-import { initDate } from "./components/header/dateRender.js";
-import { initRenderDummyData } from "./pages/main/ledger/renderDummyData.js";
-import { initInputFormListener } from "./components/inputForm/inputFormItems/totalListener.js";
-import { deleteEntry } from "./components/entries/entry.js";
-import { initFilterButtons } from "./components/entries/filterEntries.js";
-import { initViewSwitcher } from "./pages/main/viewSwitcher.js";
-import { updateCalendarTotalAmount } from "./pages/main/calendar/calendarTotalAmount.js";
-import createHeader from "./components/header/header.js";
-import createInputForm from "./components/inputForm/input-form.js";
-import { createTotalAmountContainer } from "./components/totalAmount/totalAmount.js";
+import { initDate } from "./src/components/header/dateRender.js";
+import { initRenderDummyData } from "./src/pages/main/ledger/renderDummyData.js";
+import { initInputFormListener } from "./src/components/inputForm/inputFormItems/totalListener.js";
+import { deleteEntry } from "./src/components/entries/entry.js";
+import { initFilterButtons } from "./src/components/entries/filterEntries.js";
+import { initViewSwitcher } from "./src/pages/main/viewSwitcher.js";
+import { updateCalendarTotalAmount } from "./src/pages/main/calendar/calendarTotalAmount.js";
+import createHeader from "./src/components/header/header.js";
+import createInputForm from "./src/components/inputForm/input-form.js";
+import { createTotalAmountContainer } from "./src/components/totalAmount/totalAmount.js";
 
 /*
  render()

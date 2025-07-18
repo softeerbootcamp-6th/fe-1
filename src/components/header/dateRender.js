@@ -1,7 +1,7 @@
-import { sharedState } from "../../../store/state.js";
+import { sharedState } from "../../store/state.js";
 import { loadEntriesFromServer } from "../../../api.js";
 import { renderOneEntiry } from "../entries/entry-util.js";
-import { store } from "../../../store/store.js";
+import { store } from "../../store/store.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { initCalendarView } from "../../pages/main/calendar/calendarView.js";
 import { initStatsView } from "../../pages/main/stats/statsView.js";

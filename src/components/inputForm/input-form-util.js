@@ -2,7 +2,7 @@ import { store } from "../../store/store.js";
 import { sharedState } from "../../store/state.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { category } from "../../setting/config.js";
-import { saveEntriesToServer } from "../../api.js";
+import { saveEntriesToServer } from "../../../api.js";
 import { updateDateSectionTotals } from "../entries/entryTotalAmount.js";
 
 export function addEntry() {
