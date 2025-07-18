@@ -542,6 +542,10 @@ table {
   color: var(--danger-text-default);
 }
 
+.danger-btn {
+  color: var(--danger-text-default);
+}
+
 .delete-btn-icon {
   margin: 0 6px;
   color: var(--nuetral-surface-default);
@@ -579,4 +583,130 @@ table {
 
 .transaction-row.selected .delete-btn {
   display: flex;
+}
+
+.chart-page {
+  gap: 20px;
+}
+
+#donut-chart-container {
+  border: 1px solid var(--nuetral-border-default);
+  background: var(--nuetral-surface-default);
+  width: 100%;
+  height: 572px;
+  padding: 20px;
+}
+
+.calendar-container {
+  border-top: 1px solid var(--nuetral-border-default);
+  border-left: 1px solid var(--nuetral-border-default);
+  width: 100%;
+  background: var(--nuetral-surface-default);
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  height: 48px;
+}
+
+.calendar-header > div {
+  border-right: 1px solid var(--nuetral-border-default);
+  border-bottom: 1px solid var(--nuetral-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: right;
+  min-height: 120px;
+  background: var(--nuetral-surface-default);
+}
+
+.calendar-cell {
+  cursor: pointer;
+  transition: background 0.2s;
+  border-right: 1px solid var(--nuetral-border-default);
+  border-bottom: 1px solid var(--nuetral-border-default);
+  display: flex;
+  flex-direction: column;
+}
+
+dialog {
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.modal {
+  width: 384px;
+  height: 200px;
+  background: var(--nuetral-surface-default);
+  border: 1px solid var(--nuetral-border-default);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-btn {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid var(--nuetral-border-default);
+  outline: none;
+  cursor: pointer;
+}
+
+.modal-btn:hover {
+  background: var(--nuetral-surface-point);
+}
+
+.modal-btn-container {
+  height: 56px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-btn:first-child {
+  border-right: 1px solid var(--nuetral-border-default);
+}
+
+.modal-content {
+  height: 164px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal-content > div {
+  width: 320px;
+  height: 40px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.modal-content > input {
+  width: 320px;
+  height: 40px;
+  background: var(--nuetral-surface-point);
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+
+.modal-content > input::placeholder {
+  padding: 0 16px;
 }

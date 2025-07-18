@@ -1,6 +1,12 @@
 import { renderHeader, initHeader } from "./components/header/header.js";
 import { render, navigate } from "./utils/routes.js";
 import { initStore, pathStore } from "./store/index.js";
+import {
+  renderModal,
+  initModal,
+  openModal,
+  closeModal,
+} from "./components/modal/modal.js";
 
 const headerContainer = document.getElementById("header-container");
 

@@ -9,10 +9,20 @@ import {
   cancelEditMode,
 } from "./inputBar.viewmodel.js";
 import { dateStore, transactionStore } from "../../store/index.js";
+import {
+  renderModal,
+  initModal,
+  openModal,
+  closeModal,
+} from "../modal/modal.js";
 
 // 클릭된 행 상태 관리
 let selectedRowId = null;
 let isExternalClickHandlerRegistered = false;
+
+export function isEditMode() {
+  return selectedRowId !== null;
+}
 
 export function isTransactionVisible(
   transaction,
@@ -48,6 +58,7 @@ function updateSelectedRowStyle(selectedRowId) {
 function handleExternalClick(e) {
   // 거래내역 행이나 inputBar 영역을 클릭한 경우는 제외
   if (
+    isEditMode() &&
     !e.target.closest(".transaction-row") &&
     !e.target.closest(".input-bar") &&
     !e.target.closest(".transaction-list-container")
@@ -186,12 +197,31 @@ export function renderTransactionList(isIncomeChecked, isExpenseChecked) {
     transactionListContainer.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.stopPropagation(); // 행 클릭 이벤트 방지
-        const id = Number(btn.dataset.id);
-        transactionStore.deleteTransaction(
-          dateStore.getYear(),
-          dateStore.getMonth(),
-          id
-        );
+
+        const modalContainer = document.querySelector("#modal-container");
+        renderModal(modalContainer, {
+          message: "삭제하시겠습니까?",
+          input: false,
+          inputPlaceholder: "",
+          cancelText: "취소",
+          confirmText: "삭제",
+        });
+        initModal(modalContainer, {
+          onCancel: () => {
+            closeModal(modalContainer.querySelector(".modal-container"));
+          },
+          onConfirm: (value) => {
+            const id = Number(btn.dataset.id);
+            transactionStore.deleteTransaction(
+              dateStore.getYear(),
+              dateStore.getMonth(),
+              id
+            );
+            closeModal(modalContainer.querySelector(".modal-container"));
+          },
+        });
+        openModal(modalContainer.querySelector(".modal-container"));
+
         // 삭제 후 선택 상태 초기화
         selectedRowId = null;
       });

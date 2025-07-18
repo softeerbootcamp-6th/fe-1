@@ -1,39 +1,5 @@
 {
   "2025": {
-    "1": [
-      {
-        "id": 12,
-        "date": "2025-01-15",
-        "category": "식비",
-        "description": "점심 식사",
-        "paymentMethod": "현금",
-        "amount": -12000
-      },
-      {
-        "id": 13,
-        "date": "2025-01-14",
-        "category": "교통",
-        "description": "지하철 교통비",
-        "paymentMethod": "카드",
-        "amount": -1350
-      },
-      {
-        "id": 14,
-        "date": "2025-01-13",
-        "category": "쇼핑/뷰티",
-        "description": "화장품 구매",
-        "paymentMethod": "카드",
-        "amount": -45000
-      },
-      {
-        "id": 15,
-        "date": "2025-01-12",
-        "category": "월급",
-        "description": "1월 급여",
-        "paymentMethod": "현금",
-        "amount": 2500000
-      }
-    ],
     "4": [
       {
         "id": 22,
@@ -123,7 +89,7 @@
         "category": "문화/여가",
         "description": "영화관 티켓",
         "paymentMethod": "현대카드",
-        "amount": -14000
+        "amount": -140000
       },
       {
         "id": 27,
@@ -131,7 +97,7 @@
         "category": "미분류",
         "description": "기타 지출",
         "paymentMethod": "현금",
-        "amount": -15000
+        "amount": -150000
       },
       {
         "id": 41,
@@ -184,6 +150,14 @@
     ],
     "6": [
       {
+        "id": 34,
+        "date": "2025-06-28",
+        "category": "식비",
+        "description": "도시락 20개",
+        "paymentMethod": "카드",
+        "amount": -200000
+      },
+      {
         "id": 33,
         "date": "2025-06-25",
         "category": "월급",
@@ -197,7 +171,7 @@
         "category": "교통",
         "description": "택시비",
         "paymentMethod": "현금",
-        "amount": -8000
+        "amount": -80000
       },
       {
         "id": 32,
@@ -213,7 +187,7 @@
         "category": "의료/건강",
         "description": "약국",
         "paymentMethod": "현금",
-        "amount": -12000
+        "amount": -120000
       },
       {
         "id": 43,
@@ -229,7 +203,7 @@
         "category": "쇼핑/뷰티",
         "description": "화장품 구매",
         "paymentMethod": "현대카드",
-        "amount": -39000
+        "amount": -390000
       },
       {
         "id": 29,
@@ -237,7 +211,7 @@
         "category": "생활",
         "description": "전기요금",
         "paymentMethod": "카드",
-        "amount": -42000
+        "amount": -4200
       },
       {
         "id": 42,
