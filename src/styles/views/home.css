@@ -1,11 +1,29 @@
 .transactions {
   width: 84.6rem;
-  margin-top: 3.4rem;
+  padding-top: 3.4rem;
 }
 
 .transactions__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox-container {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.checkbox-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  cursor: pointer;
   align-items: center;
 }
 

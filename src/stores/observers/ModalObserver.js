@@ -1,6 +1,6 @@
-import Observer from "../../utils/observers/Observer.js";
+import { Observer } from "../../utils/index.js";
 
-export class ModalObserver extends Observer {
+class ModalObserver extends Observer {
   constructor(view) {
     super();
     this.view = view;
@@ -20,3 +20,5 @@ export class ModalObserver extends Observer {
     }
   }
 }
+
+export default ModalObserver;

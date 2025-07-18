@@ -30,6 +30,15 @@
   background-color: var(--nuetral-surface-default);
 }
 
+.modal__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+
 .modal__buttons {
   height: 5.6rem;
   display: flex;
