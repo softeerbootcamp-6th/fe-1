@@ -9,7 +9,7 @@ import {
   setupRealtimeValidation,
   setupCustomDropdowns,
   initializeRendering,
-} from "./main-ui-utils.js";
+} from "./utils/main-ui-utils.js";
 import { initModal } from "../../layouts/modal/modal.js";
 
 export function initMain() {

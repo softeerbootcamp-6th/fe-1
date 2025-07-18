@@ -1,27 +1,25 @@
-// 모달 HTML 렌더링 함수
+// 모달 렌더링 함수
 export function renderModal() {
-  const modalContainer = document.getElementById("modal-container");
-
-  modalContainer.innerHTML = `
-    <div class="modal-backdrop" id="modal-backdrop">
+  const modalHTML = `
+    <div id="modal-backdrop" class="modal-backdrop">
       <div class="modal-content">
-        <div class="modal-body">
-          <div class="modal-input-group">
-            <label for="modal-input" class="modal-label">추가하실 결제 수단을 입력하세요</label>
-            <input 
-              type="text" 
-              id="modal-input" 
-              class="modal-input"
-              placeholder="placeholder"
-              maxlength="20"
-            />
-          </div>
+        <h2 id="modal-title" class="modal-title">제목</h2>
+        <div id="modal-body" class="modal-body">
+          <input
+            type="text"
+            id="modal-input"
+            class="modal-input"
+            placeholder="입력해주세요"
+          />
+          <p id="modal-message" class="modal-message" style="display: none;"></p>
         </div>
         <div class="modal-footer">
-          <button class="modal-btn modal-btn-cancel" id="modal-cancel-btn">취소</button>
-          <button class="modal-btn modal-btn-confirm" id="modal-confirm-btn">추가</button>
+          <button id="modal-cancel-btn" class="modal-btn cancel-btn">취소</button>
+          <button id="modal-confirm-btn" class="modal-btn confirm-btn">확인</button>
         </div>
       </div>
     </div>
   `;
+
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
 }

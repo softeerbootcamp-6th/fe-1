@@ -1,28 +1,29 @@
-export function renderStatistic() {
+import { renderCategory } from "./components/category/category-rendering.js";
+import { initCategory } from "./components/category/category-handlers.js";
+import { renderDonutChart } from "./components/donut-chart/donut-chart-rendering.js";
+import { initDonutChart } from "./components/donut-chart/donut-chart-handlers.js";
+import { renderTrendChart } from "./components/trend/trend-rendering.js";
+import { renderHistoryList } from "./components/history/history-rendering.js";
+
+export async function renderStatistic() {
   const statisticHTML = `
     <!-- 통계 컨테이너 -->
     <div class="stats-container">
       <!-- 통계 본문 -->
       <div class="statistics-content">
         <!-- 차트 영역 -->
-        <div class="stats-chart">
-          <div id="chart-placeholder"></div>
-        </div>
+        ${renderDonutChart()}
         
         <!-- 카테고리별 상세 정보 -->
-        <div class="stats-categories">
-          <div class="stats-period-title">
-            <span>이번 달 지출 금액</span>
-            <span id="total-expense-amount">0원</span>
-          </div>
-          <div class="category-list" id="category-list">
-            <!-- 카테고리 항목들이 JavaScript로 동적 생성됨 -->
-          </div>
-        </div>
+        ${renderCategory()}
       </div>
     </div>
-    <!-- 카테고리별 월별 지출 추이 차트 랜더링 예정-->
-    <div class="trend-chart" id="trend-chart"></div>
+    
+    <!-- 카테고리별 월별 지출 추이 차트 -->
+    ${renderTrendChart()}
+
+    <!-- 선택된 카테고리별 월별 지출 추이 차트 -->
+    ${renderHistoryList()}
   `;
 
   return statisticHTML;
@@ -30,8 +31,14 @@ export function renderStatistic() {
 
 // 자동으로 통계 렌더링 및 초기화
 document.addEventListener("DOMContentLoaded", function () {
-  const bodyContainer = document.getElementById("body-container");
-  if (bodyContainer) {
-    bodyContainer.innerHTML = renderStatistic();
+  const statisticContainer = document.getElementById("statistic-container");
+  if (statisticContainer) {
+    renderStatistic().then((html) => {
+      // 카테고리 컴포넌트 초기화
+      statisticContainer.innerHTML = html;
+      // 컴포넌트 초기화
+      initCategory();
+      initDonutChart();
+    });
   }
 });
