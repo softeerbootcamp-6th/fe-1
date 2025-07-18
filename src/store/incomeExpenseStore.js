@@ -80,30 +80,83 @@ const updateAllDummyData = (newData) => {
 const deleteDailyListBlock = (blockData) => {
     if (!currentIncomeExpenseData) return;
 
-    const listIndex = currentIncomeExpenseData.dailyList.findIndex(item => item.date === blockData.date);
-    if (listIndex === -1) alert('해당 날짜의 데이터가 없습니다.');
-    else {
-        const dailyList = currentIncomeExpenseData.dailyList[listIndex].list;
-        const blockIndex = dailyList.findIndex(item => item.blockId === blockData.blockId);
-        if (blockIndex !== -1) {
-            if (dailyList.length !== 1) {
-                dailyList.splice(blockIndex, 1);
-                // 총액 업데이트
+    const listIndex = currentIncomeExpenseData.dailyList.findIndex(
+        item => item.date === blockData.date
+    );
+    if (listIndex === -1) {
+        alert('해당 날짜의 데이터가 없습니다.');
+        return;
+    }
 
-                if (blockData.amount > 0) {
-                    currentIncomeExpenseData.dailyList[listIndex].totalIncome -= blockData.amount;
-                } else {
-                    currentIncomeExpenseData.dailyList[listIndex].totalExpenses += -blockData.amount;
-                }
-            }
-            else {
-                currentIncomeExpenseData.dailyList.splice(listIndex, 1);
-            }
+    const dailyList = currentIncomeExpenseData.dailyList[listIndex].list;
+    const blockIndex = dailyList.findIndex(item => item.blockId === blockData.blockId);
+    if (blockIndex === -1) {
+        alert('해당 블록이 없습니다.');
+        return;
+    }
+
+    const isOnlyOneBlock = dailyList.length === 1;
+
+    if (isOnlyOneBlock) {
+        currentIncomeExpenseData.dailyList.splice(listIndex, 1);
+    } else {
+        dailyList.splice(blockIndex, 1);
+
+        if (blockData.amount > 0) {
+            currentIncomeExpenseData.dailyList[listIndex].totalIncome -= blockData.amount;
         } else {
-            alert('해당 블록이 없습니다.');
+            currentIncomeExpenseData.dailyList[listIndex].totalExpenses += -blockData.amount;
         }
     }
 };
+
+const updateExistingData = (data, blockId) => {
+    console.log('Updating existing data:', data, 'for blockId:', blockId);
+
+    // blockId를 가진 블록을 찾습니다.
+    const listIndex = currentIncomeExpenseData.dailyList.findIndex(
+        item => item.date === data.date
+    );
+    if (listIndex === -1) {
+        alert('해당 날짜의 데이터가 없습니다.');
+        return;
+    }
+    const dailyList = currentIncomeExpenseData.dailyList[listIndex].list;
+    const blockIndex = dailyList.findIndex(item => item.blockId === blockId);
+    if (blockIndex === -1) {
+        alert('해당 블록이 없습니다.');
+        return;
+    }
+    // 기존 블록 데이터를 업데이트합니다.
+    const existingBlock = dailyList[blockIndex];
+    const oldAmount = existingBlock.amount;
+
+    existingBlock.amount = data.amount;
+    existingBlock.description = data.description;
+    existingBlock.method = data.method;
+    existingBlock.category = data.category;
+    existingBlock.type = data.amount > 0 ? 'income' : 'expense';
+
+    // 금액이 변경되었다면
+    if (oldAmount !== data.amount) {
+        if (data.amount > 0) {
+            currentIncomeExpenseData.dailyList[listIndex].totalIncome += data.amount - oldAmount;
+            console.log('Income updated:', currentIncomeExpenseData.dailyList[listIndex].totalIncome);
+        } else {
+            currentIncomeExpenseData.dailyList[listIndex].totalExpenses += -data.amount - (-oldAmount);
+            console.log('Expenses updated:', currentIncomeExpenseData.dailyList[listIndex].totalExpenses);
+        }
+    }
+    console.log('Updated existing data:', existingBlock);
+    // 변경된 데이터를 저장합니다.
+    allDummyData = allDummyData.map(item => {
+        if (item.year === currentIncomeExpenseData.year && item.month === currentIncomeExpenseData.month) {
+            return currentIncomeExpenseData;
+        }
+        return item;
+    });
+}
+
 
 const incomeExpenseStore = {
     getAllDummyData,
@@ -113,6 +166,7 @@ const incomeExpenseStore = {
     },
     updateAllDummyData,
     deleteDailyListBlock,
+    updateExistingData,
 };
 
 export default incomeExpenseStore;

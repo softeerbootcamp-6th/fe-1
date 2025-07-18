@@ -1,7 +1,10 @@
-function DropDownBlock({id, value, editable}) {
-    return{
+function DropDownBlock({ id, value, editable }) {
+    return {
         element: `
-            <option value="${value}">${value}</option>
+            <li class="option-list flex-row" value="${value}">
+                ${value}
+                ${editable ? `<button class="icon-button" id="${id}"><img src="assets/icons/closed.svg" alt="edit icon"></button>` : ''}
+            </li>
         `,
     }
 }

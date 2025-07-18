@@ -2,8 +2,11 @@ import DropDown from '../../../components/DropDown/DropDown.js';
 import { formatAmount } from '../../../utils/format.js';
 import incomeExpenseStore from '../../../store/incomeExpenseStore.js';
 import MainPage from '../MainPage.js';
+import paymentStore from '../../../store/paymentStore.js';
+import { getInputElements } from '../utils/inputElementUtils.js';
+import { validateInputs } from '../utils/validationUtils.js';
 
-const pluscCategoryList = [
+const plusCategoryList = [
     '월급', '용돈', '기타 수입'
 ];
 const minusCategoryList = [
@@ -11,28 +14,23 @@ const minusCategoryList = [
 ];
 
 function InputBar() {
-    const paymentOptions = ['카드', '현금', '계좌이체', '기타'];
-
     let isPlus = false;
+    let isEditing = false;
+    let editingData = null; // 수정 중인 데이터 저장
 
+    let paymentDropDownInstance = null;
+    let categoryDropDownInstance = null;
     const updateCategoryOptions = () => {
         const { categorySelect } = getInputElements();
         if (categorySelect) {
-            const categoryList = isPlus ? pluscCategoryList : minusCategoryList;
-            categorySelect.innerHTML = `
-                <option value="" disabled selected>선택하세요.</option>
-                ${categoryList.map(category =>
-                `<option value="${category}">${category}</option>`
-            ).join('')}
-            `;
+            const categoryList = isPlus ? plusCategoryList : minusCategoryList;
 
-            categorySelect.value = ''; // 선택된 값 초기화
-            validateInputs();
+            // categoryList에 따라 옵션 업데이트
+            categoryDropDownInstance.updateOptions(categoryList);
         }
     };
 
-    const togglePlusMinus = () => {
-        isPlus = !isPlus;
+    const updatePlusMinusButton = () => {
         const button = document.getElementById('plus-minus-btn');
         const img = button.querySelector('img');
 
@@ -43,45 +41,13 @@ function InputBar() {
 
         // 분류 옵션 업데이트
         updateCategoryOptions();
+        validateInputs();
     };
 
-    const getInputElements = () => {
-        return {
-            dateInput: document.getElementById('date-select'),
-            amountInput: document.querySelector('.amount-field'),
-            contentInput: document.querySelector('.content-field'),
-            paymentSelect: document.getElementById('payment-field'),
-            categorySelect: document.getElementById('category-select'),
-            checkButton: document.getElementById('submit-btn')
-        };
-    };
 
-    const validateInputs = () => {
-        const { dateInput, amountInput, contentInput, paymentSelect, categorySelect, checkButton } = getInputElements();
-
-        const isValid = dateInput.value.trim() !== '' &&
-            !isNaN(parseFloat(amountInput.value)) &&
-            contentInput.value.trim() !== '' &&
-            paymentSelect.value.trim() !== '' &&
-            categorySelect.value.trim() !== '';
-
-
-        if (checkButton) {
-            checkButton.disabled = !isValid; // 체크 버튼 활성화/비활성화
-            if (isValid) {
-                checkButton.classList.remove('disabled');
-                checkButton.style.cursor = 'pointer';
-            } else {
-                checkButton.classList.add('disabled');
-                checkButton.style.cursor = 'not-allowed';
-            }
-            const img = checkButton.querySelector('img');
-
-            if (img) {
-                img.src = `assets/icons/${isValid ? 'check-button-active' : 'check-button'}.svg`;
-            }
-        }
-        else console.error('Check button not found');
+    const togglePlusMinus = () => {
+        isPlus = !isPlus;
+        updatePlusMinusButton();
     };
 
     const handleSubmit = () => {
@@ -96,10 +62,16 @@ function InputBar() {
             method: paymentSelect.value,
             category: categorySelect.value
         };
-        console.log('Form submitted:', formData);
 
-        incomeExpenseStore.updateAllDummyData(formData);
+        if (!isEditing) {
+            // 새로 추가하는 경우
+            incomeExpenseStore.updateAllDummyData(formData);
+        } else {
+            // 수정일 경우
+            incomeExpenseStore.updateExistingData(formData, editingData.blockId);
+        }
         incomeExpenseStore.getCurrentIncomeExpenseList();
+
         MainPage().init(); // MainPage 초기화 호출
     };
 
@@ -110,9 +82,8 @@ function InputBar() {
         amountInput.addEventListener('input', () => {
             amountInput.value = amountInput.value.replace(/[^0-9]/g, ''); // 숫자만 허용
             const rawValue = amountInput.value.replace(/,/g, '');
-            if (!isNaN(rawValue)) {
-                amountInput.value = formatAmount(rawValue);
-            }
+
+            amountInput.value = formatAmount(rawValue);
         });
 
     };
@@ -126,6 +97,62 @@ function InputBar() {
                 const currentLength = contentInput.value.length;
                 countTextElement.textContent = `${currentLength}/32`;
             });
+        }
+    };
+
+    const setFields = (data) => {
+        // plus/minus 버튼 상태 업데이트
+        isPlus = data && data.amount >= 0;
+        updatePlusMinusButton();
+
+        const { dateInput, amountInput, contentInput, paymentSelect, categorySelect } = getInputElements();
+        if (data) {
+            dateInput.value = data.date;
+            amountInput.value = formatAmount(Math.abs(data.amount));
+            contentInput.value = data.description;
+            paymentSelect.value = data.method;
+            const paymentPlaceholder = paymentSelect.querySelector('.selected-value');
+            paymentPlaceholder.textContent = data.method;
+            paymentPlaceholder.classList.remove("selected-value-placeholder");
+            categorySelect.value = data.category;
+            const categoryPlaceholder = categorySelect.querySelector('.selected-value');
+            categoryPlaceholder.textContent = data.category;
+            categoryPlaceholder.classList.remove("selected-value-placeholder");
+            isEditing = true;
+            editingData = data;
+        }
+    };
+
+    const resetFields = () => {
+        const { dateInput, amountInput, contentInput, paymentSelect, categorySelect } = getInputElements();
+        dateInput.value = new Date().toISOString().substring(0, 10); // 오늘 날짜로 초기화
+        amountInput.value = '';
+        contentInput.value = '';
+        paymentSelect.value = '';
+        const paymentPlaceholder = paymentSelect.querySelector('.selected-value');
+        paymentPlaceholder.textContent = "선택하세요";
+        paymentPlaceholder.classList.add("selected-value-placeholder");
+
+        categorySelect.value = '';
+        const categoryPlaceholder = categorySelect.querySelector('.selected-value');
+        categoryPlaceholder.textContent = "선택하세요";
+        categoryPlaceholder.classList.add("selected-value-placeholder");
+        isEditing = false;
+        editingData = null;
+    };
+
+    const handleDeletePaymentOption = (value) => {
+        paymentStore.removePaymentOption(value);
+        const newOptions = paymentStore.getPaymentOptions();
+        paymentDropDownInstance.updateOptions(newOptions);
+    };
+
+    const hanndleAddPaymentOption = () => {
+        const newOption = prompt("새 결제 수단을 입력하세요:");
+        if (newOption) {
+            paymentStore.addPaymentOption(newOption);
+            const newOptions = paymentStore.getPaymentOptions();
+            paymentDropDownInstance.updateOptions(newOptions);
         }
     };
 
@@ -144,7 +171,7 @@ function InputBar() {
                             <img src="assets/icons/minus.svg" alt="minus icon">
                         </button>
                         <input type="text" class="amount-field text-align-right" placeholder="0">
-                        <span>원</span>
+                        <span style="font-size: 14px">원</span>
                     </div>
                 </div>
                 <div class="border-line"></div>
@@ -159,18 +186,30 @@ function InputBar() {
                 <div class="flex-column">
                     <label>결제 수단</label>
                     ${DropDown({
-            options: paymentOptions,
+            options: paymentStore.getPaymentOptions(),
             id: 'payment-field',
-            editable: true
+            editable: true,
+            onChange: (value) => {
+                validateInputs();
+            },
+            onAdd: () => {
+                hanndleAddPaymentOption();
+            },
+            onDelete: (value) => {
+                handleDeletePaymentOption(value);
+            }
         }).element}
                 </div>
                 <div class="border-line"></div>
                 <div class="flex-column">
                     <label>분류</label>
                     ${DropDown({
-            options: isPlus ? pluscCategoryList : minusCategoryList,
+            options: isPlus ? plusCategoryList : minusCategoryList,
             id: 'category-select',
-            editable: false
+            editable: false,
+            onChange: (value) => {
+                validateInputs();
+            }
         }).element}
                 </div>
                 <button class="icon-button" id="submit-btn">
@@ -193,24 +232,15 @@ function InputBar() {
                 }
             }
 
-            // 초기 분류 옵션 설정 (기본값: minus/지출)
-            updateCategoryOptions();
 
             // 입력값 변경 이벤트 등록
-            const inputs = document.querySelectorAll('.input-field input, .amount-field, .content-field, .category-field, #category-select');
+            const inputs = document.querySelectorAll('.input-field input, .amount-field, .content-field');
             inputs.forEach(input => {
                 input.addEventListener('input', validateInputs);
-
-                if (input.classList.contains('amount-field')) {
-                    input.value = '';
-                }
-                else if (input.classList.contains('content-field')) {
-                    input.value = '';
-                }
-                else if (input.classList.contains('category-field')) {
-                    input.value = '';
-                }
             });
+
+            // 입력 필드 초기화
+            resetFields();
 
             // 초기 체크 버튼 상태 설정
             validateInputs();
@@ -229,7 +259,38 @@ function InputBar() {
                     }
                 });
             }
-        }
+
+            // Payment DropDown 초기화
+            paymentDropDownInstance = DropDown({
+                options: paymentStore.getPaymentOptions(),
+                id: 'payment-field',
+                editable: true,
+                onChange: (value) => {
+                    validateInputs();
+                },
+                onAdd: () => {
+                    hanndleAddPaymentOption();
+                },
+                onDelete: (value) => {
+                    handleDeletePaymentOption(value);
+                }
+            });
+            paymentDropDownInstance.init();
+
+            // 카테고리 선택 드롭다운 초기화
+            categoryDropDownInstance = DropDown({
+                options: isPlus ? plusCategoryList : minusCategoryList,
+                id: "category-select",
+                editable: false,
+                onChange: (value) => {
+                    validateInputs();
+                },
+            });
+            categoryDropDownInstance.init();
+
+        },
+        setFields,
+        resetFields,
     }
 }
 export default InputBar;
