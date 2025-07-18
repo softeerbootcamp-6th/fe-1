@@ -20,20 +20,44 @@
 }
 
 .summary-row {
+  margin-top: 16px; 
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 16px 0;
+}
+
+.summary-filter {
+  width: 100%;
 }
 
 .summary-row-right {
   display: flex;
   align-items: center;
+  gap: 16px;
   font-family: var(--font-family-sans);
   font-size: var(--font-light-xs-size);
   line-height: var(--font-light-xs-line);
   font-weight: var(--font-weight-light);
 }
 
+.summary-text {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-light-xs-size);
+  line-height: var(--font-light-xs-line);
+  font-weight: var(--font-weight-light);
+  color: #222;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 8px 12px;
+  background: #fff;
+  font-size: var(--font-light-xs-size);
+  color: #444;
+}
 /* 입력 행 내부 셀 스타일 */
 .input-cell {
   padding: 16px 18px;
