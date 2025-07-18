@@ -14,27 +14,18 @@ import {
   getDropdownValue,
   setDropdownValue,
 } from "../../utils/form-utils.js";
-import { getTransactionById } from "../../../../api/transaction.js";
 import { updateSubmitButtonState } from "../../utils/form-utils.js";
 import { onDataChanged } from "../summary/summary-handlers.js";
 import { transactionUtils } from "../../../../store/transaction-store.js";
 
-// 토글 버튼 이벤트 리스너 설정
-export function setupToggleListeners() {
-  const toggleBtns = document.querySelectorAll(".toggle-icon");
-
-  if (toggleBtns.length !== 2) return; // plus, minus 두 개만 있어야 함
-
-  // data-type을 이용해서 정확히 가져오기
-  const minusBtn = document.querySelector('.toggle-icon[data-type="minus"]');
-  const plusBtn = document.querySelector('.toggle-icon[data-type="plus"]');
-
-  if (!minusBtn || !plusBtn) return;
-
-  // plusBtn만 클릭 이벤트 리스너 등록
-  plusBtn.addEventListener("click", function (e) {
+// 이벤트 핸들러 함수들
+const handlers = {
+  handleToggleClick: function (e) {
     e.preventDefault();
     e.stopPropagation();
+
+    const minusBtn = document.querySelector('.toggle-icon[data-type="minus"]');
+    const plusBtn = document.querySelector('.toggle-icon[data-type="plus"]');
 
     // 현재 상태 확인
     const isMinusActive = minusBtn.classList.contains("active");
@@ -64,54 +55,30 @@ export function setupToggleListeners() {
     }
 
     updateFormValidation();
-  });
-}
+  },
 
-// 날짜 입력 필드 이벤트 리스너 설정
-export function setupDateInputListeners() {
-  const dateInput = document.querySelector(".date-input");
-  if (!dateInput) return;
-
-  // 기존 이벤트 리스너 제거
-  dateInput.addEventListener("change", function () {
+  handleDateChange: function () {
     updateFormValidation();
-  });
-}
+  },
 
-// 금액 입력 필드 이벤트 리스너 설정
-export function setupAmountInputListeners() {
-  const amountInput = document.querySelector(".amount-input");
-  if (!amountInput) return;
-
-  // 기존 이벤트 리스너 제거
-  amountInput.addEventListener("input", function (e) {
+  handleAmountInput: function (e) {
     formatAmountInput(e);
     updateFormValidation();
-  });
-}
+  },
 
-// 내용 입력 필드 이벤트 리스너 설정
-export function setupContentInputListeners() {
-  const contentInput = document.querySelector(".input-cell.content input");
-  const charCountSpan = document.querySelector(
-    ".input-cell.content .char-count"
-  );
-  if (!contentInput || !charCountSpan) return;
-
-  // 기존 이벤트 리스너 제거
-  contentInput.addEventListener("input", function () {
+  handleContentInput: function () {
     const maxLength = 32;
     const currentLength = this.value.length;
-    charCountSpan.textContent = `${currentLength}/${maxLength}`;
+    const charCountSpan = document.querySelector(
+      ".input-cell.content .char-count"
+    );
+    if (charCountSpan) {
+      charCountSpan.textContent = `${currentLength}/${maxLength}`;
+    }
     updateFormValidation();
-  });
-}
+  },
 
-// 제출 버튼 이벤트 리스너 설정
-export function setupAddButtonListeners() {
-  const addBtn = document.querySelector(".input-cell.submit button");
-
-  addBtn.addEventListener("click", async function () {
+  handleAddButtonClick: async function () {
     const dateInput = document.querySelector(".date-input");
     const amountInput = document.querySelector(".amount-input");
     const contentInput = document.querySelector(".input-cell.content input");
@@ -187,7 +154,65 @@ export function setupAddButtonListeners() {
 
     // 입력 폼 초기화
     resetForm();
-  });
+  },
+};
+
+// 토글 버튼 이벤트 리스너 설정
+export function setupToggleListeners() {
+  const toggleBtns = document.querySelectorAll(".toggle-icon");
+  if (toggleBtns.length !== 2) return;
+
+  const plusBtn = document.querySelector('.toggle-icon[data-type="plus"]');
+  if (!plusBtn) return;
+
+  // 기존 이벤트 리스너 제거
+  plusBtn.removeEventListener("click", handlers.handleToggleClick);
+  // 새 이벤트 리스너 등록
+  plusBtn.addEventListener("click", handlers.handleToggleClick);
+}
+
+// 날짜 입력 필드 이벤트 리스너 설정
+export function setupDateInputListeners() {
+  const dateInput = document.querySelector(".date-input");
+  if (!dateInput) return;
+
+  // 기존 이벤트 리스너 제거
+  dateInput.removeEventListener("change", handlers.handleDateChange);
+  // 새 이벤트 리스너 등록
+  dateInput.addEventListener("change", handlers.handleDateChange);
+}
+
+// 금액 입력 필드 이벤트 리스너 설정
+export function setupAmountInputListeners() {
+  const amountInput = document.querySelector(".amount-input");
+  if (!amountInput) return;
+
+  // 기존 이벤트 리스너 제거
+  amountInput.removeEventListener("input", handlers.handleAmountInput);
+  // 새 이벤트 리스너 등록
+  amountInput.addEventListener("input", handlers.handleAmountInput);
+}
+
+// 내용 입력 필드 이벤트 리스너 설정
+export function setupContentInputListeners() {
+  const contentInput = document.querySelector(".input-cell.content input");
+  if (!contentInput) return;
+
+  // 기존 이벤트 리스너 제거
+  contentInput.removeEventListener("input", handlers.handleContentInput);
+  // 새 이벤트 리스너 등록
+  contentInput.addEventListener("input", handlers.handleContentInput);
+}
+
+// 제출 버튼 이벤트 리스너 설정
+export function setupAddButtonListeners() {
+  const addBtn = document.querySelector(".input-cell.submit button");
+  if (!addBtn) return;
+
+  // 기존 이벤트 리스너 제거
+  addBtn.removeEventListener("click", handlers.handleAddButtonClick);
+  // 새 이벤트 리스너 등록
+  addBtn.addEventListener("click", handlers.handleAddButtonClick);
 }
 
 // 폼 초기화 함수
@@ -257,31 +282,31 @@ export function enterEditMode(itemId) {
     ".input-cell.content .char-count"
   );
 
-      dateInput.value = item.date;
+  dateInput.value = item.date;
 
-      const amountValue = Math.abs(item.amount).toLocaleString();
-      amountInput.type = "text";
-      amountInput.value = amountValue;
+  const amountValue = Math.abs(item.amount).toLocaleString();
+  amountInput.type = "text";
+  amountInput.value = amountValue;
 
-      contentInput.value = item.content;
-      setDropdownValue(methodDropdown, item.method);
-      setDropdownValue(categoryDropdown, item.category);
+  contentInput.value = item.content;
+  setDropdownValue(methodDropdown, item.method);
+  setDropdownValue(categoryDropdown, item.category);
 
-      const isIncome = item.amount > 0;
-      toggleUtils.setToggleType(isIncome ? "plus" : "minus");
+  const isIncome = item.amount > 0;
+  toggleUtils.setToggleType(isIncome ? "plus" : "minus");
 
-      const toggleBtns = document.querySelectorAll(".toggle-icon");
-      toggleBtns.forEach((btn) => btn.classList.remove("active"));
-      const activeToggle = document.querySelector(
-        `[data-type="${toggleUtils.getCurrentToggleType()}"]`
-      );
-      if (activeToggle) activeToggle.classList.add("active");
+  const toggleBtns = document.querySelectorAll(".toggle-icon");
+  toggleBtns.forEach((btn) => btn.classList.remove("active"));
+  const activeToggle = document.querySelector(
+    `[data-type="${toggleUtils.getCurrentToggleType()}"]`
+  );
+  if (activeToggle) activeToggle.classList.add("active");
 
-      charCountSpan.textContent = `${contentInput.value.length}/32`;
-      const milliSecond = 10;
-      setTimeout(() => {
-        updateFormValidation();
-      }, milliSecond);
+  charCountSpan.textContent = `${contentInput.value.length}/32`;
+  const milliSecond = 10;
+  setTimeout(() => {
+    updateFormValidation();
+  }, milliSecond);
 }
 
 // 수정 모드 취소 함수
