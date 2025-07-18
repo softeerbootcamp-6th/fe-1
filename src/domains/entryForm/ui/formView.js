@@ -1,5 +1,4 @@
 import { addCommaFormatter } from '../util/numberFormatter.js';
-import { validateFormFields } from '../util/formValidator.js';
 import { fillCats } from '../util/formOptionHandlers.js';
 import { selectFormElements } from '../util/selectFormElements.js';
 import { fillFormWithSelectedEntryState } from '../util/fillForm.js';
@@ -15,12 +14,6 @@ const initFormSettings = ({ els }) => {
 
   // 부호에 따라 카테고리 옵션을 채우는 함수 호출
   fillCats({ els });
-
-  // 폼 요소가 입력될 때 유효성 검사를 수행하고, 유효한 경우에만 제출 버튼을 활성화
-  validateFormFields({
-    fields: [els.date, els.amtInp, els.memoInp, els.methSel, els.catSel],
-    btn: els.submit,
-  });
 };
 
 export const initFormView = ({ formEl, summaryStore, selectedEntryStore }) => {
