@@ -112,6 +112,8 @@ export function dailyViewChange(year, month) {
         }
 
         $dailyLine.classList.add('selected');
+        formData.setEdit(true);
+        formData.setDailyId(seletedId);
 
         const { date, items } = dailyData.findDailyDataById(seletedId);
 

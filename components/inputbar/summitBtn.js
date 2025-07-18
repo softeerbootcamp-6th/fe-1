@@ -27,7 +27,11 @@ export default function createSummitButton() {
     const $btn = $summitBtn.firstElementChild;
     $btn.addEventListener('click', () => {
         if (!formData.isValid) return;
-        dailyData.uploadDailyData(formData);
+        if (formData.isEdit) {
+            dailyData.changeDailyData(formData);
+        } else {
+            dailyData.uploadDailyData(formData);
+        }
 
         const { year: nowYear, month: nowMonth } = dateData;
         const [year, month] = formData.date.split('-');

@@ -45,6 +45,26 @@ export const dailyData = {
         }
     },
 
+    changeDailyData(data) {
+        const { amount, category, date, description, payment, sign } = data;
+        const newItems = {
+            id: crypto.randomUUID(),
+            category,
+            description,
+            payment,
+            amount: sign ? Math.abs(amount) : Math.abs(amount) * -1,
+            createAt: new Date().toISOString(),
+        };
+
+        const targetDateObj = this.data.find((item) => item.date === date);
+        const index = targetDateObj.items.findIndex(
+            (item) => item.id === data.dailyId,
+        );
+        if (index !== -1) {
+            targetDateObj.items[index] = newItems;
+        }
+    },
+
     removeDailyData(id) {
         this.data = this.data.reduce((acc, day) => {
             const filteredItems = day.items.filter((item) => item.id !== id);
