@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     app.appendChild(header);
     app.appendChild(incomeExpenseList);
     app.appendChild(incomeExpenseForm);
-    app.appendChild(addModal);
+
+    document.addEventListener('add-modal-open', () => {
+      app.appendChild(addModal);
+    });
   });
 });
