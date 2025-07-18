@@ -29,10 +29,11 @@ export function renderIncomeExpenseForm() {
   document.addEventListener('add-payment', e => {
     const paymentName = e.detail.paymentName;
     paymentOptions.push(paymentName);
+
     updatePaymentSelect(paymentOptions);
   });
 
-  document.addEventListener('delete-option', e => {
+  document.addEventListener('delete-payment', e => {
     const optionName = e.detail.optionName;
     const index = paymentOptions.indexOf(optionName);
     if (index > -1) {
@@ -121,12 +122,12 @@ export function renderIncomeExpenseForm() {
     `;
 
   const paymentContainer = form.querySelector('.payment-container');
-  const selectBox = renderSelectBox(paymentOptions, true, true);
+  let selectBox = renderSelectBox(paymentOptions, true, true);
   paymentContainer.appendChild(selectBox);
 
   const tagContainer = form.querySelector('.tag-container');
   const incomeExpenseTags = isIncome ? incomeTags : expenseTags;
-  const tagSelectBox = renderSelectBox(incomeExpenseTags, false, false);
+  let tagSelectBox = renderSelectBox(incomeExpenseTags, false, false);
   tagContainer.appendChild(tagSelectBox);
 
   // 날짜
@@ -141,10 +142,10 @@ export function renderIncomeExpenseForm() {
   const descriptionInput = form.querySelector('#description-input');
 
   // 결제수단
-  const paymentSelect = form.querySelector('.select-box');
+  let paymentSelectButton = form.querySelector('.select-button-span'); // 첫 번째 select-box
 
   // 분류
-  const tagSelect = form.querySelectorAll('.select-box')[1]; // 두 번째 select-box
+  let tagSelectSpan = form.querySelectorAll('.select-button-span')[1]; // 두 번째 select-box
 
   // add 버튼
   const addButton = form.querySelector('.add-button');
@@ -185,28 +186,32 @@ export function renderIncomeExpenseForm() {
   });
 
   // keyup, select 이벤트 발생 시 유효성 검사
-  [dateInput, moneyInput, descriptionInput, paymentSelect, tagSelect].forEach(
-    input => {
-      input.addEventListener('keyup', () => {
-        validateForm(
-          dateInput,
-          moneyInput,
-          descriptionInput,
-          paymentSelect,
-          tagSelect
-        );
-      });
-      input.addEventListener('change', () => {
-        validateForm(
-          dateInput,
-          moneyInput,
-          descriptionInput,
-          paymentSelect,
-          tagSelect
-        );
-      });
-    }
-  );
+  [
+    dateInput,
+    moneyInput,
+    descriptionInput,
+    paymentSelectButton,
+    tagSelectSpan,
+  ].forEach(input => {
+    input.addEventListener('keyup', () => {
+      validateForm(
+        dateInput,
+        moneyInput,
+        descriptionInput,
+        paymentSelectButton,
+        tagSelectSpan
+      );
+    });
+    input.addEventListener('change', () => {
+      validateForm(
+        dateInput,
+        moneyInput,
+        descriptionInput,
+        paymentSelectButton,
+        tagSelectSpan
+      );
+    });
+  });
 
   addButton.addEventListener('click', e => {
     e.stopPropagation();
@@ -222,10 +227,16 @@ export function renderIncomeExpenseForm() {
       dateInput,
       moneyInput,
       descriptionInput,
-      paymentSelect,
-      tagSelect
+      paymentSelectButton,
+      tagSelectSpan
     );
-    formInit(dateInput, moneyInput, descriptionInput, paymentSelect, tagSelect);
+    formInit(
+      dateInput,
+      moneyInput,
+      descriptionInput,
+      paymentSelectButton,
+      tagSelectSpan
+    );
     isEdit = false;
     renderListItem(incomeExpenseListContainer);
   });
@@ -245,8 +256,8 @@ export function renderIncomeExpenseForm() {
         dateInput,
         moneyInput,
         descriptionInput,
-        paymentSelect,
-        tagSelect
+        paymentSelectButton,
+        tagSelectSpan
       );
       isEdit = false;
     }
@@ -263,6 +274,17 @@ export function renderIncomeExpenseForm() {
     } else {
       tagContainer.appendChild(renderSelectBox(expenseTags, false, false));
     }
+
+    // 새로운 tagSelect에 이벤트 리스너 추가
+    tagSelectSpan.addEventListener('change', () => {
+      validateForm(
+        dateInput,
+        moneyInput,
+        descriptionInput,
+        paymentSelectButton,
+        tagSelectSpan
+      );
+    });
   };
 
   const updatePaymentSelect = options => {
@@ -271,6 +293,16 @@ export function renderIncomeExpenseForm() {
       paymentContainer.removeChild(oldSelectBox);
     }
     paymentContainer.appendChild(renderSelectBox(options, true, true));
+    const newSelectBox = paymentContainer.querySelector('.select-box');
+    newSelectBox.addEventListener('change', () => {
+      validateForm(
+        dateInput,
+        moneyInput,
+        descriptionInput,
+        paymentSelectButton,
+        tagSelectSpan
+      );
+    });
   };
 
   // 입력값 유효성 검사
@@ -278,8 +310,8 @@ export function renderIncomeExpenseForm() {
     dateInput,
     moneyInput,
     descriptionInput,
-    paymentSelect,
-    tagSelect
+    paymentSelectButton,
+    tagSelectSpan
   ) => {
     // 날짜 입력값 확인
     const isDateValid = !!dateInput.value; // 날짜가 선택되었는지 확인(true/false 강제변환)
@@ -288,9 +320,11 @@ export function renderIncomeExpenseForm() {
     // 내용 입력값 확인 (1글자 이상)
     const isDescriptionValid = descriptionInput.value.trim().length > 0;
     // 결제수단 선택 여부 확인
-    const isPaymentValid = paymentSelect.value !== '';
+    const isPaymentValid = paymentSelectButton.textContent !== '';
     // 분류 선택 여부 확인
-    const isTagValid = tagSelect.value !== '';
+    const isTagValid = tagSelectSpan.textContent !== '';
+    console.log(paymentSelectButton);
+    console.log(paymentSelectButton.textContent);
 
     const isValid =
       isDateValid &&
@@ -316,16 +350,16 @@ export function renderIncomeExpenseForm() {
     dateInput,
     moneyInput,
     descriptionInput,
-    paymentSelect,
-    tagSelect
+    paymentSelectButton,
+    tagSelectSpan
   ) => {
     e.preventDefault();
 
     const dateInputValue = dateInput.value;
     const moneyInputValue = moneyInput.value.replace(/[^0-9]/g, ''); // 숫자만 추출
     const descriptionInputValue = descriptionInput.value.trim();
-    const paymentSelectValue = paymentSelect.value;
-    const tagSelectValue = tagSelect.value;
+    const paymentSelectValue = paymentSelectButton.textContent;
+    const tagSelectValue = tagSelectSpan.textContent;
 
     const newIncomeExpense = {
       id: ID,
@@ -346,19 +380,16 @@ export function renderIncomeExpenseForm() {
     dateInput,
     moneyInput,
     descriptionInput,
-    paymentSelect,
-    tagSelect
+    paymentSelectButton,
+    tagSelectSpan
   ) => {
     itemID = null;
     dateInput.value = formattedDate;
     moneyInput.value = '';
     descriptionInput.value = '';
-    paymentSelect.value = '';
-    tagSelect.value = '';
 
-    paymentSelect.querySelector('.select-button-span').textContent =
-      '선택하세요';
-    tagSelect.querySelector('.select-button-span').textContent = '선택하세요';
+    paymentSelectButton.textContent = '선택하세요';
+    tagSelectSpan.textContent = '선택하세요';
     activeAddButton(false);
   };
 
@@ -384,9 +415,9 @@ export function renderIncomeExpenseForm() {
     const lengthSpan = form.querySelector('.description-length');
     descriptionLength = description.length;
     lengthSpan.textContent = `${descriptionLength}/32`;
-
-    paymentSelect.value = payment;
-    tagSelect.value = tag;
+    paymentSelectButton.textContent = payment;
+    console.log(tagSelectSpan);
+    tagSelectSpan.textContent = tag;
   };
 
   return form;

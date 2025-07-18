@@ -1,7 +1,6 @@
 export function renderSelectBox(optionStringList, editable, deletable) {
   const selectBox = document.createElement('div');
   selectBox.className = 'select-box';
-  selectBox.value = '';
 
   // 가상 DOM 조각
   const fragment = document.createDocumentFragment();
@@ -12,7 +11,7 @@ export function renderSelectBox(optionStringList, editable, deletable) {
 
   const selectButtonSpan = document.createElement('span');
   selectButtonSpan.className = 'select-button-span semibold12';
-  selectButtonSpan.textContent = selectBox.value || '선택하세요';
+  selectButtonSpan.textContent = '선택하세요';
 
   const selectButtonIcon = document.createElement('img');
   selectButtonIcon.className = 'select-button-icon';
@@ -87,7 +86,8 @@ export function renderSelectBox(optionStringList, editable, deletable) {
     // 추가하기 버튼 클릭 시
     if (e.target.closest('.option-button')) {
       // 여기에 추가 로직 구현 가능
-      console.log('추가하기 버튼 클릭됨');
+      const addModalOpenEvent = new Event('add-modal-open');
+      document.dispatchEvent(addModalOpenEvent);
       return;
     }
 
@@ -98,6 +98,7 @@ export function renderSelectBox(optionStringList, editable, deletable) {
       if (optionSpan) {
         selectButtonSpan.textContent = optionSpan.textContent;
         selectBox.value = optionSpan.textContent;
+        console.log('선택된 값:', selectBox.value);
         optionList.classList.remove('active');
 
         // change 이벤트 발생
@@ -112,15 +113,6 @@ export function renderSelectBox(optionStringList, editable, deletable) {
     e.preventDefault();
     e.stopPropagation();
     optionList.classList.toggle('active');
-  });
-
-  // 추가하기 버튼 클릭 시 동작
-  optionButton.addEventListener('click', e => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const addModalOpenEvent = new Event('add-modal-open');
-    document.dispatchEvent(addModalOpenEvent);
   });
 
   // 외부 클릭 시 옵션 리스트 숨기기
