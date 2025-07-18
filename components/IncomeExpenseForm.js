@@ -9,6 +9,7 @@ export function renderIncomeExpenseForm() {
   // 현재 날짜를 기본값으로 설정
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
+  let isEdit = false;
   let isIncome = true; // true: 수입, false: 지출
   let itemID = null; // list item id 초기화 -> list item 클릭하여 수정하는 경우에만 다른 숫자 가능
   const maxDescriptionLength = 32;
@@ -110,7 +111,8 @@ export function renderIncomeExpenseForm() {
   paymentContainer.appendChild(selectBox);
 
   const tagContainer = form.querySelector('.tag-container');
-  const tagSelectBox = renderSelectBox(incomeTags, false, false);
+  const incomeExpenseTags = isIncome ? incomeTags : expenseTags;
+  const tagSelectBox = renderSelectBox(incomeExpenseTags, false, false);
   tagContainer.appendChild(tagSelectBox);
 
   // 날짜
@@ -210,11 +212,13 @@ export function renderIncomeExpenseForm() {
       tagSelect
     );
     formInit(dateInput, moneyInput, descriptionInput, paymentSelect, tagSelect);
+    isEdit = false;
     renderListItem(incomeExpenseListContainer);
   });
 
   document.addEventListener('edit-item', e => {
     const data = e.detail;
+    isEdit = true;
     setItemToForm(data);
   });
 
@@ -222,7 +226,7 @@ export function renderIncomeExpenseForm() {
   document.body.addEventListener('click', event => {
     // 특정 요소 안에서 클릭했는지 확인
     const isInsideList = event.target.closest('li');
-    if (!isInsideList) {
+    if (!isInsideList && isEdit) {
       formInit(
         dateInput,
         moneyInput,
@@ -230,14 +234,21 @@ export function renderIncomeExpenseForm() {
         paymentSelect,
         tagSelect
       );
+      isEdit = false;
     }
   });
 
   const updateTagSelect = (incomeTags, expenseTags) => {
-    tagSelect.innerHTML = `<option value="" selected disabled hidden>선택해주세요</option>
-    ${(isIncome ? incomeTags : expenseTags)
-      .map(option => `<option value="${option}">${option}</option>`)
-      .join('')}`;
+    const oldSelectBox = tagContainer.querySelector('.select-box');
+    if (oldSelectBox) {
+      tagContainer.removeChild(oldSelectBox);
+    }
+
+    if (isIncome) {
+      tagContainer.appendChild(renderSelectBox(incomeTags, false, false));
+    } else {
+      tagContainer.appendChild(renderSelectBox(expenseTags, false, false));
+    }
   };
 
   // 입력값 유효성 검사
@@ -322,6 +333,10 @@ export function renderIncomeExpenseForm() {
     descriptionInput.value = '';
     paymentSelect.value = '';
     tagSelect.value = '';
+
+    paymentSelect.querySelector('.select-button-span').textContent =
+      '선택하세요';
+    tagSelect.querySelector('.select-button-span').textContent = '선택하세요';
     activeAddButton(false);
   };
 

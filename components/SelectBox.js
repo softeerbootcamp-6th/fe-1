@@ -1,6 +1,7 @@
 export function renderSelectBox(optionStringList, editable, deletable) {
   const selectBox = document.createElement('div');
   selectBox.className = 'select-box';
+  selectBox.value = '';
 
   // 가상 DOM 조각
   const fragment = document.createDocumentFragment();
@@ -11,7 +12,7 @@ export function renderSelectBox(optionStringList, editable, deletable) {
 
   const selectButtonSpan = document.createElement('span');
   selectButtonSpan.className = 'select-button-span semibold12';
-  selectButtonSpan.textContent = '선택하세요';
+  selectButtonSpan.textContent = selectBox.value || '선택하세요';
 
   const selectButtonIcon = document.createElement('img');
   selectButtonIcon.className = 'select-button-icon';
