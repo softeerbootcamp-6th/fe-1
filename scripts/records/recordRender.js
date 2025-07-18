@@ -18,20 +18,21 @@ export const renderRecords = (
   const sortedRecords = records.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
   sortedRecords.forEach((record) => {
-    const date = record.date;
     //"YYYY-MM-DD" 에서 YYYY와 MM 추출 후 헤더의 날짜와 비교해서 같은 값만 호출
     let year = date.split("-")[0];
     let month = date.split("-")[1];
     let dateId = record.id;
-    if (Number(currentYear) === Number(year) && Number(currentMonth) === Number(month)) {
-      const filteredItems = record.items.filter((item) => {
-        if (item.amount < 0 && filter.outcome) return true;
-        if (item.amount >= 0 && filter.income) return true;
-        return false;
-      });
-      if (filteredItems.length > 0) {
-        renderRecordByDate({ dateId, date, items: filteredItems });
-      }
+    const date = record.date;
+
+    if (Number(currentYear) !== Number(year) || Number(currentMonth) !== Number(month)) return;
+
+    const filteredItems = record.items.filter((item) => {
+      if (item.amount < 0 && filter.outcome) return true;
+      if (item.amount >= 0 && filter.income) return true;
+      return false;
+    });
+    if (filteredItems.length > 0) {
+      renderRecordByDate({ dateId, date, items: filteredItems });
     }
   });
 };
