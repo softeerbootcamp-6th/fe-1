@@ -1,11 +1,12 @@
 // 통계 뷰 구현
 import { sharedState } from "../../../store/state.js";
 import { store } from "../../../store/store.js";
+import { category } from "../../../setting/config.js";
 export function initStatsView() {
   renderDonutChart();
   renderExpenseSummary();
 }
-
+const categoryColors = category;
 // 도넛 차트 렌더링
 function renderDonutChart() {
   const donutChartContainer = document.getElementById("donut-chart");
@@ -143,17 +144,9 @@ function renderExpenseSummary() {
     expenseItem.className = "expense-item";
 
     const categoryElement = document.createElement("div");
-    categoryElement.className = "expense-category";
+    categoryElement.className = `expense-category ${categoryColors[category]}`;
 
-    const colorDot = document.createElement("div");
-    colorDot.className = "category-color-dot";
-    colorDot.style.backgroundColor = getCategoryColor(category);
-
-    const categoryName = document.createElement("span");
-    categoryName.textContent = category;
-
-    categoryElement.appendChild(colorDot);
-    categoryElement.appendChild(categoryName);
+    categoryElement.textContent = category;
 
     const detailsElement = document.createElement("div");
     detailsElement.className = "expense-details";

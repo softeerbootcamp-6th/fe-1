@@ -3,21 +3,20 @@
   height: 216px;
   /* width: 846px; */
   position: relative;
-  justify-content: space-between;
-  align-items: center;
+  display: flex;
+  justify-content: center;
   background: var(--colorchip-80, #73a7d4);
   padding: 30px 450px;
   border-bottom: 1px solid #ddd;
 }
 .inter-header {
   display: flex;
-  align-content: center;
   align-items: center;
   z-index: 1; /* 헤더 위에 떠야 한다면 1 이상 */
   position: relative;
-  top: 20px;
-  /* width: 846px; */
-  /* height: 112px; */
+  width: 846px;
+  gap: 170px;
+  height: 112px;
   justify-content: space-between;
 }
 
