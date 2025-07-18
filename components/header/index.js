@@ -10,11 +10,11 @@ export default function initializeHeader() {
         {
             id: 'header-wrapper',
         },
-        `<h1 id="main-title">Wise Wallet</h1>`,
+        [
+            `<h1 id="main-title">Wise Wallet</h1>`,
+            createCenterNavigation(),
+            createHeaderTab(),
+        ],
     );
-
-    $header.appendChild(createCenterNavigation());
-    $header.appendChild(createHeaderTab());
-
     $headerPlaceholder.appendChild($header);
 }
