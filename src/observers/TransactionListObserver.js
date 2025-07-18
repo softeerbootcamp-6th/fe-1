@@ -24,6 +24,7 @@ class MonthSyncObserver {
   }
 
   update() {
+    console.log("update TransactionListView");
     const date = this.DateState.getDate(); // YYYY-MM-DD
     const yearMonth = date.slice(0, 7); // YYYY-MM
     if (this.FilterState.getMonth() !== yearMonth) {
@@ -32,7 +33,32 @@ class MonthSyncObserver {
   }
 }
 
+let transactionListObserverInstance = null;
+let monthSyncObserverInstance = null;
+
 export function addTransactionListObservers() {
-  new TransactionListObserver(ItemsState, FilterState);
-  new MonthSyncObserver(DateState, FilterState);
+  if (transactionListObserverInstance) {
+    ItemsState.unsubscribe(transactionListObserverInstance);
+    FilterState.unsubscribe(transactionListObserverInstance);
+  }
+  if (monthSyncObserverInstance) {
+    DateState.unsubscribe(monthSyncObserverInstance);
+  }
+  transactionListObserverInstance = new TransactionListObserver(
+    ItemsState,
+    FilterState
+  );
+  monthSyncObserverInstance = new MonthSyncObserver(DateState, FilterState);
+}
+
+export function removeTransactionListObservers() {
+  if (transactionListObserverInstance) {
+    ItemsState.unsubscribe(transactionListObserverInstance);
+    FilterState.unsubscribe(transactionListObserverInstance);
+    transactionListObserverInstance = null;
+  }
+  if (monthSyncObserverInstance) {
+    DateState.unsubscribe(monthSyncObserverInstance);
+    monthSyncObserverInstance = null;
+  }
 }

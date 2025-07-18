@@ -11,6 +11,19 @@ class CalendarObserver {
   }
 }
 
+let calendarObserverInstance = null;
+
 export function addCalendarObserver() {
-  new CalendarObserver();
+  if (calendarObserverInstance) {
+    DateState.unsubscribe(calendarObserverInstance);
+  }
+  calendarObserverInstance = new CalendarObserver();
+  DateState.subscribe(calendarObserverInstance);
+}
+
+export function removeCalendarObserver() {
+  if (calendarObserverInstance) {
+    DateState.unsubscribe(calendarObserverInstance);
+    calendarObserverInstance = null;
+  }
 }

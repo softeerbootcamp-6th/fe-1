@@ -119,12 +119,31 @@ class MethodSelectObserver {
   }
 }
 
+let transactionFormObserverInstances = [];
+
 export function addTransactionFormObservers() {
-  new DateInputObserver(DateState);
-  new TransactionTypeButtonObserver(FormState);
-  new InputObserver(FormState);
-  new DescriptionLengthObserver(FormState);
-  new CategorySelectObserver(FormState);
-  new SubmitButtonObserver(FormState);
-  new MethodSelectObserver(FormState);
+  removeTransactionFormObservers();
+  transactionFormObserverInstances = [
+    new DateInputObserver(DateState),
+    new TransactionTypeButtonObserver(FormState),
+    new InputObserver(FormState),
+    new DescriptionLengthObserver(FormState),
+    new CategorySelectObserver(FormState),
+    new SubmitButtonObserver(FormState),
+    new MethodSelectObserver(FormState),
+  ];
+}
+
+export function removeTransactionFormObservers() {
+  if (transactionFormObserverInstances.length > 0) {
+    transactionFormObserverInstances.forEach((observer) => {
+      if (observer.dateState) {
+        observer.dateState.unsubscribe(observer);
+      }
+      if (observer.formState) {
+        observer.formState.unsubscribe(observer);
+      }
+    });
+    transactionFormObserverInstances = [];
+  }
 }

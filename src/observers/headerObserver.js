@@ -13,6 +13,20 @@ class HeaderObserver {
   }
 }
 
+let headerObserverInstance = null;
+
 export function addHeaderObserver() {
-  new HeaderObserver();
+  if (headerObserverInstance) {
+    DateState.unsubscribe(headerObserverInstance);
+    NavBarState.unsubscribe(headerObserverInstance);
+  }
+  headerObserverInstance = new HeaderObserver();
+}
+
+export function removeHeaderObserver() {
+  if (headerObserverInstance) {
+    DateState.unsubscribe(headerObserverInstance);
+    NavBarState.unsubscribe(headerObserverInstance);
+    headerObserverInstance = null;
+  }
 }
