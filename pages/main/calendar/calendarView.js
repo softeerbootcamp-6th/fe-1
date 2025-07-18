@@ -1,15 +1,15 @@
 // 캘린더 뷰 구현
 import { sharedState } from "../../../store/state.js";
 import { store } from "../../../store/store.js";
+import { updateCalendarTotalAmount } from "./calendarTotalAmount.js";
 
+/* 
+  캘린더 뷰를 초기화하고 렌더링하는 함수
+*/
 export function initCalendarView() {
   const { currentMonth, currentYear } = store.getState();
   renderCalendar(currentYear, currentMonth);
-
-  // 캘린더 초기화 후 총액도 업데이트
-  import("./calendarTotalAmount.js").then((module) => {
-    module.updateCalendarTotalAmount();
-  });
+  updateCalendarTotalAmount();
 }
 
 // 캘린더 그리기
@@ -67,6 +67,7 @@ export function renderCalendar(year, month) {
     // 수입과 지출 합계 계산
     let dayIncomeTotal = 0;
     let dayExpenseTotal = 0;
+    let totalAmount = 0;
 
     dayEntries.forEach((entry) => {
       if (entry.isIncome) {
@@ -80,15 +81,24 @@ export function renderCalendar(year, month) {
     if (dayIncomeTotal > 0) {
       const incomeElement = document.createElement("div");
       incomeElement.className = "calendar-income";
-      incomeElement.textContent = `수입: ${dayIncomeTotal.toLocaleString()}원`;
+      incomeElement.textContent = `${dayIncomeTotal.toLocaleString()}`;
       entriesContainer.appendChild(incomeElement);
     }
 
     if (dayExpenseTotal > 0) {
       const expenseElement = document.createElement("div");
       expenseElement.className = "calendar-expense";
-      expenseElement.textContent = `지출: ${dayExpenseTotal.toLocaleString()}원`;
+      expenseElement.textContent = `-${dayExpenseTotal.toLocaleString()}`;
       entriesContainer.appendChild(expenseElement);
+    }
+
+    // 총액 계산
+    if (dayIncomeTotal > 0 || dayExpenseTotal > 0) {
+      totalAmount = dayIncomeTotal - dayExpenseTotal;
+      const totalElement = document.createElement("div");
+      totalElement.className = "calendar-day-total-amount";
+      totalElement.textContent = `${totalAmount.toLocaleString()}`;
+      entriesContainer.appendChild(totalElement);
     }
 
     // 순서 변경: 엔트리 먼저, 날짜 번호는 나중에
@@ -102,14 +112,20 @@ export function renderCalendar(year, month) {
 
     calendarGrid.appendChild(calendarDay);
   }
+
+  const lastDayOfWeek = lastDay.getDay();
+  if (lastDayOfWeek !== 6) {
+    // 마지막 날 이후 빈 칸 추가
+    for (let i = lastDayOfWeek + 1; i < 7; i++) {
+      const emptyDay = document.createElement("div");
+      emptyDay.className = "calendar-day empty";
+      calendarGrid.appendChild(emptyDay);
+    }
+  }
 }
 
 // 캘린더 업데이트 함수 - 헤더의 월 변경시 호출
 export function updateCalendarView(year, month) {
   renderCalendar(year, month);
-
-  // 캘린더 뷰 업데이트 후 총액도 업데이트
-  import("./calendarTotalAmount.js").then((module) => {
-    module.updateCalendarTotalAmount();
-  });
+  updateCalendarTotalAmount();
 }

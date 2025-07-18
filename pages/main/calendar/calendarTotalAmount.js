@@ -1,6 +1,9 @@
 import { sharedState } from "../../../store/state.js";
 import { store } from "../../../store/store.js";
 
+/* 
+  캘린더 총액을 업데이트하는 함수
+*/
 export function updateCalendarTotalAmount() {
   const { currentMonth, currentYear } = store.getState();
   // 현재 월에 해당하는 항목만 필터링

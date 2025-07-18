@@ -3,6 +3,10 @@ import { sharedState } from "../../store/state.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { updateDateSectionTotals } from "./entryTotalAmount.js";
 
+/* 
+  수입 지출 버튼을 눌렀을 때 수입 목록만 혹은 지출목록만 필터링 되는 함수
+  버튼에 이벤트리스너를 달아서 구현
+*/
 export function initFilterButtons() {
   const toggleIncome = document.getElementById("total-income");
   const toggleExpense = document.getElementById("total-expense");

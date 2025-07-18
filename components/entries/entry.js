@@ -28,6 +28,9 @@ export function deleteEntry() {
   });
 }
 
+/* 
+  delete버튼을 눌렀을때 확인을 눌렀으면 실행되는 함수
+*/
 export function deleteEntryConfirm(deleteBtn) {
   const entrySection = deleteBtn.closest(".entry-date-section");
   if (!entrySection) return;
@@ -55,6 +58,9 @@ export function deleteEntryConfirm(deleteBtn) {
   });
 }
 
+/* 
+  delete버튼이 안눌리면 수정을 위해 inputform에 엔트리 정보를 채워주는 함수
+*/
 function updatelist(e) {
   const entryRow = e.target.closest(".entry-row");
 
