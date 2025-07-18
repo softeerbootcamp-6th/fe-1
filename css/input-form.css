@@ -1,6 +1,6 @@
 .input-form {
   position: relative; /* 또는 absolute도 가능 */
-  top: -42px;          /* 헤더를 위로 겹쳐서 올라가게 */
+  top: -42px; /* 헤더를 위로 겹쳐서 올라가게 */
   margin: 0 auto;
   padding: 10px;
   background: #fff;
@@ -21,10 +21,10 @@
   align-self: center;
 }
 
-.amount-block{
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
+.amount-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 #amount {
@@ -54,16 +54,13 @@
   user-select: none;
 }
 
-
-.inter-input-block{
-    position: relative;
+.inter-input-block {
+  position: relative;
 }
 
-
-.content{
-    border: none;
+.content {
+  border: none;
 }
-
 
 .desc-header {
   display: flex;
@@ -77,8 +74,8 @@
   color: #888;
 }
 
-#date{
-    border: none;
+#date {
+  border: none;
 }
 
 /* 선택 영역 */
@@ -174,14 +171,13 @@
   height: 38px;
 }
 
-
-.total-size{
-    font-size: 14px;
+.total-size {
+  font-size: 14px;
 }
 
 .month-selector {
-    width: 232px;
-    height: 112px;
+  width: 232px;
+  height: 112px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -190,23 +186,21 @@
 }
 
 .month-control {
-    display: flex;
-    align-items: center;
-    justify-content : space-between;
-    width: 100%;
-    gap:16px;
-    font-size:1.8rem;
-    font-weight:bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
-
 
 input[type="date"].date::-webkit-calendar-picker-indicator {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
-
