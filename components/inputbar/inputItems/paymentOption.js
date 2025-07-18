@@ -71,7 +71,7 @@ export default function createPayemntInputOption() {
     return $paymentOptionItem;
 }
 
-const modalConentHTML = `
+const addModalConentHTML = `
     <div class="modal-content-wrapper">    
         <div>추가 하실 결제수단을 입력해주세요.</div>
         <input id="payment-modal-input" type="text" />
@@ -85,7 +85,7 @@ function createAddPaymetModalContent() {
     const $paymentModal = createElement(
         'div',
         { class: 'modal-content' },
-        modalConentHTML,
+        addModalConentHTML,
     );
 
     $paymentModal
