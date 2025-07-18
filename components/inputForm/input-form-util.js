@@ -3,10 +3,7 @@ import { sharedState } from "../../store/state.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { category } from "../../setting/config.js";
 import { saveEntriesToServer } from "../../api.js";
-import {
-  updateDateSectionTotals,
-  renderOneEntiry,
-} from "../entries/entry-util.js";
+import { updateDateSectionTotals } from "../entries/entryTotalAmount.js";
 
 export function addEntry() {
   const entry = getEntryDate();

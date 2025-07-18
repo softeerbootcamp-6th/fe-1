@@ -4,8 +4,13 @@ import { renderCategoryOptions } from "../inputForm/inputFormItems/categoryRende
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { createModal } from "../modal.js";
 import { store } from "../../store/store.js";
-import { updateDateSectionTotals } from "./entry-util.js";
+import { updateDateSectionTotals } from "./entryTotalAmount.js";
 
+/* 
+  엔트리 삭제 기능 deleteEntry()
+  이 함수는 엔트리 리스트에서 삭제 버튼을 클릭했을 때 실행된다.
+  삭제버튼이 아니면 수정 로직이 수행 된다.
+*/
 export function deleteEntry() {
   document.getElementById("entry-list").addEventListener("click", (e) => {
     const deleteBtn = e.target.closest(".delete-btn");
