@@ -1,27 +1,31 @@
-export function createModal(container) {
-  const modal = document.createElement("div");
-  modal.innerHTML = `
-    <dialog class="modal">
-        <form method="dialog">
-            <p>
-            <label>
-                좋아하는 동물:
-                <input type="text" required />
-            </label>
-            </p>
-            <div>
-            <input type="submit" id="normal-close" value="일반 닫기" />
-            <input
-                type="submit"
-                id="novalidate-close"
-                value="검증 없이 닫기"
-                formnovalidate />
-            <input type="submit" id="js-close" value="JS 닫기" />
-            </div>
-        </form>
+export function createModal(
+  container,
+  {
+    message = "",
+    input = false,
+    inputPlaceholder = "",
+    cancelText = "취소",
+    confirmText = "확인",
+  } = {}
+) {
+  container.innerHTML = `
+    <dialog class="modal-container">
+      <form method="dialog" class="modal">
+        <label class="modal-content light-16">
+          <div>${message}</div>
+          ${
+            input
+              ? `<input name="modalInput" type="text" placeholder="${inputPlaceholder}" />`
+              : ""
+          }
+        </label>
+        <div class="modal-btn-container flex-between semibold-16">
+          <button type="button" class="cancel-btn modal-btn">${cancelText}</button>
+          <button type="button" class="confirm-btn modal-btn">${confirmText}</button>
+        </div>
+      </form>
     </dialog>
   `;
-  container.appendChild(modal);
 }
 
 export function openModal(modal) {
@@ -33,13 +37,39 @@ export function closeModal(modal) {
 }
 
 export function renderModal(container) {
-  createModal(container);
+  createModal(container, {
+    message: "추가하실 결제 수단을 적어주세요.",
+    input: true,
+    inputPlaceholder: "결제 수단을 입력해주세요.",
+    cancelText: "취소",
+    confirmText: "추가",
+  });
 }
-export function initModal(container) {
-  const modal = container.querySelector(".modal");
+
+export function initModal(
+  container,
+  { onCancel = () => {}, onConfirm = (value) => {} } = {}
+) {
+  const modal = container.querySelector(".modal-container");
+  const input = modal.querySelector('input[name="modalInput"]');
+  const cancelBtn = modal.querySelector(".cancel-btn");
+  const confirmBtn = modal.querySelector(".confirm-btn");
+
+  cancelBtn.addEventListener("click", () => {
+    onCancel();
+    modal.close();
+  });
+
   modal.addEventListener("click", (e) => {
-    if (e.target.id === "normal-close") {
-      closeModal(modal);
+    if (e.target.classList.contains("modal-container")) {
+      onCancel();
+      modal.close();
     }
+  });
+
+  confirmBtn.addEventListener("click", () => {
+    const value = input ? input.value.trim() : undefined;
+    onConfirm(value);
+    modal.close();
   });
 }

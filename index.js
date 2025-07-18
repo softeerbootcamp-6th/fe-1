@@ -1,7 +1,12 @@
 import { renderHeader, initHeader } from "./components/header/header.js";
 import { render, navigate } from "./utils/routes.js";
 import { initStore, pathStore } from "./store/index.js";
-import { renderModal, initModal, openModal } from "./components/modal/modal.js";
+import {
+  renderModal,
+  initModal,
+  openModal,
+  closeModal,
+} from "./components/modal/modal.js";
 
 const headerContainer = document.getElementById("header-container");
 
@@ -9,13 +14,18 @@ if (headerContainer) {
   renderHeader(headerContainer);
   initHeader(headerContainer);
 }
-
-const modalContainer = document.getElementById("modal-container");
-
+const modalContainer = document.querySelector("#modal-container");
 if (modalContainer) {
-  //renderModal(modalContainer);
-  //initModal(modalContainer);
-  //openModal(modalContainer.querySelector(".modal"));
+  renderModal(modalContainer);
+  initModal(modalContainer, {
+    onCancel: () => {
+      closeModal(modalContainer.querySelector(".modal-container"));
+    },
+    onConfirm: (value) => {
+      console.log("confirm", value);
+    },
+  });
+  openModal(modalContainer.querySelector(".modal-container"));
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
