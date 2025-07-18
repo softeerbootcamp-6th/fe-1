@@ -1,5 +1,5 @@
-import { sharedState } from "../../../../store/state.js";
-import { category } from "../../../../setting/config.js";
+import { sharedState } from "../../store/state.js";
+import { category } from "../../setting/config.js";
 
 /* 
   getDateFromServer(entry)
@@ -51,7 +51,9 @@ function createEntryDateSection(dateSection, dateLabel, entry) {
       `;
   return dateSection;
 }
-
+/* 
+  entry-row를 만들어서 렌더링하는 함수
+*/
 function createEntryRow(entry) {
   const item = document.createElement("div");
   item.className = "entry-row";
@@ -81,7 +83,9 @@ function createEntryRow(entry) {
   return item;
 }
 
-// 특정 날짜의 수입/지출 합계 계산 및 업데이트 함수
+/* 
+ 특정 날짜의 수입/지출 합계 계산 및 업데이트 함수
+*/
 export function updateDateSectionTotals(date) {
   const dateSection = document.querySelector(
     `.entry-date-section[data-date="${date}"]`

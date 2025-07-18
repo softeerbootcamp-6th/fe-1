@@ -1,6 +1,6 @@
 //js/input-form.js
-import { loadDummyEntries } from "../../../../js/core.js";
-import { store } from "../../../../store/store.js";
+import { loadDummyEntries } from "../../../js/core.js";
+import { store } from "../../../store/store.js";
 
 /* 
 initRenderDummyData()

@@ -1,9 +1,9 @@
 // js/index.js
 import { initDate } from "./components/header/dateRender.js";
-import { initRenderDummyData } from "./pages/main/ledger/entries/renderDummyData.js";
+import { initRenderDummyData } from "./pages/main/ledger/renderDummyData.js";
 import { initInputFormListener } from "./components/inputForm/inputFormItems/totalListener.js";
-import { deleteEntry } from "./pages/main/ledger/entries/entry.js";
-import { initFilterButtons } from "./pages/main/ledger/entries/filterEntries.js";
+import { deleteEntry } from "./components/entries/entry.js";
+import { initFilterButtons } from "./components/entries/filterEntries.js";
 import { initViewSwitcher } from "./pages/main/viewSwitcher.js";
 import { updateCalendarTotalAmount } from "./pages/main/calendar/calendarTotalAmount.js";
 import createHeader from "./components/header/header.js";

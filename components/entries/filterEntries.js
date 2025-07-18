@@ -1,6 +1,6 @@
 // 필터링 기능 구현
-import { sharedState } from "../../../../store/state.js";
-import { updateTotalAmounts } from "../../../../components/totalAmount/totalAmount-util.js";
+import { sharedState } from "../../store/state.js";
+import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { updateDateSectionTotals } from "./entry-util.js";
 
 export function initFilterButtons() {

@@ -6,7 +6,7 @@ import { saveEntriesToServer } from "../../api.js";
 import {
   updateDateSectionTotals,
   renderOneEntiry,
-} from "../../pages/main/ledger/entries/entry-util.js";
+} from "../entries/entry-util.js";
 
 export function addEntry() {
   const entry = getEntryDate();

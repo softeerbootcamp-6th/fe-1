@@ -1,6 +1,6 @@
 import { sharedState } from "../../../store/state.js";
 import { updateTotalAmounts } from "../components/totalAmount/totalAmount-util.js";
-import { renderOneEntiry } from "../../pages/main/ledger/entries/entry-util.js";
+import { renderOneEntiry } from "../../components/entries/entry-util.js";
 import { loadEntriesFromServer } from "../api.js";
 import { renderCategoryOptions } from "../components/inputForm/inputFormItems/categoryRender.js";
 
