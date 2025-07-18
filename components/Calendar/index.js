@@ -3,6 +3,7 @@ import {
     formatNumberWithCommas,
     getTotalAmount,
     groupByDate,
+    isToday,
 } from '../../lib/utils.js';
 import dateStore from '../../store/date.js';
 import paymentDataStore from '../../store/paymentData.js';
@@ -24,12 +25,21 @@ function createCalendarRow() {
     return calendarRow;
 }
 
-function createCalendarCell({ date, isCurrentMonth, dayData = [] }) {
+function createCalendarCell({
+    date,
+    isCurrentMonth,
+    isToday = false,
+    dayData = [],
+}) {
     const cell = document.createElement('td');
     cell.className = 'calendar-body-cell';
 
     if (!isCurrentMonth) {
         return cell;
+    }
+
+    if (isToday) {
+        cell.classList.add('today');
     }
 
     const { totalIncome, totalExpense } = getTotalAmount(dayData);
@@ -132,6 +142,7 @@ export default function createCalendar() {
             const cell = createCalendarCell({
                 date,
                 isCurrentMonth: true,
+                isToday: isToday(year, month, date),
                 dayData,
             });
             calendarRow.appendChild(cell);
