@@ -96,7 +96,8 @@ function createDonutText(
   r,
   innerR,
   expenseByCategory,
-  svgNS
+  svgNS,
+  index
 ) {
   const percent = expenseByCategory[cat].percent;
 
@@ -132,6 +133,33 @@ function createDonutText(
     categoryText.setAttribute("fill", "none");
     percentText.setAttribute("fill", "none");
   }
+
+  categoryText.style.transformOrigin = `${cx}px ${cy}px`;
+  categoryText.style.transform = "scale(0)";
+  categoryText.style.opacity = "0";
+  categoryText.style.animation = `donut-appear ${ANIMATION_DURATION}s ease-out ${
+    index * ANIMATION_DELAY
+  }s forwards`;
+
+  categoryText.addEventListener("animationend", () => {
+    categoryText.style.transform = "";
+    categoryText.style.opacity = "";
+    categoryText.style.animation = "";
+  });
+
+  percentText.style.transformOrigin = `${cx}px ${cy}px`;
+  percentText.style.transform = "scale(0)";
+  percentText.style.opacity = "0";
+  percentText.style.animation = `donut-appear ${ANIMATION_DURATION}s ease-out ${
+    index * ANIMATION_DELAY
+  }s forwards`;
+
+  percentText.addEventListener("animationend", () => {
+    percentText.style.transform = "";
+    percentText.style.opacity = "";
+    percentText.style.animation = "";
+  });
+
   return [categoryText, percentText];
 }
 
@@ -207,7 +235,7 @@ export function renderDonutChartSVG(container) {
   // 모든 텍스트를 추가 (맨 위에 표시)
   startAngle = -PI / 2;
   const textElements = [];
-  categories.forEach((cat) => {
+  categories.forEach((cat, index) => {
     const angle = (expenseByCategory[cat].percent / 100) * PI * 2;
     const [categoryText, percentText] = createDonutText(
       cat,
@@ -218,7 +246,8 @@ export function renderDonutChartSVG(container) {
       r,
       innerR,
       expenseByCategory,
-      svgNS
+      svgNS,
+      index
     );
     categoryText.setAttribute("data-category", cat);
     percentText.setAttribute("data-category", cat);

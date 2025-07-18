@@ -580,3 +580,55 @@ table {
 .transaction-row.selected .delete-btn {
   display: flex;
 }
+
+.chart-page {
+  gap: 20px;
+}
+
+#donut-chart-container {
+  border: 1px solid var(--nuetral-border-default);
+  background: var(--nuetral-surface-default);
+  width: 100%;
+  height: 572px;
+  padding: 20px;
+}
+
+.calendar-container {
+  border-top: 1px solid var(--nuetral-border-default);
+  border-left: 1px solid var(--nuetral-border-default);
+  width: 100%;
+  background: var(--nuetral-surface-default);
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  height: 48px;
+}
+
+.calendar-header > div {
+  border-right: 1px solid var(--nuetral-border-default);
+  border-bottom: 1px solid var(--nuetral-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: right;
+  min-height: 120px;
+  background: var(--nuetral-surface-default);
+}
+
+.calendar-cell {
+  cursor: pointer;
+  transition: background 0.2s;
+  border-right: 1px solid var(--nuetral-border-default);
+  border-bottom: 1px solid var(--nuetral-border-default);
+  display: flex;
+  flex-direction: column;
+}
