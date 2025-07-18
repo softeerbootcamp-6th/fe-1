@@ -32,6 +32,14 @@ export function renderIncomeExpenseForm() {
     updatePaymentSelect(paymentOptions);
   });
 
+  document.addEventListener('delete-option', e => {
+    const optionName = e.detail.optionName;
+    const index = paymentOptions.indexOf(optionName);
+    if (index > -1) {
+      paymentOptions.splice(index, 1);
+    }
+  });
+
   // TODO: select UI 구현 (현재는 단순한 select로 구현)
   const getDateContainerHTML = () => {
     return `

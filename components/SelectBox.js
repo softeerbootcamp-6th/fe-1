@@ -71,6 +71,14 @@ export function renderSelectBox(optionStringList, editable, deletable) {
     if (e.target.closest('.option-del-button')) {
       const optionItem = e.target.closest('.option-item');
       if (optionItem) {
+        const optionItemText =
+          optionItem.querySelector('.option-item-span').textContent;
+        const optionDeleteEvent = new CustomEvent('delete-option', {
+          detail: {
+            optionName: optionItemText,
+          },
+        });
+        document.dispatchEvent(optionDeleteEvent);
         optionItem.remove();
       }
       return;
@@ -104,6 +112,15 @@ export function renderSelectBox(optionStringList, editable, deletable) {
     e.preventDefault();
     e.stopPropagation();
     optionList.classList.toggle('active');
+  });
+
+  // 추가하기 버튼 클릭 시 동작
+  optionButton.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const addModalOpenEvent = new Event('add-modal-open');
+    document.dispatchEvent(addModalOpenEvent);
   });
 
   // 외부 클릭 시 옵션 리스트 숨기기
