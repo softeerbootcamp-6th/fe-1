@@ -7,7 +7,6 @@ import { store } from "../../../../store/store.js";
 import { updateDateSectionTotals } from "./entry-util.js";
 
 export function deleteEntry() {
-  //이벤트 위임 방식
   document.getElementById("entry-list").addEventListener("click", (e) => {
     const deleteBtn = e.target.closest(".delete-btn");
 

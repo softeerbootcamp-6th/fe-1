@@ -1,7 +1,8 @@
 import { sharedState } from "../../../store/state.js";
 import { updateTotalAmounts } from "../components/totalAmount/totalAmount-util.js";
-import { getDateFromServer } from "../../pages/main/ledger/entries/entry-util.js";
+import { renderOneEntiry } from "../../pages/main/ledger/entries/entry-util.js";
 import { loadEntriesFromServer } from "../api.js";
+import { renderCategoryOptions } from "../components/inputForm/inputFormItems/categoryRender.js";
 
 const entries = sharedState.entries;
 
@@ -18,17 +19,21 @@ export async function loadDummyEntries(currentDate) {
   if (entriesFromServer.length === 0) {
     sharedState.totalExpense = 0;
     sharedState.totalIncome = 0;
-    updateTotalAmounts();
-    return;
   } else {
     pushEntries(entriesFromServer);
-    updateTotalAmounts();
   }
+  // 날짜별 수입 지출액 업데이트
+  updateTotalAmounts();
+  // 카테고리 옵션 렌더링
+  renderCategoryOptions();
 }
 
+/* 엔트리를 state.js에 entires[]에 넣어줌
+    그리고 각 엔트리를 돔에 렌더링한다
+*/
 function pushEntries(entriesFromServer) {
   entriesFromServer.forEach((entry) => {
-    getDateFromServer(entry);
+    renderOneEntiry(entry);
     entries.push(entry);
   });
 }

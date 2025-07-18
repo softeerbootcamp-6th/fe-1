@@ -1,6 +1,6 @@
 import { sharedState } from "../../../store/state.js";
 import { loadEntriesFromServer } from "../../../api.js";
-import { getDateFromServer } from "../../pages/main/ledger/entries/entry-util.js";
+import { renderOneEntiry } from "../../pages/main/ledger/entries/entry-util.js";
 import { store } from "../../../store/store.js";
 import { updateTotalAmounts } from "../totalAmount/totalAmount-util.js";
 import { initCalendarView } from "../../pages/main/calendar/calendarView.js";
@@ -66,7 +66,7 @@ export async function clearWebPage(currentMonth, currentYear) {
   const serverData = await loadEntriesFromServer(currentDate);
 
   serverData.forEach((entry) => {
-    getDateFromServer(entry);
+    renderOneEntiry(entry);
     sharedState.entries.push(entry);
   });
   updateTotalAmounts();

@@ -4,7 +4,9 @@ import { initAmountListener } from "./amount.js";
 import { initToggleSignListener } from "./toggleSign.js";
 import { initPaymentMethodListener } from "./paymentMethod.js";
 
-//리스너 등록
+/* 
+  inputform관련 컴포넌트들의 리스너를 등록하는 파일의 기능
+*/
 function initTotalListener() {
   initCategoryListener();
   initDescriptionListener();
@@ -13,7 +15,6 @@ function initTotalListener() {
   initPaymentMethodListener();
 }
 
-// 이벤트 위임 방식으로 처리하면 좋아 보임
 export function initInputFormListener() {
   initTotalListener();
 }

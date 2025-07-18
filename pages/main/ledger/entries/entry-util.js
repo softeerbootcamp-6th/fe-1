@@ -1,7 +1,15 @@
 import { sharedState } from "../../../../store/state.js";
 import { category } from "../../../../setting/config.js";
 
-export async function getDateFromServer(entry) {
+/* 
+  getDateFromServer(entry)
+  - 서버에서 받아온 entry 객체를 기반으로 entry list항목을 추가하는 기능
+  이건 렌더링으로 이름을 바꾸는게 좋아 보인다.
+
+  renderOneEntiry(entry)로 변경함
+  
+*/
+export async function renderOneEntiry(entry) {
   const entryList = document.getElementById("entry-list");
 
   const dateObj = new Date(entry.date);

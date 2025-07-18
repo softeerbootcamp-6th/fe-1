@@ -1,5 +1,10 @@
 import { store } from "../../../store/store.js";
 
+/* 
+  카테고리에서 드롭다운 패널을 보이거나 숨기는 이벤트리스너와 
+  옵션 선택시 렌더링 되는 리스너
+*/
+
 export function initCategoryListener() {
   const categoryWrapper = document.getElementById("category-wrapper");
   const categoryDisplay = document.getElementById("category-display");

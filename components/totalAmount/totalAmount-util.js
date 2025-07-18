@@ -1,5 +1,9 @@
 import { sharedState } from "../../store/state.js";
 
+/* 
+    수입, 지출내용을 계산하여 수입 총액 지출 총액을 가계부 왼쪽위 헤더 아래 보여주는 함수
+    버튼 기능으로 필터링 기능이 있음
+*/
 export function updateTotalAmounts() {
   const incomeTotal = document.querySelectorAll(
     ".income-amount:not(.hidden-income)"
