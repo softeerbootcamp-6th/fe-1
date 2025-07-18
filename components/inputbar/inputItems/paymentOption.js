@@ -47,10 +47,9 @@ export default function createPayemntInputOption() {
         const $deleteBtn = e.target.closest('#payment-delete-btn');
 
         if ($deleteBtn) {
-            const nowPayment = payment.filterByValue(
-                $targetLine.querySelector('#payment-value').textContent,
-            );
-            $paymentOptionItem.innerHTML = createPaymentOptionList(nowPayment);
+            const targetString =
+                $targetLine.querySelector('#payment-value').textContent;
+            renderModal(createDeletePaymetModalContent(targetString));
             e.stopPropagation();
             return;
         }
@@ -100,6 +99,43 @@ function createAddPaymetModalContent() {
     $paymentModal
         .querySelector('#payment-modal-cancel-button')
         .addEventListener('click', () => {
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    return $paymentModal;
+}
+
+function deleteModalConentHTML(target) {
+    return `
+    <div class="modal-content-wrapper">    
+        <div>해당 결제 수단을 삭제하시겠습니까?</div>
+        <span class="delete-modal-value">${target}</span>
+    </div>
+    <div class="modal-btn-wrapper">
+        <button id="payment-modal-cancel-button" class="sb-16">취소</button>
+        <button id="payment-modal-delete-button" class="sb-16">삭제</button>
+    </div>`;
+}
+
+function createDeletePaymetModalContent(target) {
+    const $paymentModal = createElement(
+        'div',
+        { class: 'modal-content' },
+        deleteModalConentHTML(target),
+    );
+
+    $paymentModal
+        .querySelector('#payment-modal-cancel-button')
+        .addEventListener('click', () => {
+            document.getElementById('root-modal').innerHTML = '';
+        });
+
+    $paymentModal
+        .querySelector('#payment-modal-delete-button')
+        .addEventListener('click', () => {
+            const nowPayment = payment.filterByValue(target);
+            document.getElementById('dropdown-List-payment').innerHTML =
+                createPaymentOptionList(nowPayment);
             document.getElementById('root-modal').innerHTML = '';
         });
 
