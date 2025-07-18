@@ -28,8 +28,10 @@ export default function createDaily(dailyInfo) {
                 amount > 0 ? 'text-blue' : 'text-red'
             } lt-14">${formatAmount(amount)}원</div>
             <button class="daily-delete-btn sb-12 hidden"> 
-                <img />
-                <span>삭제가</span> 
+                <div>
+                    <img src=/public/closed.svg/>
+                </div>
+                <span>삭제</span> 
             </button>
         `;
 

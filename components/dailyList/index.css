@@ -114,7 +114,28 @@
 }
 
 .daily-line:hover .daily-delete-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    color: var(--danger-text-default);
+}
+
+.daily-line:hover .daily-delete-btn div {
+    background-color: var(--danger-text-default);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    margin: 0px 5px;
+}
+
+.daily-line:hover .daily-delete-btn div img {
+    filter: invert(1);
+    width: 12px;
+    height: 12px;
 }
 
 .selected {
