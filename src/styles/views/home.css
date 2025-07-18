@@ -9,6 +9,24 @@
   align-items: center;
 }
 
+.checkbox-container {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.checkbox-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  cursor: pointer;
+  align-items: center;
+}
+
 .transactions__header-title {
   display: flex;
   align-items: center;
