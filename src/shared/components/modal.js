@@ -1,12 +1,5 @@
 const closeModal = ({ overlay }) => overlay.remove();
 
-const addEventListenerToCancel = ({ overlay }) => {
-  // 모달의 취소 버튼 클릭 시 모달을 닫음
-  overlay
-    .querySelector('.cancel')
-    .addEventListener('click', () => closeModal(overlay));
-};
-
 const callOnConfirm = ({ onConfirm, value }) => {
   if (!value) return;
   // 입력값이 비어있지 않으면 onConfirm 함수 호출
@@ -19,18 +12,28 @@ const getInputValue = ({ overlay }) => {
   return input.value.trim();
 };
 
-const addEventListenerToConfirm = ({ overlay, onConfirm }) => {
-  // 모달의 추가 버튼 클릭 시
-  overlay.querySelector('.confirm').addEventListener('click', () => {
-    const value = getInputValue({ overlay });
-    callOnConfirm({ onConfirm, value });
+// 이벤트 위임을 적용한 단일 이벤트 핸들러
+const handleModalClick = ({ event, overlay, onConfirm }) => {
+  // 취소 버튼 클릭 처리
+  const cancelButton = event.target.closest('.cancel');
+  if (cancelButton) {
     closeModal({ overlay });
-  });
+    return;
+  }
+
+  // 확인 버튼 클릭 처리
+  const confirmButton = event.target.closest('.confirm');
+  if (!confirmButton) return;
+  const value = getInputValue({ overlay });
+  callOnConfirm({ onConfirm, value });
+  closeModal({ overlay });
 };
 
+// 이벤트 위임을 적용한 이벤트 리스너 추가
 const addEventListeners = ({ overlay, onConfirm }) => {
-  addEventListenerToCancel({ overlay });
-  addEventListenerToConfirm({ overlay, onConfirm });
+  overlay.addEventListener('click', (event) => {
+    handleModalClick({ event, overlay, onConfirm });
+  });
 };
 
 const modalHTML = () => {
