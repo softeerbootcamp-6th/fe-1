@@ -43,7 +43,6 @@ export function DatesCard(
                 type,
             },
         });
-        console.log(event);
         window.dispatchEvent(event);
     });
 

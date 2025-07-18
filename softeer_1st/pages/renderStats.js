@@ -60,7 +60,6 @@ export function renderStats() {
     }
     async function renderCostList(year, month, category) {
         const costListData = await getRecentMonthCategoryData(year, month, category);
-        console.log(costListData);
         costListData.forEach((item) =>{
             const costList = CostList(year, month, item);
             costListContainer.appendChild(costList);

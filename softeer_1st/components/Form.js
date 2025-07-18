@@ -33,8 +33,6 @@ export function Form() {
             formState.paymentMethod &&
             formState.category;
         submitButton.disabled = !isValid;
-        console.log("Form state:", formState);
-        console.log("Form availability checked:", isValid);
     }
     function catchEditEvent(e) {
         const { date, amount, type, description, paymentMethod, category } =
@@ -112,12 +110,6 @@ export function Form() {
         formState.year = selectedDate.getFullYear();
         formState.month = selectedDate.getMonth() + 1; // 월은 0부터 시작하므로 +1
         formState.date = selectedDate.getDate();
-        console.log(
-            "Selected date:",
-            formState.year,
-            formState.month,
-            formState.date
-        );
         checkAvailability();
     });
 
@@ -230,7 +222,6 @@ export function Form() {
         const value = e.target.value;
         descriptionLength.textContent = `${value.length}/32`;
         formState.description = value;
-        console.log("Description:", formState.description);
         checkAvailability();
     });
     form.appendChild(description);
@@ -305,7 +296,6 @@ export function Form() {
                 e.stopPropagation();
                 inputElement.value = option;
                 formState[formStateKey] = option;
-                console.log(formStateKey, "selected:", formState.paymentMethod);
                 checkAvailability();
 
                 // 해당 드롭다운 닫기
@@ -315,7 +305,6 @@ export function Form() {
                     toggleCategoryDropdown(false);
                 }
 
-                console.log("Selected:", option);
             });
 
             dropDownElement.appendChild(optionElement);
@@ -464,7 +453,6 @@ export function Form() {
     // 결제수단 추가 모달
     async function openPaymentModal() {
         const newPaymentMethod = await addFeatureModal();
-        console.log("New payment method:", newPaymentMethod);
         if (newPaymentMethod && newPaymentMethod.trim()) {
             const trimmedMethod = newPaymentMethod.trim();
 
@@ -479,8 +467,6 @@ export function Form() {
             paymentMethodInput.value = trimmedMethod;
             formState.paymentMethod = trimmedMethod;
 
-            console.log("Added new payment method:", trimmedMethod);
-            console.log("Current methods:", paymentMethods);
         }
     }
 
@@ -571,7 +557,6 @@ export function Form() {
 }
 
 const confirmModal = (message) => {
-    console.log("Confirm modal opened with message:", message);
     return new Promise((resolve, reject) => {
         openModal({
             title: "해당 결제 수단을 삭제하시겠습니까?",
