@@ -27,9 +27,7 @@ export const renderRecords = (
     if (Number(currentYear) !== Number(year) || Number(currentMonth) !== Number(month)) return;
 
     const filteredItems = record.items.filter((item) => {
-      if (item.amount < 0 && filter.outcome) return true;
-      if (item.amount >= 0 && filter.income) return true;
-      return false;
+      return item.amount < 0 ? filter.outcome : filter.income;
     });
     if (filteredItems.length > 0) {
       renderRecordByDate({ dateId, date, items: filteredItems });
