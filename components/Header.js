@@ -1,22 +1,22 @@
-import { dateStore } from "../store/dateStore.js";
+import { dateStore } from '../store/dateStore.js';
 
 const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 export function renderHeader() {
-  const header = document.createElement("header");
+  const header = document.createElement('header');
   const year = dateStore.getYear();
   const month = dateStore.getMonth();
   const monthText = monthNames[month - 1];
@@ -55,11 +55,11 @@ export function renderHeader() {
     </div>
     `;
   // 요소 가져오기
-  const leftArrow = header.querySelector("#left-arrow"); // 둘 다 같은 arrow class 사용하므로 id로 구분
-  const rightArrow = header.querySelector("#right-arrow");
-  const yearSpan = header.querySelector(".year");
-  const monthSpan = header.querySelector(".month");
-  const monthTextSpan = header.querySelector(".month-text");
+  const leftArrow = header.querySelector('#left-arrow'); // 둘 다 같은 arrow class 사용하므로 id로 구분
+  const rightArrow = header.querySelector('#right-arrow');
+  const yearSpan = header.querySelector('.year');
+  const monthSpan = header.querySelector('.month');
+  const monthTextSpan = header.querySelector('.month-text');
 
   // 상태 변경 시 UI 업데이트
   dateStore.subscribe(([newYear, newMonth]) => {
@@ -68,13 +68,15 @@ export function renderHeader() {
     if (monthTextSpan) monthTextSpan.textContent = monthNames[newMonth - 1];
   });
 
-  leftArrow.addEventListener("click", () => {
+  leftArrow.addEventListener('click', e => {
+    e.stopPropagation();
     const year = dateStore.getYear();
     const month = dateStore.getMonth();
     preDate({ year, month });
   });
 
-  rightArrow.addEventListener("click", () => {
+  rightArrow.addEventListener('click', e => {
+    e.stopPropagation();
     const year = dateStore.getYear();
     const month = dateStore.getMonth();
     nextDate({ year, month });
