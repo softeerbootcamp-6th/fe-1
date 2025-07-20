@@ -7,42 +7,18 @@
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/input-form.css" />
     <link rel="stylesheet" href="css/total-amount.css" />
-    <link rel="stylesheet" href="css/delete-modal.css" />
     <link rel="stylesheet" href="css/views.css" />
     <link rel="stylesheet" href="css/charts.css" />
   </head>
   <body>
-    <!-- 헤더부분입니다 -->
-    <div id="header-container"></div>
+    <header id="header-container"></header>
 
-    <!-- 메인 콘텐츠 영역 -->
-    <main>
-      <!-- 가계부 뷰 (기본 뷰) -->
+    <main id="main-container">
+      <!--가계부 뷰-->
       <div id="ledger-view" class="view active-view">
-        <!-- 입력 폼 부분입니다 -->
         <div id="input-form-container"></div>
-
-        <div class="total-amount">
-          <div class="total-amount-text" id="total-amount-text">전체 내역</div>
-          <div class="total-amount-value" id="total-amount-value">
-            <div
-              id="total-income"
-              class="filter-item active"
-              data-type="income"
-            >
-              수입
-            </div>
-            <div
-              id="total-expense"
-              class="filter-item active"
-              data-type="expense"
-            >
-              지출
-            </div>
-          </div>
-        </div>
-
-        <section class="entry-list" id="entry-list"></section>
+        <div id="total-amount-container"></div>
+        <div class="entry-list" id="entry-list"></div>
       </div>
 
       <!-- 캘린더 뷰 -->
@@ -102,26 +78,6 @@
       </div>
     </main>
 
-    <!-- 삭제 모달 -->
-    <!-- <div id="delete-modal" class="delete-modal delete-hidden">
-            <div class="delete-modal-content">
-                <h3>삭제하시겠습니까?</h3>
-                <button id="confirm-delete" class="confirm-delete">삭제</button>
-                <button id="cancel-delete" class="cancel-delete">취소</button>
-            </div>
-        </div> -->
-
-    <!-- 모달 -->
-    <!-- <div id="modal" class="modal hidden">
-            <div class="modal-content">
-                <h3>결제수단 추가</h3>
-                <input type="text" id="new-method" placeholder="예: 우리카드" />
-                <button id="confirm-add">추가하기</button>
-                <button id="cancel-add">취소</button>
-            </div>
-        </div> -->
-
-    <script type="module" src="js/loadComponents.js"></script>
-    <!-- <script type="module" src="js/middleCalendar.js"></script> -->
+    <script type="module" src="./index.js"></script>
   </body>
 </html>
