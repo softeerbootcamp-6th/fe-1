@@ -1,23 +1,24 @@
 import {
   renderCategorySelect,
   updateDescriptionCount,
-} from "../components/TransactionFormView.js";
+} from "../components/transaction-form/TransactionFormView.js";
+import DateState from "../store/DateState.js";
+import FormState from "../store/FormState.js";
 
-export class DateInputObserver {
-  constructor(dateState) {
-    this.dateState = dateState;
-    dateState.subscribe(this);
+class DateInputObserver {
+  constructor() {
+    FormState.subscribe(this);
   }
 
   update() {
     const input = document.getElementById("date-input");
     if (input) {
-      input.value = this.dateState.getDate();
+      input.value = FormState.getFormState().date;
     }
   }
 }
 
-export class TransactionTypeButtonObserver {
+class TransactionTypeButtonObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -41,7 +42,7 @@ export class TransactionTypeButtonObserver {
   }
 }
 
-export class DescriptionLengthObserver {
+class DescriptionLengthObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -53,7 +54,28 @@ export class DescriptionLengthObserver {
   }
 }
 
-export class CategorySelectObserver {
+class InputObserver {
+  constructor(formState) {
+    this.formState = formState;
+    formState.subscribe(this);
+  }
+
+  update() {
+    const { amount, description, method, category, type } =
+      this.formState.getFormState();
+
+    const amountInput = document.getElementById("amount-input");
+    if (amountInput) amountInput.value = amount;
+
+    const typeInput = document.getElementById("type-input");
+    if (typeInput) typeInput.value = type;
+
+    const descInput = document.getElementById("desc-input");
+    if (descInput) descInput.value = description;
+  }
+}
+
+class CategorySelectObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -65,7 +87,7 @@ export class CategorySelectObserver {
   }
 }
 
-export class SubmitButtonObserver {
+class SubmitButtonObserver {
   constructor(formState) {
     this.formState = formState;
     formState.subscribe(this);
@@ -80,5 +102,47 @@ export class SubmitButtonObserver {
 
     const btn = document.getElementById("submit-btn");
     if (btn) btn.disabled = !isValid;
+  }
+}
+
+class MethodSelectObserver {
+  constructor(formState) {
+    this.formState = formState;
+    formState.subscribe(this);
+  }
+
+  update() {
+    const { method } = this.formState.getFormState();
+    const methodSelect = document.getElementById("method-select");
+    if (methodSelect) methodSelect.value = method;
+  }
+}
+
+let transactionFormObserverInstances = [];
+
+export function addTransactionFormObservers() {
+  removeTransactionFormObservers();
+  transactionFormObserverInstances = [
+    new DateInputObserver(),
+    new TransactionTypeButtonObserver(FormState),
+    new InputObserver(FormState),
+    new DescriptionLengthObserver(FormState),
+    new CategorySelectObserver(FormState),
+    new SubmitButtonObserver(FormState),
+    new MethodSelectObserver(FormState),
+  ];
+}
+
+export function removeTransactionFormObservers() {
+  if (transactionFormObserverInstances.length > 0) {
+    transactionFormObserverInstances.forEach((observer) => {
+      if (observer.dateState) {
+        observer.dateState.unsubscribe(observer);
+      }
+      if (observer.formState) {
+        observer.formState.unsubscribe(observer);
+      }
+    });
+    transactionFormObserverInstances = [];
   }
 }

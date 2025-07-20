@@ -1,5 +1,6 @@
 import Observable from "./Observable.js";
 import { getDateYMD } from "../utils/date.js";
+import FormState from "./FormState.js";
 
 class DateState extends Observable {
   constructor() {
@@ -8,6 +9,7 @@ class DateState extends Observable {
   }
   setDate(newDate) {
     this.curDate = newDate;
+    FormState.setDate(newDate);
     this.notify();
   }
   getDate() {
