@@ -3,6 +3,8 @@ import { ElementManager } from "../../utils/ElementManager.js";
 import { listStore } from "../../store/ListStore.js";
 import { formStore } from "../../store/FormStore.js";
 import { NumberManager } from "../../utils/NumberManager.js";
+import { Modal } from "../modal/index.js";
+import { Timer } from "../../utils/Timer.js";
 
 const BACKGROUND_COLOR = {
   생활: 90,
@@ -48,10 +50,20 @@ export const ListItem = (item) => {
       const listItem = e.target.closest(".list-item");
       const uid = listItem.dataset.uid;
       if (e.target.closest(".delete-button")) {
-        // 리스트에서 삭제
-        listStore.dispatch("removeListItemByUID", uid);
+        // 값 삭제
+        const uidItem = listStore.data.find((partData) => partData.uid === uid);
+        Modal.renderModal(
+          "deleteListItem",
+          () => {
+            Timer(1000, () => {
+              listStore.dispatch("removeListItemByUID", uid);
+            });
+          },
+          uidItem
+        );
       } else {
         // 폼에 반영하여 수정
+        listItem.classList.add("active");
         const item = listStore.data.find((partData) => partData.uid === uid);
         if (item) {
           formStore.dispatch("edit", item);

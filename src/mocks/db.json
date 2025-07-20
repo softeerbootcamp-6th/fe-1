@@ -1,0 +1,37 @@
+{
+  "list": [
+    {
+      "id": "a120",
+      "mode": "create",
+      "date": "2025-06-09",
+      "moneyType": "expense",
+      "money": "50003454",
+      "content": "차량 구매",
+      "payment": "현금",
+      "category": "식비",
+      "uid": "f0cfe493-f677-456c-8a31-1783d64b3efd"
+    },
+    {
+      "id": "eabe",
+      "mode": "edit",
+      "date": "2025-07-18T05:04:12.906Z",
+      "moneyType": "expense",
+      "money": "3000",
+      "content": "생옥수수차 구매 🌽",
+      "payment": "현금",
+      "category": "식비",
+      "uid": "0b21299e-82f4-4566-8971-6949f65e5fb7"
+    },
+    {
+      "id": "2ad1",
+      "mode": "create",
+      "date": "2025-07-18T05:07:04.705Z",
+      "moneyType": "expense",
+      "money": "500000",
+      "content": "안경 구매",
+      "payment": "신용카드",
+      "category": "생활",
+      "uid": "3e877273-2873-4c11-ae3b-7feac802b61a"
+    }
+  ]
+}

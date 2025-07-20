@@ -10,24 +10,32 @@ export const FormChecker = () => {
     <div class="img-wrapper">
       <img src="./src/assets/check.svg" alt="check icon">
     </div>
-    `;
+  `;
 
   EventDispatcher.register({
     eventType: "click",
     selector: "form-checker",
-    handler: () => {
+    handler: (e) => {
       const isFullFilled = InputValidator.validateFullFilled(formStore.data);
       if (!isFullFilled) return;
       const isFullCorrectType = InputValidator.validateFullCorrectType(
         formStore.data
       );
       if (isFullCorrectType) {
-        listStore.dispatch("addListItem", {
-          ...formStore.data,
-          date: new Date(formStore.data.date),
-        });
+        if (formStore.data.mode === "edit") {
+          listStore.dispatch("updateListItem", {
+            ...formStore.data,
+            date: new Date(formStore.data.date),
+          });
+        } else {
+          listStore.dispatch("addListItem", {
+            ...formStore.data,
+            uid: crypto.randomUUID(),
+          });
+        }
+        formStore.dispatch("reset");
       } else {
-        console.log("no");
+        console.error("입력이 완료되지 못했습니다.");
       }
     },
   });
