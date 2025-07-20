@@ -10,22 +10,52 @@ export function initModal() {
 }
 
 // 모달 표시 함수
-export function showModal(title, placeholder, onConfirm) {
+export function showModal(
+  title,
+  placeholder = "",
+  onConfirm,
+  message = "",
+  isDelete = false
+) {
   const backdrop = document.getElementById("modal-backdrop");
+  const modalContent = backdrop.querySelector(".modal-content");
+  const modalTitle = document.getElementById("modal-title");
   const input = document.getElementById("modal-input");
+  const messageEl = document.getElementById("modal-message");
   const confirmBtn = document.getElementById("modal-confirm-btn");
+  const milliSecond = 100;
+
+  // 삭제일 경우에는 삭제용 모달 스타일 적용
+  if (isDelete) {
+    modalContent.classList.add("delete-modal");
+    confirmBtn.textContent = "삭제";
+  } else {
+    modalContent.classList.remove("delete-modal");
+    confirmBtn.textContent = "확인";
+  }
 
   // 모달 내용 설정
-  input.placeholder = placeholder;
-  input.value = "";
+  modalTitle.textContent = title;
+
+  // 메시지가 있으면 메시지를 보여주고 입력창은 숨김 (ex.삭제 모달일 경우 메시지만 보여줌)
+  if (message) {
+    messageEl.textContent = message;
+    messageEl.style.display = "block";
+    input.style.display = "none";
+  } else {
+    input.placeholder = placeholder;
+    input.value = "";
+    input.style.display = "block";
+    messageEl.style.display = "none";
+
+    // 입력 필드에 포커스
+    setTimeout(() => {
+      input.focus();
+    }, milliSecond);
+  }
 
   // 모달 표시
   backdrop.classList.add("show");
-
-  // 입력 필드에 포커스
-  setTimeout(() => {
-    input.focus();
-  }, 100);
 
   // 기존 이벤트 리스너 제거
   const newConfirmBtn = confirmBtn.cloneNode(true);
@@ -33,9 +63,8 @@ export function showModal(title, placeholder, onConfirm) {
 
   // 확인 버튼 이벤트 리스너
   newConfirmBtn.addEventListener("click", () => {
-    const inputValue = input.value.trim();
-    if (inputValue) {
-      onConfirm(inputValue);
+    if (message || input.value.trim()) {
+      onConfirm(input.value?.trim());
       hideModal();
     }
   });
@@ -43,9 +72,8 @@ export function showModal(title, placeholder, onConfirm) {
   // 엔터 키 이벤트 리스너
   const handleEnterKey = (e) => {
     if (e.key === "Enter") {
-      const inputValue = input.value.trim();
-      if (inputValue) {
-        onConfirm(inputValue);
+      if (message || input.value.trim()) {
+        onConfirm(input.value?.trim());
         hideModal();
       }
     }
