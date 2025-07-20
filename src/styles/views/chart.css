@@ -1,0 +1,102 @@
+.pie-chart,
+.bar-chart,
+.transactions {
+  width: 100%;
+  max-width: 84.6rem;
+  margin: 0 auto;
+}
+
+.chart__detail {
+  margin-top: 4rem;
+}
+
+.pie-chart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.2rem 2.4rem;
+  border: 0.1rem solid var(--nuetral-text-default);
+  background-color: var(--nuetral-surface-default);
+}
+
+.pie-chart__container {
+  width: 42.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pie-chart__circle {
+  position: relative;
+  width: 25.4rem;
+  height: 25.4rem;
+  border-radius: 50%;
+  background: #eee; /* 초기값 */
+  flex-shrink: 0;
+}
+
+.pie-chart__circle::after {
+  content: "";
+  position: absolute;
+  width: 16rem;
+  height: 16rem;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pie-chart__content {
+  width: 28rem;
+  height: 100%;
+  margin: 2.4rem;
+}
+
+.pie-chart__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pie-chart__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.6rem;
+  border-top: 0.05rem solid var(--nuetral-text-default);
+  border-bottom: 0.05rem solid var(--nuetral-text-default);
+}
+
+.pie-chart__item {
+  height: 5.6rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.pie-chart__item:hover {
+  background-color: var(--nuetral-surface-point);
+}
+
+.pie-chart__item-value {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.6rem;
+}
+
+.line-chart {
+  width: 84.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.4rem;
+  padding: 3.2rem 4.8rem;
+  border: 0.1rem solid var(--nuetral-text-default);
+}
+
+.canvas {
+  width: 75rem;
+}

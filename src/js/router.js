@@ -1,4 +1,11 @@
-import Header from "../views/Header/Header.js";
+import {
+  Header,
+  HomeTemplate,
+  CalendarTemplate,
+  ChartTemplate,
+} from "../views/index.js";
+
+import { unsubscribeAll } from "../utils/index.js";
 
 class Router {
   constructor() {
@@ -41,30 +48,18 @@ class Router {
     }
   }
 
-  // HTML 템플릿을 로드하고 main 내용만 추출
-  async loadTemplate(templatePath) {
-    try {
-      const response = await fetch(templatePath);
-      if (!response.ok) {
-        throw new Error(`Failed to load template: ${response.status}`);
-      }
+  // 템플릿 가져오기 (이제 import로 직접 가져옴)
+  getTemplate(templateName) {
+    const templates = {
+      home: HomeTemplate,
+      calendar: CalendarTemplate,
+      chart: ChartTemplate,
+    };
 
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-
-      // main 태그 내용만 추출
-      const mainElement = doc.querySelector("main");
-      if (mainElement) {
-        return mainElement.outerHTML;
-      } else {
-        // main 태그가 없으면 전체 내용 반환
-        return html;
-      }
-    } catch (error) {
-      console.error("Error loading template:", error);
-      return "<main><div>페이지를 로드할 수 없습니다.</div></main>";
-    }
+    return (
+      templates[templateName] ||
+      "<main><div>페이지를 로드할 수 없습니다.</div></main>"
+    );
   }
 
   // JavaScript 모듈을 동적으로 로드하고 실행
@@ -119,6 +114,9 @@ class Router {
     // 현재 페이지의 main 영역만 정리
     this.cleanupCurrentPage();
 
+    // 이전 페이지의 모든 옵저버 제거
+    unsubscribeAll();
+
     try {
       // 공통 헤더 렌더링 (선택된 네비게이션에 따라)
       const navMap = {
@@ -128,8 +126,8 @@ class Router {
       };
       this.renderHeader(navMap[path] || "home");
 
-      // HTML 템플릿 로드 (main 부분만)
-      const template = await this.loadTemplate(route.template);
+      // HTML 템플릿 가져오기
+      const template = this.getTemplate(route.template);
       const mainContainer = document.getElementById("main-container");
       mainContainer.innerHTML = template;
 
@@ -185,20 +183,20 @@ const router = new Router();
 
 // 라우트 설정
 router.addRoute("/", {
-  template: "/src/views/home.html",
-  module: "/src/js/home.js",
+  template: "home",
+  module: "/src/js/home/home.js",
   title: "Wise Wallet - 홈",
 });
 
 router.addRoute("/calendar", {
-  template: "/src/views/calandar.html",
-  module: "/src/js/calandar.js",
+  template: "calendar",
+  module: "/src/js/calendar/calendar.js",
   title: "Wise Wallet - 캘린더",
 });
 
 router.addRoute("/chart", {
-  template: "/src/views/chart.html",
-  module: "/src/js/chart.js",
+  template: "chart",
+  module: "/src/js/chart/chart.js",
   title: "Wise Wallet - 차트",
 });
 

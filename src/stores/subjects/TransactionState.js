@@ -1,10 +1,10 @@
-import monthState from "../../stores/subjects/MonthState.js";
-import Subject from "../../utils/observers/Subject.js";
-import { getTransactionByMonth } from "../../apis/transaction.js";
+import { Subject } from "../../utils/index.js";
+import { monthState } from "../../stores/subjects/index.js";
 import {
   postTransaction,
   delTransaction,
   putTransaction,
+  getTransactionByMonth,
 } from "../../apis/transaction.js";
 
 class TransactionState extends Subject {
@@ -21,8 +21,11 @@ class TransactionState extends Subject {
     const monthTransactions = await getTransactionByMonth(month);
     this.transactions = monthTransactions;
     this.notify({
-      transactions: monthTransactions,
-      filterState: this.filterState,
+      subject: "transactions",
+      data: {
+        transactions: monthTransactions,
+        filterState: this.filterState,
+      },
     });
   }
 
@@ -82,8 +85,11 @@ class TransactionState extends Subject {
   setFilterState(state) {
     this.filterState = state;
     this.notify({
-      transactions: this.transactions,
-      filterState: this.filterState,
+      subject: "transactions",
+      data: {
+        transactions: this.transactions,
+        filterState: this.filterState,
+      },
     });
   }
 }

@@ -1,4 +1,4 @@
-import Subject from "../../utils/observers/Subject.js";
+import { Subject } from "../../utils/index.js";
 
 class ModalState extends Subject {
   constructor() {

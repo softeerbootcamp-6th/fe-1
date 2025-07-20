@@ -1,3 +1,4 @@
+export const selectTemplate = `
 <div class="select">
   <span class="font-light-12 select__label"></span>
   <div class="select-wrapper">
@@ -8,3 +9,4 @@
   </div>
   <ul class="select-list"></ul>
 </div>
+`;

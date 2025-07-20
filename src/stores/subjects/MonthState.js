@@ -1,20 +1,4 @@
-// stores/MonthState.js
-import Subject from "../../utils/observers/Subject.js";
-
-const MONTH_NAMES = [
-  "january",
-  "february",
-  "march",
-  "april",
-  "may",
-  "june",
-  "july",
-  "august",
-  "september",
-  "october",
-  "november",
-  "december",
-];
+import { Subject, MONTH_NAMES } from "../../utils/index.js";
 
 class MonthState extends Subject {
   constructor() {

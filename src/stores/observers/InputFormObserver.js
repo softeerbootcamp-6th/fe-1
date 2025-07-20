@@ -1,6 +1,6 @@
-import Observer from "../../utils/observers/Observer.js";
+import { Observer } from "../../utils/index.js";
 
-export class InputFormObserver extends Observer {
+class InputFormObserver extends Observer {
   constructor(view) {
     super();
     this.view = view;
@@ -37,3 +37,5 @@ export class InputFormObserver extends Observer {
     }
   }
 }
+
+export default InputFormObserver;

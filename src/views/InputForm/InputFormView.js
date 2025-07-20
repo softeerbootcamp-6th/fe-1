@@ -1,27 +1,24 @@
 import Select from "../../components/Select/Select.js";
+import { CATEGORY_OPTIONS } from "../../utils/index.js";
 
 const DESCRIPTION_MAX_LENGTH = 32;
-const CATEGORY_OPTIONS = {
-  income: ["월급", "용돈", "기타수입"],
-  expense: [
-    "생활",
-    "식비",
-    "교통",
-    "쇼핑/뷰티",
-    "의료/건강",
-    "문화/여가",
-    "미분류",
-  ],
-};
 
-export class InputFormView {
+class InputFormView {
   constructor() {
     this.$root = document.querySelector(".input-form");
   }
 
   async render(state) {
-    const { date, type, amount, description, method, category, isValidate } =
-      state;
+    const {
+      date,
+      type,
+      amount,
+      description,
+      method,
+      category,
+      methodList,
+      isValidate,
+    } = state;
     const template = `
         <form action="" class="input-form">
             <div class="input-form__row input-form__date">
@@ -89,7 +86,7 @@ export class InputFormView {
     const methodSelect = await Select({
       name: "method",
       label: "결제수단",
-      options: ["현금", "카드"],
+      options: methodList,
       isEditable: true,
       selected: method,
     });
@@ -153,11 +150,11 @@ export class InputFormView {
   }
 
   async renderMethod(state) {
-    const { method } = state;
+    const { methodList, method } = state;
     const methodSelect = await Select({
       name: "method",
       label: "결제수단",
-      options: ["현금", "카드"],
+      options: methodList,
       isEditable: true,
       selected: method,
     });
@@ -192,3 +189,5 @@ export class InputFormView {
     $submitButtonImg.src = imgPath;
   }
 }
+
+export default InputFormView;

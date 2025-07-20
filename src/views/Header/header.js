@@ -1,10 +1,15 @@
-import { createHTML } from "../../utils/dom.js";
-import monthState from "../../stores/subjects/MonthState.js";
+import { HeaderTemplate } from "../../views/index.js";
+import { monthState } from "../../stores/subjects/index.js";
+import { subscribeHeaderObserver } from "../../utils/index.js";
 
 const Header = async ({
   selectedNav = "home", // 'home', 'calendar', 'chart'
 } = {}) => {
-  const header = await createHTML("/src/views/Header/header.html");
+  subscribeHeaderObserver();
+
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = HeaderTemplate;
+  const header = tempDiv.firstElementChild;
 
   // 🔹 월 정보
   const $year = header.querySelector(".header__year");
