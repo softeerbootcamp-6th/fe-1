@@ -15,7 +15,7 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
-    background-color: #73A4D0;
+    background-color: #C0DCC0;
 }
 
 .topbar {
@@ -31,12 +31,33 @@ body {
 .topbar>.view-toggle {
     width: 132px;
 }
+.topbar>.view-toggle>a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    padding: 2px;
+    border: none;
+    background: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+.topbar>.view-toggle>a:hover {
+    background-color: white;
+}
 
 .month-nav {
     width: 232px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.month-nav>button {
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
 .month-display {
@@ -71,12 +92,16 @@ main {
     width: 894px;
     position: absolute;
     top: 180px;
+}
+
+.summaryList{
+    width: 100%;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 .detail-form {
@@ -156,12 +181,13 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px;
+    padding: 0;
     margin-top: 40px;
 }
 
 /* 오버레이 */
 .modal-overlay {
+    content-visibility: auto;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -173,6 +199,7 @@ select {
 
 /* 모달 박스 */
 .modal-box {
+    content-visibility: auto;
     width: 384px;
     background: white;
     border: 0.5px solid black;
@@ -227,15 +254,17 @@ select {
 }
 
 .month-summary {
+    content-visibility: auto;
     width: 846px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px;
+    padding: 0;
     margin-top: 40px;
 }
 
 .month-summary>.month-header {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -243,6 +272,7 @@ select {
 }
 
 .month-summary>article {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -250,6 +280,7 @@ select {
 }
 
 article>header {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -257,16 +288,18 @@ article>header {
 }
 
 article>ul {
+    content-visibility: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0px;
+    padding: 0;
     margin-top: 20px;
     border-top: 0.5px solid black;
     border-bottom: 0.5px solid black;
 }
 
 article>ul>li{
+    content-visibility: auto;
     display:flex;
     justify-content:space-between; /* 가로(주축) 끝단으로 배치 */
     align-items:center;            /* 세로(교차축) 가운데 정렬 */
