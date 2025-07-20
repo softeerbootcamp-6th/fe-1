@@ -1,12 +1,14 @@
 import { createElement } from "../utils/createElement.js";
 import { dateStore } from "../store/dateStore.js";
 import { CalenderDate } from "../components/CalenderDate.js";
-import { getMonthData } from "../api/api.js";
+import { dataStore } from "../store/dataStore.js";
+import data from "../backend/data.js";
 export function renderCalender() {
     const today = new Date();
     const todayYear = today.getFullYear();
     const todayMonth = today.getMonth() + 1; // 월은 0부터
     const todayDate = today.getDate();
+    // 1. 기본 구조 완성 및 초기 렌더, 이벤트 발생 후 리렌더 로직 발생 명시
     const section = createElement("section", {
         className: "calender-page",
         id: "calender-page",
@@ -20,15 +22,20 @@ export function renderCalender() {
 
     section.appendChild(calender);
     section.appendChild(stats);
-    renderCalenderCell(dateStore.year, dateStore.month, {todayYear, todayMonth, todayDate});
-    window.addEventListener("date-change", (e) => {
-        const { year, month } = e.detail;
+
+
+    const handleDataChange = (data) =>{
         calender.innerHTML = "";
         stats.innerHTML = "";
-        renderCalenderCell(year, month, {todayYear, todayMonth, todayDate});
-    });
+        renderCalenderCell(data, {todayYear, todayMonth, todayDate});
+    }
+    dataStore.subscribe(handleDataChange); // 데이터 변경 시 리렌더링
+    // window.addEventListener("date-change", handleDateChange); 이걸 빼도 되는 이유: header에서 date set호출, set에서 loadData호출.
 
-    async function renderCalenderCell(year, month, {todayYear, todayMonth, todayDate}) {
+    dataStore.loadData(dateStore.year, dateStore.month);
+    // 2. 리렌더 함수 정의
+    async function renderCalenderCell(monthData, {todayYear, todayMonth, todayDate}) {
+        const [year, month] = [dateStore.year, dateStore.month];
         const koreanDays = ["일", "월", "화", "수", "목", "금", "토"];
         koreanDays.forEach((day) => {
             const dayElement = createElement("div", {
@@ -46,8 +53,6 @@ export function renderCalender() {
             });
             calender.appendChild(emptyCell);
         });
-        const monthData = await getMonthData(year, month);
-        console.log(monthData);
         const [totalIncome, totalExpense] = monthData.reduce(
             (acc, item) => {
                 if(item.type === "income") {

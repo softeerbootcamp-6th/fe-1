@@ -1,5 +1,7 @@
 import { createElement } from "../utils/createElement.js";
 import { openModal } from "./Modal.js";
+import { eventBus } from "../utils/eventBus.js";
+import { dateStore } from "../store/dateStore.js";
 
 export function DatesCard(
     { amount, category, date, description, paymentMethod, type },
@@ -30,13 +32,19 @@ export function DatesCard(
         }${amount.toLocaleString()}원</div>
                 `,
     });
-    card.addEventListener('click', () =>{
+    card.addEventListener("click", () => {
         const event = new CustomEvent("edit-event", {
-            detail: {amount, category, date, description, paymentMethod, type},
+            detail: {
+                amount,
+                category,
+                date,
+                description,
+                paymentMethod,
+                type,
+            },
         });
-        console.log(event);
         window.dispatchEvent(event);
-    })
+    });
 
     const deletePosition = card.querySelector("#delete-button");
     const deleteButton = createElement("button", {
@@ -53,9 +61,19 @@ export function DatesCard(
             amount,
         });
         if (isConfirmed) {
-            deleteCostItem();
-            alert("내역이 삭제되었습니다.");
-            location.reload();
+            try {
+                await deleteCostItem();
+                alert("내역이 삭제되었습니다.");
+                // 페이지 새로고침 대신 이벤트 발생
+                eventBus.emit("data-updated", {
+                    type: "delete",
+                    year: dateStore.year,
+                    month: dateStore.month,
+                });
+            } catch (error) {
+                console.error("Error deleting item:", error);
+                alert("삭제에 실패했습니다. 다시 시도해주세요.");
+            }
         }
     });
     card.addEventListener("mouseenter", () => {
