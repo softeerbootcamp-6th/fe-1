@@ -1,7 +1,7 @@
 class DateStore {
   constructor() {
-    this.year = 2025;
-    this.month = 8;
+    this.year = new Date().getFullYear();
+    this.month = new Date().getMonth() + 1;
     this.listeners = [];
   }
 
@@ -33,7 +33,7 @@ class DateStore {
   // listener들에게 state 변경을 알려주기
   notify() {
     const currentDate = [this.year, this.month];
-    this.listeners.forEach((listener) => {
+    this.listeners.forEach(listener => {
       listener(currentDate);
     });
   }

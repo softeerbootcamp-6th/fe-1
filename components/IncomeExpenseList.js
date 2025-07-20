@@ -1,4 +1,3 @@
-// 1. month가 바뀔 때마다 다른 지출 내역 보여주기
 import { dateStore } from "../store/dateStore.js";
 import { incomeExpenseStore } from "../store/incomeExpenseStore.js";
 
@@ -11,6 +10,11 @@ export function renderIncomeExpenseList() {
 
   // dateState 변경 시 재렌더링
   dateStore.subscribe(() => {
+    renderListItem(incomeExpenseListContainer);
+  });
+
+  // 전체 수입 지출 내역을 리렌더링
+  incomeExpenseStore.subscribe(() => {
     renderListItem(incomeExpenseListContainer);
   });
 
@@ -28,10 +32,19 @@ export function renderListItem(listContainer) {
     currentMonth,
   ]);
 
-  // TODO: 계산 로직 작성
-  const monthlyNum = 0;
-  const monthlyIncome = 0;
-  const monthlyExpense = 0;
+  const currentMonthDataList = Object.entries(currentMonthData)
+    .map((dailyData) => dailyData[1])
+    .flat();
+
+  const monthlyNum = currentMonthDataList.length;
+
+  const monthlyIncome = currentMonthDataList
+    .filter((data) => data.type == "income")
+    .reduce((income, data) => income + data.money, 0);
+
+  const monthlyExpense = currentMonthDataList
+    .filter((data) => data.type == "expense")
+    .reduce((expense, data) => expense - data.money, 0);
 
   // 기존 내용 지우기
   while (listContainer.firstChild) {
@@ -42,38 +55,47 @@ export function renderListItem(listContainer) {
     return `
       <span> 전체내역 ${monthlyNum}건 </span>
       <div class="check-box-container">
-        <div >
-          <button>
+        <div class="check-box">
+          <button class="income-check-button">
             <img src="./assets/icons/checkbox.svg" />
           </button>
-          <span>수입${monthlyIncome}</span>
+          <span>수입 ${monthlyIncome}</span>
         </div>
-        <div>
-          <button>
+        <div class="check-box">
+          <button class="expense-check-button">
             <img src="./assets/icons/checkbox.svg" />
           </button>
-          <span>지출${monthlyExpense}</span>
+          <span>지출 ${monthlyExpense}</span>
         </div>
       <div>
     `;
   };
 
-  const getDailyInfoHTML = (dateString) => {
+  const getDailyInfoHTML = ([dateString, dateData]) => {
     const dateObj = new Date(dateString);
     const month = dateObj.getMonth() + 1;
     const date = dateObj.getDate();
     const dayStringList = ["월", "화", "수", "목", "금", "토", "일"];
     const dayStringIndex = dateObj.getDay();
 
-    const dailyIncome = "";
-    const dailyExpense = "";
+    const dailyIncomeData = dateData.filter((data) => data.type == "income");
+    const dailyExpenseData = dateData.filter((data) => data.type == "expense");
+
+    const dailyIncome = dailyIncomeData.reduce(
+      (income, data) => income + data.money,
+      0,
+    );
+    const dailyExpense = dailyExpenseData.reduce(
+      (expense, data) => expense - data.money,
+      0,
+    );
 
     return `
-    <div class="daily-info-container">
+    <div class="daily-info-container serif14">
       <span>${month}월 ${date}일 ${dayStringList[dayStringIndex]}요일</span>
       <div>
-        <span>수입 ${dailyIncome}</span>
-        <span>지출 ${dailyExpense}</span>
+        ${dailyIncome ? `<span>수입 ${dailyIncome}원</span>` : ""}
+        ${dailyExpense ? `<span>지출 ${dailyExpense}원</span>` : ""}
       </div>
     </div>
     `;
@@ -97,9 +119,10 @@ export function renderListItem(listContainer) {
     expense: "money-expense",
   };
 
-  const getListItemHTML = ({ type, money, description, payment, tag }) => {
+  const getListItemHTML = ({ id, type, money, description, payment, tag }) => {
     const li = document.createElement("li");
     li.className = "list-item";
+    li.id = id;
 
     const tagSpan = document.createElement("span");
     tagSpan.classList.add("tag", "light14", tagColorMap[tag]);
@@ -122,7 +145,7 @@ export function renderListItem(listContainer) {
     deleteDiv.className = "delete";
     deleteDiv.style.display = "none";
     deleteDiv.innerHTML = `
-    <div class="delete-icon"><img src='../assets/icons/delete-icon.svg'/></div>
+    <img class="delete-icon" src='../assets/icons/delete-icon.svg'/>
     <span class="delete-text semibold12">삭제</span>
     `;
 
@@ -134,18 +157,25 @@ export function renderListItem(listContainer) {
 
     // hover 이벤트 추가
     li.addEventListener("mouseenter", () => {
-      deleteDiv.style.display = "block";
+      deleteDiv.style.display = "flex";
+      li.classList.toggle("list-item-hover");
     });
 
     li.addEventListener("mouseleave", () => {
       deleteDiv.style.display = "none";
+      li.classList.toggle("list-item-hover");
+    });
+
+    li.addEventListener("click", (e) => {
+      e.stopPropagation();
+      handleListItemClick(e);
     });
 
     return li;
   };
 
   const monthlyInfoContainer = document.createElement("div");
-  monthlyInfoContainer.className = "monthly-info-container";
+  monthlyInfoContainer.className = "monthly-info-container light12";
   monthlyInfoContainer.innerHTML = getMonthlyInfoHTML(
     monthlyNum,
     monthlyIncome,
@@ -153,19 +183,108 @@ export function renderListItem(listContainer) {
   );
   listContainer.appendChild(monthlyInfoContainer);
 
-  // 월데이터 날짜 별로 화면에 뿌리기
-  Object.entries(currentMonthData).forEach(([date, dateData]) => {
-    const dailyContainer = document.createElement("div");
-    dailyContainer.className = "daily-container";
-    dailyContainer.innerHTML = getDailyInfoHTML(date);
+  let isIncomeChecked = true;
+  let isExpenseChecked = true;
 
-    // 지출 내역 추가
-    const listItem = document.createElement("div");
-    listItem.className = "list-item-container";
-    dateData.forEach((item) => {
-      listItem.appendChild(getListItemHTML(item));
-      dailyContainer.appendChild(listItem);
-    });
-    listContainer.appendChild(dailyContainer);
+  const incomeCheckButton = monthlyInfoContainer.querySelector(
+    ".income-check-button",
+  );
+  const expenseCheckButton = monthlyInfoContainer.querySelector(
+    ".expense-check-button",
+  );
+  console.log(incomeCheckButton, expenseCheckButton);
+
+  incomeCheckButton.addEventListener("click", () => {
+    const incomeCheckButtonImg = incomeCheckButton.querySelector("img");
+    isIncomeChecked = !isIncomeChecked;
+    incomeCheckButtonImg.src = isIncomeChecked
+      ? "./assets/icons/checkbox.svg"
+      : "./assets/icons/uncheckbox.svg";
+
+    const dailyContainers = listContainer.querySelectorAll(".daily-container");
+    dailyContainers.forEach((el) => el.remove());
+
+    if (isIncomeChecked) {
+      renderDailyContainer(currentMonthData);
+    } else {
+      const currentMonthDataWithoutIncome = Object.fromEntries(
+        Object.entries(currentMonthData).map(([date, dateData]) => [
+          date,
+          dateData.filter((item) => item.type !== "income"),
+        ]),
+      );
+      renderDailyContainer(currentMonthDataWithoutIncome);
+    }
   });
+
+  expenseCheckButton.addEventListener("click", () => {
+    const expenseCheckButtonImg = expenseCheckButton.querySelector("img");
+    isExpenseChecked = !isExpenseChecked;
+    expenseCheckButtonImg.src = isExpenseChecked
+      ? "./assets/icons/checkbox.svg"
+      : "./assets/icons/uncheckbox.svg";
+
+    // dailyContainer가 없어질 때까지 remove
+    const dailyContainers = listContainer.querySelectorAll(".daily-container");
+    dailyContainers.forEach((el) => el.remove());
+
+    if (isExpenseChecked) {
+      renderDailyContainer(currentMonthData);
+    } else {
+      const currentMonthDataWithoutExpense = Object.fromEntries(
+        Object.entries(currentMonthData).map(([date, dateData]) => [
+          date,
+          dateData.filter((item) => item.type !== "expense"),
+        ]),
+      );
+      renderDailyContainer(currentMonthDataWithoutExpense);
+    }
+  });
+
+  function renderDailyContainer(currentMonthData) {
+    // 월데이터 날짜 별로 화면에 뿌리기
+    Object.entries(currentMonthData).forEach(([date, dateData]) => {
+      const dailyContainer = document.createElement("div");
+      dailyContainer.className = "daily-container";
+      dailyContainer.innerHTML = getDailyInfoHTML([date, dateData]);
+
+      // 지출 내역 추가
+      const listItemContainer = document.createElement("div");
+      listItemContainer.className = "list-item-container";
+      listItemContainer.id = date;
+      dateData.forEach((item) => {
+        listItemContainer.appendChild(getListItemHTML(item));
+        dailyContainer.appendChild(listItemContainer);
+      });
+      listContainer.appendChild(dailyContainer);
+    });
+  }
+  renderDailyContainer(currentMonthData);
 }
+
+// list 개별 요소 클릭
+const handleListItemClick = ({ target }) => {
+  const clickedElement = target.closest("div");
+  const targetListItem = target.closest("li");
+
+  const targetListItemID = Number(targetListItem.id);
+  const targetListItemDate = targetListItem.closest("div").id;
+
+  // 삭제 버튼 클릭했을 경우
+  if (clickedElement.className == "delete") {
+    incomeExpenseStore.delIncomeExpenseData(
+      targetListItemDate,
+      targetListItemID,
+    );
+  } else {
+    // 삭제 버튼 아닌 곳 클릭했을 경우
+    const targetData = incomeExpenseStore
+      .getIncomeExpenseData()
+      [targetListItemDate].find((data) => data.id === targetListItemID);
+
+    const editEvent = new CustomEvent("edit-item", {
+      detail: { targetListItemDate, ...targetData },
+    });
+    document.dispatchEvent(editEvent); // edit event 발생
+  }
+};
