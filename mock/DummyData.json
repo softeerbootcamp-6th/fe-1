@@ -121,7 +121,7 @@
                         "date": "2025-07-01",
                         "category": "월급",
                         "description": "프리랜서 프로젝트",
-                        "method": "이체",
+                        "method": "현금",
                         "type": "income",
                         "amount": 120000
                     },
@@ -130,7 +130,7 @@
                         "date": "2025-07-01",
                         "category": "식비",
                         "description": "점심 김밥",
-                        "method": "국민카드",
+                        "method": "신용카드",
                         "type": "expenses",
                         "amount": -8000
                     },
@@ -139,7 +139,7 @@
                         "date": "2025-07-01",
                         "category": "교통",
                         "description": "버스 요금",
-                        "method": "티머니",
+                        "method": "현금",
                         "type": "expenses",
                         "amount": -16000
                     }

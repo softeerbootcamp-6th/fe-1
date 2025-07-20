@@ -16,12 +16,12 @@ function DailyListBlock({ data, onSelect }) {
                 ${TagBox({ value: data.category }).element}
                 <span class="content-row__info">${data.description}</span>
                 <span class="content-row__method">${data.method}</span>
-                <span class="content-row__amount">${formatAmount(data.amount)}원</span>
+                <span class="content-row__amount" style="color: ${data.amount < 0 ? '#C04646' : '#79B2CA'};">${formatAmount(data.amount)}원</span>
 
                 <div class="delete-button" style="display: none;">
                     <button class="flex-row button" id="delete-button-${data.blockId}">
                         <img src="assets/icons/close-red.svg" alt="삭제 아이콘" class="mr-1">
-                        <span> 삭제</span>
+                        <span style="color: #E93B5A;"> 삭제</span>
                     </button>
                 </div>
             </div>

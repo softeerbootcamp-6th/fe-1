@@ -33,7 +33,7 @@ function Header() {
                     <div class="flex-row">
                         <span class="logo">Wise Wallet</span>
                         <div class="flex-row">
-                            <button class="arrow-icon" id="prev-month">
+                            <button class="arrow-icon icon-button" id="prev-month">
                                 <img src="assets/icons/chevron-left.svg" alt="이전 달">
                             </button>
                             <div class="date-container">
@@ -41,7 +41,7 @@ function Header() {
                                 <span class="month-text" id="month-text"></span>
                                 <span>August</span>
                             </div>
-                            <button class="arrow-icon" id="next-month">
+                            <button class="arrow-icon icon-button" id="next-month">
                                 <img src="assets/icons/chevron-right.svg" alt="다음 달">
                             </button>
                         </div>

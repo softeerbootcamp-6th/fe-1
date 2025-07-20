@@ -1,6 +1,7 @@
 import DailyListBlock from "../../../components/DailyListBlock/DailyListBlock.js";
+import { formatAmount } from '../../../utils/format.js';
 
-function DailyList({ data }) {
+function DailyList({ data, inputBar, incomeFilterOn, expenseFilterOn }) {
     const list = data.list;
     let selectedId = null;
 
@@ -23,6 +24,9 @@ function DailyList({ data }) {
                 const btn = current.querySelector(".delete-button");
                 if (btn) btn.style.display = "none";
             }
+
+            // InputBar의 입력 필드 초기화
+            inputBar.resetFields();
         } else {
             selectedId = newId;
             const current = document.getElementById(newId);
@@ -31,6 +35,11 @@ function DailyList({ data }) {
                 const btn = current.querySelector(".delete-button");
                 if (btn) btn.style.display = "block";
             }
+
+            // InputBar의 입력 필드에 선택된 데이터 설정
+            const selectedData = list.find(item => item.blockId === newId);
+            inputBar.setFields(selectedData);
+
         }
     };
 
@@ -40,13 +49,17 @@ function DailyList({ data }) {
                 <div class="flex-row">
                     <div class="date-text">${data.date}</div>
                     <div class="inline-block">
-                        ${data.totalIncome !== 0 ? `<span class="mr-1">수입</span><span>${data.totalIncome}원</span>` : ''}
-                        ${data.totalExpenses !== 0 ? `<span class="mr-1">지출</span><span>${data.totalExpenses}원</span>` : ''}
+                        ${data.totalIncome !== 0 ? `<span class="mr-1">수입</span><span class="mr-2">${formatAmount(data.totalIncome)}원</span>` : ''}
+                        ${data.totalExpenses !== 0 ? `<span class="mr-1">지출</span><span>${formatAmount(data.totalExpenses)}원</span>` : ''}
                     </div>
                 </div>
                 <div class="daily-list-content">
                     ${list?.length
-                ? list.map(item =>
+                ? list.filter(item => {
+                    if (item.amount > 0 && !incomeFilterOn) return false;
+                    if (item.amount < 0 && !expenseFilterOn) return false;
+                    return true;
+                }).map(item =>
                     DailyListBlock({ data: item, onSelect: updateSelected }).element
                 ).join('')
                 : ''
@@ -58,8 +71,10 @@ function DailyList({ data }) {
             if (!list || list.length === 0) return;
 
             list.forEach(item => {
-                const dailyListBlock = DailyListBlock({ data: item, onSelect: updateSelected });
-                if (dailyListBlock.init) dailyListBlock.init();
+                if ((item.amount > 0 && incomeFilterOn) || (item.amount < 0 && expenseFilterOn)) {
+                    const dailyListBlock = DailyListBlock({ data: item, onSelect: updateSelected });
+                    if (dailyListBlock.init) dailyListBlock.init();
+                }
             });
         }
     };
