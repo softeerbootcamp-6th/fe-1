@@ -1,23 +1,6 @@
-import { loadPage } from "./router.js";
-import { store } from "./store.js";
+import { loadPage, initPage } from "./router.js";
 import { loadHeaderHTML, initializeHeader } from "./header.js";
-import {
-  initToggleButton,
-  getInputValues,
-  initPaymentDropdown,
-  initCategoryDropdown,
-  initInputChanges,
-  initModifyEvent,
-} from "./input.js";
-import {
-  renderRecords,
-  renderRecordByDate,
-  getFormattedDate,
-  initVisibleButton,
-  renderRecordHeader,
-  initDeleteEvent,
-} from "./records.js";
-import { subscribeStore } from "./subscribe.js";
+
 window.addEventListener("DOMContentLoaded", async () => {
   // 오늘 날짜 기준 연도와 월 추출
   const today = new Date();
@@ -30,17 +13,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   // 해시 값 별 각 페이지 로딩 후 초기화
   await loadPage();
-  initToggleButton();
-  initCategoryDropdown();
-  initPaymentDropdown();
-  initInputChanges();
-  getInputValues();
-
-  await store.init();
-  subscribeStore();
-  renderRecordHeader(year, month, store.getRecords());
-  renderRecords(year, month, store.getRecords());
-  initModifyEvent();
-  initDeleteEvent();
+  initPage[window.location.hash]();
 });
-window.addEventListener("hashchange", loadPage);
+
+window.addEventListener("hashchange", async () => {
+  await loadPage();
+  initPage[window.location.hash]();
+});

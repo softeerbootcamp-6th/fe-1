@@ -266,7 +266,7 @@
   background-color: var(--neutral-surface-point);
 }
 .record-item.selected .delete {
-  display: flex;
+  display: flex !important;
 }
 
 .delete-button-wrapper {
