@@ -12,11 +12,9 @@ export function bindInputValue(formData) {
     }
 
     const inputItems = {
-        value: formatAmount(Math.abs(amount)),
+        value: formatAmount(Math.abs(amount)) != '0' || '',
         date,
         description,
-        category,
-        payment,
     };
 
     Object.entries(inputItems).forEach(([key]) => {
@@ -25,4 +23,9 @@ export function bindInputValue(formData) {
             $input.value = inputItems[key] ?? '';
         }
     });
+    const $category = document.querySelector('#dropdown-toggle-category');
+    const $payment = document.querySelector('#dropdown-toggle-payment');
+
+    $category.textContent = category || '선택하세요.';
+    $payment.textContent = payment || '선택하세요.';
 }
